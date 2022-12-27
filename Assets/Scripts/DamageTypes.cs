@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum DamageType { Bullet, Fire, Posion, Ice }
+
+[System.Serializable]
+public struct DamageTypeResistance
+{
+    [Range(0, 1f)]
+    public float bulletResistance;
+    [Range(0, 1f)]
+    public float fireResistance;
+    [Range(0, 1f)]
+    public float posionResistance;
+    [Range(0, 1f)]
+    public float iceResistance;
+
+    public float GetResistance(DamageType type)
+    {
+        switch (type)
+        {
+            case DamageType.Bullet:
+                return bulletResistance;
+            case DamageType.Fire:
+                return fireResistance;
+            case DamageType.Posion:
+                return posionResistance;
+            case DamageType.Ice:
+                return iceResistance;
+        }
+        return 1;
+    }
+}
