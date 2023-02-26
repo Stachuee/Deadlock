@@ -15,6 +15,8 @@ public class UiController : MonoBehaviour
     [SerializeField]
     List<Panel> panels;
 
+    public FuseBoxUIScript fuseBox;
+
     private void Awake()
     {
         panels.ForEach(x =>

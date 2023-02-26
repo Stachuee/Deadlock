@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 733353202139081839}
   - component: {fileID: 2270642213613435730}
   - component: {fileID: 8864710730872429098}
+  - component: {fileID: 6863008055604853014}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -165,6 +166,37 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &6863008055604853014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905642492899293651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -5, y: 0, z: 0}
+  - {x: -4.9893684, y: 3.0126328, z: 0}
+  - {x: 4.9681044, y: 2.9807377, z: 0}
+  - {x: 5, y: 0, z: 0}
+  - {x: 4.7014713, y: 0.00080397725, z: 0}
+  - {x: 4.69084, y: 2.6799777, z: 0}
+  - {x: -4.6969, y: 2.690609, z: 0}
+  - {x: -4.6969, y: 0.00080400705, z: 0}
+  m_ShapePathHash: 1050694757
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -67282
 --- !u!1 &1983567303784746072
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,17 +243,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55e6d05362d9c428632bed75fa6d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomGUID: de90cb31-c3d4-4fd6-9df5-63889e783481
+  roomGUID: 9e44a5fa-9eb7-46d4-a9a6-449fad84541e
   roomSize: {x: 5, y: 3}
   doors:
   - doorPosition: {x: 5, y: -1.5}
-    myGUID: 775ce27c-bce9-4c09-927d-4224cf81dc75
+    myGUID: 11b82db9-46ad-49f1-a6a6-ac21372a6346
     connectedGUID: 
-    roomGUID: de90cb31-c3d4-4fd6-9df5-63889e783481
+    roomGUID: 9e44a5fa-9eb7-46d4-a9a6-449fad84541e
   - doorPosition: {x: -5, y: -1.5}
-    myGUID: da844da4-12f4-420a-b476-c1c17e791656
+    myGUID: 3c8267a6-104e-4aee-8385-fb0a849ba831
     connectedGUID: 
-    roomGUID: de90cb31-c3d4-4fd6-9df5-63889e783481
+    roomGUID: 9e44a5fa-9eb7-46d4-a9a6-449fad84541e
   interactable:
   - interactablePosition: {x: 2.5, y: -2}
   - interactablePosition: {x: -2.74, y: -1.3}

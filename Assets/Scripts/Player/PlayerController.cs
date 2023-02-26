@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     PlayerInput myinput;
     public GunController gunController;
     public EquipmentController equipmentController;
-    //public UiController uiController;
+    public UiController uiController;
 
     [SerializeField]
     Camera cam;
@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (lockedInAnimation)
         {
             callbackWhenUnlocking.Invoke();
+            callbackWhenUnlocking = null;
             LockInAnimation = false;
         }
         if (context.ReadValue<float>() > 0.9f)
@@ -146,7 +147,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (context.ReadValue<float>() > 0.9f)
         {
             SendUseControll();
-            if (inRange.Count > 0)
+            if (inRange.Count > 0 && !LockInAnimation)
                 inRange[0].Use(this);
         } // use one
     }

@@ -13,6 +13,32 @@ public class MapSegment : MonoBehaviour
     Color segmentColor;
 
 
+    [SerializeField] List<GameObject> doors;
+    [SerializeField] List<GameObject> security;
+    [SerializeField] List<GameObject> printers;
+    [SerializeField] List<GameObject> lighs;
+
+    public void TurnOnOff(SwitchType switchType, bool on)
+    {
+        switch (switchType)
+        {
+            case SwitchType.Doors:
+                doors.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                break;
+            case SwitchType.Printers:
+                printers.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                break;
+            case SwitchType.Security:
+                security.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                break;
+            case SwitchType.Lights:
+                lighs.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                break;
+        }
+
+    }
+
+
     private void OnDrawGizmos()
     {
         Gizmos.color = segmentColor;
