@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crawler : EnemyBase
+public class Crawler : _EnemyBase
 {
     [SerializeField]
     Transform target;
