@@ -27,7 +27,10 @@ public class Rooms : MonoBehaviour
     [SerializeField]
     public string roomGUID;
     [SerializeField]
-    Vector2Int roomSize;
+    public Vector2Int roomSize;
+    [SerializeField]
+    public bool startingRoom;
+
     public Vector2Int RoomSize
     {
         set
@@ -84,16 +87,20 @@ public class Rooms : MonoBehaviour
 
     private void Start()
     {
-        roomGUID = System.Guid.NewGuid().ToString();
-        for(int i = 0; i < doors.Length; i++)
+        if (!Application.isPlaying)
         {
-            doors[i].myGUID = System.Guid.NewGuid().ToString();
-            doors[i].connectedGUID = "";
-            doors[i].roomGUID = roomGUID;
+            roomGUID = System.Guid.NewGuid().ToString();
+            for (int i = 0; i < doors.Length; i++)
+            {
+                doors[i].myGUID = System.Guid.NewGuid().ToString();
+                doors[i].connectedGUID = "";
+                doors[i].roomGUID = roomGUID;
+            }
+            FacilityController facilityController = FindObjectOfType<FacilityController>();
+            if (facilityController != null) facilityController.ReimportRooms();
+            else Debug.LogError("No facility controller");
+
         }
-        FacilityController facilityController = FindObjectOfType<FacilityController>();
-        if (facilityController != null) facilityController.ReimportRooms();
-        else Debug.LogError("No facility controller");
     }
 
     private void OnDestroy()
