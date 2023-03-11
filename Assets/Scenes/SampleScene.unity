@@ -1902,197 +1902,197 @@ MonoBehaviour:
   - {fileID: 1944882766}
   allDoors:
   - doorPosition: {x: 5, y: -1}
-    myGUID: b3419776-67d5-4997-83ec-5ae6c98438c5
+    myGUID: b9521ed6-d701-4873-b215-f0e0703a7eb9
     connectedGUID: 
-    roomGUID: 0aa6e592-ccd8-456c-bb81-1e90526db737
+    roomGUID: c7a9878f-9a8b-4b8d-a4e7-d81376c12cf0
   - doorPosition: {x: -5, y: -1}
-    myGUID: 053ed7c8-a70a-4508-ba36-2092703a991b
+    myGUID: 129dd4fc-47fd-4dab-b7e9-ae824900c166
     connectedGUID: 
-    roomGUID: 0aa6e592-ccd8-456c-bb81-1e90526db737
+    roomGUID: c7a9878f-9a8b-4b8d-a4e7-d81376c12cf0
   - doorPosition: {x: 5, y: -1}
-    myGUID: 542f9a01-bef5-4d23-906a-1443afa52521
+    myGUID: 7f199292-1b00-42ee-aa19-e89f4acb6853
     connectedGUID: 
-    roomGUID: 6aba1c33-0cdf-47d0-b216-da910a1e85e0
+    roomGUID: aa85009e-6f78-408e-88ef-ea7303c05ff9
   - doorPosition: {x: -5, y: -1}
-    myGUID: af5e16c5-c995-4de6-bbb1-da0f2aa5f055
+    myGUID: 530fe91c-e11e-4206-95d3-7c2f1d653070
     connectedGUID: 
-    roomGUID: 6aba1c33-0cdf-47d0-b216-da910a1e85e0
+    roomGUID: aa85009e-6f78-408e-88ef-ea7303c05ff9
   - doorPosition: {x: 5, y: -1}
-    myGUID: 3d000e71-1572-4806-892e-d25222c3ed5d
+    myGUID: e77b9275-ef74-4db0-9353-5ab87ed0c4db
     connectedGUID: 
-    roomGUID: 1b531c4c-e93a-40c6-8cda-ce93c299bbe6
+    roomGUID: f6eece68-7601-4d21-8049-13680d3bf733
   - doorPosition: {x: -5, y: -1}
-    myGUID: 15cd51b1-420f-449e-b02a-4862245ab0b3
+    myGUID: b36bbab1-a56b-41b2-bd64-235a27830fdb
     connectedGUID: 
-    roomGUID: 1b531c4c-e93a-40c6-8cda-ce93c299bbe6
+    roomGUID: f6eece68-7601-4d21-8049-13680d3bf733
   - doorPosition: {x: 5, y: -1}
-    myGUID: abbfe320-f8c0-49ac-99f0-77538a549409
+    myGUID: 9c1537f7-dd5d-41d4-977b-7b152f53c62e
     connectedGUID: 
-    roomGUID: 8782d784-fc22-44b3-81c8-268ca7eab684
+    roomGUID: 4f2e6282-1cd9-4311-a8f6-f3fbe38199be
   - doorPosition: {x: -5, y: -1}
-    myGUID: ee8b4304-69ed-4937-88cf-09c48ecb94bc
+    myGUID: dd00be3e-d9f6-4cc3-85f5-6d3b31a1c102
     connectedGUID: 
-    roomGUID: 8782d784-fc22-44b3-81c8-268ca7eab684
+    roomGUID: 4f2e6282-1cd9-4311-a8f6-f3fbe38199be
   - doorPosition: {x: 5, y: -1}
-    myGUID: 033e8978-29ff-4a99-9a57-23ecc97e8564
+    myGUID: fc47204f-e490-4c1a-b351-5f4a09131a81
     connectedGUID: 
-    roomGUID: 540942c3-5237-446b-80e0-acb07ebaa561
+    roomGUID: befede53-e084-4a8f-9499-47cc072fbacd
   - doorPosition: {x: -5, y: -1}
-    myGUID: 17bab0a1-a8dd-4020-8c60-d8449626df4f
+    myGUID: 55310e67-4ae4-4839-a05a-d58179047e90
     connectedGUID: 
-    roomGUID: 540942c3-5237-446b-80e0-acb07ebaa561
+    roomGUID: befede53-e084-4a8f-9499-47cc072fbacd
   - doorPosition: {x: 5, y: -1}
-    myGUID: 6eb76c6e-2f01-4854-b18e-81bcead6a110
+    myGUID: 0aa19ab9-3f9e-4ce6-93b5-0f1d50d5955a
     connectedGUID: 
-    roomGUID: 69cdb0ce-703d-420b-83c4-60f83ca8ceb3
+    roomGUID: 473ddda9-a523-4050-a2ad-33d37bf51570
   - doorPosition: {x: -5, y: -1}
-    myGUID: 358a6aad-621e-4398-baa5-0d10e528eec4
+    myGUID: 25fa9081-1dc5-4181-b9b1-81a1fa4c00ad
     connectedGUID: 
-    roomGUID: 69cdb0ce-703d-420b-83c4-60f83ca8ceb3
+    roomGUID: 473ddda9-a523-4050-a2ad-33d37bf51570
   - doorPosition: {x: 5, y: -1}
-    myGUID: df4841e5-2e54-47b5-9e25-bbdd1248dd74
+    myGUID: 04a06c64-ddfd-4bc8-b68a-496c63d830dc
     connectedGUID: 
-    roomGUID: a7034d69-665f-4e80-a352-db04110f2e15
+    roomGUID: 87c9553c-0565-49b8-a53c-a00257d0a317
   - doorPosition: {x: -5, y: -1}
-    myGUID: a8b06620-be95-4ad4-8e7f-d01c7e756b16
+    myGUID: 1bc26f76-804f-4aba-b3eb-ce95da1e1b8e
     connectedGUID: 
-    roomGUID: a7034d69-665f-4e80-a352-db04110f2e15
+    roomGUID: 87c9553c-0565-49b8-a53c-a00257d0a317
   - doorPosition: {x: 5, y: -1}
-    myGUID: 4b11e970-6ab2-43ef-88da-39a371376d85
+    myGUID: b3974c86-eaf5-4a42-aeef-2e9b1729379b
     connectedGUID: 
-    roomGUID: a5fe4847-8147-4880-bcee-38b6516c4eaa
+    roomGUID: d6f031fe-ecbc-4e68-bf31-87a465b4bc0b
   - doorPosition: {x: -5, y: -1}
-    myGUID: 7605e47c-3dc2-4b7e-9f45-1720fd63789b
+    myGUID: 2aa4411c-e997-41dd-a8f0-527d125156e8
     connectedGUID: 
-    roomGUID: a5fe4847-8147-4880-bcee-38b6516c4eaa
+    roomGUID: d6f031fe-ecbc-4e68-bf31-87a465b4bc0b
   - doorPosition: {x: 5, y: -1}
-    myGUID: 13f56ec1-4025-4791-bcd6-232e29471419
+    myGUID: 49ded4b5-7b4f-497c-ba2f-9d70da6aaf37
     connectedGUID: 
-    roomGUID: b2036ab0-5f93-4d5a-8e62-56b47e011931
+    roomGUID: 312d7b3c-2d06-46fb-a57b-74ef67d98393
   - doorPosition: {x: -5, y: -1}
-    myGUID: bdb9a64c-7618-4b9b-85d9-fda4c8be2e1c
+    myGUID: 2c931c25-ccda-427e-ae1b-cd94e1f01d3a
     connectedGUID: 
-    roomGUID: b2036ab0-5f93-4d5a-8e62-56b47e011931
+    roomGUID: 312d7b3c-2d06-46fb-a57b-74ef67d98393
   - doorPosition: {x: 5, y: -1}
-    myGUID: d7982528-02a5-43d4-94b8-bf395dff5df1
+    myGUID: c409f3ca-76fc-4614-af74-4dd190faa378
     connectedGUID: 
-    roomGUID: eb59c51e-d5f8-49e8-9f2d-9f36ef298f92
+    roomGUID: e92292d0-3989-44eb-a9c1-9a987cd29d0f
   - doorPosition: {x: -5, y: -1}
-    myGUID: 49a4d022-aee2-48b7-b726-fab18090c245
+    myGUID: 36f8dede-3345-4a3c-934d-78d7d7f97edf
     connectedGUID: 
-    roomGUID: eb59c51e-d5f8-49e8-9f2d-9f36ef298f92
+    roomGUID: e92292d0-3989-44eb-a9c1-9a987cd29d0f
   - doorPosition: {x: 5, y: -1}
-    myGUID: 164cc09f-5190-4063-a8cf-512989bdaf40
+    myGUID: 2bdb60c5-cb1e-469e-96bd-c6426397bc43
     connectedGUID: 
-    roomGUID: 1ebdce5d-4eee-45f2-9ffb-5d3d5e782b9d
+    roomGUID: 4cea4488-9970-453e-9cea-9c99bf7b5ddd
   - doorPosition: {x: -5, y: -1}
-    myGUID: a36889da-a2e7-43cd-a11b-5e8564a2fed2
+    myGUID: bd5d2878-06bd-4451-adcf-885e451c2f04
     connectedGUID: 
-    roomGUID: 1ebdce5d-4eee-45f2-9ffb-5d3d5e782b9d
+    roomGUID: 4cea4488-9970-453e-9cea-9c99bf7b5ddd
   - doorPosition: {x: 5, y: -1}
-    myGUID: 5c96dbfe-ac61-4c91-9323-cdf33047e22d
+    myGUID: ecd402d8-7ce1-41bb-bb44-47e0816098c5
     connectedGUID: 
-    roomGUID: 137d5056-4afa-4e54-8389-143cfea3ba91
+    roomGUID: a2a042d5-ce0c-457c-9149-a034302d6a09
   - doorPosition: {x: -5, y: -1}
-    myGUID: 8cedbb43-3942-4320-8937-b2d4fbef6cfa
+    myGUID: 35192686-47ba-4c80-8765-29a1e1a8d009
     connectedGUID: 
-    roomGUID: 137d5056-4afa-4e54-8389-143cfea3ba91
+    roomGUID: a2a042d5-ce0c-457c-9149-a034302d6a09
   - doorPosition: {x: 5, y: -1}
-    myGUID: 06454c49-f78b-4fa5-86ce-1bac013b6314
+    myGUID: 558529cf-64c1-456c-82b9-5a68f661b43c
     connectedGUID: 
-    roomGUID: 2e48e7ba-5bab-4bfa-b5d3-734242b7a6dc
+    roomGUID: 62663120-9ee6-40fa-92b6-40356adce55b
   - doorPosition: {x: -5, y: -1}
-    myGUID: a3dd9b5b-5d78-4142-8367-81e34b63714a
+    myGUID: da764689-cb4f-493b-9b04-6b40fd0338ee
     connectedGUID: 
-    roomGUID: 2e48e7ba-5bab-4bfa-b5d3-734242b7a6dc
+    roomGUID: 62663120-9ee6-40fa-92b6-40356adce55b
   - doorPosition: {x: 5, y: -1}
-    myGUID: cb644814-b7e5-4d51-ae05-3d5f9228c364
+    myGUID: 650df515-6e4a-4a55-9569-5ef747f9a921
     connectedGUID: 
-    roomGUID: 21fb31f1-0ef8-4589-ad04-173406b4496f
+    roomGUID: 702a0c53-cfca-4552-82ea-69599a3cb269
   - doorPosition: {x: -5, y: -1}
-    myGUID: f38fd06d-3106-4a24-82e3-c13557a19495
+    myGUID: e60ea056-f00b-4978-a65e-dc9c3069a09c
     connectedGUID: 
-    roomGUID: 21fb31f1-0ef8-4589-ad04-173406b4496f
+    roomGUID: 702a0c53-cfca-4552-82ea-69599a3cb269
   - doorPosition: {x: 5, y: -1}
-    myGUID: 0199b167-59e3-4dd6-90b9-bd3fe6646b4c
+    myGUID: 70df0ce6-077c-4e36-a9e9-c0ba3fee1b21
     connectedGUID: 
-    roomGUID: 8a12c895-a452-4904-bfd0-f4e301d1fdf9
+    roomGUID: 5edb6d8f-dc3b-4119-971f-011a90ee905f
   - doorPosition: {x: -5, y: -1}
-    myGUID: c63ab364-d86f-450c-b25e-13e645f1b419
+    myGUID: ac8af370-be16-45f9-b262-0ff86dad2922
     connectedGUID: 
-    roomGUID: 8a12c895-a452-4904-bfd0-f4e301d1fdf9
+    roomGUID: 5edb6d8f-dc3b-4119-971f-011a90ee905f
   - doorPosition: {x: 5, y: -1}
-    myGUID: 80163968-34a9-4d5c-b934-c81872e7df5d
+    myGUID: 99f8a415-368d-48b4-8f0f-8253e5983ba6
     connectedGUID: 
-    roomGUID: 38d7b5b9-ec94-411c-bd7b-089eb962fb65
+    roomGUID: 51de52bf-55fe-47d8-a1d7-c62b26c8ff6e
   - doorPosition: {x: -5, y: -1}
-    myGUID: c7f00c9b-8b57-4c2f-b75a-2afca063c613
+    myGUID: 64756388-debb-42e0-a1eb-bd248848cb45
     connectedGUID: 
-    roomGUID: 38d7b5b9-ec94-411c-bd7b-089eb962fb65
+    roomGUID: 51de52bf-55fe-47d8-a1d7-c62b26c8ff6e
   - doorPosition: {x: 5, y: -1}
-    myGUID: 0f8d32aa-a4ff-484e-a503-d5e0ae49e43a
+    myGUID: 795f76ac-247c-473a-b110-9bc5668f10ee
     connectedGUID: 
-    roomGUID: 624e3822-290a-4b42-b8a0-cd15775463ae
+    roomGUID: 360b0685-1a47-4419-a2ad-0a67cda38f8c
   - doorPosition: {x: -5, y: -1}
-    myGUID: 887c5d94-ec94-40fe-b911-5cc59884c888
+    myGUID: a1cacc0c-f95e-4a6f-bb40-899a5a50276f
     connectedGUID: 
-    roomGUID: 624e3822-290a-4b42-b8a0-cd15775463ae
+    roomGUID: 360b0685-1a47-4419-a2ad-0a67cda38f8c
   - doorPosition: {x: 5, y: -1}
-    myGUID: 1720ffec-746d-4db4-98b6-2d85ebf93a52
+    myGUID: ea034d44-37d4-41a1-8c1c-db680eef9367
     connectedGUID: 
-    roomGUID: 915cd8f1-d244-47d7-94ad-eee48f36aeea
+    roomGUID: 58ce8ae0-f2ba-4373-b8b2-8fb4beb58623
   - doorPosition: {x: -5, y: -1}
-    myGUID: fe534fa2-ae93-4b3d-ac1f-da990150a22f
+    myGUID: 61ae729b-4612-4468-8919-077d7efef128
     connectedGUID: 
-    roomGUID: 915cd8f1-d244-47d7-94ad-eee48f36aeea
+    roomGUID: 58ce8ae0-f2ba-4373-b8b2-8fb4beb58623
   - doorPosition: {x: 5, y: -1}
-    myGUID: 94d9ea83-aa0e-4d11-b6e2-fd5eadde1bcd
+    myGUID: 15996ff8-a592-42fe-8b51-7b12bf1d1d12
     connectedGUID: 
-    roomGUID: 16dd3a71-c68d-498f-99cd-b37fa0bdda31
+    roomGUID: e360d74e-0883-4450-985e-d7c97fdba65f
   - doorPosition: {x: -5, y: -1}
-    myGUID: 6cab9b38-fe58-43d8-ac8b-665aec973d83
+    myGUID: 8c3865ea-9318-48de-afaa-9869a65aeff8
     connectedGUID: 
-    roomGUID: 16dd3a71-c68d-498f-99cd-b37fa0bdda31
+    roomGUID: e360d74e-0883-4450-985e-d7c97fdba65f
   - doorPosition: {x: 5, y: -1}
-    myGUID: d8375d89-7c5d-485d-a96a-de5701075274
+    myGUID: 2025156c-bf41-4289-936a-8e5ca12cca02
     connectedGUID: 
-    roomGUID: 1850d2b6-fe94-465b-9907-b9cdda400c34
+    roomGUID: cf1030a7-55ab-4742-adc7-c7e5c201ccf0
   - doorPosition: {x: -5, y: -1}
-    myGUID: 0dd74593-461f-42dc-9ffb-7ec0d75c99d1
+    myGUID: 22e9c1d5-11bb-4702-bcc3-d9b4690cc615
     connectedGUID: 
-    roomGUID: 1850d2b6-fe94-465b-9907-b9cdda400c34
+    roomGUID: cf1030a7-55ab-4742-adc7-c7e5c201ccf0
   - doorPosition: {x: 5, y: -1}
-    myGUID: 906c9b80-894f-43aa-8846-2dab2c395d77
+    myGUID: 22f1002f-b06d-4319-af25-5cf0c1f7d87a
     connectedGUID: 
-    roomGUID: 126d5bb8-f59c-4ecf-8264-fd4f829d32c3
+    roomGUID: aa48c394-66d9-400d-8677-d94972886072
   - doorPosition: {x: -5, y: -1}
-    myGUID: ac8264af-58a9-4a09-937f-667de0215726
+    myGUID: b0830256-5e16-412e-af17-a680588ba931
     connectedGUID: 
-    roomGUID: 126d5bb8-f59c-4ecf-8264-fd4f829d32c3
+    roomGUID: aa48c394-66d9-400d-8677-d94972886072
   - doorPosition: {x: 5, y: -1}
-    myGUID: 83075d3f-bb4a-4108-8332-4a6bdee62fec
+    myGUID: 7d5e4ec9-27ec-4ff4-9ae7-b3f3140edec3
     connectedGUID: 
-    roomGUID: 521b0a5e-c6b8-4645-966d-3decd640f91c
+    roomGUID: 4acff502-cc7f-4ec8-9dad-df84d758fa31
   - doorPosition: {x: -5, y: -1}
-    myGUID: b7bcde99-e872-4e9a-b110-df6ef8ffbde9
+    myGUID: fcd9957a-5dfe-41cb-a548-a6be071c32ca
     connectedGUID: 
-    roomGUID: 521b0a5e-c6b8-4645-966d-3decd640f91c
+    roomGUID: 4acff502-cc7f-4ec8-9dad-df84d758fa31
   - doorPosition: {x: 5, y: -1}
-    myGUID: 55ad0ded-9d68-4e90-83c0-b2b209050629
+    myGUID: 8725dfbb-db46-40ba-9697-470abf00bda1
     connectedGUID: 
-    roomGUID: 44dd60dd-37e1-45e7-ad27-8314621f398a
+    roomGUID: 81bd918c-300b-49a1-8951-7bf7f891695a
   - doorPosition: {x: -5, y: -1}
-    myGUID: 27b0b020-cc0c-4dce-acb5-434020e42b40
+    myGUID: 01f985ae-c39f-4295-9318-cdfe1e1e3dbd
     connectedGUID: 
-    roomGUID: 44dd60dd-37e1-45e7-ad27-8314621f398a
+    roomGUID: 81bd918c-300b-49a1-8951-7bf7f891695a
   - doorPosition: {x: 5, y: -1}
-    myGUID: ee14dc1c-40a1-4b65-9b44-b9edd44648a0
+    myGUID: 6606dd6c-31d4-41a8-a85f-d3041b0a1037
     connectedGUID: 
-    roomGUID: 0681b1f9-5490-4a76-b094-8db52e71e6e3
+    roomGUID: ba320a3f-85a1-4893-a478-eaab29eb0503
   - doorPosition: {x: -5, y: -1}
-    myGUID: f06be415-e5df-439b-88a8-3148bbf5cb6a
+    myGUID: 42348106-d3b4-4058-93a0-f9f82bf189ad
     connectedGUID: 
-    roomGUID: 0681b1f9-5490-4a76-b094-8db52e71e6e3
+    roomGUID: ba320a3f-85a1-4893-a478-eaab29eb0503
   debugConnections: 0
 --- !u!114 &570665812
 MonoBehaviour:
@@ -2240,7 +2240,7 @@ GameObject:
   - component: {fileID: 625319318}
   m_Layer: 9
   m_Name: Crawler (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2626,6 +2626,11 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7695553992965360478, guid: 316f7018d613f1f4b84df16c936f63bd, type: 3}
   m_PrefabInstance: {fileID: 639021607}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &813042752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7621186470621334724, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+  m_PrefabInstance: {fileID: 4552270140780923404}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &850679115
 GameObject:
@@ -5332,7 +5337,7 @@ GameObject:
   - component: {fileID: 1491884024}
   m_Layer: 9
   m_Name: Crawler
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6040,6 +6045,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c55e6d05362d9c428632bed75fa6d6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1660787942 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4552270140176820842, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+  m_PrefabInstance: {fileID: 4552270140780923404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b3682e7e6f2ba45874c11a11189ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1664954150
@@ -7187,12 +7203,44 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 85656146}
     - target: {fileID: 4552270140176820842, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: attackArea
+      value: 
+      objectReference: {fileID: 813042752}
+    - target: {fileID: 4552270140176820842, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
       propertyPath: playerInfo.damageResistance.bulletResistance
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4552270140176820843, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Gamepad
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552270140176820843, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552270140176820843, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552270140176820843, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1660787942}
+    - target: {fileID: 4552270140176820843, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552270140176820843, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552270140176820843, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552270140176820843, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4552270140176820845, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
       propertyPath: m_TagString
@@ -7292,6 +7340,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5656971056590407461, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7621186470621334724, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8066930870368267875, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}

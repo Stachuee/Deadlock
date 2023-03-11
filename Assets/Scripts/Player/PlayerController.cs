@@ -14,6 +14,7 @@ public struct PlayerInfo
     public float speed;
     public float throwStrength;
 
+
     public DamageTypeResistance damageResistance;
 }
 
@@ -40,6 +41,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public GunController gunController;
     public EquipmentController equipmentController;
     //public UiController uiController;
+
+    [SerializeField] GameObject attackArea;
+    [SerializeField] float attackDelay = 0.2f;
+    float attackTimer = 0f;
+    bool isAttacking = false;
 
     [SerializeField]
     Camera cam;
@@ -91,6 +97,19 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         {
             Vector2 vel = Vector2.zero;
             currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.02f);
+        }
+
+        // Reset Attack
+        if (isAttacking)
+        {
+            attackTimer += Time.deltaTime;
+
+            if (attackTimer >= attackDelay)
+            {
+                attackTimer = 0;
+                isAttacking = false;
+                attackArea.SetActive(isAttacking);
+            }
         }
     }
 
@@ -163,6 +182,19 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         
         //if (!context.started) return;
         gunController.ShootGun(isShooting);
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        Debug.Log(context.ReadValue<float>());
+        if (context.ReadValue<float>() > 0.9f)
+        {
+            isAttacking = true;
+            attackArea.SetActive(isAttacking);
+        }
+
+        
+
     }
 
     public void OnAim(InputAction.CallbackContext context)
