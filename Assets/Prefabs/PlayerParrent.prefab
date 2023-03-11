@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9166335806581402584}
   - component: {fileID: 7159667658659145744}
-  - component: {fileID: 6334574516848040089}
+  - component: {fileID: 3927959297231743267}
   m_Layer: 6
   m_Name: 8rmgV0
   m_TagString: Untagged
@@ -205,7 +205,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6334574516848040089
+--- !u!114 &3927959297231743267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,13 +214,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 294294671590397801}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2acb434c2c1bb5b44b9adc51aa9fd37f, type: 3}
+  m_Script: {fileID: 11500000, guid: 684c024029ada1840b2011eab4bf2a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   barrel: {fileID: 3668234810077104271}
-  bulletPrefab: {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
+  bulletPrefab: {fileID: 4574203880661534292, guid: efdda910064e3cb4ca1eade85b6c97ca, type: 3}
   maxAmmo: 5
   currentAmmo: 5
+  shootDelay: 0.5
 --- !u!1 &835023306961183833
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,6 +916,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8ea4bc4d-54f7-410b-b8d5-92a8e1dab705
     m_ActionName: Player/Throw[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6227f5db-05ae-4e44-b5a8-efd8f7f6f47d
+    m_ActionName: Player/AnyKey[/Keyboard/anyKey]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
@@ -967,7 +972,7 @@ MonoBehaviour:
   laserMask:
     serializedVersion: 2
     m_Bits: 448
-  gun: {fileID: 6334574516848040089}
+  gun: {fileID: 0}
 --- !u!114 &3730679216946032009
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pistol : GunBase
+public class RPG : GunBase
 {
 
-    public float shootDelay = 0.2f;
+    public float shootDelay = 0.5f;
     private float shootTimer = 0f; // time elapsed since last shot
     public override void Reload()
     {
@@ -21,7 +21,7 @@ public class Pistol : GunBase
 
         Vector2 diff = (owner.currentAimDirection).normalized;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0,0, rot_z));
+        Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
 
         shootTimer = Time.time; // reset timer to current time
     }

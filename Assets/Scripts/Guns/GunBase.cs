@@ -10,6 +10,8 @@ public abstract class GunBase : MonoBehaviour, IGun
     [SerializeField] protected int currentAmmo;
     protected PlayerController owner;
 
+    protected bool isShooting = false;
+
     private void Start()
     {
         owner = transform.GetComponentInParent<PlayerController>();

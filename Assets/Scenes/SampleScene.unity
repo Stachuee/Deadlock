@@ -581,11 +581,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31e509ccf00f06d4cb28a9674166f3fa, type: 3}
---- !u!4 &142342185 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4552270140716814268, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
-  m_PrefabInstance: {fileID: 4552270140780923404}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &142572231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7436138791207294251, guid: e18679911129f7b4da4ccad0f6ccf607, type: 3}
@@ -1846,7 +1841,6 @@ GameObject:
   - component: {fileID: 570665810}
   - component: {fileID: 570665811}
   - component: {fileID: 570665812}
-  - component: {fileID: 570665813}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1908,197 +1902,197 @@ MonoBehaviour:
   - {fileID: 1944882766}
   allDoors:
   - doorPosition: {x: 5, y: -1}
-    myGUID: 6976a7f6-eb99-4666-9cb6-d48ef538e9a2
+    myGUID: 83a8dad9-a321-4950-a854-dda5f02bb29d
     connectedGUID: 
-    roomGUID: 676e28e7-ba6c-4127-a209-ba88cd536efb
+    roomGUID: 0bb21e91-bb2e-4048-80de-fda9fcd1b328
   - doorPosition: {x: -5, y: -1}
-    myGUID: e84b9665-a9db-486b-a5f8-1ee18ba148aa
+    myGUID: 7bf0c5d7-05b7-4baa-8289-f67f2a72b182
     connectedGUID: 
-    roomGUID: 676e28e7-ba6c-4127-a209-ba88cd536efb
+    roomGUID: 0bb21e91-bb2e-4048-80de-fda9fcd1b328
   - doorPosition: {x: 5, y: -1}
-    myGUID: 2ad23b9e-b311-4933-92e4-3c4e8c3ff877
+    myGUID: d529fe60-c073-43fa-acce-a39b3c6a7c43
     connectedGUID: 
-    roomGUID: 4459ed3f-c8a3-4727-b226-35ab0e0a2fb6
+    roomGUID: 8aca4596-819f-4a63-bd8e-48266b038113
   - doorPosition: {x: -5, y: -1}
-    myGUID: a7750c85-af6e-4120-bb1e-e9909620d075
+    myGUID: 9dcbc2ee-0704-4406-8660-f9e16043ac9a
     connectedGUID: 
-    roomGUID: 4459ed3f-c8a3-4727-b226-35ab0e0a2fb6
+    roomGUID: 8aca4596-819f-4a63-bd8e-48266b038113
   - doorPosition: {x: 5, y: -1}
-    myGUID: 36bc49a1-7f2f-4f3c-9cee-d7af5f2f3007
+    myGUID: 03220d13-a830-4566-864f-16eb0ffc71f9
     connectedGUID: 
-    roomGUID: ab924715-0148-4fd4-932a-60c2be95710a
+    roomGUID: 70f247c2-1586-4875-b181-f9bc96e44358
   - doorPosition: {x: -5, y: -1}
-    myGUID: 3c109d32-5206-4f72-9270-9042335dd70b
+    myGUID: 2590c4d8-86b6-4046-872f-b59e8155101b
     connectedGUID: 
-    roomGUID: ab924715-0148-4fd4-932a-60c2be95710a
+    roomGUID: 70f247c2-1586-4875-b181-f9bc96e44358
   - doorPosition: {x: 5, y: -1}
-    myGUID: 1570d419-99b2-481a-b1e8-64116e9fe408
+    myGUID: d6b87718-0b96-4b92-9b26-eba2b17e3b4f
     connectedGUID: 
-    roomGUID: ef09c805-45a1-4c6a-811f-37378cabfc6e
+    roomGUID: 7baeba51-dba9-4155-a484-b609a8136bf8
   - doorPosition: {x: -5, y: -1}
-    myGUID: bee293a2-58c3-453c-9ec1-ef208fb4e9e1
+    myGUID: a8efb29d-337c-4ec3-8859-c42ba26da747
     connectedGUID: 
-    roomGUID: ef09c805-45a1-4c6a-811f-37378cabfc6e
+    roomGUID: 7baeba51-dba9-4155-a484-b609a8136bf8
   - doorPosition: {x: 5, y: -1}
-    myGUID: 96bc49ef-c6f2-4843-801b-cbd58adeaa2e
+    myGUID: 477d08c6-0eb5-4c46-b5a6-1d65d53ad8e6
     connectedGUID: 
-    roomGUID: 5a768740-dd8e-4d8d-b580-77205ea00efd
+    roomGUID: 37c15272-48f8-44c9-b647-ea956f69d33a
   - doorPosition: {x: -5, y: -1}
-    myGUID: 2ae45cf4-d9ea-493e-9c4f-ab0a530480b3
+    myGUID: 61c1513a-269a-491c-a49c-3797d95004fa
     connectedGUID: 
-    roomGUID: 5a768740-dd8e-4d8d-b580-77205ea00efd
+    roomGUID: 37c15272-48f8-44c9-b647-ea956f69d33a
   - doorPosition: {x: 5, y: -1}
-    myGUID: 63c3b2e1-8298-430f-af91-166df1615f1c
+    myGUID: 001a7315-5f10-424f-89ce-864c305e31fd
     connectedGUID: 
-    roomGUID: aff10685-4fc0-4e26-b18e-9491282bd4f1
+    roomGUID: 51487d83-9bb8-4b74-ad8b-ea88d6e88ba0
   - doorPosition: {x: -5, y: -1}
-    myGUID: fa2b2583-3287-4a92-8812-e9f2a56b27d4
+    myGUID: 89399ff3-8955-4c77-95fe-333d44eed37f
     connectedGUID: 
-    roomGUID: aff10685-4fc0-4e26-b18e-9491282bd4f1
+    roomGUID: 51487d83-9bb8-4b74-ad8b-ea88d6e88ba0
   - doorPosition: {x: 5, y: -1}
-    myGUID: 552c786a-5c28-4f45-810b-705ba60f8cd8
+    myGUID: 1a74668e-a148-4f95-9d26-20229da11bbe
     connectedGUID: 
-    roomGUID: 702af1d3-c3bd-404a-873d-e2013fdaf69c
+    roomGUID: 5651eeca-27a6-43b3-bab3-ddea38119c05
   - doorPosition: {x: -5, y: -1}
-    myGUID: 73737814-0459-4998-9d31-c5632f720fc4
+    myGUID: dab2bd35-eb29-48c3-8c0d-7a8271caf969
     connectedGUID: 
-    roomGUID: 702af1d3-c3bd-404a-873d-e2013fdaf69c
+    roomGUID: 5651eeca-27a6-43b3-bab3-ddea38119c05
   - doorPosition: {x: 5, y: -1}
-    myGUID: 0773ffe6-00c8-4d2d-9b8c-b8738e4ec35f
+    myGUID: 3222ba60-9d43-4703-9f94-0405132282d1
     connectedGUID: 
-    roomGUID: 7912950b-90e8-4b0a-be81-42fc4c82a1e4
+    roomGUID: e6436294-71fc-48fd-935e-5f8702365d2f
   - doorPosition: {x: -5, y: -1}
-    myGUID: 7a90e4fe-5c0a-4c39-9435-3ba5b0c78a98
+    myGUID: 74a972f6-52b5-4d9b-8d8b-330bc174e74a
     connectedGUID: 
-    roomGUID: 7912950b-90e8-4b0a-be81-42fc4c82a1e4
+    roomGUID: e6436294-71fc-48fd-935e-5f8702365d2f
   - doorPosition: {x: 5, y: -1}
-    myGUID: ec8d8edf-f188-47c8-b952-c09f88997887
+    myGUID: ed9d3074-179f-4016-9e1c-2450d4c154d5
     connectedGUID: 
-    roomGUID: 71318794-528c-4920-bbb5-21f73df43da6
+    roomGUID: 2b544702-e0b9-490c-ae81-74123a0d4647
   - doorPosition: {x: -5, y: -1}
-    myGUID: 24d0afb3-5ce4-4aad-953c-5e3ca5155c9c
+    myGUID: fd424eea-ed2d-4e35-b9f6-fff4bea6d467
     connectedGUID: 
-    roomGUID: 71318794-528c-4920-bbb5-21f73df43da6
+    roomGUID: 2b544702-e0b9-490c-ae81-74123a0d4647
   - doorPosition: {x: 5, y: -1}
-    myGUID: 67e7e755-a515-4a08-8b12-135fe216b1dc
+    myGUID: 7a4c7480-5f55-4527-ba2c-b64ad1464d90
     connectedGUID: 
-    roomGUID: 928adc6d-7ee0-4baf-927d-420fa18c749a
+    roomGUID: de5141e2-2a31-4fcc-bbae-d604b16e9c07
   - doorPosition: {x: -5, y: -1}
-    myGUID: 8a7efb1d-6b29-46b6-8836-9ca1c878807a
+    myGUID: 9ab6647f-b2af-4e66-9466-fa160380c893
     connectedGUID: 
-    roomGUID: 928adc6d-7ee0-4baf-927d-420fa18c749a
+    roomGUID: de5141e2-2a31-4fcc-bbae-d604b16e9c07
   - doorPosition: {x: 5, y: -1}
-    myGUID: 5ecc9560-c3d8-44ea-b68b-77005a9ac740
+    myGUID: ac3280d7-e2bc-4762-87ee-7f01824d73fc
     connectedGUID: 
-    roomGUID: be4cc2ba-8ce4-4cb5-a6b0-0317e15df55b
+    roomGUID: 469164b0-e1e3-484a-839d-c13c26fb9830
   - doorPosition: {x: -5, y: -1}
-    myGUID: 0893b245-aecb-4626-8dfa-6d1e5424da50
+    myGUID: c9fd8cd4-7877-48fa-8400-9ebb285daac8
     connectedGUID: 
-    roomGUID: be4cc2ba-8ce4-4cb5-a6b0-0317e15df55b
+    roomGUID: 469164b0-e1e3-484a-839d-c13c26fb9830
   - doorPosition: {x: 5, y: -1}
-    myGUID: f11e867b-2131-476a-a89a-311a60f9dd54
+    myGUID: 39b58034-028d-478b-8944-2ffce6c95211
     connectedGUID: 
-    roomGUID: 6b200e9f-bacf-4264-98c5-19f7a90ed5a5
+    roomGUID: 8d3bc0dd-ebb8-403b-b164-de2f0ed0951a
   - doorPosition: {x: -5, y: -1}
-    myGUID: a54bda72-d277-4fb4-b5a7-5b3aa6eb576e
+    myGUID: c9155b56-dc2a-4964-a279-1452aa06580f
     connectedGUID: 
-    roomGUID: 6b200e9f-bacf-4264-98c5-19f7a90ed5a5
+    roomGUID: 8d3bc0dd-ebb8-403b-b164-de2f0ed0951a
   - doorPosition: {x: 5, y: -1}
-    myGUID: 96e8a08d-0bca-4830-8591-642bd8883d0d
+    myGUID: fd250cba-3952-486c-92e3-93ec82e173a2
     connectedGUID: 
-    roomGUID: 76f8a32b-a69d-4d75-a2ed-113aa08893a8
+    roomGUID: 9719900d-6877-493b-bfbe-6b154b2772e6
   - doorPosition: {x: -5, y: -1}
-    myGUID: b32e57f4-fff1-46a2-98d1-4e99697e300f
+    myGUID: d59f6f76-8395-4600-9e5f-eb7fd75ede52
     connectedGUID: 
-    roomGUID: 76f8a32b-a69d-4d75-a2ed-113aa08893a8
+    roomGUID: 9719900d-6877-493b-bfbe-6b154b2772e6
   - doorPosition: {x: 5, y: -1}
-    myGUID: b5009dee-6957-468a-b059-e27d84c9bc7b
+    myGUID: 159c8d3e-134e-4334-b580-ce0d3afc5d51
     connectedGUID: 
-    roomGUID: c8e6feb3-3b45-477d-ae98-f5bdc87e9a3f
+    roomGUID: 768372ac-6125-4531-9f8e-fa0ad7be5f79
   - doorPosition: {x: -5, y: -1}
-    myGUID: c71d524d-0677-44da-94c0-09d3a4185763
+    myGUID: 79519c72-1ccf-46d1-8ffa-93337ae10093
     connectedGUID: 
-    roomGUID: c8e6feb3-3b45-477d-ae98-f5bdc87e9a3f
+    roomGUID: 768372ac-6125-4531-9f8e-fa0ad7be5f79
   - doorPosition: {x: 5, y: -1}
-    myGUID: 86cc4ab6-8a68-45ff-95c2-fb9923d9773a
+    myGUID: 19227481-0881-4ee8-9caf-730413fca10a
     connectedGUID: 
-    roomGUID: 74f44271-d84a-459a-b947-aaeba8f4bdb1
+    roomGUID: 6a5afff3-c040-4c26-8893-7da662ef6fe6
   - doorPosition: {x: -5, y: -1}
-    myGUID: 1650c280-ac98-47b3-ab38-92f2277969d9
+    myGUID: f3d5a114-a15f-40dc-8b05-b79fe49d15ed
     connectedGUID: 
-    roomGUID: 74f44271-d84a-459a-b947-aaeba8f4bdb1
+    roomGUID: 6a5afff3-c040-4c26-8893-7da662ef6fe6
   - doorPosition: {x: 5, y: -1}
-    myGUID: d828a38d-b70e-4704-9d66-5bbde91e2474
+    myGUID: 0498a56d-a1f5-43bd-bee1-c139caf63832
     connectedGUID: 
-    roomGUID: 6cd073ab-6ee5-4ac1-826f-e9101ed174dc
+    roomGUID: 12a25bd5-6916-4e89-8ced-ff635df10f32
   - doorPosition: {x: -5, y: -1}
-    myGUID: 280138b9-8d75-4726-b357-60c8a72f9078
+    myGUID: 4dd58950-b586-4858-b8f7-f0efa5070bf4
     connectedGUID: 
-    roomGUID: 6cd073ab-6ee5-4ac1-826f-e9101ed174dc
+    roomGUID: 12a25bd5-6916-4e89-8ced-ff635df10f32
   - doorPosition: {x: 5, y: -1}
-    myGUID: cced9487-1d4e-418d-8a9b-9259753d5024
+    myGUID: c13b2ee0-8c4c-4b8b-8c30-056a6e81abaf
     connectedGUID: 
-    roomGUID: 728fb075-f6fe-43c1-862d-d3f4435826c1
+    roomGUID: 3c70c877-c59b-46e8-8e73-89172cff3aef
   - doorPosition: {x: -5, y: -1}
-    myGUID: b6a13ed9-95ea-4b28-8e0d-47d4bafa1f6c
+    myGUID: c90ec1b5-5204-4473-b0e0-146860db28b3
     connectedGUID: 
-    roomGUID: 728fb075-f6fe-43c1-862d-d3f4435826c1
+    roomGUID: 3c70c877-c59b-46e8-8e73-89172cff3aef
   - doorPosition: {x: 5, y: -1}
-    myGUID: 58063efb-fbae-483c-b252-c097eee80a4a
+    myGUID: 979f7391-397b-4791-a4b3-1d092334a7b3
     connectedGUID: 
-    roomGUID: ec5b0476-42fe-4b12-b1bf-1a3722e95b3a
+    roomGUID: 18031c12-fd2d-422f-9bc0-d51685b52bdb
   - doorPosition: {x: -5, y: -1}
-    myGUID: 18661898-ffd5-4c54-85cf-8c976a32d6d6
+    myGUID: 65adf111-5aa5-48ef-82ff-7958af843eeb
     connectedGUID: 
-    roomGUID: ec5b0476-42fe-4b12-b1bf-1a3722e95b3a
+    roomGUID: 18031c12-fd2d-422f-9bc0-d51685b52bdb
   - doorPosition: {x: 5, y: -1}
-    myGUID: 519be3d7-b925-4fce-a3b8-988142f6f75c
+    myGUID: c03d3115-bc73-458d-b823-63e5eba80c4f
     connectedGUID: 
-    roomGUID: bff939be-fe2f-4943-84f5-2fb92b8f3f35
+    roomGUID: 86379bf1-914e-482f-8403-22853fa82590
   - doorPosition: {x: -5, y: -1}
-    myGUID: 29418dce-6db1-40d6-b899-875d8f55b392
+    myGUID: 9320e285-0d1f-4dad-9840-26718f4181ac
     connectedGUID: 
-    roomGUID: bff939be-fe2f-4943-84f5-2fb92b8f3f35
+    roomGUID: 86379bf1-914e-482f-8403-22853fa82590
   - doorPosition: {x: 5, y: -1}
-    myGUID: 0b2e119f-3827-4c94-b419-b3328f62b53c
+    myGUID: d6eaea13-1fe0-4f29-a31d-42378b824240
     connectedGUID: 
-    roomGUID: ae7cd6c8-0d9d-4023-82d4-7c631d26ad2a
+    roomGUID: 0c5910f5-e03a-4bb3-8d88-d5970f21ac19
   - doorPosition: {x: -5, y: -1}
-    myGUID: 1aeaf289-07af-4fc8-9af7-d7f9bf6117a2
+    myGUID: 76ce48b4-e72e-455c-978f-ee37f188e366
     connectedGUID: 
-    roomGUID: ae7cd6c8-0d9d-4023-82d4-7c631d26ad2a
+    roomGUID: 0c5910f5-e03a-4bb3-8d88-d5970f21ac19
   - doorPosition: {x: 5, y: -1}
-    myGUID: 6ceed99f-2847-40ed-b620-6ebc437ed4e5
+    myGUID: 1b1c9f56-bd88-4e40-80e4-2a7ca686dbe5
     connectedGUID: 
-    roomGUID: c95e390e-d456-4476-9d5d-48d844d6e545
+    roomGUID: 1efda7d3-929a-4c3b-a09b-2f5871ad1224
   - doorPosition: {x: -5, y: -1}
-    myGUID: d1bc662f-8c59-401b-9b2b-0caf3621584f
+    myGUID: 97b3c17b-8b30-4314-b974-780f0c0d67d0
     connectedGUID: 
-    roomGUID: c95e390e-d456-4476-9d5d-48d844d6e545
+    roomGUID: 1efda7d3-929a-4c3b-a09b-2f5871ad1224
   - doorPosition: {x: 5, y: -1}
-    myGUID: 8dc83c54-75e0-4387-a8fd-1d506591ba23
+    myGUID: b3cfe055-fcda-4a79-a0a6-55bfb109b43f
     connectedGUID: 
-    roomGUID: aa17fc7f-5466-4c50-b3c6-cce2fe1e4417
+    roomGUID: 022cbe15-2c01-43f1-8ea0-a117bcfa73fb
   - doorPosition: {x: -5, y: -1}
-    myGUID: 742aa840-0340-4f08-9905-a4d40e1abee0
+    myGUID: c308491b-1710-4c9b-b626-85cb67e2b57b
     connectedGUID: 
-    roomGUID: aa17fc7f-5466-4c50-b3c6-cce2fe1e4417
+    roomGUID: 022cbe15-2c01-43f1-8ea0-a117bcfa73fb
   - doorPosition: {x: 5, y: -1}
-    myGUID: 17587fa5-0b51-4901-b72c-4ba6d15941c8
+    myGUID: 0107c18b-bbb2-4752-b508-aa53defa9d02
     connectedGUID: 
-    roomGUID: ff89a4e2-8f9e-42d8-b95b-67dabe19c8c8
+    roomGUID: 91e490b7-fb63-4422-bcfe-efad72096196
   - doorPosition: {x: -5, y: -1}
-    myGUID: 76b0b6d1-e254-455d-9578-158cd0622ce0
+    myGUID: 19782871-648e-4037-898d-7d28e0e5c6a1
     connectedGUID: 
-    roomGUID: ff89a4e2-8f9e-42d8-b95b-67dabe19c8c8
+    roomGUID: 91e490b7-fb63-4422-bcfe-efad72096196
   - doorPosition: {x: 5, y: -1}
-    myGUID: 4fcbe109-fc06-4c01-8db9-cd7a5f360c58
+    myGUID: 9ecff123-4059-4c56-aa30-368806e33e64
     connectedGUID: 
-    roomGUID: 5aa99e3b-d9e9-49f8-a2bd-bbe297df32ea
+    roomGUID: 70c67a1d-99d1-413a-9db8-c55a60b1725b
   - doorPosition: {x: -5, y: -1}
-    myGUID: e7859e71-8616-49c1-8c34-c4dc27ef9177
+    myGUID: 6c4102a2-a12a-4365-bfb3-17112fb58af5
     connectedGUID: 
-    roomGUID: 5aa99e3b-d9e9-49f8-a2bd-bbe297df32ea
+    roomGUID: 70c67a1d-99d1-413a-9db8-c55a60b1725b
   debugConnections: 0
 --- !u!114 &570665812
 MonoBehaviour:
@@ -2117,20 +2111,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c04b4ce301a3c2446b5666da73fe0983, type: 2}
   - {fileID: 11400000, guid: c04b4ce301a3c2446b5666da73fe0983, type: 2}
   - {fileID: 11400000, guid: c04b4ce301a3c2446b5666da73fe0983, type: 2}
---- !u!114 &570665813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 570665809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a68001bb0a59a646ad40ee2e8f5a187, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player1: {fileID: 142342185}
-  Player2: {fileID: 1273877514}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,6 +2221,210 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &625319317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 625319325}
+  - component: {fileID: 625319324}
+  - component: {fileID: 625319323}
+  - component: {fileID: 625319322}
+  - component: {fileID: 625319321}
+  - component: {fileID: 625319320}
+  - component: {fileID: 625319319}
+  - component: {fileID: 625319318}
+  m_Layer: 9
+  m_Name: Crawler (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!50 &625319318
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625319317}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
+--- !u!61 &625319319
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625319317}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &625319320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625319317}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9164c6b6d1a470c419d61cc217d13329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  maxHp: 100
+  speed: 2
+  damage: 10
+  resistances:
+    bulletResistance: 0
+    fireResistance: 0
+    posionResistance: 0
+    iceResistance: 0
+  target: {fileID: 415129092}
+--- !u!114 &625319321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625319317}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55d555aa7811af43a620643322cf1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 6051884553978273643, guid: 3ee4bfb55a71dc34897b538b7c6cd250, type: 3}
+  gunTip: {fileID: 0}
+  shootingCooldown: 1
+  enemyMaxHp: 15
+--- !u!114 &625319322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625319317}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293e132c44b02bc419943bff9042ed11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 911015653}
+  - {fileID: 2068326569}
+  enemyMaxHp: 15
+--- !u!114 &625319323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625319317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d89c8a68a3230419efd5e7f052e7c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMaxHp: 15
+--- !u!212 &625319324
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625319317}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &625319325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625319317}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.12, y: -3.38, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &639021607
 PrefabInstance:
@@ -3442,6 +3626,17 @@ Transform:
   m_Father: {fileID: 1491884028}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1046019306 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3927959297231743267, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+  m_PrefabInstance: {fileID: 4552270140780923404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684c024029ada1840b2011eab4bf2a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1062166629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4485,11 +4680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55e6d05362d9c428632bed75fa6d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1273877514 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4552270140716814268, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
-  m_PrefabInstance: {fileID: 90244905}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1321358752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7104,6 +7294,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8066930870368267875, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 1046019306}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5e3a31e21ef3f64b86616384d459526, type: 3}
 --- !u!1001 &5381100885764417444

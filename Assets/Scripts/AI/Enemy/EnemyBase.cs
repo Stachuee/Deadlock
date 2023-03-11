@@ -34,7 +34,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy
         {
             Vector3 directionToTarget = player.transform.position - transform.position;
 
-            if (directionToTarget.magnitude < viewDistance && Vector3.Dot(transform.right, directionToTarget) > 0)
+            if (directionToTarget.magnitude < viewDistance /*&& Vector3.Dot(transform.right, directionToTarget) > 0*/)
             {
                 return true;
             }
