@@ -159,8 +159,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-        if (context.ReadValue<float>() > 0.9f) gunController.ShootGun();
+        float isShooting = context.ReadValue<float>();
+        
+        //if (!context.started) return;
+        gunController.ShootGun(isShooting);
     }
 
     public void OnAim(InputAction.CallbackContext context)

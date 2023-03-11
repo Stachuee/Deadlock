@@ -10,7 +10,7 @@ public abstract class GunBase : MonoBehaviour, IGun
     [SerializeField] protected int currentAmmo;
     protected PlayerController owner;
 
-    protected bool isShooting = false;
+    protected float isShooting = 0;
 
     private void Start()
     {
@@ -18,6 +18,9 @@ public abstract class GunBase : MonoBehaviour, IGun
     }
 
     public abstract void Reload();
-    public abstract void Shoot();
+    public void Shoot(float _isShooting)
+    {
+        isShooting = _isShooting;
+    }
 
 }

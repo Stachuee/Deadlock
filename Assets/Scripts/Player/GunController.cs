@@ -19,6 +19,7 @@ public class GunController : MonoBehaviour
 
     PlayerController playerController;
 
+
     [SerializeField]
     GunBase gun;
 
@@ -52,8 +53,8 @@ public class GunController : MonoBehaviour
         }
     }
 
-    public void ShootGun()
+    public void ShootGun(float isShooting)
     {
-        gun.Shoot();
+        gun.Shoot(isShooting);
     }
 }

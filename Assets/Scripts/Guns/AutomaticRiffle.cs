@@ -7,35 +7,30 @@ public class AutomaticRiffle : GunBase
 {
 
     [SerializeField] float fireRate = 0.1f;
-    bool isShooting = false;
+    private float shootTimer = 0f; // time elapsed since last shot
+
+
     public override void Reload()
     {
         currentAmmo = maxAmmo;
     }
 
-    public override void Shoot()
-    {
-        Vector2 diff = (owner.currentAimDirection).normalized;
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
-    }
 
     void Update()
     {
-        if (Mouse.current.leftButton.isPressed && !isShooting)
+       
+        if (isShooting >= 0.9f)
         {
-            StartCoroutine(AutoShoot());
+            if (Time.time < shootTimer + fireRate)
+            {
+                return; // not enough time has passed since last shot
+            }
+            Vector2 diff = (owner.currentAimDirection).normalized;
+            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
+
+            shootTimer = Time.time; // reset timer to current time
         }
     }
 
-    IEnumerator AutoShoot()
-    {
-        isShooting = true;
-        while (Mouse.current.leftButton.isPressed)
-        {
-            Shoot();
-            yield return new WaitForSeconds(fireRate);
-        }
-        isShooting = false;
-    }
 }

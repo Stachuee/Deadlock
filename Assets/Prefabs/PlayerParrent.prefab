@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9166335806581402584}
   - component: {fileID: 7159667658659145744}
-  - component: {fileID: 3927959297231743267}
+  - component: {fileID: 8873712547106111177}
   m_Layer: 6
   m_Name: 8rmgV0
   m_TagString: Untagged
@@ -205,7 +205,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3927959297231743267
+--- !u!114 &8873712547106111177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,14 +214,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 294294671590397801}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684c024029ada1840b2011eab4bf2a28, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ae1584584b15a044a42e1dfaefc90bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   barrel: {fileID: 3668234810077104271}
-  bulletPrefab: {fileID: 4574203880661534292, guid: efdda910064e3cb4ca1eade85b6c97ca, type: 3}
+  bulletPrefab: {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
   maxAmmo: 5
   currentAmmo: 5
-  shootDelay: 0.5
+  fireRate: 0.1
 --- !u!1 &835023306961183833
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,7 +949,7 @@ MonoBehaviour:
       iceResistance: 0
   m_MovementSmoothing: 0.05
   topPlayer: 0
-  gunController: {fileID: 0}
+  gunController: {fileID: 8066930870368267875}
   equipmentController: {fileID: 0}
   cam: {fileID: 4552270140534223475}
   maxItemsHeld: 3
@@ -972,7 +972,7 @@ MonoBehaviour:
   laserMask:
     serializedVersion: 2
     m_Bits: 448
-  gun: {fileID: 0}
+  gun: {fileID: 8873712547106111177}
 --- !u!114 &3730679216946032009
 MonoBehaviour:
   m_ObjectHideFlags: 0
