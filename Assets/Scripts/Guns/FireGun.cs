@@ -25,7 +25,8 @@ public class FireGun : GunBase
                 return; // not enough time has passed since last shot
             }
             ITakeDamage enemy = collision.GetComponent<ITakeDamage>();
-            enemy.TakeDamage(1f, DamageType.Bullet);
+            enemy.TakeDamage(10f, DamageType.Bullet);
+            Debug.Log("Fired");
 
             shootTimer = Time.time; // reset timer to current time
         }
