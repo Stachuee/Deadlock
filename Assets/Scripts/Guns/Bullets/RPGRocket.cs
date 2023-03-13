@@ -33,8 +33,11 @@ public class RPGRocket : MonoBehaviour
              Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
              foreach (Collider2D collider in colliders)
              {
-                 ITakeDamage target = collider.GetComponent<ITakeDamage>();
-                 if (target != null) target.TakeDamage(damage, DamageType.Bullet);
+                if (collider.CompareTag("Enemy"))
+                {
+                    ITakeDamage target = collider.GetComponent<ITakeDamage>();
+                    if (target != null) target.TakeDamage(damage, DamageType.Bullet);
+                }
              }
             
              Destroy(gameObject);
