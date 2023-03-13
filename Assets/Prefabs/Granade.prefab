@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuseDuration: 3
+  damage: 20
+  explosionRadius: 3
 --- !u!61 &-224902360194425957
 BoxCollider2D:
   m_ObjectHideFlags: 0
