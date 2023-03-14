@@ -27,6 +27,19 @@ public class Fuse : MonoBehaviour
         this.fuseBox = fuseBox;
     }
 
+    public void TurnFuse(bool state)
+    {
+        on = state;
+        if (on)
+        {
+            button.sprite = onSprite;
+        }
+        else
+        {
+            button.sprite = offSprite;
+        }
+    }
+
     public void Use()
     {
         on = !on;

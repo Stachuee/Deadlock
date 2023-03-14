@@ -4,17 +4,6 @@ using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
-public struct Door
-{
-    //public enum ConnectionDirection {Top, Bot, Left, Right }
-    public Vector2 doorPosition;
-    public string myGUID;
-    public string connectedGUID;
-    public string roomGUID;
-    //public ConnectionDirection connectTo;
-}
-
-[System.Serializable]
 public struct Interactable
 {
     public Vector2 interactablePosition;
@@ -30,7 +19,8 @@ public class Rooms : MonoBehaviour
     public Vector2Int roomSize;
     [SerializeField]
     public bool startingRoom;
-
+    [SerializeField]
+    public List<RoomEvent> roomEvents;
     public Vector2Int RoomSize
     {
         set
@@ -43,32 +33,6 @@ public class Rooms : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    Door[] doors;
-    public Door[] Doors
-    {
-        set
-        {
-            doors = value;
-        }
-        get
-        {
-            return doors;
-        }
-    }
-    [SerializeField]
-    Interactable[] interactable;
-    public Interactable[] Interactable
-    {
-        set
-        {
-            interactable = value;
-        }
-        get
-        {
-            return interactable;
-        }
-    }
     [SerializeField]
     Vector2 position;
     public Vector2 Position
@@ -84,22 +48,19 @@ public class Rooms : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        roomGUID = System.Guid.NewGuid().ToString();
+    }
 
     private void Start()
     {
         if (!Application.isPlaying)
         {
-            roomGUID = System.Guid.NewGuid().ToString();
-            for (int i = 0; i < doors.Length; i++)
-            {
-                doors[i].myGUID = System.Guid.NewGuid().ToString();
-                doors[i].connectedGUID = "";
-                doors[i].roomGUID = roomGUID;
-            }
+            //roomGUID = System.Guid.NewGuid().ToString();
             FacilityController facilityController = FindObjectOfType<FacilityController>();
             if (facilityController != null) facilityController.ReimportRooms();
             else Debug.LogError("No facility controller");
-
         }
     }
 
@@ -118,16 +79,6 @@ public class Rooms : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        foreach(Door door in doors)
-        {
-            Gizmos.DrawWireSphere(door.doorPosition + (Vector2)transform.position, 0.4f);
-        }
-        Gizmos.color = Color.green;
-        foreach (Interactable interactable in interactable)
-        {
-            Gizmos.DrawWireSphere(interactable.interactablePosition + (Vector2)transform.position, 0.4f);
-        }
         Gizmos.color = Color.blue;
         Vector2 position = transform.position;
         Gizmos.DrawLine(new Vector2(position.x + roomSize.x, position.y + roomSize.y), new Vector2(position.x - roomSize.x, position.y + roomSize.y));

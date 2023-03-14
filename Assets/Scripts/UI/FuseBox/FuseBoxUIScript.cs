@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class FuseBoxUIScript : MonoBehaviour
 {
-    [SerializeField] List<Button> fuses;
+    [SerializeField] List<Fuse> fuses;
 
     [SerializeField] Vector2 offset;
     [SerializeField] float fuseHeight;
 
     [SerializeField] GameObject fusePrefab;
 
-
+    FuseBox openFuseBox;
 
     SwitchType openType;
 
@@ -23,12 +23,21 @@ public class FuseBoxUIScript : MonoBehaviour
         {
             Fuse temp = Instantiate(fusePrefab, (Vector2)transform.position + offset + new Vector2(0, fuseHeight / 2) - new Vector2(0, fuzeOffset * i), Quaternion.identity, transform).GetComponent<Fuse>();
             temp.SetFuse(SegmentController.segmentController.mapSegments[i].sectorName, this);
+            fuses.Add(temp);
         }
     }
 
-    public void OpenBox(SwitchType openType)
+    public void OpenBox(SwitchType openType, FuseBox boxOpen)
     {
         this.openType = openType;
+
+        openFuseBox = boxOpen;
+
+        fuses.ForEach(x =>
+        {
+            x.TurnFuse(boxOpen.GetFuseStatus(x.segmentName));
+        });
+
         gameObject.SetActive(true);
     }
     public void CloseBox()
@@ -38,8 +47,7 @@ public class FuseBoxUIScript : MonoBehaviour
 
     public void SwitchFuse(string segmentName, bool on)
     {
-        MapSegment segment = SegmentController.segmentController.mapSegments.Find(x => x.sectorName == segmentName);
-        segment.TurnOnOff(openType, on);
+        openFuseBox.UpdateFuse(segmentName, on);
     }
 
     private void OnDrawGizmos()

@@ -10,13 +10,26 @@ public class MapSegment : MonoBehaviour
     [SerializeField]
     public string sectorName;
     [SerializeField]
-    Color segmentColor;
+    public Color segmentColor;
 
 
     [SerializeField] List<GameObject> doors;
+    [SerializeField] bool doorsPowered;
     [SerializeField] List<GameObject> security;
+    [SerializeField] bool securityPowered;
     [SerializeField] List<GameObject> printers;
-    [SerializeField] List<GameObject> lighs;
+    [SerializeField] bool printersPowered;
+    [SerializeField] List<GameObject> lights;
+    [SerializeField] bool lightsPowered;
+
+
+    private void Start()
+    {
+        doors.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(doorsPowered));
+        printers.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(printersPowered));
+        security.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(securityPowered));
+        lights.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(lightsPowered));
+    }
 
     public void TurnOnOff(SwitchType switchType, bool on)
     {
@@ -24,18 +37,38 @@ public class MapSegment : MonoBehaviour
         {
             case SwitchType.Doors:
                 doors.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                doorsPowered = on;
                 break;
             case SwitchType.Printers:
                 printers.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                printersPowered = on;
                 break;
             case SwitchType.Security:
                 security.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                securityPowered = on;
                 break;
             case SwitchType.Lights:
-                lighs.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                lights.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                lightsPowered = on;
                 break;
         }
 
+    }
+
+    public bool GetPowerStatus(SwitchType switchType)
+    {
+        switch (switchType)
+        {
+            case SwitchType.Doors:
+                return doorsPowered;
+            case SwitchType.Printers:
+                return printersPowered;
+            case SwitchType.Security:
+                return securityPowered;
+            case SwitchType.Lights:
+                return lightsPowered;
+        }
+        return false;
     }
 
 

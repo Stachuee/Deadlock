@@ -12,12 +12,9 @@ public class FacilityController : MonoBehaviour
 
     [SerializeField]
     public List<Rooms> allRooms;
-    [SerializeField]
-    public List<Door> allDoors;
 
     [SerializeField]
     bool debugConnections;
-
 
     private void Awake()
     {
@@ -29,16 +26,7 @@ public class FacilityController : MonoBehaviour
     public void ReimportRooms()
     {
         allRooms = FindObjectsOfType<Rooms>().ToList();
-
-        allDoors = new List<Door>();
-
-        foreach (Rooms room in allRooms)
-        {
-            foreach(Door door in room.Doors)
-            {
-                allDoors.Add(door);
-            }
-        }
+        //allRooms.ForEach(x => x.roomGUID = System.Guid.NewGuid().ToString());
     }
 
     int margin = 2;
@@ -113,21 +101,7 @@ public class FacilityController : MonoBehaviour
             
     private void OnDrawGizmos() 
     {
-        Gizmos.color = Color.red;
-        if(debugConnections)
-        {
-            allRooms.ForEach(x =>
-            {
-                for(int i = 0; i < x.Doors.Length; i++)
-                {
-                    if(x.Doors[i].connectedGUID != "")
-                    {
-                        Door temp = allDoors.Find(y => y.myGUID == x.Doors[i].connectedGUID);
-                        Gizmos.DrawLine(allRooms.Find(room => room.roomGUID == temp.roomGUID).transform.position, allRooms.Find(room => room.roomGUID == x.roomGUID).transform.position);
-                    }
-                }
-            });
-        }
+
     }
     #endregion
 }

@@ -7,6 +7,8 @@ public class CameraFollowScript : MonoBehaviour
     [SerializeField]
     Transform playerTransform;
 
+    Transform target;
+
     PlayerController playerController;
 
     [Range(0, .3f)][SerializeField] float damping;
@@ -16,10 +18,21 @@ public class CameraFollowScript : MonoBehaviour
 
     private void Start()
     {
+        target = playerTransform;
         playerController = playerTransform.GetComponent<PlayerController>();
     }
     void Update()
     {
-        transform.position = playerTransform.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
+        transform.position = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
+    }
+
+    public void ChangeTarget(Transform target)
+    {
+        this.target = target;
+    }
+
+    public void ResetTarget()
+    {
+        target = playerTransform;
     }
 }

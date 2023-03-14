@@ -16,6 +16,7 @@ public class UiController : MonoBehaviour
     List<Panel> panels;
 
     public FuseBoxUIScript fuseBox;
+    public ComputerUI computer;
 
     private void Awake()
     {

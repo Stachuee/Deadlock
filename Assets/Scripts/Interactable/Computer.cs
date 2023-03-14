@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Computer : InteractableBase
 {
+    PlayerController activePlayer;
 
     protected override void Awake()
     {
@@ -16,7 +17,16 @@ public class Computer : InteractableBase
 
     void OpenComputer(PlayerController player)
     {
-
+        activePlayer = player;
+        player.uiController.computer.OpenComputer();
+        player.LockInAction(Back);
     }
 
+    void Back()
+    {
+        if (activePlayer.uiController.computer.Back())
+        {
+            activePlayer.UnlockInAnimation();
+        }
+    }
 }

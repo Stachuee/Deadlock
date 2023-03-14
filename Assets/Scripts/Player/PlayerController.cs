@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public GunController gunController;
     public EquipmentController equipmentController;
     public UiController uiController;
+    public CameraFollowScript cameraController;
 
     [SerializeField]
     Camera cam;
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     List<IInteractable> inRange = new List<IInteractable>();
 
     [SerializeField]
-    int maxItemsHeld = 3;
+    int maxItemsHeld = 1;
     List<ItemSO> heldItems = new List<ItemSO>();
 
 
@@ -131,8 +132,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (lockedInAnimation)
         {
             callbackWhenUnlocking.Invoke();
-            callbackWhenUnlocking = null;
-            LockInAnimation = false;
+            //callbackWhenUnlocking = null;
+            //LockInAnimation = false;
         }
         if (context.ReadValue<float>() > 0.9f)
         {
@@ -161,7 +162,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnShoot(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        if (context.ReadValue<float>() > 0.9f) gunController.ShootGun();
+        if (context.ReadValue<float>() > 0.9f && !lockedInAnimation) gunController.ShootGun();
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -264,6 +265,20 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         else return null;
     }
 
+    public ItemSO CheckIfHoldingAnyAndDeposit(List<ItemSO> itemsAccepted)
+    {
+        ItemSO toReturn = null;
+        itemsAccepted.ForEach(x =>
+        {
+            if(heldItems.Contains(x))
+            {
+                toReturn = x;
+            }
+        });
+        heldItems.Remove(toReturn);
+        return toReturn;
+    }
+
     public void LockInAction(UnityAction callback)
     {
         if (callbackWhenUnlocking != null) callbackWhenUnlocking.Invoke();
@@ -274,6 +289,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void UnlockInAnimation()
     {
         LockInAnimation = false;
+        callbackWhenUnlocking = null;
     }
 
     #endregion

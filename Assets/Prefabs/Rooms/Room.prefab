@@ -196,7 +196,7 @@ MonoBehaviour:
   - {x: -4.6969, y: 0.00080400705, z: 0}
   m_ShapePathHash: 1050694757
   m_Mesh: {fileID: 0}
-  m_InstanceId: -67282
+  m_InstanceId: 29882
 --- !u!1 &1983567303784746072
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7436138791207294251}
   - component: {fileID: 3283871493021460447}
+  - component: {fileID: 9150253158348313717}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -243,18 +244,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55e6d05362d9c428632bed75fa6d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomGUID: 9e44a5fa-9eb7-46d4-a9a6-449fad84541e
+  roomGUID: 00284d5c-1007-4954-a2de-10b07044c965
   roomSize: {x: 5, y: 3}
-  doors:
-  - doorPosition: {x: 5, y: -1.5}
-    myGUID: 11b82db9-46ad-49f1-a6a6-ac21372a6346
-    connectedGUID: 
-    roomGUID: 9e44a5fa-9eb7-46d4-a9a6-449fad84541e
-  - doorPosition: {x: -5, y: -1.5}
-    myGUID: 3c8267a6-104e-4aee-8385-fb0a849ba831
-    connectedGUID: 
-    roomGUID: 9e44a5fa-9eb7-46d4-a9a6-449fad84541e
+  startingRoom: 0
+  roomEvents:
+  - {fileID: 9150253158348313717}
   interactable:
   - interactablePosition: {x: 2.5, y: -2}
   - interactablePosition: {x: -2.74, y: -1.3}
   position: {x: 0, y: 0}
+--- !u!114 &9150253158348313717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983567303784746072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87eced3cf31fd0409a639b464209934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threatRequrement: 0
