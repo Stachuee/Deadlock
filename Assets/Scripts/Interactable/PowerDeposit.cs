@@ -33,6 +33,7 @@ public class PowerDeposit : InteractableBase
             if (deposited != null)
             {
                 inDeposit = deposited;
+                powerCellRenderer.sprite = deposited.GetIconSprite();
                 fuseBox.PlugIn(true);
             }
         }
