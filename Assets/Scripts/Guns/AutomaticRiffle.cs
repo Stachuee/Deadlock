@@ -16,6 +16,7 @@ public class AutomaticRiffle : GunBase
     }
 
 
+
     void Update()
     {
        
