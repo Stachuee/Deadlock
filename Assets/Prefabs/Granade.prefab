@@ -102,6 +102,7 @@ MonoBehaviour:
   fuseDuration: 3
   damage: 20
   explosionRadius: 3
+  explosionVFX: {fileID: 4292313124053347464, guid: 619a3936d905d0f4a93f1ba1d94ce79e, type: 3}
 --- !u!61 &-224902360194425957
 BoxCollider2D:
   m_ObjectHideFlags: 0

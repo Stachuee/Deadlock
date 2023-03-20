@@ -12,6 +12,8 @@ public class Granade : MonoBehaviour
     [SerializeField] float damage = 20f;
     [SerializeField] float explosionRadius;
 
+    [SerializeField] ParticleSystem explosionVFX;
+
     private void Start()
     {
         explosionTimer = fuseDuration + Time.time;    
@@ -28,6 +30,7 @@ public class Granade : MonoBehaviour
     private void Explode()
     {
         Debug.Log("Boom");
+        Instantiate(explosionVFX, transform.position, Quaternion.identity);
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D collider in colliders)
         {

@@ -104,6 +104,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 448
   explosionRadius: 3.5
+  explosionVFX: {fileID: 4292313124053347464, guid: 619a3936d905d0f4a93f1ba1d94ce79e, type: 3}
   timeToDespawn: 1
 --- !u!58 &6876001647127527584
 CircleCollider2D:

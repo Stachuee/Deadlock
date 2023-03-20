@@ -8,6 +8,8 @@ public class RPGRocket : MonoBehaviour
     [SerializeField] float damage;
     [SerializeField] LayerMask maskToIgnore;
     [SerializeField] float explosionRadius; // Distance from impact point where enemies take damage
+
+    [SerializeField] ParticleSystem explosionVFX;
     Vector2 prevPos;
 
     [SerializeField]
@@ -28,9 +30,9 @@ public class RPGRocket : MonoBehaviour
 
         if (hit.collider != null || timeToDespawnRemain < Time.time)
         {
-            
+            Instantiate(explosionVFX, transform.position, Quaternion.identity);
             // Check for enemies within explosion range
-             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
              foreach (Collider2D collider in colliders)
              {
                 if (collider.CompareTag("Enemy"))
