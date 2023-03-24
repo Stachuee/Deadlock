@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     float attackTimer = 0f;
     bool isAttacking = false;
 
+    
+
     [SerializeField]
     Camera cam;
 
@@ -80,6 +82,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         keyboard = myinput.currentControlScheme == "Keyboard" ? true : false; // Check if player uses keyboard or controller
 
         playerInfo = new PlayerInfo() { hp = 100, maxHp = 100, speed = 5, throwStrength = 500};
+
+        
     }
 
     private void Update() 
@@ -136,6 +140,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             return true;
         }
     }
+
+    
 
     #region InputRegion
     public void OnMove(InputAction.CallbackContext context)
@@ -195,6 +201,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         
 
+    }
+
+    public void OnChangeWeapon(InputAction.CallbackContext context)
+    {
+       gunController.ChangeWeapon(context.ReadValue<float>());
     }
 
     public void OnAim(InputAction.CallbackContext context)

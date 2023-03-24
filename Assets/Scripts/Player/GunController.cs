@@ -19,6 +19,8 @@ public class GunController : MonoBehaviour
 
     PlayerController playerController;
 
+    [SerializeField] private List<GameObject> weapons;
+    private int currentWeaponIndex = 0;
 
     [SerializeField]
     GunBase gun;
@@ -27,11 +29,42 @@ public class GunController : MonoBehaviour
     {
         playerController = transform.GetComponent<PlayerController>();
         gunSprite = gunTransform.GetComponent<SpriteRenderer>();
+
+        foreach (GameObject weapon in weapons)
+        {
+            weapon.SetActive(false);
+        }
+        weapons[currentWeaponIndex].SetActive(true);
     }
 
     private void Update()
     {
         RotateGun();
+    }
+
+    public void ChangeWeapon(float scrollInput)
+    {
+        if (scrollInput >= 1)
+        {
+            // Scroll up: activate the next weapon in the list
+            weapons[currentWeaponIndex].SetActive(false);
+            currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
+            weapons[currentWeaponIndex].SetActive(true);
+            gunTransform = weapons[currentWeaponIndex].GetComponent<Transform>();
+            barrel = weapons[currentWeaponIndex].GetComponentInChildren<Transform>();
+            gun = weapons[currentWeaponIndex].GetComponent<GunBase>();
+
+        }
+        else if (scrollInput <= -1)
+        {
+            // Scroll down: activate the previous weapon in the list
+            weapons[currentWeaponIndex].SetActive(false);
+            currentWeaponIndex = (currentWeaponIndex - 1 + weapons.Count) % weapons.Count;
+            weapons[currentWeaponIndex].SetActive(true);
+            gunTransform = weapons[currentWeaponIndex].GetComponent<Transform>();
+            barrel = weapons[currentWeaponIndex].GetComponentInChildren<Transform>();
+            gun = weapons[currentWeaponIndex].GetComponent<GunBase>();
+        }
     }
 
     void RotateGun()

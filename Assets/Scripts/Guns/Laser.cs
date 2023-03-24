@@ -37,7 +37,7 @@ public class Laser : GunBase
 
             if (Physics2D.Raycast(transform.position, transform.right))
             {
-                RaycastHit2D hit = Physics2D.Raycast(firePoint.position, transform.right);
+                RaycastHit2D hit = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity, ~maskToIgnore);
                 DrawRay(firePoint.position, hit.point);
                 if (hit.collider != null && ableToDamage)
                 {
