@@ -10,12 +10,38 @@ public abstract class GunBase : MonoBehaviour, IGun
     [SerializeField] protected int currentAmmo;
     protected PlayerController owner;
 
+    protected float isShooting = 0;
+
     private void Start()
     {
         owner = transform.GetComponentInParent<PlayerController>();
     }
 
     public abstract void Reload();
-    public abstract void Shoot();
+    public void Shoot(float _isShooting)
+    {
+        isShooting = _isShooting;
+    }
+
+    public Transform GetGunTransform()
+    {
+        return transform;
+    }
+
+    public GunBase GetGunScript()
+    {
+        return GetComponent<GunBase>();
+    }
+
+    public Transform GetBarrelTransform()
+    {
+        return GetComponentInChildren<Transform>();
+    }
+
+    public void EnableGun(bool isActive)
+    {
+        gameObject.SetActive(isActive);
+    }
+
 
 }

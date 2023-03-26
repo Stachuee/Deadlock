@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pistol : GunBase
+public class RPG : GunBase
 {
 
-    public float shootDelay = 0.2f;
+    public float shootDelay = 0.5f;
     private float shootTimer = 0f; // time elapsed since last shot
     public override void Reload()
     {
         currentAmmo = maxAmmo;
     }
+
+
 
     private void Update()
     {

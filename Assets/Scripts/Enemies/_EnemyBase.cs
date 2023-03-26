@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemyBase : MonoBehaviour, ITakeDamage
+public class _EnemyBase : MonoBehaviour, ITakeDamage
 {
     [SerializeField]
     protected float hp;

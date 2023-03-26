@@ -14,6 +14,7 @@ public struct PlayerInfo
     public float speed;
     public float throwStrength;
 
+
     public DamageTypeResistance damageResistance;
 }
 
@@ -41,6 +42,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public EquipmentController equipmentController;
     public UiController uiController;
     public CameraFollowScript cameraController;
+
+    [SerializeField] GameObject attackArea;
+    [SerializeField] float attackDelay = 0.2f;
+    float attackTimer = 0f;
+    bool isAttacking = false;
+
+    
 
     [SerializeField]
     Camera cam;
@@ -76,6 +84,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         keyboard = myinput.currentControlScheme == "Keyboard" ? true : false; // Check if player uses keyboard or controller
 
         playerInfo = new PlayerInfo() { hp = 100, maxHp = 100, speed = 5, throwStrength = 500};
+
+        
     }
 
     private void Update() 
@@ -115,6 +125,17 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         } 
         closestInRange = closest;
 
+        if (isAttacking)
+        {
+            attackTimer += Time.deltaTime;
+
+            if (attackTimer >= attackDelay)
+            {
+                attackTimer = 0;
+                isAttacking = false;
+                attackArea.SetActive(isAttacking);
+            }
+        }
     }
 
 
@@ -140,6 +161,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             return true;
         }
     }
+
+    
 
     #region InputRegion
     public void OnMove(InputAction.CallbackContext context)
@@ -185,8 +208,29 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnShoot(InputAction.CallbackContext context)
     {
+        float isShooting = context.ReadValue<float>();
+        
+        //if (!context.started) return;
+        gunController.ShootGun(isShooting);
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        Debug.Log(context.ReadValue<float>());
+        if (context.ReadValue<float>() > 0.9f)
+        {
+            isAttacking = true;
+            attackArea.SetActive(isAttacking);
+        }
+
+        
+
+    }
+
+    public void OnChangeWeapon(InputAction.CallbackContext context)
+    {
         if (!context.started) return;
-        if (context.ReadValue<float>() > 0.9f && !lockedInAnimation) gunController.ShootGun();
+        gunController.ChangeWeapon(context.ReadValue<float>());
     }
 
     public void OnAim(InputAction.CallbackContext context)
