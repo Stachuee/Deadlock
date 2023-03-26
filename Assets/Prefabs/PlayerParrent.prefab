@@ -861,7 +861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4068036383339055871
 Transform:
   m_ObjectHideFlags: 0
@@ -953,6 +953,7 @@ MonoBehaviour:
   maskToIgnore:
     serializedVersion: 2
     m_Bits: 448
+  damage: 5
 --- !u!1 &2636259384864882171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,6 +1570,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 89179be9-83a7-4594-8586-bce9cb6c2da5
     m_ActionName: Player/Attack[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0973f6e0-2444-437c-84c7-f9dd0c9b86bd
+    m_ActionName: Player/ChangeWeapon[/Mouse/scroll/down,/Mouse/scroll/up]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
@@ -1623,6 +1628,12 @@ MonoBehaviour:
   laserMask:
     serializedVersion: 2
     m_Bits: 448
+  weapons:
+  - {fileID: 745601238842397622}
+  - {fileID: 2718576649990314404}
+  - {fileID: 8160140658135817389}
+  - {fileID: 4845781255316465272}
+  - {fileID: 3129904518186138299}
   gun: {fileID: 3129904518186138299}
 --- !u!114 &3730679216946032009
 MonoBehaviour:

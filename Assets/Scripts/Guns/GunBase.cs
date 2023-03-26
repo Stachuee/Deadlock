@@ -23,4 +23,25 @@ public abstract class GunBase : MonoBehaviour, IGun
         isShooting = _isShooting;
     }
 
+    public Transform GetGunTransform()
+    {
+        return transform;
+    }
+
+    public GunBase GetGunScript()
+    {
+        return GetComponent<GunBase>();
+    }
+
+    public Transform GetBarrelTransform()
+    {
+        return GetComponentInChildren<Transform>();
+    }
+
+    public void EnableGun(bool isActive)
+    {
+        gameObject.SetActive(isActive);
+    }
+
+
 }

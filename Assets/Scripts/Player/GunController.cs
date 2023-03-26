@@ -19,7 +19,7 @@ public class GunController : MonoBehaviour
 
     PlayerController playerController;
 
-    [SerializeField] private List<GameObject> weapons;
+    [SerializeField] private List<GunBase> weapons;
     private int currentWeaponIndex = 0;
 
     [SerializeField]
@@ -30,11 +30,17 @@ public class GunController : MonoBehaviour
         playerController = transform.GetComponent<PlayerController>();
         gunSprite = gunTransform.GetComponent<SpriteRenderer>();
 
-        foreach (GameObject weapon in weapons)
+        foreach (GunBase weapon in weapons)
         {
-            weapon.SetActive(false);
+            weapon.EnableGun(false);
         }
-        weapons[currentWeaponIndex].SetActive(true);
+        currentWeaponIndex = 0;
+        Debug.Log(transform.name);
+        weapons[currentWeaponIndex].EnableGun(true);
+
+        gunTransform = weapons[currentWeaponIndex].GetGunTransform();
+        barrel = weapons[currentWeaponIndex].GetBarrelTransform();
+        gun = weapons[currentWeaponIndex].GetGunScript();
     }
 
     private void Update()
@@ -47,23 +53,23 @@ public class GunController : MonoBehaviour
         if (scrollInput >= 1)
         {
             // Scroll up: activate the next weapon in the list
-            weapons[currentWeaponIndex].SetActive(false);
+            weapons[currentWeaponIndex].EnableGun(false);
             currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
-            weapons[currentWeaponIndex].SetActive(true);
-            gunTransform = weapons[currentWeaponIndex].GetComponent<Transform>();
-            barrel = weapons[currentWeaponIndex].GetComponentInChildren<Transform>();
-            gun = weapons[currentWeaponIndex].GetComponent<GunBase>();
+            weapons[currentWeaponIndex].EnableGun(true);
+            gunTransform = weapons[currentWeaponIndex].GetGunTransform();
+            barrel = weapons[currentWeaponIndex].GetBarrelTransform();
+            gun = weapons[currentWeaponIndex].GetGunScript();
 
         }
         else if (scrollInput <= -1)
         {
             // Scroll down: activate the previous weapon in the list
-            weapons[currentWeaponIndex].SetActive(false);
+            weapons[currentWeaponIndex].EnableGun(false);
             currentWeaponIndex = (currentWeaponIndex - 1 + weapons.Count) % weapons.Count;
-            weapons[currentWeaponIndex].SetActive(true);
-            gunTransform = weapons[currentWeaponIndex].GetComponent<Transform>();
-            barrel = weapons[currentWeaponIndex].GetComponentInChildren<Transform>();
-            gun = weapons[currentWeaponIndex].GetComponent<GunBase>();
+            weapons[currentWeaponIndex].EnableGun(true);
+            gunTransform = weapons[currentWeaponIndex].GetGunTransform();
+            barrel = weapons[currentWeaponIndex].GetBarrelTransform();
+            gun = weapons[currentWeaponIndex].GetGunScript();
         }
     }
 

@@ -205,7 +205,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnChangeWeapon(InputAction.CallbackContext context)
     {
-       gunController.ChangeWeapon(context.ReadValue<float>());
+        if (!context.started) return;
+        gunController.ChangeWeapon(context.ReadValue<float>());
     }
 
     public void OnAim(InputAction.CallbackContext context)
