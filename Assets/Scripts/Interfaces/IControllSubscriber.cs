@@ -6,7 +6,7 @@ public interface IControllSubscriberMovment
 {
     public void ForwardCommandMovment(Vector2 controll);
 }
-public interface IControllSubscriberUes
+public interface IControllSubscriberUse
 {
     public void ForwardCommandUse();
 }

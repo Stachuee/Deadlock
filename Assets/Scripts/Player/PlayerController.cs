@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     Vector2 moveDirection = Vector2.zero;
     public Vector2 currentAimDirection {get; private set;}
     Vector2 desiredAimDirection = Vector2.zero;
-    bool keyboard;
+    public bool keyboard;
 
     float jumping;
 
@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     Camera cam;
 
     List<IInteractable> inRange = new List<IInteractable>();
+    IInteractable closestInRange;
 
     [SerializeField]
     int maxItemsHeld = 1;
@@ -87,12 +88,33 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             Vector2 mouse = Mouse.current.position.ReadValue();
             Vector2 mousePos = cam.ScreenToWorldPoint(mouse);
             currentAimDirection = new Vector2((mouse.x - Screen.width/2) / (Screen.width / 2), (mouse.y - Screen.height * 3/4) / (Screen.height * 3 / 4));
+            SendMovmentControll(currentAimDirection);
         }
         else
         {
             Vector2 vel = Vector2.zero;
             currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.02f);
+            SendMovmentControll(desiredAimDirection);
         }
+
+        float closestDistance = Mathf.Infinity;
+        IInteractable closest = null;
+        inRange.ForEach(x =>
+        {
+            float distance = Vector2.Distance(transform.position, x.GetPosition());
+            if (closestDistance > distance)
+            {
+                closestDistance = distance;
+                closest = x;
+            }
+        });
+        if(closest != closestInRange)
+        {
+            if(closestInRange != null) closestInRange.UnHighlight();
+            if(closest != null) closest.Highlight();
+        } 
+        closestInRange = closest;
+
     }
 
 
@@ -123,7 +145,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnMove(InputAction.CallbackContext context)
     {   
         moveDirection = context.ReadValue<Vector2>();
-        SendMovmentControll(moveDirection);
     }
 
     public void OnDrop(InputAction.CallbackContext context)
@@ -148,8 +169,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (context.ReadValue<float>() > 0.9f)
         {
             SendUseControll();
-            if (inRange.Count > 0 && !LockInAnimation)
-                inRange[0].Use(this);
+            if (closestInRange != null && !LockInAnimation)
+            {
+                closestInRange.Use(this);
+            }
+                
         } // use one
     }
 
@@ -222,12 +246,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         movmentSubscribers.ForEach(x => x.ForwardCommandMovment(context));
     }
 
-    List<IControllSubscriberUes> iControllSubscriberUse = new List<IControllSubscriberUes>();
-    public void AddUseSubscriber(IControllSubscriberUes subscriberMovment)
+    List<IControllSubscriberUse> iControllSubscriberUse = new List<IControllSubscriberUse>();
+    public void AddUseSubscriber(IControllSubscriberUse subscriberMovment)
     {
         iControllSubscriberUse.Add(subscriberMovment);
     }
-    public void RemoveUseSubscriber(IControllSubscriberUes subscriberMovment)
+    public void RemoveUseSubscriber(IControllSubscriberUse subscriberMovment)
     {
         iControllSubscriberUse.Remove(subscriberMovment);
     }

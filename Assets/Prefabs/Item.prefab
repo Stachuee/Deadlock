@@ -103,7 +103,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 1}
+    oldSize: {x: 1, y: 0.5}
     newSize: {x: 2, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -127,6 +127,8 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  remoteActivation: 0
+  handActivation: 1
   itemSO: {fileID: 11400000, guid: 58f5050cac7a15d4cb1bf4a4c706dc43, type: 2}
 --- !u!1 &5381100886079257117
 GameObject:

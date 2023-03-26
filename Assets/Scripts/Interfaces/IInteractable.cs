@@ -13,4 +13,11 @@ public interface IInteractable
     public void AddAction(UnityAction<PlayerController> action);
     public void RemoveAction(UnityAction<PlayerController> action);
     public void ClearActions();
+    public bool IsRemote();
+    public bool IsProximity();
+    public void Highlight();
+    public void UnHighlight();
+
+    public Vector2 GetPosition();
+
 }

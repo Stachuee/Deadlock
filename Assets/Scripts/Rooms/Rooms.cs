@@ -21,6 +21,9 @@ public class Rooms : MonoBehaviour
     public bool startingRoom;
     [SerializeField]
     public List<RoomEvent> roomEvents;
+
+    [SerializeField]
+    public List<InteractableBase> remoteAvtivation;
     public Vector2Int RoomSize
     {
         set

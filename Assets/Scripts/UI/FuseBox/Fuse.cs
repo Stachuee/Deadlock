@@ -12,14 +12,14 @@ public class Fuse : MonoBehaviour
     [SerializeField] Sprite offSprite;
 
     FuseBoxUIScript fuseBox;
-    Image button;
+    [SerializeField] Image button;
 
     public string segmentName;
 
-    private void Awake()
-    {
-        button = transform.GetComponent<Image>();
-    }
+    //private void Awake()
+    //{
+    //    button = transform.GetComponent<Image>();
+    //}
 
     public void SetFuse(string segmentName, FuseBoxUIScript fuseBox)
     {

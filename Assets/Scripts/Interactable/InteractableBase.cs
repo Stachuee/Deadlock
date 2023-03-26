@@ -9,7 +9,8 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
 {
     [SerializeField]
     PlayerActionEvent onTrigger = new PlayerActionEvent();
-
+    [SerializeField] protected bool remoteActivation;
+    [SerializeField] protected bool handActivation = true;
     protected virtual void Awake()
     {
         transform.tag = "Interactable";
@@ -33,5 +34,31 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
     public void ClearActions()
     {
         onTrigger.RemoveAllListeners();
+    }
+
+    public bool IsRemote()
+    {
+        return remoteActivation;
+    }
+    public bool IsProximity()
+    {
+        return handActivation;
+    }
+
+    public void Highlight()
+    {
+        SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
+        myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 0.5f);
+    }
+
+    public void UnHighlight()
+    {
+        SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
+        myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 1f);
+    }
+
+    public Vector2 GetPosition()
+    {
+        return transform.position;
     }
 }

@@ -148,4 +148,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onSprite: {fileID: 21300000, guid: 76ee4f7a6e04ce244917897d6d26505a, type: 3}
   offSprite: {fileID: 21300000, guid: 68f663146af484f4eb66b14638384bfb, type: 3}
+  button: {fileID: 2792334084590596674}
   segmentName: 
