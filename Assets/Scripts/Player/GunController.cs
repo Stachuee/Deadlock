@@ -35,7 +35,6 @@ public class GunController : MonoBehaviour
             weapon.EnableGun(false);
         }
         currentWeaponIndex = 0;
-        Debug.Log(transform.name);
         weapons[currentWeaponIndex].EnableGun(true);
 
         gunTransform = weapons[currentWeaponIndex].GetGunTransform();

@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class InputDetection : MonoBehaviour
 {
+
+    public static InputDetection Instance { get; private set; }
+
     [SerializeField] GameObject gamepadPlayer1;
     [SerializeField] GameObject gamepadPlayer2;
 
@@ -15,7 +18,23 @@ public class InputDetection : MonoBehaviour
     private bool isPickingDeviceForPlayer2 = false;
     private InputDevice deviceForPlayer1;
 
+    [System.Serializable]
+    public struct NewDevice
+    {
+        public bool scientist;
+        public string controlScheme;
+        public int deviceIndex;
+        public InputDevice device;
+    }
+
     private Dictionary<int, InputDevice> devices = new Dictionary<int, InputDevice>();
+    List<NewDevice> newDevices = new List<NewDevice>();
+
+    private void Awake()
+    {
+        if(Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     private void Start()
     {
@@ -55,6 +74,7 @@ public class InputDetection : MonoBehaviour
                 {
                     deviceForPlayer1 = device;
                     devices.Add(deviceId, device);
+                    newDevices.Add(new NewDevice() { device = device, deviceIndex = deviceId, controlScheme = "Keyboard", scientist = true });
                     keyboardPlayer1.SetActive(true);
                     currentDeviceIndex++;
                     isPickingDeviceForPlayer1 = false;
@@ -66,6 +86,7 @@ public class InputDetection : MonoBehaviour
                 if (!devices.ContainsKey(deviceId))
                 {
                     devices.Add(deviceId, device);
+                    newDevices.Add(new NewDevice() { device = device, deviceIndex = deviceId, controlScheme = "Keyboard", scientist = false });
                     keyboardPlayer2.SetActive(true);
                     currentDeviceIndex++;
                     isPickingDeviceForPlayer2 = false;
@@ -78,6 +99,7 @@ public class InputDetection : MonoBehaviour
             if (isPickingDeviceForPlayer1)
             {
                 deviceForPlayer1 = device;
+                newDevices.Add(new NewDevice() { device = device, deviceIndex = deviceId, controlScheme = "Gamepad", scientist = true });
                 gamepadPlayer1.SetActive(true);
                 currentDeviceIndex++;
                 isPickingDeviceForPlayer1 = false;
@@ -86,10 +108,15 @@ public class InputDetection : MonoBehaviour
             else if (isPickingDeviceForPlayer2)
             {
                 gamepadPlayer2.SetActive(true);
+                newDevices.Add(new NewDevice() { device = device, deviceIndex = deviceId, controlScheme = "Gamepad", scientist = false });
                 currentDeviceIndex++;
                 isPickingDeviceForPlayer2 = false;
                 enabled = false;
             }
         }
+    }
+    public List<NewDevice> GetAllDevices()
+    {
+        return newDevices;
     }
 }

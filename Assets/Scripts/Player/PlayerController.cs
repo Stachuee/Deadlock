@@ -75,17 +75,23 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     UnityAction callbackWhenUnlocking;
     bool lockedInAnimation;
 
+    public void SetUpPlayer(string controllScheme, int index, bool scientist)
+    {
+        keyboard = controllScheme == "Keyboard";
+
+        cameraController.SetSplitScreenPosition(index);
+
+    }
+
     private void Awake()
     {
         myBody = transform.GetComponent<Rigidbody2D>();
         myinput = transform.GetComponent<PlayerInput>();
         gunController = transform.GetComponent<GunController>();
         equipmentController = transform.GetComponent<EquipmentController>();
-        keyboard = myinput.currentControlScheme == "Keyboard" ? true : false; // Check if player uses keyboard or controller
 
         playerInfo = new PlayerInfo() { hp = 100, maxHp = 100, speed = 5, throwStrength = 500};
 
-        
     }
 
     private void Update() 

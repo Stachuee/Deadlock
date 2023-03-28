@@ -71,7 +71,7 @@ public class Rooms : MonoBehaviour
     {
         FacilityController facilityController = FindObjectOfType<FacilityController>();
         if (facilityController != null) facilityController.ReimportRooms();
-        else Debug.LogError("No facility controller");
+        //else Debug.LogError("No facility controller");
     }
 
     private void Update()
