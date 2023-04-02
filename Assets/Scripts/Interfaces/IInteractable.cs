@@ -17,6 +17,7 @@ public interface IInteractable
     public bool IsProximity();
     public void Highlight();
     public void UnHighlight();
+    public Transform GetTransform();
 
     public Vector2 GetPosition();
 

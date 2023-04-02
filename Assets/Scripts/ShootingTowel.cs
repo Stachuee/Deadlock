@@ -18,8 +18,6 @@ public class ShootingTowel : MonoBehaviour
 
     void Update()
     {
-        
-
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, shootingAreaRadius, enemyLayer);
         Transform target = null;
         float closestDistance = float.MaxValue;

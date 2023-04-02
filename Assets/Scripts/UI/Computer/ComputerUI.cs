@@ -21,10 +21,14 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     List<RoomUiButton> roomsUI = new List<RoomUiButton>();
 
     bool lookingAtMap;
+    bool controlling;
+    ITakeControll controllingObject;
     Rooms activeRoom;
     GameObject firstButton;
 
     bool setUp;
+
+
 
     public void Setup()
     {
@@ -123,10 +127,17 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
     public bool Back()
     {
-        playerController.cameraController.ResetTarget();
-        if (lookingAtMap)
+        if(controlling)
+        {
+            playerController.cameraController.ChangeTarget(activeRoom.transform);
+            controllingObject.Leave();
+            controlling = false;
+            return false;
+        }
+        else if (lookingAtMap)
         {
             panel.SetActive(false);
+            playerController.cameraController.ResetTarget();
             return true;
         }
         else
@@ -165,6 +176,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
     public void ForwardCommandMovment(Vector2 controll)
     {
+        if (controlling) return;
         if(controll.magnitude > 0)
         {
             IInteractable newHighlighted = null;
@@ -189,9 +201,16 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     }
     public void ForwardCommandUse()
     {
-        if(Highlighted != null)
+        if(Highlighted != null && !controlling)
         {
             Highlighted.Use(playerController);
+            if (Highlighted is ITakeControll)
+            {
+                controlling = true;
+                controllingObject = Highlighted as ITakeControll;
+                playerController.cameraController.ChangeTarget(Highlighted.GetTransform());
+                Highlighted = null;
+            }
         }
     }
 

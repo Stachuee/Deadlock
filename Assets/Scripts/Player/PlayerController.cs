@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     [SerializeField]
     Camera cam;
+    bool debugStart = true;
 
     List<IInteractable> inRange = new List<IInteractable>();
     IInteractable closestInRange;
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void SetUpPlayer(string controllScheme, int index, bool scientist)
     {
+        debugStart = false;
         keyboard = controllScheme == "Keyboard";
 
         cameraController.SetSplitScreenPosition(index);
@@ -89,9 +91,15 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         myinput = transform.GetComponent<PlayerInput>();
         gunController = transform.GetComponent<GunController>();
         equipmentController = transform.GetComponent<EquipmentController>();
-
         playerInfo = new PlayerInfo() { hp = 100, maxHp = 100, speed = 5, throwStrength = 500};
+    }
 
+    private void Start()
+    {
+        if(debugStart)
+        {
+            keyboard = GetComponent<PlayerInput>().currentControlScheme == "Keyboard";
+        }
     }
 
     private void Update() 
@@ -218,6 +226,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         
         //if (!context.started) return;
         gunController.ShootGun(isShooting);
+        SendShootControll(isShooting > 0.8f);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -228,9 +237,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             isAttacking = true;
             attackArea.SetActive(isAttacking);
         }
-
-        
-
     }
 
     public void OnChangeWeapon(InputAction.CallbackContext context)
@@ -323,6 +329,22 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         iControllSubscriberBack.ForEach(x => x.ForwardCommandBack());
     }
+
+    List<IControllSubscriberShoot> controllSubscriberShoots = new List<IControllSubscriberShoot>();
+    public void AddShootSubscriber(IControllSubscriberShoot subscriberShoot)
+    {
+        controllSubscriberShoots.Add(subscriberShoot);
+    }
+    public void RemoveShootSubscriber(IControllSubscriberShoot subscriberShoot)
+    {
+        controllSubscriberShoots.Remove(subscriberShoot);
+    }
+    void SendShootControll(bool isShooting)
+    {
+        controllSubscriberShoots.ForEach(x => x.ForwardCommandShoot(isShooting));
+    }
+
+
 
     #endregion
 

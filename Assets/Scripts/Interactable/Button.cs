@@ -10,9 +10,4 @@ public class Button : InteractableBase
     {
         base.Awake();
     }
-
-    public void Test()
-    {
-        Debug.Log("asdas");
-    }
 }

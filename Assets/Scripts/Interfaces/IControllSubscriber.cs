@@ -15,3 +15,8 @@ public interface IControllSubscriberBack
 {
     public void ForwardCommandBack();
 }
+
+public interface IControllSubscriberShoot
+{
+    public void ForwardCommandShoot(bool shooting);
+}

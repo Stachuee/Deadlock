@@ -61,4 +61,9 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
     {
         return transform.position;
     }
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
 }
