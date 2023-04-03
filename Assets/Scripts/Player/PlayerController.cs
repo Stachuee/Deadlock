@@ -109,15 +109,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         if (keyboard) //refactor this pls
         {
-            Vector2 mouse = Mouse.current.position.ReadValue();
-            Vector2 mousePos = cam.ScreenToWorldPoint(mouse);
-            currentAimDirection = new Vector2((mouse.x - Screen.width/2) / (Screen.width / 2), (mouse.y - Screen.height * 3/4) / (Screen.height * 3 / 4));
+            currentAimDirection = cameraController.ViewAngle();
             SendMovmentControll(currentAimDirection);
         }
         else
         {
             Vector2 vel = Vector2.zero;
-            currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.02f);
+            currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.03f);
             SendMovmentControll(desiredAimDirection);
         }
 
@@ -389,4 +387,5 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     }
 
     #endregion
+
 }

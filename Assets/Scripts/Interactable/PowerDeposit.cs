@@ -5,9 +5,18 @@ using UnityEngine.Events;
 
 public class PowerDeposit : InteractableBase
 {
+    [System.Serializable]
+    struct PowerCellStrength
+    {
+        public ItemSO cell;
+        public int strength;
+    }
 
-    [SerializeField] List<ItemSO> acceptedItems;
-    
+
+    [SerializeField] List<PowerCellStrength> powerCellsStrength;
+
+    List<ItemSO> acceptedItems;
+
     [SerializeField]
     ItemSO inDeposit;
     [SerializeField]
@@ -22,6 +31,9 @@ public class PowerDeposit : InteractableBase
         base.Awake();
         fuseBox = transform.GetComponentInParent<FuseBox>();
         AddAction(DepositBattery);
+
+        acceptedItems = new List<ItemSO>();
+        powerCellsStrength.ForEach(x => acceptedItems.Add(x.cell));
     }
 
     public void DepositBattery(PlayerController player)
@@ -29,12 +41,11 @@ public class PowerDeposit : InteractableBase
         if(inDeposit == null)
         {
             ItemSO deposited = player.CheckIfHoldingAnyAndDeposit(acceptedItems);
-
             if (deposited != null)
             {
                 inDeposit = deposited;
                 powerCellRenderer.sprite = deposited.GetIconSprite();
-                fuseBox.PlugIn(true);
+                fuseBox.PlugIn(powerCellsStrength.Find(x => x.cell == deposited).strength);
             }
         }
         else
@@ -43,7 +54,7 @@ public class PowerDeposit : InteractableBase
             temp.GetComponentInChildren<Item>().Innit(inDeposit);
             inDeposit = null;
             powerCellRenderer.sprite = null;
-            fuseBox.PlugIn(false);
+            fuseBox.PlugIn(0);
         }
     }
 

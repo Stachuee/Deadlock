@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af14a1296395cc24d99dbbc1bdd9974b, type: 3}
-  m_Name: PowerCell
+  m_Name: LargePowerCell
   m_EditorClassIdentifier: 
-  id: 2
-  itemName: PowerCell
+  id: 4
+  itemName: LargePowerCell
   defaultSprite: {fileID: 21300000, guid: 759bf50c55f50e34ca5694f34d7dfc75, type: 3}
   icon: {fileID: 21300000, guid: 759bf50c55f50e34ca5694f34d7dfc75, type: 3}

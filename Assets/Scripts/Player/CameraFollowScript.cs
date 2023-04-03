@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraFollowScript : MonoBehaviour
 {
@@ -51,5 +52,21 @@ public class CameraFollowScript : MonoBehaviour
     public void ResetTarget()
     {
         target = playerTransform;
+    }
+
+    public Vector2 GetCenterOfCameraOnScreen()
+    {
+        return new Vector2(cam.rect.center.x * Screen.width, cam.rect.center.y * Screen.height);
+    }
+
+    public Vector2 ViewAngle()
+    {
+        Vector2 returnValue;
+        Vector2 mouse = Mouse.current.position.ReadValue();
+        Vector2 centerOfScreen = GetCenterOfCameraOnScreen();
+        returnValue = (mouse - (Vector2)cam.WorldToScreenPoint(target.position)) / centerOfScreen.x;
+        returnValue = returnValue.magnitude > 1 ? returnValue.normalized : returnValue;
+
+        return returnValue;
     }
 }

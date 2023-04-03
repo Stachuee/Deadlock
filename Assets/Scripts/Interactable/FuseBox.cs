@@ -11,7 +11,8 @@ public class FuseBox : InteractableBase
 
     Dictionary<string, bool> segmentPowered = new Dictionary<string, bool>();
 
-    bool powerToBox;
+    [SerializeField] int powerStrength;
+    [SerializeField] int currentPowerConsumption;
 
     protected override void Awake()
     {
@@ -40,21 +41,24 @@ public class FuseBox : InteractableBase
 
     public void UpdateFuse(string segment, bool value)
     {
+        if(segmentPowered[segment] != value)
+        {
+            if (value) currentPowerConsumption++;
+            else currentPowerConsumption--;
+        }
         segmentPowered[segment] = value;
-
-        MapSegment foundSegment = SegmentController.segmentController.mapSegments.Find(x => x.sectorName == segment);
-        foundSegment.TurnOnOff(type, GetFuseStatus(segment));
+        SegmentController.segmentController.mapSegments.ForEach(x => x.TurnOnOff(type, GetFuseStatus(x.sectorName)));
     }
 
     public bool GetFuseStatus(string segment)
     {
-        return powerToBox && segmentPowered[segment];
+        return powerStrength >= currentPowerConsumption && segmentPowered[segment];
     }
 
-    public void PlugIn(bool on)
+    public void PlugIn(int power)
     {
-        powerToBox = on;
-        if (!on)
+        powerStrength = power;
+        if (currentPowerConsumption > powerStrength)
         {
             SegmentController.segmentController.mapSegments.ForEach(seg =>
             {
