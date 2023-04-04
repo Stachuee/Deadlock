@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (!LockInAnimation) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, new Vector2(moveDirection.x * playerInfo.speed, myBody.velocity.y), ref m_Velocity, m_MovementSmoothing);
         else myBody.velocity = new Vector2(0, myBody.velocity.y);
 
-        if (keyboard) //refactor this pls
+        if (keyboard) 
         {
             currentAimDirection = cameraController.ViewAngle();
             SendMovmentControll(currentAimDirection);
@@ -221,10 +221,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnShoot(InputAction.CallbackContext context)
     {
         float isShooting = context.ReadValue<float>();
-        
         //if (!context.started) return;
-        gunController.ShootGun(isShooting);
         SendShootControll(isShooting > 0.8f);
+        if (lockedInAnimation) return;
+        gunController.ShootGun(isShooting);
     }
 
     public void OnAttack(InputAction.CallbackContext context)

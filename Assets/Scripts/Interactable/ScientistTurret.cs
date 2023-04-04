@@ -49,7 +49,6 @@ public class ScientistTurret : InteractableBase, ITakeControll, IControllSubscri
         base.Awake();
         AddAction(TakeControll);
     }
-
     private void Update()
     {
         if (firing && nextShot < Time.time)

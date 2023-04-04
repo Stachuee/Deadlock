@@ -33,6 +33,11 @@ public class FoundryScript : Workbench
 
         if(itemToCraft != null)
         {
+            for (int i = 0; i < itemDeposits.Length; i++)
+            {
+                itemDeposits[i].RemoveIngredient(true);
+            }
+
             GameObject temp = Instantiate(itemPrefab, (Vector2)transform.position + itemDropOffset, Quaternion.identity);
             temp.GetComponentInChildren<Item>().Innit(itemToCraft.GetCraftedItem());
         }

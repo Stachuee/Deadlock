@@ -35,10 +35,13 @@ public class Deposit : InteractableBase
         }
     }
 
-    public void RemoveIngredient()
+    public void RemoveIngredient(bool usedInCrafting = false)
     {
-        GameObject temp = Instantiate(itemPrefab, transform.position, Quaternion.identity);
-        temp.GetComponentInChildren<Item>().Innit(inDeposit);
+        if(!usedInCrafting)
+        {
+            GameObject temp = Instantiate(itemPrefab, transform.position, Quaternion.identity);
+            temp.GetComponentInChildren<Item>().Innit(inDeposit);
+        }
         inDeposit = null;
         myRenderer.sprite = null;
     }

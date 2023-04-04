@@ -11,6 +11,7 @@ public class MapSegment : MonoBehaviour
     public string sectorName;
     [SerializeField]
     public Color segmentColor;
+    [SerializeField] bool alwaysPowered;
 
 
     [SerializeField] List<GameObject> doors;
@@ -25,14 +26,15 @@ public class MapSegment : MonoBehaviour
 
     private void Start()
     {
-        doors.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(doorsPowered));
-        printers.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(printersPowered));
-        security.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(securityPowered));
-        lights.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(lightsPowered));
+        if(doors != null) doors.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(doorsPowered));
+        if (printers != null) printers.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(printersPowered));
+        if (security != null) security.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(securityPowered));
+        if (lights != null) lights.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(lightsPowered));
     }
 
     public void TurnOnOff(SwitchType switchType, bool on)
     {
+        if (alwaysPowered) return;
         switch (switchType)
         {
             case SwitchType.Doors:
@@ -60,17 +62,21 @@ public class MapSegment : MonoBehaviour
         switch (switchType)
         {
             case SwitchType.Doors:
-                return doorsPowered;
+                return doorsPowered || alwaysPowered;
             case SwitchType.Printers:
-                return printersPowered;
+                return printersPowered || alwaysPowered;
             case SwitchType.Security:
-                return securityPowered;
+                return securityPowered || alwaysPowered;
             case SwitchType.Lights:
-                return lightsPowered;
+                return lightsPowered || alwaysPowered;
         }
         return false;
     }
 
+    public bool CreateFuse()
+    {
+        return !alwaysPowered;
+    }
 
     private void OnDrawGizmos()
     {

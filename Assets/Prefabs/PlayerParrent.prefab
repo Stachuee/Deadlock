@@ -1253,6 +1253,7 @@ MonoBehaviour:
   scale: 30
   scrollRect: {fileID: 646970418508756830}
   contentPanel: {fileID: 6045596211194132613}
+  highlightCursorPrefab: {fileID: 7026962760886844524, guid: 2d4ec8e65e03a1048853b47e27c83494, type: 3}
 --- !u!1 &4281426020509402836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,7 +1888,7 @@ MonoBehaviour:
   playerTransform: {fileID: 4552270140176820841}
   damping: 0.05
   offset: {x: 0, y: 0, z: -10}
-  maxCameraTilt: {x: 3, y: 1}
+  maxCameraTilt: {x: 1, y: 0.5}
 --- !u!1 &4552270140716814243
 GameObject:
   m_ObjectHideFlags: 0

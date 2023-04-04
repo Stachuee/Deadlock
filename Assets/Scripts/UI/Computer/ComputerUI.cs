@@ -17,6 +17,8 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     [SerializeField] ScrollRect scrollRect;
     [SerializeField] RectTransform contentPanel;
 
+    [SerializeField] GameObject highlightCursorPrefab;
+    GameObject highlightCursor;
 
     List<RoomUiButton> roomsUI = new List<RoomUiButton>();
 
@@ -164,9 +166,16 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             {
                 highlighted.UnHighlight();
             }
+
             if(value != null)
             {
                 value.Highlight();
+                if (highlightCursor == null) highlightCursor = Instantiate(highlightCursorPrefab, value.GetTransform().position, Quaternion.identity);
+                else highlightCursor.transform.position = value.GetTransform().position;
+            }
+            else if(highlightCursor != null)
+            {
+                Destroy(highlightCursor);
             }
             highlighted = value;
         }
