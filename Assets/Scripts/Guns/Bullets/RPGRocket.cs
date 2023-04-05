@@ -30,7 +30,7 @@ public class RPGRocket : MonoBehaviour
 
         if (hit.collider != null || timeToDespawnRemain < Time.time)
         {
-            Instantiate(explosionVFX, transform.position, Quaternion.identity);
+            ParticleSystem boomVFX = Instantiate(explosionVFX, transform.position, Quaternion.identity);
             // Check for enemies within explosion range
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
              foreach (Collider2D collider in colliders)
@@ -43,6 +43,7 @@ public class RPGRocket : MonoBehaviour
              }
             
              Destroy(gameObject);
+             Destroy(boomVFX);
          }
          prevPos = transform.position;
         
