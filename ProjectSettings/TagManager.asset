@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Interactable
   - Enemy
+  - Pistol
+  - ARiffle
   layers:
   - Default
   - TransparentFX

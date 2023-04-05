@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     float timeToDespawn;
     float timeToDespawnRemain;
+
+    [SerializeField] DamageType damageType;
     private void Start()
     {
         prevPos = transform.position;
@@ -28,7 +30,7 @@ public class Bullet : MonoBehaviour
         {
             ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
 
-            if (target != null) target.TakeDamage(damage, DamageType.Bullet);
+            if (target != null) target.TakeDamage(damage, damageType);
             Destroy(gameObject);
         }
         prevPos = transform.position;

@@ -233,6 +233,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         gunController.ChangeWeapon(context.ReadValue<float>());
     }
 
+    public void onChangeBullet(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        gunController.ChangeBullet(context.ReadValue<float>());
+    }
+
     public void OnAim(InputAction.CallbackContext context)
     {
         desiredAimDirection = context.ReadValue<Vector2>();

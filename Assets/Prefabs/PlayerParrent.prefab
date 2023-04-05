@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 745601238842397622}
   m_Layer: 6
   m_Name: 8rmgV0
-  m_TagString: Untagged
+  m_TagString: Pistol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
   maxAmmo: 5
   currentAmmo: 5
-  shootDelay: 0.2
+  shootDelay: 0.7
 --- !u!1 &322767848796322639
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +430,7 @@ MonoBehaviour:
   maxAmmo: 5
   currentAmmo: 5
   fireRate: 0.1
+  fireVFX: {fileID: 8462105307739824083, guid: 3b1017c2b70f8954f859117f4ded2aa0, type: 3}
 --- !u!60 &5626578119996359707
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -471,7 +472,7 @@ GameObject:
   - component: {fileID: 2718576649990314404}
   m_Layer: 6
   m_Name: ARiffle
-  m_TagString: Untagged
+  m_TagString: ARiffle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1629,6 +1630,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0973f6e0-2444-437c-84c7-f9dd0c9b86bd
     m_ActionName: Player/ChangeWeapon[/Mouse/scroll/down,/Mouse/scroll/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4552270140176820842}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onChangeBullet
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 873898b7-00aa-420e-9f84-ea939196a30b
+    m_ActionName: Player/ChangeBullet[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1692,7 +1709,10 @@ MonoBehaviour:
   - {fileID: 8160140658135817389}
   - {fileID: 4845781255316465272}
   - {fileID: 3129904518186138299}
-  gun: {fileID: 3129904518186138299}
+  bullets:
+  - {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
+  - {fileID: 2611703158886120060, guid: 63fc4fabe95699f4b818a7d355fe0733, type: 3}
+  - {fileID: 2611703158886120060, guid: 8c4f50e4f55414040b2d29d361007528, type: 3}
 --- !u!114 &3730679216946032009
 MonoBehaviour:
   m_ObjectHideFlags: 0

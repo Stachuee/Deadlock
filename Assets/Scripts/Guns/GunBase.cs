@@ -43,5 +43,10 @@ public abstract class GunBase : MonoBehaviour, IGun
         gameObject.SetActive(isActive);
     }
 
+    public void ChangeBulletType(GameObject _bulletPrefab)
+    {
+        bulletPrefab = _bulletPrefab;
+    }
+
 
 }

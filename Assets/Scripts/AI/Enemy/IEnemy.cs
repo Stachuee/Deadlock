@@ -6,6 +6,5 @@ public interface IEnemy
 {
     void Move(Vector3 targetPosition);
     //void Attack();
-    void TakeDamage(int damageAmount);
     void Die();
 }

@@ -22,8 +22,10 @@ public class GunController : MonoBehaviour
     [SerializeField] private List<GunBase> weapons;
     private int currentWeaponIndex = 0;
 
-    [SerializeField]
     GunBase gun;
+
+    [SerializeField] private List<GameObject> bullets;
+    private int currentBulletIndex = 0;
 
     private void Awake()
     {
@@ -71,6 +73,19 @@ public class GunController : MonoBehaviour
             barrel = weapons[currentWeaponIndex].GetBarrelTransform();
             gun = weapons[currentWeaponIndex].GetGunScript();
         }
+    }
+
+    public void ChangeBullet(float input)
+    {
+        if (input >= 1)
+        {
+            if(gun.CompareTag("ARiffle")|| gun.CompareTag("Pistol"))
+            {
+                currentBulletIndex = (currentBulletIndex + 1) % bullets.Count;
+                gun.ChangeBulletType(bullets[currentBulletIndex]);
+            }
+        }
+        
     }
 
     void RotateGun()
