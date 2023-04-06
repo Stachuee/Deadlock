@@ -101,6 +101,8 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  remoteActivation: 0
+  handActivation: 1
   connectedDoors: {fileID: 0}
 --- !u!61 &7695553992965360477
 BoxCollider2D:

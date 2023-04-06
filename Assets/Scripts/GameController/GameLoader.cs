@@ -25,6 +25,11 @@ public class GameLoader : MonoBehaviour
 
     private void Start()
     {
+        //Generate map
+
+        NavController.instance.CreateNavMesh();
+
+
         if(InputInfoHolder.Instance != null)
         {
             List<InputDetection.NewDevice> devices = InputInfoHolder.Instance.GetDevices();

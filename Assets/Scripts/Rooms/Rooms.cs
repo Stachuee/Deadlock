@@ -24,6 +24,7 @@ public class Rooms : MonoBehaviour
 
     [SerializeField]
     public List<InteractableBase> remoteAvtivation;
+    
     public Vector2Int RoomSize
     {
         set
