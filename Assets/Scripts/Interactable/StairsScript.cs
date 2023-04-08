@@ -7,6 +7,7 @@ public class StairsScript : InteractableBase
 
     [SerializeField]
     StairsScript connectedDoors;
+    public NavNode node;
 
     protected override void Awake()
     {
@@ -23,5 +24,10 @@ public class StairsScript : InteractableBase
     {
         Gizmos.color = Color.cyan;
         if(connectedDoors != null) Gizmos.DrawLine(transform.position, connectedDoors.transform.position);
+    }
+
+    public StairsScript GetConnected()
+    {
+        return connectedDoors;
     }
 }

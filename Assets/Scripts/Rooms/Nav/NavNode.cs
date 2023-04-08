@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NavNode : MonoBehaviour
 {
     [SerializeField]
-    NavNodeType navNodeType;
+    public NavNodeType navNodeType;
 
     [SerializeField]
     List<NavNode> connectedNodes = new List<NavNode>();
 
-    enum NavNodeType { Horizontal, Stairs}
+    public NavNode previous;
+    public float distance;
+
+    public enum NavNodeType { Horizontal, Stairs}
 
     private void OnDrawGizmos()
     { 
@@ -27,5 +31,15 @@ public class NavNode : MonoBehaviour
     public void AddConnectedNode(NavNode node)
     {
         connectedNodes.Add(node);
+    }
+    public void AddConnectedNode(List<NavNode> node)
+    {
+        connectedNodes.AddRange(node);
+        connectedNodes = connectedNodes.Distinct().ToList();
+    }
+
+    public List<NavNode> GetConnectedNodes()
+    {
+        return connectedNodes;
     }
 }
