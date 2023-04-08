@@ -19,7 +19,7 @@ public class Crawler : _EnemyBase
 
     private void Start()
     {
-        path = NavController.instance.GetPahtToScientist(transform.position);
+        path = NavController.instance.GetPathToScientist(transform.position);
         if(path.Count > 0)
         {
             currentTarget = path.Dequeue();
@@ -28,22 +28,32 @@ public class Crawler : _EnemyBase
 
     private void Update()
     {
-        Vector2 direction = new Vector2((currentTarget.transform.position - transform.position).x, 0);
-        rb.velocity = direction.normalized * speed;
-
-        if(direction.magnitude < 1f && path.Count > 0)
+        if(currentTarget != null)
         {
-            if(currentTarget.navNodeType == NavNode.NavNodeType.Stairs)
+            Vector2 direction = new Vector2((currentTarget.transform.position - transform.position).x, 0);
+            rb.velocity = direction.normalized * speed;
+
+            if (direction.magnitude < 1f && path.Count > 0)
             {
-                currentTarget = path.Dequeue();
-                transform.position = currentTarget.transform.position;
-                currentTarget = path.Dequeue();
+                if (currentTarget.navNodeType == NavNode.NavNodeType.Stairs)
+                {
+                    currentTarget = path.Dequeue();
+                    transform.position = currentTarget.transform.position;
+                    currentTarget = path.Dequeue();
+                }
+                else
+                {
+                    currentTarget = path.Dequeue();
+                }
             }
-            else
-            {
-                currentTarget = path.Dequeue();
-            }
+
         }
 
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        if(currentTarget != null) Gizmos.DrawLine(transform.position, currentTarget.transform.position);
     }
 }

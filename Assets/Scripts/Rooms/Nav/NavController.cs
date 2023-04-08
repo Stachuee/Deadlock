@@ -12,6 +12,7 @@ public class NavController : MonoBehaviour
     
     [SerializeField]
     Rooms targetRoom;
+    NavNode targetNode;
 
     [SerializeField]
     GameObject navNode;
@@ -22,22 +23,17 @@ public class NavController : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public Queue<NavNode> GetPahtToScientist(Vector2 from)
-    {
-        return GetPathTo(from, targetRoom.transform.position);
-    }
-
     public Queue<NavNode> GetPathTo(Vector2 from, Vector2 to)
     {
-        Queue<NavNode> path = new Queue<NavNode> ();
+        Queue<NavNode> path = new Queue<NavNode>();
 
         NavNode currentNode = FindClosestWaypoint(from);
         NavNode toNode = FindClosestWaypoint(to);
 
 
-        if(currentNode == null || toNode == null)
+        if (currentNode == null || toNode == null)
         {
-            path.Enqueue (currentNode);
+            path.Enqueue(currentNode);
             return path;
         }
 
@@ -48,7 +44,7 @@ public class NavController : MonoBehaviour
         currentNode.previous = null;
         currentNode.distance = 0f;
 
-        while(openList.Count > 0)
+        while (openList.Count > 0)
         {
             currentNode = openList.Values[0];
             openList.RemoveAt(0);
@@ -83,17 +79,39 @@ public class NavController : MonoBehaviour
         return path;
     }
 
-    private NavNode FindClosestWaypoint(Vector2 target)
+    public Queue<NavNode> GetPathToScientist(Vector2 from)
+    {
+        Queue<NavNode> path = new Queue<NavNode>();
+        NavNode currentNode = FindClosestWaypoint(from);
+        if(currentNode == null) return path;
+
+        path.Enqueue(currentNode);
+
+        while (currentNode.nextNode != null)
+        {
+            currentNode = currentNode.nextNode;
+            path.Enqueue(currentNode);
+        }
+
+        return path;
+    }
+
+    [SerializeField]
+    LayerMask navNodeLayerMask;
+    private NavNode FindClosestWaypoint(Vector2 target, bool toScientist = false)
     {
         NavNode closest = null;
         float closestDist = Mathf.Infinity;
         foreach (NavNode waypoint in nodes)
         {
-            var dist = ((Vector2)waypoint.transform.position - target).magnitude;
+            var dist = ((Vector2)waypoint.transform.position - target).magnitude + (toScientist ? waypoint.distanceToScientist : 0);
             if (dist < closestDist)
             {
-                closest = waypoint;
-                closestDist = dist;
+                if(!Physics2D.Linecast(waypoint.transform.position, target, ~navNodeLayerMask))
+                {
+                    closest = waypoint;
+                    closestDist = dist;
+                }
             }
         }
         if (closest != null)
@@ -110,6 +128,35 @@ public class NavController : MonoBehaviour
 
     }
 
+    void AddWeigthToNodes()
+    {
+        List<NavNode> closedList = new List<NavNode>();
+        List<NavNode> openList = new List<NavNode>();
+
+        targetNode.distanceToScientist = 0;
+        openList.Add(targetNode);
+
+        while (openList.Count > 0)
+        {
+            targetNode = openList[0];
+            openList.RemoveAt(0);
+            closedList.Add(targetNode);
+
+            float distance = targetNode.distanceToScientist;
+
+            targetNode.GetConnectedNodes().ForEach(n =>
+            {
+                if(!(openList.Contains(n) || closedList.Contains(n)))
+                {
+                    n.distanceToScientist = distance + Vector2.Distance(targetNode.transform.position, n.transform.position);
+                    n.nextNode = targetNode;
+                    openList.Add(n);
+                }
+            });
+            openList.Sort((first, second) => first.distanceToScientist.CompareTo(second.distanceToScientist));
+        }
+    }
+
     struct DoorNav
     {
         public StairsScript script;
@@ -121,6 +168,7 @@ public class NavController : MonoBehaviour
     {
         List<Rooms> allRooms = FindObjectsOfType<Rooms>().ToList();
         targetRoom = allRooms.Find(x => x.startingRoom == true);
+
         if(targetRoom == null)
         {
             Debug.LogError("Create room marked as starting");
@@ -140,6 +188,7 @@ public class NavController : MonoBehaviour
         allRooms.ForEach(r =>
         {
             nodes.Add(Instantiate(navNode, r.Position, Quaternion.identity, r.transform).GetComponent<NavNode>());
+            if(r == targetRoom) targetNode = nodes[nodes.Count - 1];
         });
 
         // match rooms with overlaping door markers
@@ -194,6 +243,6 @@ public class NavController : MonoBehaviour
         {
             stairsNode.node.AddConnectedNode(stairsNode.script.GetConnected().node);
         });
-
+        AddWeigthToNodes();
     }
 }

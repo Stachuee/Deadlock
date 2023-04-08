@@ -10,9 +10,14 @@ public class NavNode : MonoBehaviour
 
     [SerializeField]
     List<NavNode> connectedNodes = new List<NavNode>();
-
+    
+    [HideInInspector]
     public NavNode previous;
+    [HideInInspector]
     public float distance;
+
+    public NavNode nextNode;
+    public float distanceToScientist;
 
     public enum NavNodeType { Horizontal, Stairs}
 
