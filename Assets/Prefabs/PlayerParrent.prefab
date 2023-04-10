@@ -1253,7 +1253,7 @@ MonoBehaviour:
   scale: 30
   scrollRect: {fileID: 646970418508756830}
   contentPanel: {fileID: 6045596211194132613}
-  highlightCursorPrefab: {fileID: 7026962760886844524, guid: 2d4ec8e65e03a1048853b47e27c83494, type: 3}
+  highlightCursorPrefab: {fileID: 34450560346991977, guid: 3ef44aeedaa59a5468fd500967941541, type: 3}
 --- !u!1 &4281426020509402836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,6 +1657,7 @@ MonoBehaviour:
       fireResistance: 0
       posionResistance: 0
       iceResistance: 0
+      meleResistance: 0
   m_MovementSmoothing: 0.05
   topPlayer: 0
   keyboard: 0

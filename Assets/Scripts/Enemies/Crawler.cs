@@ -12,9 +12,35 @@ public class Crawler : _EnemyBase
 
     Rigidbody2D rb;
 
+    ITakeDamage damaging;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.transform.tag == "Interactable")
+        {
+            ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
+            if(temp != null)
+            {
+                damaging = temp;
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Interactable")
+        {
+            ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
+            if (temp == damaging)
+            {
+                damaging = null;
+            }
+        }
     }
 
     private void Start()
@@ -47,6 +73,12 @@ public class Crawler : _EnemyBase
                 }
             }
 
+        }
+
+        if(damaging != null && lastAttack + attackSpeed < Time.time )
+        {
+            damaging.TakeDamage(damage, DamageType.Mele);
+            lastAttack = Time.time;
         }
 
     }

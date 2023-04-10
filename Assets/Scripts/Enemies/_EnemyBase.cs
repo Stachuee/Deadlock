@@ -13,6 +13,9 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected float speed;
     [SerializeField]
     protected float damage;
+    [SerializeField]
+    protected float attackSpeed;
+    protected float lastAttack;
 
     [SerializeField]
     DamageTypeResistance resistances;

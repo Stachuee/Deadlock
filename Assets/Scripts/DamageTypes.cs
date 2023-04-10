@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DamageType { Bullet, Fire, Posion, Ice }
+public enum DamageType { Bullet, Fire, Posion, Ice, Mele }
 
 [System.Serializable]
 public struct DamageTypeResistance
@@ -15,6 +15,8 @@ public struct DamageTypeResistance
     public float posionResistance;
     [Range(0, 1f)]
     public float iceResistance;
+    [Range(0, 1f)]
+    public float meleResistance;
 
     public float GetResistance(DamageType type)
     {
@@ -28,6 +30,8 @@ public struct DamageTypeResistance
                 return posionResistance;
             case DamageType.Ice:
                 return iceResistance;
+            case DamageType.Mele:
+                return meleResistance;
         }
         return 1;
     }

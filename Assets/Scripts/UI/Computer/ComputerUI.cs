@@ -89,6 +89,11 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             contentPanel.anchoredPosition = Vector2.SmoothDamp(contentPanel.anchoredPosition, (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
         - (Vector2)scrollRect.transform.InverseTransformPoint(playerController.uiController.myEventSystem.currentSelectedGameObject.transform.position), ref vel, 0.05f);
         }
+
+        if (Highlighted != null)
+        {
+            highlightCursor.transform.position = Highlighted.GetTransform().position;
+        }
     }
 
 
@@ -170,8 +175,9 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             if(value != null)
             {
                 value.Highlight();
-                if (highlightCursor == null) highlightCursor = Instantiate(highlightCursorPrefab, value.GetTransform().position, Quaternion.identity);
+                if (highlightCursor == null) highlightCursor = Instantiate(highlightCursorPrefab, value.GetTransform().position, Quaternion.identity, transform);
                 else highlightCursor.transform.position = value.GetTransform().position;
+                highlightCursor.GetComponent<HighlightController>().SetupHighlight(value);
             }
             else if(highlightCursor != null)
             {

@@ -16,6 +16,8 @@ public interface IInteractable
     public bool IsRemote();
     public bool IsProximity();
     public void Highlight();
+
+    public InfoContainer GetInfo();
     public void UnHighlight();
     public Transform GetTransform();
 

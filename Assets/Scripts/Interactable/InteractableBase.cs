@@ -7,8 +7,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider2D))]
 public abstract class InteractableBase : MonoBehaviour, IInteractable
 {
-    [SerializeField]
-    PlayerActionEvent onTrigger = new PlayerActionEvent();
+    [SerializeField] protected string displayName;
+    [SerializeField] PlayerActionEvent onTrigger = new PlayerActionEvent();
     [SerializeField] protected bool remoteActivation;
     [SerializeField] protected bool handActivation = true;
     protected virtual void Awake()
@@ -45,16 +45,21 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         return handActivation;
     }
 
-    public void Highlight()
+    public virtual void Highlight()
     {
         SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
         myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 0.5f);
     }
 
-    public void UnHighlight()
+    public virtual void UnHighlight()
     {
         SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
         myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 1f);
+    }
+
+    public virtual InfoContainer GetInfo()
+    {
+        return new InfoContainer { name = displayName };
     }
 
     public Vector2 GetPosition()

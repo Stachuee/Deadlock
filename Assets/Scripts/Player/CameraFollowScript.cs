@@ -11,7 +11,7 @@ public class CameraFollowScript : MonoBehaviour
     Transform target;
 
     PlayerController playerController;
-    Camera cam;
+    public Camera cam;
 
     [Range(0, .3f)][SerializeField] float damping;
     [SerializeField] Vector3 offset;

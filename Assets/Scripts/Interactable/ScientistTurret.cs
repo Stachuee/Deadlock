@@ -71,6 +71,7 @@ public class ScientistTurret : InteractableBase, ITakeControll, IControllSubscri
         user.RemoveShootSubscriber(this);
     }
 
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
