@@ -25,7 +25,6 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy
         Destroy(gameObject);
     }
 
-
     protected bool CanSeeTarget()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");

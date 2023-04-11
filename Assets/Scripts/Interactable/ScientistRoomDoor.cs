@@ -34,6 +34,7 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
         }
         if (doorHp <= 0)
         {
+            GameController.gameController.DestroyedScientistDoor();
             Destroy(gameObject);
         }
 

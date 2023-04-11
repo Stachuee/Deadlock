@@ -20,6 +20,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     [SerializeField]
     DamageTypeResistance resistances;
 
+
     public float TakeDamage(float damage, DamageType type)
     {
         float damageTaken = (1 - resistances.GetResistance(type)) * damage;
