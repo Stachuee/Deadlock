@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "Item", menuName = "ScriptableObjects/Items", order = 1)]
-public class ItemSO : ScriptableObject
+public abstract class ItemSO : ScriptableObject
 {
     [SerializeField] int id;
     [SerializeField] string itemName;
     [SerializeField] Sprite defaultSprite;
     [SerializeField] Sprite icon;
+
+    public abstract bool PickUp(PlayerController player, Item item);
+    public abstract void Drop(PlayerController player, Item item);
+
 
     #region Get/Set
     public int GetId()

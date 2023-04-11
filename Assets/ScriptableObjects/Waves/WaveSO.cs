@@ -19,10 +19,6 @@ public class WaveSO : ScriptableObject
     }
 
     [SerializeField]
-    int wave;
-    [SerializeField]
-    int waveWeigth;
-    [SerializeField]
     float nextWaveDelay;
 
     [SerializeField]

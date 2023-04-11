@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af14a1296395cc24d99dbbc1bdd9974b, type: 3}
-  m_Name: RedMat
+  m_Script: {fileID: 11500000, guid: 1898fe3474bdc1248b84d3c6fb269453, type: 3}
+  m_Name: Scrap
   m_EditorClassIdentifier: 
   id: 0
-  itemName: Red
+  itemName: Scrap
   defaultSprite: {fileID: 21300000, guid: a300325b4881a1a4d9fb2998d3ee253a, type: 3}
   icon: {fileID: 21300000, guid: a300325b4881a1a4d9fb2998d3ee253a, type: 3}

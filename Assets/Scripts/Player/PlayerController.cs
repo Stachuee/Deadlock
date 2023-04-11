@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     [SerializeField] bool topPlayer;
 
     Vector2 moveDirection = Vector2.zero;
-    public Vector2 currentAimDirection {get; private set;}
+    public Vector2 currentAimDirection { get; private set; }
     Vector2 desiredAimDirection = Vector2.zero;
     public bool keyboard;
 
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     float attackTimer = 0f;
     bool isAttacking = false;
 
-    
+
 
     [SerializeField]
     Camera cam;
@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     int maxItemsHeld = 1;
     List<ItemSO> heldItems = new List<ItemSO>();
 
+    public bool isScientist {get; private set;}
 
     public bool LockInAnimation
     {
@@ -82,7 +83,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         keyboard = controllScheme == "Keyboard";
 
         cameraController.SetSplitScreenPosition(index);
-
+        isScientist = scientist;
     }
 
     private void Awake()

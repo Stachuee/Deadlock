@@ -29,6 +29,7 @@ public class Item : InteractableBase
 
     void PickUpMatherial(PlayerController player)
     {
-        if (player.PickUp(itemSO)) Destroy(transform.parent.gameObject);
+        //if (player.PickUp(itemSO)) Destroy(transform.parent.gameObject);
+        if (itemSO.PickUp(player, this) && player.PickUp(itemSO)) Destroy(transform.parent.gameObject);
     }
 }
