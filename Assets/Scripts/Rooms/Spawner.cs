@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
 
     Queue<WaveSO.SubWave> waveToSpawn = new Queue<WaveSO.SubWave>();
 
-    Queue<GameObject> prefabsToSpawn;
+    Queue<GameObject> prefabsToSpawn = new Queue<GameObject>();
 
     private void Update()
     {

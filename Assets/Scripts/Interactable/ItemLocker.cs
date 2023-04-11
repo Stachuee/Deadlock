@@ -39,7 +39,7 @@ public class ItemLocker : InteractableBase
         {
             yield return new WaitForSeconds(searchSpeed);
             GameObject temp = Instantiate(itemPrefab, (Vector2)transform.position, Quaternion.identity);
-            temp.GetComponentInChildren<Item>().Innit(items[0]);
+            temp.GetComponentInChildren<Item>().Innit(items[0], null);
             items.RemoveAt(0);
         }
         player.UnlockInAnimation();

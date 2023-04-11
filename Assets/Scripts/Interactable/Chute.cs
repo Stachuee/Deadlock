@@ -5,9 +5,7 @@ using UnityEngine;
 public class Chute : InteractableBase
 {
     [SerializeField]
-    bool outputChute;
-
-    public static Chute outChute;
+    Chute connectedChute;
 
     [SerializeField]
     GameObject itemPrefab;
@@ -15,21 +13,7 @@ public class Chute : InteractableBase
     protected override void Awake()
     {
         base.Awake();
-        if (outputChute)
-        {
-            if(outChute == null)
-            {
-                outChute = this;
-            }
-            else
-            {
-                Debug.LogError("Multiple out chutes");
-            }
-        }
-        else
-        {
-            AddAction(DumpItems);
-        }
+        AddAction(DumpItems);
     }
 
 
@@ -37,7 +21,7 @@ public class Chute : InteractableBase
     {
         for (ItemSO temp = player.DepositIngredient(); temp != null; temp = player.DepositIngredient())
         {
-            outChute.DropItems(temp);
+            connectedChute.DropItems(temp);
         }
     }
     
@@ -47,4 +31,10 @@ public class Chute : InteractableBase
         temp.GetComponentInChildren<Item>().Innit(item);
     }
 
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        if(connectedChute != null)Gizmos.DrawLine(transform.position, connectedChute.transform.position);
+    }
 }

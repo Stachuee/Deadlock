@@ -13,8 +13,6 @@ public class FacilityController : MonoBehaviour
     [SerializeField]
     public List<Rooms> allRooms;
 
-    [SerializeField]
-    bool debugConnections;
 
     private void Awake()
     {

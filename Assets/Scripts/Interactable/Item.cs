@@ -22,14 +22,24 @@ public class Item : InteractableBase
         AddAction(PickUpMatherial); 
     }
 
-    public void Innit(ItemSO item)
+    public void Innit(ItemSO item, PlayerController player = null)
     {
         itemSO = item;
+        item.Drop(player, this);
     }
 
     void PickUpMatherial(PlayerController player)
     {
         //if (player.PickUp(itemSO)) Destroy(transform.parent.gameObject);
-        if (itemSO.PickUp(player, this) && player.PickUp(itemSO)) Destroy(transform.parent.gameObject);
+        bool destroy = false;
+
+        if(itemSO.PickUp(player, this, out destroy))
+        {
+            if(player.PickUp(itemSO)) Destroy(transform.parent.gameObject);
+        }
+        else if(destroy)
+        {
+            Destroy(transform.parent.gameObject);
+        }
     }
 }

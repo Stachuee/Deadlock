@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         if (heldItems.Count == 0) return;
         Item itemDropped = Instantiate(itemPrefab, transform.position, Quaternion.identity).GetComponentInChildren<Item>();
-        itemDropped.Innit(heldItems[heldItems.Count - 1]);
+        itemDropped.Innit(heldItems[heldItems.Count - 1], this);
         heldItems.RemoveAt(heldItems.Count - 1);
 
         itemDropped.GetComponentInParent<Rigidbody2D>().AddForce(currentAimDirection.normalized * playerInfo.throwStrength);

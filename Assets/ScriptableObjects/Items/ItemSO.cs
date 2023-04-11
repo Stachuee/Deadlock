@@ -10,7 +10,7 @@ public abstract class ItemSO : ScriptableObject
     [SerializeField] Sprite defaultSprite;
     [SerializeField] Sprite icon;
 
-    public abstract bool PickUp(PlayerController player, Item item);
+    public abstract bool PickUp(PlayerController player, Item item, out bool destroy);
     public abstract void Drop(PlayerController player, Item item);
 
 
