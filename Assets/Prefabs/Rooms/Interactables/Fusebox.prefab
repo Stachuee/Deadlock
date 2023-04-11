@@ -125,12 +125,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5437d0fb0b042244ca491e5629f05736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
   type: 2
+  powerStrength: 0
+  currentPowerConsumption: 0
 --- !u!1 &2684830775808626475
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,18 +259,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79520879b99dc054aabd3138dd80096c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
   powerCellsStrength:
-  - cell: {fileID: 11400000, guid: fb7f0a8dc8f3548448fc4867b41ee130, type: 2}
+  - cell: {fileID: 11400000, guid: d07f82cfe08ed504db7a257fb3a5d35b, type: 2}
     strength: 1
-  - cell: {fileID: 11400000, guid: 892a275f476f3ca49a86e2c1ad94bb91, type: 2}
-    strength: 2
-  - cell: {fileID: 11400000, guid: 9e15df4112280f3488151044f0765172, type: 2}
-    strength: 3
   inDeposit: {fileID: 0}
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   powerCellRenderer: {fileID: 940326108313521810}

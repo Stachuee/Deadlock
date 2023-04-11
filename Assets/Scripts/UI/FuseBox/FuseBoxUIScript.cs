@@ -1,3 +1,4 @@
+using GD.MinMaxSlider;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,11 @@ public class FuseBoxUIScript : MonoBehaviour
 
     [SerializeField] Transform fuseBoxUI;
 
+    [SerializeField] Transform gaugeArrow;
     FuseBox openFuseBox;
+
+    [SerializeField]
+    Vector2 gaugeAngle;
 
     SwitchType openType;
 
@@ -34,6 +39,15 @@ public class FuseBoxUIScript : MonoBehaviour
             fuses.Add(temp);
         }
         setUp = true;
+    }
+
+    private void Update()
+    {
+        if(openFuseBox != null)
+        {
+            float angle = (gaugeAngle.y - gaugeAngle.x) * Mathf.Min(openFuseBox.GetPowerConsumption(), 1.2f); // max overloaded arrow 
+            gaugeArrow.rotation = Quaternion.Euler(0, 0, gaugeAngle.x + angle); 
+        }
     }
 
     public void OpenBox(SwitchType openType, FuseBox boxOpen)

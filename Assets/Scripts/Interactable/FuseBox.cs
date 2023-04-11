@@ -74,4 +74,8 @@ public class FuseBox : InteractableBase
             });
         }
     }
+    public float GetPowerConsumption()
+    {
+        return powerStrength > 0 ? (float) currentPowerConsumption / (float) powerStrength : 0;
+    }
 }
