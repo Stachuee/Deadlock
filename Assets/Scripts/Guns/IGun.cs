@@ -11,6 +11,7 @@ public interface IGun
     public GunBase GetGunScript();
     public Transform GetBarrelTransform();
     public void EnableGun(bool isActive);
+    public GameObject GetInventorySlotPrefab();
 
 
 }

@@ -22,6 +22,8 @@ public class GunController : MonoBehaviour
     [SerializeField] private List<GunBase> weapons;
     private int currentWeaponIndex = 0;
 
+    [SerializeField] private Inventory inventory;
+
     GunBase gun;
 
     [SerializeField] private List<GameObject> bullets;
@@ -45,47 +47,46 @@ public class GunController : MonoBehaviour
         gun = weapons[currentWeaponIndex].GetGunScript();
     }
 
+    private void Start()
+    {
+        inventory.AddGun(weapons[1].GetInventorySlotPrefab());
+        inventory.AddGun(weapons[0].GetInventorySlotPrefab());
+        inventory.AddGun(weapons[2].GetInventorySlotPrefab());
+        inventory.AddGun(weapons[3].GetInventorySlotPrefab());
+        inventory.AddGun(weapons[4].GetInventorySlotPrefab());
+    }
+
     private void Update()
     {
         RotateGun();
     }
 
-    public void ChangeWeapon(float scrollInput)
-    {
-        if (scrollInput >= 1)
-        {
-            // Scroll up: activate the next weapon in the list
-            weapons[currentWeaponIndex].EnableGun(false);
-            currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
-            weapons[currentWeaponIndex].EnableGun(true);
-            gunTransform = weapons[currentWeaponIndex].GetGunTransform();
-            barrel = weapons[currentWeaponIndex].GetBarrelTransform();
-            gun = weapons[currentWeaponIndex].GetGunScript();
 
-        }
-        else if (scrollInput <= -1)
-        {
-            // Scroll down: activate the previous weapon in the list
-            weapons[currentWeaponIndex].EnableGun(false);
-            currentWeaponIndex = (currentWeaponIndex - 1 + weapons.Count) % weapons.Count;
-            weapons[currentWeaponIndex].EnableGun(true);
-            gunTransform = weapons[currentWeaponIndex].GetGunTransform();
-            barrel = weapons[currentWeaponIndex].GetBarrelTransform();
-            gun = weapons[currentWeaponIndex].GetGunScript();
-        }
+
+    public void ChangeWeapon(int gunIndex)
+    {
+        weapons[currentWeaponIndex].EnableGun(false);
+        currentWeaponIndex = gunIndex;
+
+        gunTransform = weapons[currentWeaponIndex].GetGunTransform();
+        barrel = weapons[currentWeaponIndex].GetBarrelTransform();
+        gun = weapons[currentWeaponIndex].GetGunScript();
+
+        weapons[currentWeaponIndex].EnableGun(true);
     }
+
 
     public void ChangeBullet(float input)
     {
         if (input >= 1)
         {
-            if(gun.CompareTag("ARiffle")|| gun.CompareTag("Pistol"))
+            if (gun.CompareTag("ARiffle") || gun.CompareTag("Pistol"))
             {
                 currentBulletIndex = (currentBulletIndex + 1) % bullets.Count;
                 gun.ChangeBulletType(bullets[currentBulletIndex]);
             }
         }
-        
+
     }
 
     void RotateGun()
@@ -100,7 +101,7 @@ public class GunController : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(barrel.position, diff, Mathf.Infinity, ~laserMask);
 
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
             laser.SetPosition(0, barrel.position);
             laser.SetPosition(1, hit.point);

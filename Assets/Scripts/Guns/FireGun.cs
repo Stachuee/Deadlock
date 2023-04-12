@@ -18,7 +18,7 @@ public class FireGun : GunBase
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy") && isShooting >= 0.9f)
+        if(collision.CompareTag("Enemy") && isShooting >= 0.9f && currentAmmo > 0)
         {
             
             if (Time.time < shootTimer + fireRate)
@@ -36,9 +36,14 @@ public class FireGun : GunBase
         Vector2 diff = (owner.currentAimDirection).normalized;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
-        if(isShooting >= 0.9f)
+        if(isShooting >= 0.9f && currentAmmo > 0)
         {
             ParticleSystem firePS = Instantiate(fireVFX, transform.position, Quaternion.identity);
+            if (Time.time < shootTimer + fireRate)
+            {
+                return; // not enough time has passed since last shot
+            }
+            currentAmmo -= 5;
         }
             
     }

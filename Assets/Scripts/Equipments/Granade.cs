@@ -14,6 +14,8 @@ public class Granade : MonoBehaviour
 
     [SerializeField] ParticleSystem explosionVFX;
 
+    [SerializeField] GameObject inventorySlotPrefab;
+
     private void Start()
     {
         explosionTimer = fuseDuration + Time.time;    
@@ -41,6 +43,11 @@ public class Granade : MonoBehaviour
             }
         }
         Destroy(gameObject);
+    }
+
+    public GameObject GetInventorySlotPrefab()
+    {
+        return inventorySlotPrefab;
     }
 
     private void OnDrawGizmosSelected()

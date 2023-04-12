@@ -10,6 +10,8 @@ public abstract class GunBase : MonoBehaviour, IGun
     [SerializeField] protected int currentAmmo;
     protected PlayerController owner;
 
+    [SerializeField] protected GameObject inventorySlotPrefab;
+
     protected float isShooting = 0;
 
     private void Start()
@@ -18,6 +20,7 @@ public abstract class GunBase : MonoBehaviour, IGun
     }
 
     public abstract void Reload();
+    
     public void Shoot(float _isShooting)
     {
         isShooting = _isShooting;
@@ -46,6 +49,12 @@ public abstract class GunBase : MonoBehaviour, IGun
     public void ChangeBulletType(GameObject _bulletPrefab)
     {
         bulletPrefab = _bulletPrefab;
+    }
+
+
+    public GameObject GetInventorySlotPrefab()
+    {
+        return inventorySlotPrefab;
     }
 
 

@@ -14,7 +14,7 @@ public class Pistol : GunBase
 
     private void Update()
     {
-        if (isShooting >= 0.9f)
+        if (isShooting >= 0.9f && currentAmmo > 0)
         {
             if (Time.time < shootTimer + shootDelay)
             {
@@ -24,6 +24,7 @@ public class Pistol : GunBase
             Vector2 diff = (owner.currentAimDirection).normalized;
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
             Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
+            currentAmmo--;
 
             shootTimer = Time.time; // reset timer to current time
         }

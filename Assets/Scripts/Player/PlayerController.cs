@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     [SerializeField]
     Camera cam;
 
+    [SerializeField]
+    GameObject inventoryPanel;
+
     List<IInteractable> inRange = new List<IInteractable>();
     IInteractable closestInRange;
 
@@ -230,7 +233,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnChangeWeapon(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        gunController.ChangeWeapon(context.ReadValue<float>());
     }
 
     public void onChangeBullet(InputAction.CallbackContext context)
@@ -249,6 +251,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         if (!context.started) return;
         if (context.ReadValue<float>() > 0.9f) equipmentController.UseEquipment();
+    }
+
+    public void OnOpenInventory(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        if (context.ReadValue<float>() > 0.9f) inventoryPanel.SetActive(!inventoryPanel.activeSelf);
     }
     #endregion
 

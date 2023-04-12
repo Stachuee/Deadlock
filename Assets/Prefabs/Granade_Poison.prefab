@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -224902360194425957}
   - component: {fileID: -3785274873224741399}
   m_Layer: 7
-  m_Name: Granade
+  m_Name: Granade_Poison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.38912797, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.9433962, b: 0.42791995, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,8 +102,8 @@ MonoBehaviour:
   fuseDuration: 3
   damage: 20
   explosionRadius: 3
-  explosionVFX: {fileID: 4292313124053347464, guid: 619a3936d905d0f4a93f1ba1d94ce79e, type: 3}
-  inventorySlotPrefab: {fileID: 4569713353421880941, guid: fc49136005242d44784f893c20a4bf1a, type: 3}
+  explosionVFX: {fileID: 4292313124053347464, guid: afa23a64f0c4a7a4db46b318cd2d1a3a, type: 3}
+  inventorySlotPrefab: {fileID: 4569713353421880941, guid: cba4021684d2f714f9e3d0b242c57ae8, type: 3}
 --- !u!61 &-224902360194425957
 BoxCollider2D:
   m_ObjectHideFlags: 0

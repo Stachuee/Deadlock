@@ -8,7 +8,6 @@ public class Laser : GunBase
     [SerializeField] float fireRate = 0.1f;
     private float shootTimer = 0f; // time elapsed since last shot
 
-    [SerializeField] float laserDistance = 100f;
     [SerializeField] Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
 
@@ -26,11 +25,12 @@ public class Laser : GunBase
     void Update()
     {
 
-        if (isShooting >= 0.9f)
+        if (isShooting >= 0.9f && currentAmmo > 0)
         {
             if (Time.time < shootTimer + fireRate)
             {
                 ableToDamage = false;
+                currentAmmo -= 5;
             }
             else ableToDamage = true;
             lineRenderer.enabled = true;
