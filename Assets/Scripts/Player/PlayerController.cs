@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         {
             keyboard = GetComponent<PlayerInput>().currentControlScheme == "Keyboard";
         }
+        EffectManager.instance.AddCameraToEffects(this);
     }
 
     private void Update() 

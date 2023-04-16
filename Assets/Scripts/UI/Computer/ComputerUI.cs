@@ -31,6 +31,10 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     bool setUp;
 
 
+    private void Start()
+    {
+        SegmentController.segmentController.SubscribeToUnlock(this);
+    }
 
     public void Setup()
     {
@@ -121,6 +125,11 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         playerController.AddUseSubscriber(this);
         panel.SetActive(false);
         lookingAtMap = false;
+    }
+
+    public void UnlockSegment(MapSegment segment)
+    {
+        roomsUI.FindAll(x => x.segment == segment).ForEach(button => button.Unlock());
     }
 
     public void OpenComputer()

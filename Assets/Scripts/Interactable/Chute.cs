@@ -10,15 +10,32 @@ public class Chute : InteractableBase
     [SerializeField]
     GameObject itemPrefab;
 
+    [SerializeField]
+    bool oneWay;
+    [SerializeField]
+    bool oneWayOutput;
+
+    public static Chute scientistChute;
+
     protected override void Awake()
     {
         base.Awake();
+        if(oneWayOutput)
+        {
+            if (scientistChute == null) scientistChute = this;
+            else Debug.LogError("Two scientist chutes");
+        }
         AddAction(DumpItems);
     }
 
+    private void Start()
+    {
+        if(connectedChute == null) connectedChute = scientistChute;
+    }
 
     void DumpItems(PlayerController player)
     {
+        if (oneWayOutput) return;
         for (ItemSO temp = player.DepositIngredient(); temp != null; temp = player.DepositIngredient())
         {
             connectedChute.DropItems(temp);

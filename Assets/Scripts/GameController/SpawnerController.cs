@@ -5,20 +5,23 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour
 {
+    public static SpawnerController instance;
+
     List<Spawner> spawns = new List<Spawner>();
 
     [SerializeField]
     List<WaveSO> waves = new List<WaveSO>();
 
     [SerializeField]
-    List<EnemySO> enemies = new List<EnemySO>();
+    bool toggleSpawns;
 
     int wave;
     float nextWave;
 
     private void Awake()
     {
-        spawns = FindObjectsOfType<Spawner>().ToList();
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
     }
 
     private void Start()
@@ -26,8 +29,19 @@ public class SpawnerController : MonoBehaviour
         wave = 0;
     }
 
+    public void AddSpawner(Spawner spawnerToAdd)
+    {
+        spawns.Add(spawnerToAdd);
+    }
+
+    public void RemoveSpawner(Spawner spawnerToRemove)
+    {
+        spawns.Remove(spawnerToRemove);
+    }
+
     private void Update()
     {
+        if (!toggleSpawns) return;
         if(Time.time >= nextWave)
         {
             TriggerWave();

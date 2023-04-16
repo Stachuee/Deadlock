@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour, ITakeDamage
 {
     public bool isActive;
 
@@ -11,9 +11,30 @@ public class Spawner : MonoBehaviour
     float spawnDelay;
     float lastSpawn;
 
+    [SerializeField]
+    float maxHp;
+    float hp;
+    [SerializeField]
+    bool unlocksNewSegment;
+    [SerializeField]
+    MapSegment segmentToUnlock;
+
+    [SerializeField]
+    GameObject bossToSpawn;
+    bool bossSpawned;
+
     Queue<WaveSO.SubWave> waveToSpawn = new Queue<WaveSO.SubWave>();
 
     Queue<GameObject> prefabsToSpawn = new Queue<GameObject>();
+
+    private void Start()
+    {
+        hp = maxHp;
+        if (isActive)
+        {
+            SpawnerController.instance.AddSpawner(this);
+        }
+    }
 
     private void Update()
     {
@@ -32,6 +53,11 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void ActivateSpanwer()
+    {
+        isActive = true;
+    }
+
     public void AddToSpawn(WaveSO.SubWave subWave)
     {
         waveToSpawn.Enqueue(subWave);
@@ -48,5 +74,30 @@ public class Spawner : MonoBehaviour
                 for (int i = 0; i < enemy.count; i++) prefabsToSpawn.Enqueue(enemy.enemy.GetPrefab());
             });
         }
+    }
+
+    public float TakeDamage(float damage, DamageType type)
+    {
+        float damageAmmount = damage;
+        //if (type == DamageType.Fire)
+        //{
+        //    damage *= 1.5f;
+        //}
+        hp -= damageAmmount;
+        if(hp < 0)
+        {
+            if(unlocksNewSegment)
+            {
+                SpawnerController.instance.RemoveSpawner(this);
+                segmentToUnlock.UnlockSegment();
+                Destroy(gameObject);
+            }
+        }
+        else if(hp/maxHp < 0.25f && !bossSpawned)
+        {
+            bossSpawned = true;
+            Instantiate(bossToSpawn, transform.position, Quaternion.identity);
+        }
+        return damageAmmount;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,12 @@ public class MapSegment : MonoBehaviour
     public string sectorName;
     [SerializeField]
     public Color segmentColor;
+    [SerializeField]
+    List<Rooms> roomsInSegment;
+
+    [SerializeField] bool unlocked;
+    [SerializeField] List<Spawner> spawnersInSegment;
+
     [SerializeField] bool alwaysPowered;
 
 
@@ -23,6 +30,14 @@ public class MapSegment : MonoBehaviour
     [SerializeField] List<GameObject> lights;
     [SerializeField] bool lightsPowered;
 
+    private void Awake()
+    {
+        GetComponentsInChildren<Rooms>().ToList().ForEach(x =>
+        {
+            roomsInSegment.Add(x);
+            x.SetMySegment(this);
+        });
+    }
 
     private void Start()
     {
@@ -76,6 +91,18 @@ public class MapSegment : MonoBehaviour
     public bool CreateFuse()
     {
         return !alwaysPowered;
+    }
+
+    public bool IsUnlockerd()
+    {
+        return unlocked;
+    }
+
+    public void UnlockSegment()
+    {
+        unlocked = true;
+        SegmentController.segmentController.UnlockSegment(this);
+        spawnersInSegment.ForEach(x => x.ActivateSpanwer());
     }
 
     private void OnDrawGizmos()

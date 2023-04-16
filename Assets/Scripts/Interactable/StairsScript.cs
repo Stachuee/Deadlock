@@ -17,7 +17,10 @@ public class StairsScript : InteractableBase
 
     void UseStairs(PlayerController player)
     {
-        player.transform.position = connectedDoors.transform.position;
+        if(handActivation)
+        {
+            player.transform.position = connectedDoors.transform.position;
+        }
     }
 
     private void OnDrawGizmos()

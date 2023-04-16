@@ -24,7 +24,9 @@ public class Rooms : MonoBehaviour
 
     [SerializeField]
     public List<InteractableBase> remoteAvtivation;
-    
+
+    MapSegment mySegment;
+
     public Vector2Int RoomSize
     {
         set
@@ -80,6 +82,16 @@ public class Rooms : MonoBehaviour
         position = transform.position;
     }
 
+
+    public void SetMySegment(MapSegment segment)
+    {
+        mySegment = segment;
+    }
+
+    public MapSegment GetMySegment()
+    {
+        return mySegment;
+    }
 
     private void OnDrawGizmos()
     {

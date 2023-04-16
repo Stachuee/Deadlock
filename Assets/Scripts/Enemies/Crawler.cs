@@ -19,19 +19,19 @@ public class Crawler : _EnemyBase
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.transform.tag == "Interactable")
+        if (collision.transform.tag == "Interactable")
         {
             ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
-            if(temp != null)
+            if (temp != null)
             {
                 damaging = temp;
             }
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.tag == "Interactable")
         {
@@ -54,10 +54,10 @@ public class Crawler : _EnemyBase
 
     private void Update()
     {
-        if(currentTarget != null)
+        if(currentTarget != null && damaging == null)
         {
             Vector2 direction = new Vector2((currentTarget.transform.position - transform.position).x, 0);
-            rb.velocity = direction.normalized * speed;
+            rb.velocity = direction.normalized * speed + new Vector2(0, rb.velocity.y);
 
             if (direction.magnitude < 1f && path.Count > 0)
             {
@@ -72,8 +72,8 @@ public class Crawler : _EnemyBase
                     currentTarget = path.Dequeue();
                 }
             }
-
         }
+        
 
         if(damaging != null && lastAttack + attackSpeed < Time.time )
         {
