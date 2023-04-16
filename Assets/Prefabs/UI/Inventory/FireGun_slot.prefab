@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 7651265687795419190}
   - component: {fileID: 8737138196735055355}
   - component: {fileID: 6890798417900840530}
-  - component: {fileID: 8831611957905845046}
-  - component: {fileID: 7515078197427258342}
-  - component: {fileID: 2588940000432201643}
+  - component: {fileID: 1224858429845167970}
+  - component: {fileID: 5261239391879112158}
+  - component: {fileID: -4786369616675824379}
   m_Layer: 0
-  m_Name: Laser
+  m_Name: FireGun_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8922057, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.9528302, g: 0.13523494, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8831611957905845046
+--- !u!114 &1224858429845167970
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb216ef716f90bb4b9872f34cb94f65e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunIndex: 4
---- !u!114 &7515078197427258342
+  gunIndex: 3
+--- !u!114 &5261239391879112158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8831611957905845046}
+        - m_Target: {fileID: 1224858429845167970}
           m_TargetAssemblyTypeName: GunSelector, Assembly-CSharp
           m_MethodName: SelectGun
           m_Mode: 1
@@ -121,7 +121,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &2588940000432201643
+--- !u!114 &-4786369616675824379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

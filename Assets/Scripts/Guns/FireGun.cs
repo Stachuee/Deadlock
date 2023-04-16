@@ -38,7 +38,7 @@ public class FireGun : GunBase
 
         if(isShooting >= 0.9f && currentAmmo > 0)
         {
-            ParticleSystem firePS = Instantiate(fireVFX, transform.position, Quaternion.identity);
+            ParticleSystem firePS = Instantiate(fireVFX, barrel.position, transform.rotation);
             if (Time.time < shootTimer + fireRate)
             {
                 return; // not enough time has passed since last shot

@@ -430,7 +430,7 @@ MonoBehaviour:
   barrel: {fileID: 1703870215080033523}
   bulletPrefab: {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
   maxAmmo: 100
-  currentAmmo: 100
+  currentAmmo: 500000
   inventorySlotPrefab: {fileID: 4569713353421880941, guid: df31d082a7ac9d941b9237bb8b30d395, type: 3}
   fireRate: 0.1
   fireVFX: {fileID: 8462105307739824083, guid: 3b1017c2b70f8954f859117f4ded2aa0, type: 3}
@@ -1042,7 +1042,6 @@ MonoBehaviour:
   currentAmmo: 100
   inventorySlotPrefab: {fileID: 4569713353421880941, guid: 586acb6b83fe17e44b4ea0f34f1bd5d0, type: 3}
   fireRate: 0.1
-  laserDistance: 100
   firePoint: {fileID: 4314484209983252137}
   lineRenderer: {fileID: 2964405965255687634}
   maskToIgnore:
@@ -2174,7 +2173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2288997746845441049
 RectTransform:
   m_ObjectHideFlags: 0

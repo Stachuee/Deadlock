@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6925083736967657720}
   - component: {fileID: 2657712320451990294}
   m_Layer: 0
-  m_Name: ARiffle
+  m_Name: ARiffle_slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
