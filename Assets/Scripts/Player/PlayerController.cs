@@ -256,12 +256,16 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        if (context.ReadValue<float>() > 0.9f) inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-    }
-    #endregion
+        if (context.ReadValue<float>() > 0.9f)
+        {
+            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+            gunController.SetSelectedSlot();
+        }
+        }
+        #endregion
 
-    #region UseRegion
-    private void OnTriggerEnter2D(Collider2D collision)
+        #region UseRegion
+        private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.tag == "Interactable")
         {

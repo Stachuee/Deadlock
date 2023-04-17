@@ -50,7 +50,6 @@ public class GunController : MonoBehaviour
     private void Start()
     {
         inventory.AddGun(weapons[1].GetInventorySlotPrefab());
-        inventory.AddGun(weapons[0].GetInventorySlotPrefab());
         inventory.AddGun(weapons[2].GetInventorySlotPrefab());
         inventory.AddGun(weapons[3].GetInventorySlotPrefab());
         inventory.AddGun(weapons[4].GetInventorySlotPrefab());
@@ -111,5 +110,10 @@ public class GunController : MonoBehaviour
     public void ShootGun(float isShooting)
     {
         gun.Shoot(isShooting);
+    }
+
+    public void SetSelectedSlot()
+    {
+        playerController.uiController.myEventSystem.SetSelectedGameObject(inventory.GetSelectedSlot());
     }
 }
