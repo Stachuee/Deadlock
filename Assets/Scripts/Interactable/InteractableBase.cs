@@ -8,9 +8,11 @@ using UnityEngine.Events;
 public abstract class InteractableBase : MonoBehaviour, IInteractable
 {
     [SerializeField] protected string displayName;
+    [SerializeField] protected Sprite computerIcon;
     [SerializeField] PlayerActionEvent onTrigger = new PlayerActionEvent();
     [SerializeField] protected bool remoteActivation;
     [SerializeField] protected bool handActivation = true;
+    
     protected virtual void Awake()
     {
         transform.tag = "Interactable";
@@ -45,6 +47,7 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         return handActivation;
     }
 
+
     public virtual void Highlight()
     {
         SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
@@ -70,5 +73,10 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
     public Transform GetTransform()
     {
         return transform;
+    }
+
+    public Sprite GetComputerIcon()
+    {
+        return computerIcon;
     }
 }

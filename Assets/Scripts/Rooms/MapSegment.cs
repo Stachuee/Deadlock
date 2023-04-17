@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class MapSegment : MonoBehaviour
@@ -110,7 +109,9 @@ public class MapSegment : MonoBehaviour
         Gizmos.color = segmentColor;
         Vector2 position = transform.position;
 
-        Handles.Label(new Vector3(position.x - size.x, position.y + size.y), sectorName);
+        #if UNITY_EDITOR
+        UnityEditor.Handles.Label(new Vector3(position.x - size.x, position.y + size.y), sectorName);
+        #endif
         Gizmos.DrawLine(new Vector2(position.x + size.x, position.y + size.y), new Vector2(position.x - size.x, position.y + size.y));
         Gizmos.DrawLine(new Vector2(position.x - size.x, position.y + size.y), new Vector2(position.x - size.x, position.y - size.y));
         Gizmos.DrawLine(new Vector2(position.x - size.x, position.y - size.y), new Vector2(position.x + size.x, position.y - size.y));

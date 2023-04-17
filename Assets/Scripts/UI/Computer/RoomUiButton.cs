@@ -11,6 +11,11 @@ public class RoomUiButton : MonoBehaviour
     [SerializeField]
     public Image myImage;
 
+    [SerializeField]
+    GameObject IconPrefab;
+    [SerializeField]
+    Vector2 iconOffset;
+
     bool Active
     {
         get
@@ -39,6 +44,17 @@ public class RoomUiButton : MonoBehaviour
         this.room = room;
         this.segment = room.GetMySegment();
         this.computer = computer;
+
+        int count = 0;
+
+        room.remoteAvtivation.ForEach(x =>
+        {
+            GameObject temp = Instantiate(IconPrefab, transform);
+            RectTransform tempTransform = temp.GetComponent<RectTransform>();
+            tempTransform.anchoredPosition = iconOffset + new Vector2((RoomIcon.ICON_SIZE + RoomIcon.ICON_OFFSET) * count * -1, 0 );
+            temp.GetComponent<Image>().sprite = x.GetComputerIcon();
+            count++;
+        });
     }
 
     public void Pressed()

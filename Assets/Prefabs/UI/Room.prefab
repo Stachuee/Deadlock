@@ -147,3 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myImage: {fileID: 7549559303014220985}
+  IconPrefab: {fileID: 8461170066999980177, guid: da80cd0bfabc006469a8a5f60ac5f040, type: 3}
+  iconOffset: {x: -15, y: -15}

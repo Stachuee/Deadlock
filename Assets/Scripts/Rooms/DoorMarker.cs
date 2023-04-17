@@ -12,6 +12,10 @@ public class DoorMarker : MonoBehaviour
     [SerializeField]
     float doorSize;
 
+    public float GetDoorSize()
+    {
+        return doorSize;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

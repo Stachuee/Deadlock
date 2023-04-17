@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,7 +24,9 @@ public class Rooms : MonoBehaviour
     public List<RoomEvent> roomEvents;
 
     [SerializeField]
-    public List<InteractableBase> remoteAvtivation;
+    public List<InteractableBase> remoteAvtivation { get; private set; }
+    public List<DoorMarker> doorMarkers { get; private set; }
+    public List<StairsScript> stairs { get; private set; }
 
     MapSegment mySegment;
 
@@ -56,7 +59,21 @@ public class Rooms : MonoBehaviour
 
     private void Awake()
     {
+        remoteAvtivation = new List<InteractableBase>();
+        doorMarkers = new List<DoorMarker>();
+        stairs = new List<StairsScript>();
+        stairs = transform.GetComponentsInChildren<StairsScript>().ToList();
+        doorMarkers = transform.GetComponentsInChildren<DoorMarker>().ToList();
+
         roomGUID = System.Guid.NewGuid().ToString();
+        foreach(Transform child in transform)
+        {
+            InteractableBase interactable = child.GetComponent<InteractableBase>();
+            if(interactable != null && interactable.IsRemote())
+            {
+                remoteAvtivation.Add(interactable);
+            }
+        }
     }
 
     private void Start()

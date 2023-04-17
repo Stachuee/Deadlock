@@ -14,6 +14,7 @@ public interface IInteractable
     public void RemoveAction(UnityAction<PlayerController> action);
     public void ClearActions();
     public bool IsRemote();
+    public Sprite GetComputerIcon();
     public bool IsProximity();
     public void Highlight();
 

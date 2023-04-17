@@ -1283,6 +1283,8 @@ MonoBehaviour:
   panel: {fileID: 5206630864921695357}
   roomPrefabUI: {fileID: 1563991421582899640, guid: e43c5a970b9957d46a2eb2191329e0f8, type: 3}
   segmentPrefab: {fileID: 8202600852254945548, guid: cdd177dbc2ed5cf47a396ba9f0abcaf9, type: 3}
+  doorPrefab: {fileID: 3102179658457086393, guid: bc7d2a537a614de4ea69b3066104d048, type: 3}
+  stairsPrefab: {fileID: 8970833965899177052, guid: f05e37ac4120cb14f9e3e421eed951c2, type: 3}
   playerController: {fileID: 4552270140176820842}
   scale: 30
   scrollRect: {fileID: 646970418508756830}

@@ -9,6 +9,8 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     [SerializeField] GameObject panel;
     [SerializeField] GameObject roomPrefabUI;
     [SerializeField] GameObject segmentPrefab;
+    [SerializeField] GameObject doorPrefab;
+    [SerializeField] GameObject stairsPrefab;
 
     [SerializeField] PlayerController playerController;
 
@@ -61,6 +63,19 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             temp.GetComponent<Image>().color = segment.segmentColor;
         });
 
+        allRooms.ForEach(room =>
+        {
+            room.doorMarkers.ForEach(x =>
+            {
+                if (x.transform.position.x > room.transform.position.x || x.transform.position.y > room.transform.position.y)
+                {
+                    RectTransform temp = Instantiate(doorPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
+                    temp.anchoredPosition = ((Vector2)x.transform.position - startingPos) * scale;
+                    temp.sizeDelta = new Vector2(room.roomSize.x, x.GetDoorSize()) * scale * new Vector2(0.2f, 1);
+                }
+            });
+        });
+
         allRooms.ForEach(roomToDraw =>
         {
             RectTransform temp = Instantiate(roomPrefabUI, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
@@ -75,7 +90,57 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             temp.anchoredPosition = ((Vector2)roomToDraw.transform.position - startingPos) * scale;
             if (size.x < Mathf.Abs(temp.anchoredPosition.x)) size.x = Mathf.CeilToInt(Mathf.Abs(temp.anchoredPosition.x)) + roomToDraw.roomSize.x * scale;
             if (size.y < Mathf.Abs(temp.anchoredPosition.y)) size.y = Mathf.CeilToInt(Mathf.Abs(temp.anchoredPosition.y)) + roomToDraw.roomSize.y * scale;
-            temp.sizeDelta = new Vector2(roomToDraw.roomSize.x, roomToDraw.roomSize.y) * scale;
+            temp.sizeDelta = new Vector2(roomToDraw.roomSize.x, roomToDraw.roomSize.y) * scale * 1.9f;
+        });
+
+        allRooms.ForEach(room =>
+        {
+            room.stairs.ForEach(stairs =>
+            {
+                StairsScript connected = stairs.GetConnected();
+                if (stairs.GetPosition().y > connected.GetPosition().y)
+                {
+                    RectTransform temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
+                    temp.anchoredPosition = (stairs.GetPosition() - startingPos) * scale;
+                    temp.sizeDelta = new Vector2(1, 1) * scale;
+                    temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
+                    temp.anchoredPosition = (connected.GetPosition() - startingPos) * scale;
+                    temp.sizeDelta = new Vector2(1, 1) * scale;
+
+                    float height = stairs.GetPosition().y - connected.GetPosition().y;
+
+                    temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>(); // change this to connected
+                    temp.rotation = Quaternion.Euler(0, 0, 0);
+                    temp.sizeDelta = new Vector2(0.5f, height / 2) * scale;
+                    temp.anchoredPosition = (stairs.GetPosition() - startingPos) * scale;
+
+                    temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>(); // change this to connected
+                    temp.rotation = Quaternion.Euler(0, 0, -180);
+                    temp.sizeDelta = new Vector2(0.5f, height / 2) * scale;
+                    temp.anchoredPosition = (connected.GetPosition() - startingPos) * scale;
+
+                    temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>(); // change this to connected
+                    temp.rotation = Quaternion.Euler(0, 0, (stairs.GetPosition().x > connected.GetPosition().x ? -90 : 90));
+                    temp.sizeDelta = new Vector2(0.5f, Mathf.Abs(stairs.GetPosition().x - connected.GetPosition().x)) * scale;
+                    if((stairs.GetPosition().x > connected.GetPosition().x))
+                    {
+                        temp.anchoredPosition = (connected.GetPosition() - startingPos +
+                        new Vector2(0, stairs.GetPosition().y - connected.GetPosition().y) / 2) * scale;
+                    }
+                    else
+                    {
+                        temp.anchoredPosition = (stairs.GetPosition() - startingPos -
+                        new Vector2(0, stairs.GetPosition().y - connected.GetPosition().y) / 2) * scale;
+                    }
+
+
+
+                    //Vector2 dir = connected.GetPosition() - stairs.GetPosition();
+                    //temp.anchoredPosition = (stairs.GetPosition()  - startingPos) * scale;
+                    //temp.rotation = Quaternion.Euler(0.0f, 0.0f, Vector2.SignedAngle(stairs.GetPosition(), connected.GetPosition()));
+                    //temp.sizeDelta = new Vector2(0.5f, dir.magnitude) * scale;
+                }
+            });
         });
 
         size *= 2;
