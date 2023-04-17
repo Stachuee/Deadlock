@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour, PowerInterface
+public class DoorScript : PoweredInteractable
 {
 
     bool powered;
@@ -17,7 +17,7 @@ public class DoorScript : MonoBehaviour, PowerInterface
         door.SetActive(opened);
     }
 
-    public void PowerOn(bool on)
+    override public void PowerOn(bool on)
     {
         powered = on;
         if(!on)

@@ -98,12 +98,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5415fb28bd5e4fa4daf13e0ed7da7e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
+  hideInComputer: 1
+  useElectricityType: 4
   connectedDoors: {fileID: 0}
+  node: {fileID: 0}
 --- !u!61 &7695553992965360477
 BoxCollider2D:
   m_ObjectHideFlags: 0

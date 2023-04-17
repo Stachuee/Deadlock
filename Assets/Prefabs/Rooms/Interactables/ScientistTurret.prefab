@@ -249,6 +249,8 @@ MonoBehaviour:
       m_Calls: []
   remoteActivation: 1
   handActivation: 0
+  hideInComputer: 0
+  useElectricityType: 1
   minMaxTurretAngle: {x: -180, y: -41}
   turretSprite: {fileID: 1205753906326125290}
   gunBarrel: {fileID: 1205753906326125291}

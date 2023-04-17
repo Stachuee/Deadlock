@@ -124,3 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e70dd8a5f9c48d42bf50c9a0c684703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  computerIcon: {fileID: 0}
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  remoteActivation: 0
+  handActivation: 1
+  hideInComputer: 0
+  useElectricityType: 3

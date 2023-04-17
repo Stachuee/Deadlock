@@ -126,11 +126,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
+  hideInComputer: 1
+  useElectricityType: 4
   type: 2
   powerStrength: 0
   currentPowerConsumption: 0
@@ -260,11 +263,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
+  hideInComputer: 1
+  useElectricityType: 4
   powerCellsStrength:
   - cell: {fileID: 11400000, guid: d07f82cfe08ed504db7a257fb3a5d35b, type: 2}
     strength: 1

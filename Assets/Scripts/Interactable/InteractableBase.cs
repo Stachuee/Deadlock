@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 [RequireComponent(typeof(Collider2D))]
 public abstract class InteractableBase : MonoBehaviour, IInteractable
 {
@@ -12,7 +13,8 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
     [SerializeField] PlayerActionEvent onTrigger = new PlayerActionEvent();
     [SerializeField] protected bool remoteActivation;
     [SerializeField] protected bool handActivation = true;
-    
+    [SerializeField] protected bool hideInComputer;
+
     protected virtual void Awake()
     {
         transform.tag = "Interactable";
@@ -47,6 +49,10 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         return handActivation;
     }
 
+    public bool HideInComputer()
+    {
+        return hideInComputer;
+    }
 
     public virtual void Highlight()
     {
@@ -79,4 +85,5 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
     {
         return computerIcon;
     }
+
 }

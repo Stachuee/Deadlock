@@ -20,30 +20,31 @@ public class MapSegment : MonoBehaviour
     [SerializeField] bool alwaysPowered;
 
 
-    [SerializeField] List<GameObject> doors;
+    List<PowerInterface> doors;
     [SerializeField] bool doorsPowered;
-    [SerializeField] List<GameObject> security;
+    List<PowerInterface> security;
     [SerializeField] bool securityPowered;
-    [SerializeField] List<GameObject> printers;
+    List<PowerInterface> printers;
     [SerializeField] bool printersPowered;
-    [SerializeField] List<GameObject> lights;
+    List<PowerInterface> lights;
     [SerializeField] bool lightsPowered;
 
     private void Awake()
     {
-        GetComponentsInChildren<Rooms>().ToList().ForEach(x =>
-        {
-            roomsInSegment.Add(x);
-            x.SetMySegment(this);
-        });
+
+        //GetComponentsInChildren<Rooms>().ToList().ForEach(x =>
+        //{
+        //    roomsInSegment.Add(x);
+        //    x.SetMySegment(this);
+        //});
     }
 
     private void Start()
     {
-        if(doors != null) doors.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(doorsPowered));
-        if (printers != null) printers.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(printersPowered));
-        if (security != null) security.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(securityPowered));
-        if (lights != null) lights.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(lightsPowered));
+        if(doors != null) doors.ForEach(x => x.PowerOn(doorsPowered));
+        if (printers != null) printers.ForEach(x => x.PowerOn(printersPowered));
+        if (security != null) security.ForEach(x => x.PowerOn(securityPowered));
+        if (lights != null) lights.ForEach(x => x.PowerOn(lightsPowered));
     }
 
     public void TurnOnOff(SwitchType switchType, bool on)
@@ -52,19 +53,19 @@ public class MapSegment : MonoBehaviour
         switch (switchType)
         {
             case SwitchType.Doors:
-                doors.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                doors.ForEach(x => x.PowerOn(on));
                 doorsPowered = on;
                 break;
             case SwitchType.Printers:
-                printers.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                printers.ForEach(x => x.PowerOn(on));
                 printersPowered = on;
                 break;
             case SwitchType.Security:
-                security.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                security.ForEach(x => x.PowerOn(on));
                 securityPowered = on;
                 break;
             case SwitchType.Lights:
-                lights.ForEach(x => x.GetComponent<PowerInterface>().PowerOn(on));
+                lights.ForEach(x => x.PowerOn(on));
                 lightsPowered = on;
                 break;
         }
@@ -102,6 +103,58 @@ public class MapSegment : MonoBehaviour
         unlocked = true;
         SegmentController.segmentController.UnlockSegment(this);
         spawnersInSegment.ForEach(x => x.ActivateSpanwer());
+    }
+
+    public void AddLight(PowerInterface light)
+    {
+        if(lights == null) lights = new List<PowerInterface>();
+        this.lights.Add(light);
+    }
+
+    public void AddLight(List<PowerInterface> light)
+    {
+        if (lights == null) lights = new List<PowerInterface>();
+        this.lights.AddRange(light);
+    }
+
+    public void AddDoors(PowerInterface doors)
+    {
+        if (this.doors == null) this.doors = new List<PowerInterface>();
+        this.doors.Add(doors);
+    }
+
+    public void AddDoors(List<PowerInterface> doors)
+    {
+        if (this.doors == null) this.doors = new List<PowerInterface>();
+        this.doors.AddRange(doors);
+    }
+
+    public void AddSecurity(PowerInterface security)
+    {
+        if (this.security == null) this.security = new List<PowerInterface>();
+        this.security.Add(security);
+    }
+    public void AddSecurity(List<PowerInterface> security)
+    {
+        if (this.security == null) this.security = new List<PowerInterface>();
+        this.security.AddRange(security);
+    }
+
+    public void AddPrinters(PowerInterface printers)
+    {
+        if (this.printers == null) this.printers = new List<PowerInterface>();
+        this.printers.Add(printers);
+    }
+
+    public void AddPrinters(List<PowerInterface> printers)
+    {
+        if (this.printers == null) this.printers = new List<PowerInterface>();
+        this.printers.AddRange(printers);
+    }
+
+    public void AddRoom(Rooms tooAdd)
+    {
+        roomsInSegment.Add(tooAdd);
     }
 
     private void OnDrawGizmos()

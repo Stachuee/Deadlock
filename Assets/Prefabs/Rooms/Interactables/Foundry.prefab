@@ -98,11 +98,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9df1e1c98270db408340440c2fe8420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
+  hideInComputer: 1
   inDeposit: {fileID: 0}
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
 --- !u!61 &6908818885626959129
@@ -229,11 +232,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9df1e1c98270db408340440c2fe8420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
+  hideInComputer: 1
   inDeposit: {fileID: 0}
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
 --- !u!61 &6908818886372952058
@@ -362,11 +368,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4a3e95ad86c514288bf3acff992b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
+  hideInComputer: 1
   workbenchTypes: 00000000
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   itemDropOffset: {x: 0.01, y: -0.24}

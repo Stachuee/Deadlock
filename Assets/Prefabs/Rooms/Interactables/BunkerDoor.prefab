@@ -125,11 +125,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: Door
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
-  handActivation: 1
+  handActivation: 0
+  hideInComputer: 0
+  useElectricityType: 4
   doorMaxHp: 2000
   doorHp: 2000
   doorSelfRepair: 0

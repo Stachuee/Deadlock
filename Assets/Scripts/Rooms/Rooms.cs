@@ -14,8 +14,8 @@ public struct Interactable
 [ExecuteInEditMode]
 public class Rooms : MonoBehaviour
 {
-    [SerializeField]
-    public string roomGUID;
+    //[SerializeField]
+    //public string roomGUID;
     [SerializeField]
     public Vector2Int roomSize;
     [SerializeField]
@@ -24,7 +24,7 @@ public class Rooms : MonoBehaviour
     public List<RoomEvent> roomEvents;
 
     [SerializeField]
-    public List<InteractableBase> remoteAvtivation { get; private set; }
+    public List<IInteractable> remoteAvtivation { get; private set; }
     public List<DoorMarker> doorMarkers { get; private set; }
     public List<StairsScript> stairs { get; private set; }
 
@@ -59,20 +59,47 @@ public class Rooms : MonoBehaviour
 
     private void Awake()
     {
-        remoteAvtivation = new List<InteractableBase>();
-        doorMarkers = new List<DoorMarker>();
-        stairs = new List<StairsScript>();
-        stairs = transform.GetComponentsInChildren<StairsScript>().ToList();
-        doorMarkers = transform.GetComponentsInChildren<DoorMarker>().ToList();
-
-        roomGUID = System.Guid.NewGuid().ToString();
-        foreach(Transform child in transform)
+        if (Application.isPlaying)
         {
-            InteractableBase interactable = child.GetComponent<InteractableBase>();
-            if(interactable != null && interactable.IsRemote())
+            remoteAvtivation = new List<IInteractable>();
+            doorMarkers = new List<DoorMarker>();
+            stairs = new List<StairsScript>();
+            stairs = transform.GetComponentsInChildren<StairsScript>().ToList();
+            doorMarkers = transform.GetComponentsInChildren<DoorMarker>().ToList();
+
+            mySegment = GetComponentInParent<MapSegment>();
+
+            mySegment.AddRoom(this);
+
+            List<IInteractable> allInteractables = transform.GetComponentsInChildren<IInteractable>().ToList();
+
+            allInteractables.ForEach(interactable =>
             {
-                remoteAvtivation.Add(interactable);
-            }
+                if(interactable is PoweredInteractable)
+                {
+                    PoweredInteractable powered = interactable as PoweredInteractable;
+                    if (powered.GetSwitchType() == SwitchType.Doors) mySegment.AddDoors(powered);
+                    else if (powered.GetSwitchType() == SwitchType.Printers) mySegment.AddPrinters(powered);
+                    else if (powered.GetSwitchType() == SwitchType.Lights) mySegment.AddLight(powered);
+                    else if (powered.GetSwitchType() == SwitchType.Security) mySegment.AddSecurity(powered);
+                }
+
+                if (interactable != null && !interactable.HideInComputer())
+                {
+                    remoteAvtivation.Add(interactable);
+                }
+            });
+            
+
+            ////roomGUID = System.Guid.NewGuid().ToString();
+            //foreach (Transform child in transform)
+            //{
+            //    InteractableBase interactable = child.GetComponent<InteractableBase>();
+            //    if (interactable != null && !interactable.HideInComputer())
+            //    {
+            //        remoteAvtivation.Add(interactable);
+            //    }
+            //}
         }
     }
 
@@ -80,6 +107,7 @@ public class Rooms : MonoBehaviour
     {
         if (!Application.isPlaying)
         {
+            Debug.Log("Adding new room");
             //roomGUID = System.Guid.NewGuid().ToString();
             FacilityController facilityController = FindObjectOfType<FacilityController>();
             if (facilityController != null) facilityController.ReimportRooms();
@@ -97,12 +125,6 @@ public class Rooms : MonoBehaviour
     private void Update()
     {
         position = transform.position;
-    }
-
-
-    public void SetMySegment(MapSegment segment)
-    {
-        mySegment = segment;
     }
 
     public MapSegment GetMySegment()

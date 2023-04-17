@@ -17,7 +17,7 @@ public interface IInteractable
     public Sprite GetComputerIcon();
     public bool IsProximity();
     public void Highlight();
-
+    public bool HideInComputer();
     public InfoContainer GetInfo();
     public void UnHighlight();
     public Transform GetTransform();

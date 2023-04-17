@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Printer : InteractableBase, PowerInterface
+public class Printer : PoweredInteractable
 {
     [SerializeField] bool working;
     [SerializeField] bool readyToCollect;
@@ -19,7 +19,7 @@ public class Printer : InteractableBase, PowerInterface
     }
 
 
-    public void PowerOn(bool on)
+    override public void PowerOn(bool on)
     {
         working = on;
     }

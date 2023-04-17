@@ -182,7 +182,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         room.remoteAvtivation.ForEach(x => {
             angleToInteractables.Add(new AngleToInteractable() { 
                 interactable = x,
-                angle = Vector2.SignedAngle(Vector2.one, (x.transform.position - room.transform.position))
+                angle = Vector2.SignedAngle(Vector2.one, (x.GetTransform().position - room.transform.position))
             });
         });
 
