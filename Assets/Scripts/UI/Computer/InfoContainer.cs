@@ -5,9 +5,14 @@ using UnityEngine;
 public struct InfoContainer
 {
     public string name;
+    
     public bool showHp;
     public float hp;
     public float maxHp;
+    
     public bool showCharge;
     public bool charged;
+
+    public bool showProgress;
+    public float progress;
 }

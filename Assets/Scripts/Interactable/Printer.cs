@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Printer : PoweredInteractable
 {
-    [SerializeField] bool working;
     [SerializeField] bool readyToCollect;
 
     [SerializeField] float baseProduction;
@@ -19,14 +18,9 @@ public class Printer : PoweredInteractable
     }
 
 
-    override public void PowerOn(bool on)
-    {
-        working = on;
-    }
-
     private void Update()
     {
-        if(working && !readyToCollect)
+        if(powered && !readyToCollect)
         {
             productionRemain -= Time.deltaTime;
             if(productionRemain < 0)

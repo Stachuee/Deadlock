@@ -215,6 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25951b31141eab4290ee14964328f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemInfoPanelPrefab: {fileID: 7197261872534283991, guid: d26fd3504dc7eb249a9669913ca51f1b, type: 3}
+  itemInfoOffset: {x: 0, y: 0.5}
   panels:
   - panel: {fileID: 2028948291739010326}
     anchor: {fileID: 4988774898577458074}
@@ -222,6 +224,7 @@ MonoBehaviour:
   - panel: {fileID: 1657306117767696563}
     anchor: {fileID: 1154627209553688335}
     isOn: 0
+  playerController: {fileID: 4552270140176820842}
   fuseBox: {fileID: 4122015604663781458}
   computer: {fileID: 2697170660326092127}
   myEventSystem: {fileID: 5504117299487871820}
@@ -1290,6 +1293,9 @@ MonoBehaviour:
   scrollRect: {fileID: 646970418508756830}
   contentPanel: {fileID: 6045596211194132613}
   highlightCursorPrefab: {fileID: 34450560346991977, guid: 3ef44aeedaa59a5468fd500967941541, type: 3}
+  marker: {fileID: 0}
+  player: {fileID: 0}
+  playerMarkerPrefab: {fileID: 4008736066592588278, guid: b4b901c9cdd4e194f8520eb64cd61b71, type: 3}
 --- !u!1 &4281426020509402836
 GameObject:
   m_ObjectHideFlags: 0

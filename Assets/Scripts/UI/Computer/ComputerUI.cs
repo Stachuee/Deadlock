@@ -30,6 +30,9 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     Rooms activeRoom;
     GameObject firstButton;
 
+    Vector2 startingDrawPos;
+
+
     bool setUp;
 
 
@@ -48,7 +51,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
         List<Rooms> allRooms = new List<Rooms>(FacilityController.facilityController.allRooms);
 
-        Vector2 startingPos = starting.transform.position;
+        startingDrawPos = starting.transform.position;
 
         Vector2Int size = new Vector2Int(0,0); // x, y
 
@@ -57,7 +60,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         {
             RectTransform temp = Instantiate(segmentPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
 
-            temp.anchoredPosition = ((Vector2)segment.transform.position - startingPos) * scale;
+            temp.anchoredPosition = ((Vector2)segment.transform.position - startingDrawPos) * scale;
             temp.sizeDelta = new Vector2(segment.size.x, segment.size.y) * scale * 2;
 
             temp.GetComponent<Image>().color = segment.segmentColor;
@@ -70,7 +73,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
                 if (x.transform.position.x > room.transform.position.x || x.transform.position.y > room.transform.position.y)
                 {
                     RectTransform temp = Instantiate(doorPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
-                    temp.anchoredPosition = ((Vector2)x.transform.position - startingPos) * scale;
+                    temp.anchoredPosition = ((Vector2)x.transform.position - startingDrawPos) * scale;
                     temp.sizeDelta = new Vector2(room.roomSize.x, x.GetDoorSize()) * scale * new Vector2(0.2f, 1);
                 }
             });
@@ -87,7 +90,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
             roomsUI.Add(button);
             
-            temp.anchoredPosition = ((Vector2)roomToDraw.transform.position - startingPos) * scale;
+            temp.anchoredPosition = ((Vector2)roomToDraw.transform.position - startingDrawPos) * scale;
             if (size.x < Mathf.Abs(temp.anchoredPosition.x)) size.x = Mathf.CeilToInt(Mathf.Abs(temp.anchoredPosition.x)) + roomToDraw.roomSize.x * scale;
             if (size.y < Mathf.Abs(temp.anchoredPosition.y)) size.y = Mathf.CeilToInt(Mathf.Abs(temp.anchoredPosition.y)) + roomToDraw.roomSize.y * scale;
             temp.sizeDelta = new Vector2(roomToDraw.roomSize.x, roomToDraw.roomSize.y) * scale * 1.9f;
@@ -101,10 +104,10 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
                 if (stairs.GetPosition().y > connected.GetPosition().y)
                 {
                     RectTransform temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
-                    temp.anchoredPosition = (stairs.GetPosition() - startingPos) * scale;
+                    temp.anchoredPosition = (stairs.GetPosition() - startingDrawPos) * scale;
                     temp.sizeDelta = new Vector2(1, 1) * scale;
                     temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
-                    temp.anchoredPosition = (connected.GetPosition() - startingPos) * scale;
+                    temp.anchoredPosition = (connected.GetPosition() - startingDrawPos) * scale;
                     temp.sizeDelta = new Vector2(1, 1) * scale;
 
                     float height = stairs.GetPosition().y - connected.GetPosition().y;
@@ -112,31 +115,31 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
                     temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>(); // change this to connected
                     temp.rotation = Quaternion.Euler(0, 0, 0);
                     temp.sizeDelta = new Vector2(0.5f, height / 2) * scale;
-                    temp.anchoredPosition = (stairs.GetPosition() - startingPos) * scale;
+                    temp.anchoredPosition = (stairs.GetPosition() - startingDrawPos) * scale;
 
                     temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>(); // change this to connected
                     temp.rotation = Quaternion.Euler(0, 0, -180);
                     temp.sizeDelta = new Vector2(0.5f, height / 2) * scale;
-                    temp.anchoredPosition = (connected.GetPosition() - startingPos) * scale;
+                    temp.anchoredPosition = (connected.GetPosition() - startingDrawPos) * scale;
 
                     temp = Instantiate(stairsPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>(); // change this to connected
                     temp.rotation = Quaternion.Euler(0, 0, (stairs.GetPosition().x > connected.GetPosition().x ? -90 : 90));
                     temp.sizeDelta = new Vector2(0.5f, Mathf.Abs(stairs.GetPosition().x - connected.GetPosition().x)) * scale;
                     if((stairs.GetPosition().x > connected.GetPosition().x))
                     {
-                        temp.anchoredPosition = (connected.GetPosition() - startingPos +
+                        temp.anchoredPosition = (connected.GetPosition() - startingDrawPos +
                         new Vector2(0, stairs.GetPosition().y - connected.GetPosition().y) / 2) * scale;
                     }
                     else
                     {
-                        temp.anchoredPosition = (stairs.GetPosition() - startingPos -
+                        temp.anchoredPosition = (stairs.GetPosition() - startingDrawPos -
                         new Vector2(0, stairs.GetPosition().y - connected.GetPosition().y) / 2) * scale;
                     }
 
 
 
                     //Vector2 dir = connected.GetPosition() - stairs.GetPosition();
-                    //temp.anchoredPosition = (stairs.GetPosition()  - startingPos) * scale;
+                    //temp.anchoredPosition = (stairs.GetPosition()  - startingDrawPos) * scale;
                     //temp.rotation = Quaternion.Euler(0.0f, 0.0f, Vector2.SignedAngle(stairs.GetPosition(), connected.GetPosition()));
                     //temp.sizeDelta = new Vector2(0.5f, dir.magnitude) * scale;
                 }
@@ -151,12 +154,45 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
     Vector2 vel = Vector2.zero;
 
+    [SerializeField]
+    RectTransform marker;
+    [SerializeField]
+    PlayerController player;
+    [SerializeField]
+    GameObject playerMarkerPrefab;
+
     private void Update()
     {
-        if(lookingAtMap && !playerController.keyboard)
+        if(lookingAtMap)
         {
-            contentPanel.anchoredPosition = Vector2.SmoothDamp(contentPanel.anchoredPosition, (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
+            if(!playerController.keyboard)
+            {
+                contentPanel.anchoredPosition = Vector2.SmoothDamp(contentPanel.anchoredPosition, (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
         - (Vector2)scrollRect.transform.InverseTransformPoint(playerController.uiController.myEventSystem.currentSelectedGameObject.transform.position), ref vel, 0.05f);
+            }
+
+            if(player != null)
+            {
+                if(marker != null)
+                {
+                    marker.anchoredPosition = ((Vector2)player.transform.position - startingDrawPos) * scale;
+                }
+                else
+                {
+                    marker = Instantiate(playerMarkerPrefab, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+                    marker.anchoredPosition = ((Vector2)player.transform.position - startingDrawPos) * scale;
+                }
+            }
+            else
+            {
+                GameController.players.ForEach(playerToCheck =>
+                {
+                    if(playerToCheck != playerController)
+                    {
+                        player = playerToCheck;
+                    }
+                });
+            }
         }
 
         if (Highlighted != null)
@@ -250,12 +286,16 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             {
                 value.Highlight();
                 if (highlightCursor == null) highlightCursor = Instantiate(highlightCursorPrefab, value.GetTransform().position, Quaternion.identity, transform);
-                else highlightCursor.transform.position = value.GetTransform().position;
+                else
+                {
+                    highlightCursor.SetActive(true);
+                    highlightCursor.transform.position = value.GetTransform().position;
+                }
                 highlightCursor.GetComponent<HighlightController>().SetupHighlight(value);
             }
             else if(highlightCursor != null)
             {
-                Destroy(highlightCursor);
+                highlightCursor.SetActive(false);
             }
             highlighted = value;
         }

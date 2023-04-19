@@ -9,6 +9,8 @@ public abstract class ItemSO : ScriptableObject
     [SerializeField] string itemName;
     [SerializeField] Sprite defaultSprite;
     [SerializeField] Sprite icon;
+    [SerializeField] Sprite typeIcon;
+    [SerializeField] Sprite subtypeIcon;
 
     public abstract bool PickUp(PlayerController player, Item item, out bool destroy);
     public abstract void Drop(PlayerController player, Item item);
@@ -30,6 +32,15 @@ public abstract class ItemSO : ScriptableObject
     public Sprite GetIconSprite()
     {
         return icon;
+    }
+
+    public Sprite GetTypeIcon()
+    {
+        return typeIcon;
+    }
+    public Sprite GetSubtypeIcon()
+    {
+        return subtypeIcon;
     }
     #endregion
 }

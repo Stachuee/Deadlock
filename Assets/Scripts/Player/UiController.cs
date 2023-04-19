@@ -14,12 +14,50 @@ public class UiController : MonoBehaviour
     }
 
     [SerializeField]
+    GameObject itemInfoPanelPrefab;
+    RectTransform itemInfoPanel;
+    [SerializeField]
+    Vector2 itemInfoOffset;
+
+    [SerializeField]
     List<Panel> panels;
+    [SerializeField]
+    PlayerController playerController;
+
 
     public FuseBoxUIScript fuseBox;
     public ComputerUI computer;
 
-    public MultiplayerEventSystem myEventSystem;        
+    Camera cam;
+
+    public MultiplayerEventSystem myEventSystem; 
+    
+
+    public Item ToHighlight
+    {
+        get
+        {
+            return tohighlight;
+        }
+        set
+        {
+            if(value != tohighlight)
+            {
+                if(value != null)
+                {
+                    itemInfoPanel.GetComponent<ItemInfo>().SetupInfo(value.GetItem());
+                    itemInfoPanel.gameObject.SetActive(true);
+                }
+                else
+                {
+                    itemInfoPanel.gameObject.SetActive(false);
+                }
+                tohighlight = value;
+            }
+        }
+    }
+
+    Item tohighlight;
 
     private void Start()
     {
@@ -30,10 +68,16 @@ public class UiController : MonoBehaviour
 
             Destroy(x.anchor.gameObject);
         });
+        itemInfoPanel = Instantiate(itemInfoPanelPrefab, Vector2.zero, Quaternion.identity, transform).GetComponent<RectTransform>();
+        itemInfoPanel.gameObject.SetActive(false);
+        cam = playerController.cameraController.cam;
     }
 
-    public void Computer()
+    private void Update()
     {
-        
+        if(ToHighlight != null)
+        {
+            itemInfoPanel.position = ToHighlight.transform.position + (Vector3)itemInfoOffset;
+        }
     }
 }

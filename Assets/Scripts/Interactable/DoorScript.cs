@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DoorScript : PoweredInteractable
 {
-
-    bool powered;
     bool opened;
     [SerializeField] GameObject door;
 

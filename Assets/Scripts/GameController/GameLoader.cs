@@ -34,11 +34,13 @@ public class GameLoader : MonoBehaviour
         {
             List<InputDetection.NewDevice> devices = InputInfoHolder.Instance.GetDevices();
             GameObject temp;
+            GameController.gameController.SetUp();
 
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 temp = playerInputManager.JoinPlayer(i, 0, devices[i].controlScheme, devices[i].device).gameObject;
-                temp.transform.GetComponent<PlayerController>().SetUpPlayer(devices[i].controlScheme, i, devices[i].scientist);
+                PlayerController controller = temp.transform.GetComponent<PlayerController>();
+                controller.SetUpPlayer(devices[i].controlScheme, i, devices[i].scientist);
                 if (devices[i].scientist) temp.transform.position = scientistAnchor.position;
                 else temp.transform.position = soldierAnchor.position;
             }

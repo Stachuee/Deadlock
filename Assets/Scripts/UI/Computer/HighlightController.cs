@@ -9,7 +9,7 @@ public class HighlightController : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] Slider hpSlider;
     [SerializeField] Image powered;
-
+    [SerializeField] Slider progress;
     IInteractable toMonitor;
 
     private void Update()
@@ -30,13 +30,18 @@ public class HighlightController : MonoBehaviour
         nameText.text = info.name;
         if (info.showHp)
         {
-            hpSlider.gameObject.SetActive(true);
             hpSlider.value = info.hp / info.maxHp;
         }
         if (info.showCharge)
         {
-            powered.gameObject.SetActive(true);
             powered.color = info.charged ? Color.white : Color.yellow;
         }
+        if(info.showProgress)
+        {
+            progress.value = info.progress;   
+        }
+        hpSlider.gameObject.SetActive(info.showHp);
+        powered.gameObject.SetActive(info.showCharge);
+        progress.gameObject.SetActive(info.showProgress);
     }
 }

@@ -41,10 +41,14 @@ public class MapSegment : MonoBehaviour
 
     private void Start()
     {
-        if(doors != null) doors.ForEach(x => x.PowerOn(doorsPowered));
+        if (doors != null) doors.ForEach(x => x.PowerOn(doorsPowered));
+        else doors = new List<PowerInterface>();
         if (printers != null) printers.ForEach(x => x.PowerOn(printersPowered));
+        else printers = new List<PowerInterface>();
         if (security != null) security.ForEach(x => x.PowerOn(securityPowered));
+        else security = new List<PowerInterface>();
         if (lights != null) lights.ForEach(x => x.PowerOn(lightsPowered));
+        else lights = new List<PowerInterface>();
     }
 
     public void TurnOnOff(SwitchType switchType, bool on)

@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         debugStart = false;
         keyboard = controllScheme == "Keyboard";
-
+        GameController.gameController.AddPlayer(this);
         cameraController.SetSplitScreenPosition(index);
         isScientist = scientist;
     }
@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if(debugStart)
         {
             keyboard = GetComponent<PlayerInput>().currentControlScheme == "Keyboard";
+            GameController.gameController.AddPlayer(this);
         }
         EffectManager.instance.AddCameraToEffects(this);
     }
@@ -134,9 +135,24 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         });
         if(closest != closestInRange)
         {
-            if(closestInRange != null) closestInRange.UnHighlight();
-            if(closest != null) closest.Highlight();
-        } 
+            if (closestInRange != null)
+            {
+                closestInRange.UnHighlight();
+                uiController.ToHighlight = null;
+            }
+            if (closest != null)
+            {
+                closest.Highlight();
+                if(closest is Item)
+                {
+                    uiController.ToHighlight = closest as Item;
+                }
+                else
+                {
+                    uiController.ToHighlight = null;
+                }
+            }
+        }
         closestInRange = closest;
 
         if (isAttacking)

@@ -42,4 +42,9 @@ public class Item : InteractableBase
             Destroy(transform.parent.gameObject);
         }
     }
+
+    public ItemSO GetItem()
+    {
+        return itemSO;
+    }
 }
