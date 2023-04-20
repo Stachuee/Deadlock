@@ -165,6 +165,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         }
     }
 
+    public Vector2 GetMovementDirection()
+    {
+        return moveDirection;
+    }
+
+    
+
     
 
     #region InputRegion
