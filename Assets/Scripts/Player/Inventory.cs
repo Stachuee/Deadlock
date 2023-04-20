@@ -18,12 +18,16 @@ public class Inventory : MonoBehaviour
     public void AddGun(GameObject gunSlotPrefab)
     {
         Instantiate(gunSlotPrefab, gunsInventory);
-       // playerController.uiController.myEventSystem.SetSelectedGameObject(inventoryElement);
     }
 
     public void AddEquipment(GameObject equipmentSlotPrefab)
     {
         Instantiate(equipmentSlotPrefab, equipmentInventory);
+    }
+
+    public void EnableInventory(bool isOn)
+    {
+        gameObject.SetActive(isOn);
     }
 
     public GameObject GetSelectedSlot()
