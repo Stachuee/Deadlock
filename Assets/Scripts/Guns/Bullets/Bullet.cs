@@ -35,4 +35,9 @@ public class Bullet : MonoBehaviour
         }
         prevPos = transform.position;
     }
+
+    public DamageType GetDamageType()
+    {
+        return damageType;
+    }
 }

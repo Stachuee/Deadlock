@@ -25,7 +25,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
             case DamageType.Bullet:
                 Damage(damage);
                 break;
-            case DamageType.Posion:
+            case DamageType.Poison:
                 StartCoroutine(PoisonDamage(3, damage));
                 break;
             case DamageType.Fire:

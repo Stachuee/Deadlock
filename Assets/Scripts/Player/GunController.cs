@@ -26,8 +26,7 @@ public class GunController : MonoBehaviour
 
     GunBase gun;
 
-    [SerializeField] private List<GameObject> bullets;
-    private int currentBulletIndex = 0;
+    
 
     private void Awake()
     {
@@ -53,6 +52,8 @@ public class GunController : MonoBehaviour
         inventory.AddGun(weapons[2].GetInventorySlotPrefab());
         inventory.AddGun(weapons[3].GetInventorySlotPrefab());
         inventory.AddGun(weapons[4].GetInventorySlotPrefab());
+
+        
     }
 
     private void Update()
@@ -77,14 +78,7 @@ public class GunController : MonoBehaviour
 
     public void ChangeBullet(float input)
     {
-        if (input >= 1)
-        {
-            if (gun.CompareTag("ARiffle") || gun.CompareTag("Pistol"))
-            {
-                currentBulletIndex = (currentBulletIndex + 1) % bullets.Count;
-                gun.ChangeBulletType(bullets[currentBulletIndex]);
-            }
-        }
+        gun.ChangeBulletType(input);
 
     }
 
@@ -115,5 +109,10 @@ public class GunController : MonoBehaviour
     public void SetSelectedSlot()
     {
         playerController.uiController.myEventSystem.SetSelectedGameObject(inventory.GetSelectedSlot());
+    }
+
+    public GunBase GetCurrentGun()
+    {
+        return gun;
     }
 }

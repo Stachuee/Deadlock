@@ -9,7 +9,12 @@ public class FireGun : GunBase
     private float shootTimer = 0f; // time elapsed since last shot
 
     [SerializeField] ParticleSystem fireVFX;
-    
+
+    [SerializeField] int maxAmmo;
+    [SerializeField] int currentAmmo;
+    [SerializeField] int currentFireAmmo;
+    [SerializeField] int currentPoisonAmmo;
+
     public override void Reload()
     {
         currentAmmo = maxAmmo;
@@ -46,6 +51,24 @@ public class FireGun : GunBase
             currentAmmo -= 5;
         }
             
+    }
+
+    override public void ChangeBulletType(float input)
+    {
+        if (input >= 1)
+        {
+            
+        }
+    }
+
+    override public int GetAmmoAmount()
+    {
+        return currentAmmo;
+    }
+
+    override public DamageType GetBulletType()
+    {
+        return DamageType.Bullet;
     }
 
 }

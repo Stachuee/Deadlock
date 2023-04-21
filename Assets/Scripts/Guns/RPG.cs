@@ -7,6 +7,12 @@ public class RPG : GunBase
 
     public float shootDelay = 0.5f;
     private float shootTimer = 0f; // time elapsed since last shot
+
+
+    [SerializeField] int maxAmmo;
+    [SerializeField] int currentAmmo;
+
+
     public override void Reload()
     {
         currentAmmo = maxAmmo;
@@ -30,5 +36,23 @@ public class RPG : GunBase
 
             shootTimer = Time.time; // reset timer to current time
         }
+    }
+
+    override public void ChangeBulletType(float input)
+    {
+        if (input >= 1)
+        {
+
+        }
+    }
+
+    override public int GetAmmoAmount()
+    {
+        return currentAmmo;
+    }
+
+    override public DamageType GetBulletType()
+    {
+        return DamageType.Bullet;
     }
 }

@@ -16,6 +16,9 @@ public class Laser : GunBase
     [SerializeField] float damage = 5f;
     bool ableToDamage = true;
 
+    [SerializeField] int maxAmmo;
+    [SerializeField] int currentAmmo;
+
     public override void Reload()
     {
         currentAmmo = maxAmmo;
@@ -49,6 +52,24 @@ public class Laser : GunBase
             }
         }
         else lineRenderer.enabled = false;
+    }
+
+    override public void ChangeBulletType(float input)
+    {
+        if (input >= 1)
+        {
+
+        }
+    }
+
+    override public int GetAmmoAmount()
+    {
+        return currentAmmo;
+    }
+
+    override public DamageType GetBulletType()
+    {
+        return DamageType.Bullet;
     }
 
 
