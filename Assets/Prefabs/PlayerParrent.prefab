@@ -481,8 +481,9 @@ MonoBehaviour:
   barrel: {fileID: 1703870215080033523}
   bulletPrefab: {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
   inventorySlotPrefab: {fileID: 4569713353421880941, guid: df31d082a7ac9d941b9237bb8b30d395, type: 3}
+  fireVFXsList:
+  - {fileID: 8462105307739824083, guid: 3b1017c2b70f8954f859117f4ded2aa0, type: 3}
   fireRate: 0.1
-  fireVFX: {fileID: 8462105307739824083, guid: 3b1017c2b70f8954f859117f4ded2aa0, type: 3}
   maxAmmo: 100
   currentAmmo: 500000
   currentFireAmmo: 0
@@ -726,9 +727,13 @@ MonoBehaviour:
   barrel: {fileID: 3616924352445252522}
   bulletPrefab: {fileID: 4574203880661534292, guid: efdda910064e3cb4ca1eade85b6c97ca, type: 3}
   inventorySlotPrefab: {fileID: 4569713353421880941, guid: 177197a681efb544aa229ffdcb68b62b, type: 3}
+  bullets:
+  - {fileID: 4574203880661534292, guid: efdda910064e3cb4ca1eade85b6c97ca, type: 3}
+  - {fileID: 4574203880661534292, guid: 74188797a71f35b44974bd70df75f044, type: 3}
   shootDelay: 0.5
   maxAmmo: 5
   currentAmmo: 5
+  currentPoisonAmmo: 5
 --- !u!1 &385467326060560868
 GameObject:
   m_ObjectHideFlags: 0

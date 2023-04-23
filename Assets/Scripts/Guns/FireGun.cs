@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class FireGun : GunBase
 {
+    [SerializeField] private List<ParticleSystem> fireVFXsList;
+    private int currentFireIndex = 0;
 
     [SerializeField] float fireRate = 0.1f;
     private float shootTimer = 0f; // time elapsed since last shot
 
-    [SerializeField] ParticleSystem fireVFX;
+    ParticleSystem fireVFX;
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
     [SerializeField] int currentFireAmmo;
     [SerializeField] int currentPoisonAmmo;
+
+
+    protected override void Start()
+    {
+        base.Start();
+        fireVFX = fireVFXsList[currentFireIndex];
+    }
 
     public override void Reload()
     {

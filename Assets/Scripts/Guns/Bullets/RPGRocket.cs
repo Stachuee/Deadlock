@@ -16,6 +16,8 @@ public class RPGRocket : MonoBehaviour
     float timeToDespawn;
     float timeToDespawnRemain;
 
+    [SerializeField] DamageType damageType;
+
     private void Start()
     {
         prevPos = transform.position;
@@ -38,7 +40,7 @@ public class RPGRocket : MonoBehaviour
                 if (collider.CompareTag("Enemy"))
                 {
                     ITakeDamage target = collider.GetComponent<ITakeDamage>();
-                    if (target != null) target.TakeDamage(damage, DamageType.Bullet);
+                    if (target != null) target.TakeDamage(damage, damageType);
                 }
              }
             
@@ -47,6 +49,11 @@ public class RPGRocket : MonoBehaviour
          prevPos = transform.position;
         
         }
+
+    public DamageType GetDamageType()
+    {
+        return damageType;
+    }
 
     private void OnDrawGizmosSelected()
     {
