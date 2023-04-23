@@ -3,22 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour, IEnemy
+public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
 {
     // Fields
     protected float moveSpeed = 3f;
     protected float viewDistance = 5f;
-    protected int maxHp;
-    protected int currentHp;
+    protected float maxHp;
+    protected float currentHp;
+
+
 
     // Methods
     public abstract void Move(Vector3 targetPosition);
     //public abstract void Attack();
 
-    public void TakeDamage(int damageAmount)
+    public float TakeDamage(float damage, DamageType type)
     {
-        currentHp -= damageAmount;
+
+        switch (type)
+        {
+            case DamageType.Bullet:
+                Damage(damage);
+                break;
+            case DamageType.Poison:
+                StartCoroutine(PoisonDamage(3, damage));
+                break;
+            case DamageType.Fire:
+                Damage(damage * 2);
+                break;
+        }
+
+        if (currentHp <= 0) Die();
+
+        return damage;
     }
+
 
     public void Die()
     {
@@ -62,4 +81,24 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy
 
         return nearestTarget;
     }
+
+
+    void Damage(float damage)
+    {
+        currentHp -= damage;
+    }
+
+
+    private IEnumerator PoisonDamage(int poisonStrenght, float damage)
+    {
+        Damage(damage);
+        while (poisonStrenght > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            Damage(damage);
+            poisonStrenght--;
+        }
+    }
+
+
 }

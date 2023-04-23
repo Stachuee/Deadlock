@@ -54,6 +54,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     Camera cam;
     bool debugStart = true;
 
+    [SerializeField]
+    GameObject inventoryPanel;
+
     List<IInteractable> inRange = new List<IInteractable>();
     IInteractable closestInRange;
 
@@ -192,6 +195,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         }
     }
 
+    public Vector2 GetMovementDirection()
+    {
+        return moveDirection;
+    }
+
+    
+
     
 
     #region InputRegion
@@ -258,7 +268,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnChangeWeapon(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        gunController.ChangeWeapon(context.ReadValue<float>());
+    }
+
+    public void onChangeBullet(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        gunController.ChangeBullet(context.ReadValue<float>());
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -272,10 +287,20 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (!context.started) return;
         if (context.ReadValue<float>() > 0.9f) equipmentController.UseEquipment();
     }
-    #endregion
 
-    #region UseRegion
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnOpenInventory(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        if (context.ReadValue<float>() > 0.9f)
+        {
+            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+            gunController.SetSelectedSlot();
+        }
+        }
+        #endregion
+
+        #region UseRegion
+        private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.tag == "Interactable")
         {

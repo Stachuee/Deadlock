@@ -26,7 +26,7 @@ public struct DamageTypeResistance
                 return bulletResistance;
             case DamageType.Fire:
                 return fireResistance;
-            case DamageType.Posion:
+            case DamageType.Poison:
                 return posionResistance;
             case DamageType.Ice:
                 return iceResistance;

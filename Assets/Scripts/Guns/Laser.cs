@@ -8,7 +8,6 @@ public class Laser : GunBase
     [SerializeField] float fireRate = 0.1f;
     private float shootTimer = 0f; // time elapsed since last shot
 
-    [SerializeField] float laserDistance = 100f;
     [SerializeField] Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
 
@@ -16,6 +15,9 @@ public class Laser : GunBase
 
     [SerializeField] float damage = 5f;
     bool ableToDamage = true;
+
+    [SerializeField] int maxAmmo;
+    [SerializeField] int currentAmmo;
 
     public override void Reload()
     {
@@ -26,11 +28,12 @@ public class Laser : GunBase
     void Update()
     {
 
-        if (isShooting >= 0.9f)
+        if (isShooting >= 0.9f && currentAmmo > 0)
         {
             if (Time.time < shootTimer + fireRate)
             {
                 ableToDamage = false;
+                currentAmmo -= 5;
             }
             else ableToDamage = true;
             lineRenderer.enabled = true;
@@ -49,6 +52,24 @@ public class Laser : GunBase
             }
         }
         else lineRenderer.enabled = false;
+    }
+
+    override public void ChangeBulletType(float input)
+    {
+        if (input >= 1)
+        {
+
+        }
+    }
+
+    override public int GetAmmoAmount()
+    {
+        return currentAmmo;
+    }
+
+    override public DamageType GetBulletType()
+    {
+        return DamageType.Bullet;
     }
 
 

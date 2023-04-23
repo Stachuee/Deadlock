@@ -5,15 +5,33 @@ using UnityEngine;
 public class EquipmentController : MonoBehaviour
 {
 
-    [SerializeField]
+    
     GameObject throwable;
 
     PlayerController playerController;
 
+    [SerializeField] private List<GameObject> equipment;
+    private int currentEquipmentIndex = 0;
+
+    [SerializeField] private Inventory inventory;
 
     private void Awake()
     {
         playerController = transform.GetComponent<PlayerController>();
+    }
+
+    private void Start()
+    {
+        throwable = equipment[currentEquipmentIndex];
+
+        inventory.AddEquipment(equipment[0].GetComponent<Granade>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[1].GetComponent<Granade>().GetInventorySlotPrefab());
+    }
+
+    public void ChangeEquipment(int equipmentIndex)
+    {
+        currentEquipmentIndex = equipmentIndex;
+        throwable = equipment[currentEquipmentIndex];
     }
 
     public void UseEquipment()

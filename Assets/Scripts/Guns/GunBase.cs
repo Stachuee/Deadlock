@@ -6,18 +6,24 @@ public abstract class GunBase : MonoBehaviour, IGun
 {
     [SerializeField] protected Transform barrel;
     [SerializeField] protected GameObject bulletPrefab;
-    [SerializeField] protected int maxAmmo;
-    [SerializeField] protected int currentAmmo;
+    
+    
     protected PlayerController owner;
+
+    [SerializeField] protected GameObject inventorySlotPrefab;
 
     protected float isShooting = 0;
 
-    private void Start()
+    protected virtual void Start()
     {
         owner = transform.GetComponentInParent<PlayerController>();
     }
 
     public abstract void Reload();
+
+    public abstract void ChangeBulletType(float input);
+
+
     public void Shoot(float _isShooting)
     {
         isShooting = _isShooting;
@@ -38,9 +44,20 @@ public abstract class GunBase : MonoBehaviour, IGun
         return GetComponentInChildren<Transform>();
     }
 
+    public abstract int GetAmmoAmount();
+    //To Change
+    public abstract DamageType GetBulletType();
+
     public void EnableGun(bool isActive)
     {
         gameObject.SetActive(isActive);
+    }
+
+
+
+    public GameObject GetInventorySlotPrefab()
+    {
+        return inventorySlotPrefab;
     }
 
 
