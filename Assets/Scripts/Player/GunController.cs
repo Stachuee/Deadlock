@@ -26,7 +26,9 @@ public class GunController : MonoBehaviour
 
     GunBase gun;
 
-    
+    ParticleSystem effectToDeactivate = null; // if some PS can stay in scene but are unnecessary, make it inactive after changing the gun 
+
+
 
     private void Awake()
     {
@@ -72,6 +74,11 @@ public class GunController : MonoBehaviour
         gun = weapons[currentWeaponIndex].GetGunScript();
 
         weapons[currentWeaponIndex].EnableGun(true);
+
+        if (effectToDeactivate != null)
+        {
+            effectToDeactivate.enableEmission = false;
+        }
     }
 
 
@@ -108,6 +115,11 @@ public class GunController : MonoBehaviour
     public void SetSelectedSlot()
     {
         playerController.uiController.myEventSystem.SetSelectedGameObject(inventory.GetSelectedSlot());
+    }
+
+    public void SetEffectToDeactivate(ParticleSystem ps)
+    {
+        effectToDeactivate = ps;
     }
 
     public GunBase GetCurrentGun()

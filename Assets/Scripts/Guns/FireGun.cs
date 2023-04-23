@@ -19,15 +19,19 @@ public class FireGun : GunBase
 
     ParticleSystem firePS;
 
+    GunController gunController;
+
 
     protected override void Start()
     {
+        gunController = FindObjectOfType<GunController>();
         base.Start();
         fireVFX = fireVFXsList[currentFireIndex];
         fireDT = fireVFX.GetComponent<FireGunDamageType>();
 
         firePS = Instantiate(fireVFX, barrel.position, transform.rotation);
         firePS.enableEmission = false;
+        gunController.SetEffectToDeactivate(firePS);
     }
 
     public override void Reload()
@@ -70,7 +74,13 @@ public class FireGun : GunBase
                 currentAmmo--;
             else if (fireDT.GetDamageType() == DamageType.Ice)
                 currentIceAmmo--;
-        }else firePS.enableEmission = false;
+        }
+        else
+        {
+            firePS.enableEmission = false;
+        }
+
+        if(!gameObject.activeSelf) Destroy(firePS);
 
     }
 
@@ -84,6 +94,7 @@ public class FireGun : GunBase
             firePS = Instantiate(fireVFX, barrel.position, transform.rotation);
             firePS.enableEmission = false;
             fireDT = fireVFX.GetComponent<FireGunDamageType>();
+            gunController.SetEffectToDeactivate(firePS);
         }
     }
 
