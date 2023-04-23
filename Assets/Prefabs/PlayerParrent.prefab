@@ -483,11 +483,11 @@ MonoBehaviour:
   inventorySlotPrefab: {fileID: 4569713353421880941, guid: df31d082a7ac9d941b9237bb8b30d395, type: 3}
   fireVFXsList:
   - {fileID: 8462105307739824083, guid: 3b1017c2b70f8954f859117f4ded2aa0, type: 3}
+  - {fileID: 3950550768520545391, guid: 73947e0a3a114d2439dcec77ddbdf46d, type: 3}
   fireRate: 0.1
   maxAmmo: 100
   currentAmmo: 500000
-  currentFireAmmo: 0
-  currentPoisonAmmo: 0
+  currentIceAmmo: 500000
 --- !u!60 &5626578119996359707
 PolygonCollider2D:
   m_ObjectHideFlags: 0

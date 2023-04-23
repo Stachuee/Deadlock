@@ -11,17 +11,23 @@ public class FireGun : GunBase
     private float shootTimer = 0f; // time elapsed since last shot
 
     ParticleSystem fireVFX;
+    FireGunDamageType fireDT;
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
-    [SerializeField] int currentFireAmmo;
-    [SerializeField] int currentPoisonAmmo;
+    [SerializeField] int currentIceAmmo;
+
+    ParticleSystem firePS;
 
 
     protected override void Start()
     {
         base.Start();
         fireVFX = fireVFXsList[currentFireIndex];
+        fireDT = fireVFX.GetComponent<FireGunDamageType>();
+
+        firePS = Instantiate(fireVFX, barrel.position, transform.rotation);
+        firePS.enableEmission = false;
     }
 
     public override void Reload()
@@ -40,7 +46,7 @@ public class FireGun : GunBase
                 return; // not enough time has passed since last shot
             }
             ITakeDamage enemy = collision.GetComponent<ITakeDamage>();
-            enemy.TakeDamage(10f, DamageType.Bullet);
+            enemy.TakeDamage(10f, fireDT.GetDamageType());
 
             shootTimer = Time.time; // reset timer to current time
         }
@@ -50,34 +56,50 @@ public class FireGun : GunBase
         Vector2 diff = (owner.currentAimDirection).normalized;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
-        if(isShooting >= 0.9f && currentAmmo > 0)
+        firePS.transform.rotation = transform.rotation;
+        firePS.transform.position = transform.position;
+
+        if (isShooting >= 0.9f && currentAmmo > 0)
         {
-            ParticleSystem firePS = Instantiate(fireVFX, barrel.position, transform.rotation);
+            firePS.enableEmission = true;
             if (Time.time < shootTimer + fireRate)
             {
                 return; // not enough time has passed since last shot
             }
-            currentAmmo -= 5;
-        }
-            
+            if (fireDT.GetDamageType() == DamageType.Bullet)
+                currentAmmo--;
+            else if (fireDT.GetDamageType() == DamageType.Ice)
+                currentIceAmmo--;
+        }else firePS.enableEmission = false;
+
     }
 
     override public void ChangeBulletType(float input)
     {
         if (input >= 1)
         {
-            
+            currentFireIndex = (currentFireIndex + 1) % fireVFXsList.Count;
+            fireVFX = fireVFXsList[currentFireIndex];
+            Destroy(firePS);
+            firePS = Instantiate(fireVFX, barrel.position, transform.rotation);
+            firePS.enableEmission = false;
+            fireDT = fireVFX.GetComponent<FireGunDamageType>();
         }
     }
 
     override public int GetAmmoAmount()
     {
-        return currentAmmo;
+        if (fireDT.GetDamageType() == DamageType.Bullet)
+            return currentAmmo;
+        else if (fireDT.GetDamageType() == DamageType.Ice)
+            return currentIceAmmo;
+
+        return 0;
     }
 
     override public DamageType GetBulletType()
     {
-        return DamageType.Bullet;
+        return fireDT.GetDamageType();
     }
 
 }
