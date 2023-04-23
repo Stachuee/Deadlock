@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DamageType { Bullet, Fire, Posion, Ice, Mele }
+public enum DamageType { Bullet, Fire, Poison, Ice, Mele }
 
 [System.Serializable]
 public struct DamageTypeResistance
