@@ -33,7 +33,7 @@ public class Light : PoweredInteractable
 
     override public void PowerOn(bool on)
     {
-        if (!turnOn) return;
+        //if (!turnOn) return;
         if(on)
         {
             myLight.intensity = 1;

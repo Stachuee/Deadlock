@@ -163,6 +163,17 @@ public class NavController : MonoBehaviour
         public NavNode node;
     };
 
+
+    [ContextMenu("Remove nodes")]
+    void RemoveNodes()
+    {
+        NavNode[] allNodes = FindObjectsOfType<NavNode>();
+        for (int i = 0; i < allNodes.Length; i++)
+        {
+            DestroyImmediate(allNodes[i].gameObject);
+        }
+    }
+
     [ContextMenu("Create navmesh from premade map")]
     void createNavMeshPremade()
     {

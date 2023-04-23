@@ -113,47 +113,55 @@ public class MapSegment : MonoBehaviour
     {
         if(lights == null) lights = new List<PowerInterface>();
         this.lights.Add(light);
+        light.PowerOn(lightsPowered || alwaysPowered);
     }
 
     public void AddLight(List<PowerInterface> light)
     {
         if (lights == null) lights = new List<PowerInterface>();
         this.lights.AddRange(light);
+        lights.ForEach(x => x.PowerOn(lightsPowered || alwaysPowered));
     }
 
     public void AddDoors(PowerInterface doors)
     {
         if (this.doors == null) this.doors = new List<PowerInterface>();
         this.doors.Add(doors);
+        doors.PowerOn(doorsPowered || alwaysPowered);
     }
 
     public void AddDoors(List<PowerInterface> doors)
     {
         if (this.doors == null) this.doors = new List<PowerInterface>();
         this.doors.AddRange(doors);
+        doors.ForEach(x => x.PowerOn(doorsPowered || alwaysPowered));
     }
 
     public void AddSecurity(PowerInterface security)
     {
         if (this.security == null) this.security = new List<PowerInterface>();
         this.security.Add(security);
+        security.PowerOn(securityPowered || alwaysPowered);
     }
     public void AddSecurity(List<PowerInterface> security)
     {
         if (this.security == null) this.security = new List<PowerInterface>();
         this.security.AddRange(security);
+        security.ForEach(x => x.PowerOn(securityPowered || alwaysPowered));
     }
 
     public void AddPrinters(PowerInterface printers)
     {
         if (this.printers == null) this.printers = new List<PowerInterface>();
         this.printers.Add(printers);
+        printers.PowerOn(printersPowered || alwaysPowered);
     }
 
     public void AddPrinters(List<PowerInterface> printers)
     {
         if (this.printers == null) this.printers = new List<PowerInterface>();
         this.printers.AddRange(printers);
+        printers.ForEach(x => x.PowerOn(printersPowered || alwaysPowered));
     }
 
     public void AddRoom(Rooms tooAdd)
