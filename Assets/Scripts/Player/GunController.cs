@@ -53,8 +53,9 @@ public class GunController : MonoBehaviour
         inventory.AddGun(weapons[2].GetInventorySlotPrefab());
         inventory.AddGun(weapons[3].GetInventorySlotPrefab());
         inventory.AddGun(weapons[4].GetInventorySlotPrefab());
+        inventory.AddGun(weapons[5].GetInventorySlotPrefab());
 
-        
+
     }
 
     private void Update()
