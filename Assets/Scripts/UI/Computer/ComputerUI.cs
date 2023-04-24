@@ -228,9 +228,9 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         lookingAtMap = false;
     }
 
-    public void UnlockSegment(MapSegment segment)
+    public void UnlockSegment(MapSegment segment, bool unlocked)
     {
-        roomsUI.FindAll(x => x.segment == segment).ForEach(button => button.Unlock());
+        roomsUI.FindAll(x => x.segment == segment).ForEach(button => button.Unlock(unlocked));
     }
 
     public void OpenComputer()

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour, ITakeDamage
+public class Spawner : InteractableBase
 {
     public bool isActive;
 
@@ -11,17 +11,6 @@ public class Spawner : MonoBehaviour, ITakeDamage
     float spawnDelay;
     float lastSpawn;
 
-    [SerializeField]
-    float maxHp;
-    float hp;
-    [SerializeField]
-    bool unlocksNewSegment;
-    [SerializeField]
-    MapSegment segmentToUnlock;
-
-    [SerializeField]
-    GameObject bossToSpawn;
-    bool bossSpawned;
 
     Queue<WaveSO.SubWave> waveToSpawn = new Queue<WaveSO.SubWave>();
 
@@ -29,7 +18,6 @@ public class Spawner : MonoBehaviour, ITakeDamage
 
     private void Start()
     {
-        hp = maxHp;
         if (isActive)
         {
             SpawnerController.instance.AddSpawner(this);
@@ -74,30 +62,5 @@ public class Spawner : MonoBehaviour, ITakeDamage
                 for (int i = 0; i < enemy.count; i++) prefabsToSpawn.Enqueue(enemy.enemy.GetPrefab());
             });
         }
-    }
-
-    public float TakeDamage(float damage, DamageType type)
-    {
-        float damageAmmount = damage;
-        //if (type == DamageType.Fire)
-        //{
-        //    damage *= 1.5f;
-        //}
-        hp -= damageAmmount;
-        if(hp < 0)
-        {
-            if(unlocksNewSegment)
-            {
-                SpawnerController.instance.RemoveSpawner(this);
-                segmentToUnlock.UnlockSegment();
-                Destroy(gameObject);
-            }
-        }
-        else if(hp/maxHp < 0.25f && !bossSpawned)
-        {
-            bossSpawned = true;
-            Instantiate(bossToSpawn, transform.position, Quaternion.identity);
-        }
-        return damageAmmount;
     }
 }

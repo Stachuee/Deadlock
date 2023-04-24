@@ -62,10 +62,11 @@ public class RoomUiButton : MonoBehaviour
         if(Active) computer.ChangeCamera(room);
     }
 
-    public void Unlock()
+    public void Unlock(bool unlocked)
     {
-        Active = true;
+        Active = unlocked;
     }
+
 
     public void UpdateEvent(bool highlight)
     {

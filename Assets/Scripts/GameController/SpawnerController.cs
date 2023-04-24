@@ -34,10 +34,6 @@ public class SpawnerController : MonoBehaviour
         spawns.Add(spawnerToAdd);
     }
 
-    public void RemoveSpawner(Spawner spawnerToRemove)
-    {
-        spawns.Remove(spawnerToRemove);
-    }
 
     private void Update()
     {

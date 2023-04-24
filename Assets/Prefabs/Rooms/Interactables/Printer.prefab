@@ -124,12 +124,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa21e2f6be6c7540b5a721ebf161b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
-  handActivation: 0
-  working: 0
+  handActivation: 1
+  hideInComputer: 0
+  useElectricityType: 2
   readyToCollect: 0
-  baseProduction: 5
+  baseProduction: 60
+  toPrint: {fileID: 11400000, guid: f82b06b2aa8869c4bacc393ccd7a5b8c, type: 2}
   prefabToPrint: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}

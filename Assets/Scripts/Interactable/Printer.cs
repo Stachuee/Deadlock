@@ -7,7 +7,9 @@ public class Printer : PoweredInteractable
     [SerializeField] bool readyToCollect;
 
     [SerializeField] float baseProduction;
-    float productionRemain;
+    [SerializeField]float productionRemain;
+
+    [SerializeField] ItemSO toPrint;
 
     [SerializeField] GameObject prefabToPrint;
 
@@ -15,6 +17,7 @@ public class Printer : PoweredInteractable
     {
         base.Awake();
         AddAction(Collect);
+        productionRemain = baseProduction;
     }
 
 
@@ -34,9 +37,14 @@ public class Printer : PoweredInteractable
     {
         if(readyToCollect)
         {
-            Instantiate(prefabToPrint, transform.position, Quaternion.identity);
+            Instantiate(prefabToPrint, transform.position, Quaternion.identity).GetComponent<Item>().Innit(toPrint);
             readyToCollect = false;
             productionRemain = baseProduction;
         }
+    }
+
+    public override InfoContainer GetInfo()
+    {
+        return new InfoContainer { showProgress = true, progress = (1 - productionRemain/baseProduction), showCharge = true, charged =powered, name = displayName };
     }
 }

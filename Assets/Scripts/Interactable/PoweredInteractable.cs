@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class PoweredInteractable : InteractableBase, PowerInterface
 {
     [SerializeField] protected SwitchType useElectricityType;
-    protected bool powered;
+    [SerializeField] protected bool powered;
     public virtual void PowerOn(bool on)
     {
         powered = on;

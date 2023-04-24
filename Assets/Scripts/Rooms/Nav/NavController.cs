@@ -193,67 +193,81 @@ public class NavController : MonoBehaviour
             DestroyImmediate(allNodes[i].gameObject);
         }
 
-        List<DoorMarker> doorMarkers = FindObjectsOfType<DoorMarker>().ToList();
+        
 
-        //Add node to each room
-        allRooms.ForEach(r =>
+        // In room nodes
+        allRooms.ForEach(room =>
         {
-            nodes.Add(Instantiate(navNode, r.Position, Quaternion.identity, r.transform).GetComponent<NavNode>());
-            if(r == targetRoom) targetNode = nodes[nodes.Count - 1];
-        });
-
-        // match rooms with overlaping door markers
-        nodes.ForEach(node =>
-        {
-            List<DoorMarker> markers = node.GetComponentInParent<Rooms>().GetComponentsInChildren<DoorMarker>().ToList();
-            markers.ForEach(marker =>
+            List<DoorMarker> doors = room.GetComponentsInChildren<DoorMarker>().ToList();
+            List<NavNode> nodesInRoom = new List<NavNode>();
+            doors.ForEach(door =>
             {
-                doorMarkers.ForEach(doorMarker =>
+                nodesInRoom.Add(Instantiate(navNode, door.transform.position, Quaternion.identity, door.transform).GetComponent<NavNode>());
+            });
+
+            List<StairsScript> stairs = room.GetComponentsInChildren<StairsScript>().ToList();
+
+            stairs.ForEach(stairs =>
+            {
+                NavNode temp = Instantiate(navNode, stairs.transform.position, Quaternion.identity, stairs.transform).GetComponent<NavNode>();
+                temp.navNodeType = NavNode.NavNodeType.Stairs;
+                nodesInRoom.Add(temp);
+            });
+
+            if(room == targetRoom)
+            {
+                Transform bunkerDoor = room.GetComponentInChildren<ScientistRoomDoor>().transform;
+                nodesInRoom.Add(Instantiate(navNode, bunkerDoor.transform.position, Quaternion.identity, bunkerDoor.transform).GetComponent<NavNode>());
+                targetNode = nodesInRoom[nodesInRoom.Count - 1];
+            }
+
+            nodesInRoom.ForEach(nodeOne =>
+            {
+                nodesInRoom.ForEach(nodeTwo =>
                 {
-                    if(doorMarker != marker && Vector2.Distance(doorMarker.transform.position, marker.transform.position) < 0.2f)
+                    if(nodeOne != nodeTwo)
                     {
-                        node.AddConnectedNode(doorMarker.GetComponentInParent<Rooms>().GetComponentInChildren<NavNode>());
+                        nodeOne.AddConnectedNode(nodeTwo);
+                        nodeTwo.AddConnectedNode(nodeOne);
                     }
                 });
             });
+            nodes.AddRange(nodesInRoom);
         });
 
+        //Stairs
+        List<StairsScript> stairs = FindObjectsOfType<StairsScript>().ToList();
 
-        List<DoorNav> stairsNodes = new List<DoorNav>();
-
-
-       allRooms.ForEach(room =>
-       {
-           List<StairsScript> stairs = room.transform.GetComponentsInChildren<StairsScript>().ToList();
-
-           NavNode mainNode = room.GetComponentInChildren<NavNode>();
-
-           stairs.ForEach(stairs =>
-           {
-               NavNode temp = Instantiate(navNode, stairs.transform.position, Quaternion.identity, room.transform).GetComponent<NavNode>();
-               temp.navNodeType = NavNode.NavNodeType.Stairs;
-               stairs.node = temp;
-               stairsNodes.Add(new DoorNav {node = temp, script = stairs });
-               temp.AddConnectedNode(mainNode);
-
-               List<NavNode> nodesToConnect = mainNode.GetConnectedNodes();
-               temp.AddConnectedNode(nodesToConnect);
-               nodesToConnect.ForEach(nodeToConnect =>
-               {
-                   nodeToConnect.AddConnectedNode(temp);
-               });
-           });
-
-           stairs.ForEach(stairs => 
-           {
-               mainNode.AddConnectedNode(stairs.node);
-           });
-       });
-
-        stairsNodes.ForEach(stairsNode =>
+        stairs.ForEach(stairs =>
         {
-            stairsNode.node.AddConnectedNode(stairsNode.script.GetConnected().node);
+            stairs.GetComponentInChildren<NavNode>().AddConnectedNode(stairs.GetConnected().GetComponentInChildren<NavNode>());
         });
+
+
+        //Connect doors and remove redundant nodes
+
+        List<DoorMarker> doors = FindObjectsOfType<DoorMarker>().ToList();
+
+        doors.ForEach(door =>
+        {
+            NavNode myNode = door.GetComponentInChildren<NavNode>();
+            if(myNode != null)
+            {
+                DoorMarker connected = doors.Find(toFind => Vector2.Distance(door.transform.position, toFind.transform.position) < 0.1f && door != toFind);
+                NavNode redundant = connected.GetComponentInChildren<NavNode>();
+                nodes.Remove(redundant);
+                redundant.GetConnectedNodes().ForEach(nodeToUpdate =>
+                {
+                    nodeToUpdate.RemoveConnectedNode(redundant);
+                    nodeToUpdate.AddConnectedNode(myNode);
+                });
+                myNode.AddConnectedNode(redundant.GetConnectedNodes());
+                
+                DestroyImmediate(redundant.gameObject);
+            }
+        });
+
+
         AddWeigthToNodes();
     }
 }

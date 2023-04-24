@@ -42,6 +42,10 @@ public class NavNode : MonoBehaviour
         connectedNodes.AddRange(node);
         connectedNodes = connectedNodes.Distinct().ToList();
     }
+    public void RemoveConnectedNode(NavNode node)
+    {
+        connectedNodes.Remove(node);
+    }
 
     public List<NavNode> GetConnectedNodes()
     {

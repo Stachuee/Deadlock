@@ -10,9 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 238913776322736959}
   - component: {fileID: 238913776322736958}
-  - component: {fileID: 238913776322736953}
-  - component: {fileID: 238913776322736952}
-  - component: {fileID: 238913776322736955}
   - component: {fileID: 238913776322736954}
   - component: {fileID: 238913776322736949}
   - component: {fileID: 238913776322736948}
@@ -90,51 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &238913776322736953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238913776322736951}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6d89c8a68a3230419efd5e7f052e7c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyMaxHp: 15
---- !u!114 &238913776322736952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238913776322736951}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 293e132c44b02bc419943bff9042ed11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  enemyMaxHp: 15
---- !u!114 &238913776322736955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238913776322736951}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55d555aa7811af43a620643322cf1c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 6051884553978273643, guid: 3ee4bfb55a71dc34897b538b7c6cd250, type: 3}
-  gunTip: {fileID: 0}
-  shootingCooldown: 1
-  enemyMaxHp: 15
 --- !u!114 &238913776322736954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,9 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9164c6b6d1a470c419d61cc217d13329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
   maxHp: 100
-  speed: 2
+  randomSpeed: {x: 2, y: 3}
   damage: 10
   attackSpeed: 1
   resistances:

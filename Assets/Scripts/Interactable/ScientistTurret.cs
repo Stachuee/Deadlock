@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GD.MinMaxSlider;
 
-public class ScientistTurret : InteractableBase, ITakeControll, IControllSubscriberMovment, IControllSubscriberShoot
+public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubscriberMovment, IControllSubscriberShoot
 {
     [MinMaxSlider(-180, 0)]
     public Vector2Int minMaxTurretAngle;

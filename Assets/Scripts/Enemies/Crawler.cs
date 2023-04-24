@@ -43,8 +43,9 @@ public class Crawler : _EnemyBase
         }
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         path = NavController.instance.GetPathToScientist(transform.position);
         if(path.Count > 0)
         {

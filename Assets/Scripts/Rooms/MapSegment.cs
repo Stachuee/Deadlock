@@ -14,8 +14,7 @@ public class MapSegment : MonoBehaviour
     [SerializeField]
     List<Rooms> roomsInSegment;
 
-    [SerializeField] bool unlocked;
-    [SerializeField] List<Spawner> spawnersInSegment;
+    [SerializeField] bool segmentUnlocked;
 
     [SerializeField] bool alwaysPowered;
 
@@ -99,14 +98,13 @@ public class MapSegment : MonoBehaviour
 
     public bool IsUnlockerd()
     {
-        return unlocked;
+        return segmentUnlocked;
     }
 
-    public void UnlockSegment()
+    public void UnlockSegment(bool unlocked)
     {
-        unlocked = true;
-        SegmentController.segmentController.UnlockSegment(this);
-        spawnersInSegment.ForEach(x => x.ActivateSpanwer());
+        segmentUnlocked = unlocked;
+        SegmentController.segmentController.UnlockSegment(this, unlocked);
     }
 
     public void AddLight(PowerInterface light)
