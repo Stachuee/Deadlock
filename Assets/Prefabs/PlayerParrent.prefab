@@ -1596,6 +1596,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &3820236070814849405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2329713260255000941}
+  m_Layer: 6
+  m_Name: TowerPlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2329713260255000941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820236070814849405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.35, y: -0.39, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4552270140176820841}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3951691511384203406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,6 +1864,7 @@ Transform:
   - {fileID: 868574783646086718}
   - {fileID: 4068036383339055871}
   - {fileID: 6159421881059575531}
+  - {fileID: 2329713260255000941}
   m_Father: {fileID: 4552270140716814268}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2151,7 +2183,12 @@ MonoBehaviour:
   equipment:
   - {fileID: 6379561933705372736, guid: 3537c1601ca52f745858dba1bbae0f2a, type: 3}
   - {fileID: 6379561933705372736, guid: d2c45e569afeea74bbc90634b10ef9f8, type: 3}
+  - {fileID: 8873820216646291997, guid: 8a660456e4668ff4aaa118dc6181140c, type: 3}
+  - {fileID: 6379561933705372736, guid: ae5fae3a5ffd11043852c736299b405d, type: 3}
+  - {fileID: 1662795592853283025, guid: 5c77ae15c4993284685c83fcb4dbbd80, type: 3}
+  - {fileID: 1662795592853283025, guid: b97bf384e5fa4ae47a2ead3dded33677, type: 3}
   inventory: {fileID: 5885302392340076747}
+  towerPlace: {fileID: 2329713260255000941}
 --- !u!61 &4552270140176820847
 BoxCollider2D:
   m_ObjectHideFlags: 0

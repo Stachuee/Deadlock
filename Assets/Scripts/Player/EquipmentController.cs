@@ -15,6 +15,8 @@ public class EquipmentController : MonoBehaviour
 
     [SerializeField] private Inventory inventory;
 
+    [SerializeField] private Transform towerPlace;
+
     private void Awake()
     {
         playerController = transform.GetComponent<PlayerController>();
@@ -26,6 +28,10 @@ public class EquipmentController : MonoBehaviour
 
         inventory.AddEquipment(equipment[0].GetComponent<Granade>().GetInventorySlotPrefab());
         inventory.AddEquipment(equipment[1].GetComponent<Granade>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[2].GetComponent<ShootingTower>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[3].GetComponent<Granade>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[4].GetComponent<Medicine>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[5].GetComponent<Stimulator>().GetInventorySlotPrefab());
     }
 
     public void ChangeEquipment(int equipmentIndex)
@@ -36,6 +42,16 @@ public class EquipmentController : MonoBehaviour
 
     public void UseEquipment()
     {
+
+        if (throwable.CompareTag("Tower"))
+        {
+            Instantiate(throwable, towerPlace.position, Quaternion.identity);
+            return;
+        }else if (throwable.CompareTag("Medicine"))
+        {
+            throwable.GetComponent<MedicineBase>().AddEffect(playerController);
+            return;
+        }
         GameObject temp = Instantiate(throwable, transform.position, Quaternion.identity);
         temp.GetComponent<Rigidbody2D>().AddForce(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
     }
