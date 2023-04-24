@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 238913776322736949}
   - component: {fileID: 238913776322736948}
   m_Layer: 9
-  m_Name: Crawler (1)
+  m_Name: Flying
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9164c6b6d1a470c419d61cc217d13329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 20
   randomSpeed: {x: 2, y: 3}
   damage: 10
   attackSpeed: 1
@@ -151,7 +151,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0.8
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
