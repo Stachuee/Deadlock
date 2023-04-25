@@ -21,6 +21,8 @@ public abstract class GunBase : MonoBehaviour, IGun
 
     public abstract void Reload();
 
+    public abstract void AddAmmo(AmmoType aT, int amount);
+
     public abstract void ChangeBulletType(float input);
 
 

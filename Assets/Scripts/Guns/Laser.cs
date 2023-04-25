@@ -24,6 +24,19 @@ public class Laser : GunBase
         currentAmmo = maxAmmo;
     }
 
+    public override void AddAmmo(AmmoType aT, int amount)
+    {
+        switch (aT)
+        {
+            case AmmoType.Bullet:
+                currentAmmo += amount;
+                break;
+            default:
+                Debug.LogError($"Wrong AmmoType({aT}) for Laser!");
+                break;
+        }
+    }
+
 
     void Update()
     {

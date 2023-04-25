@@ -29,7 +29,21 @@ public class RPG : GunBase
         currentAmmo = maxAmmo;
     }
 
-
+    public override void AddAmmo(AmmoType aT, int amount)
+    {
+        switch (aT)
+        {
+            case AmmoType.Bullet:
+                currentAmmo += amount;
+                break;
+            case AmmoType.Poison:
+                currentPoisonAmmo += amount;
+                break;
+            default:
+                Debug.LogError($"Wrong AmmoType({aT}) for RPG!");
+                break;
+        }
+    }
 
     private void Update()
     {

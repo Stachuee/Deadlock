@@ -29,6 +29,25 @@ public class Harpoon : GunBase
         currentAmmo = maxAmmo;
     }
 
+    public override void AddAmmo(AmmoType aT, int amount)
+    {
+        switch (aT)
+        {
+            case AmmoType.Bullet:
+                currentAmmo += amount;
+                break;
+            case AmmoType.Fire:
+                currentFireAmmo += amount;
+                break;
+            case AmmoType.Poison:
+                currentPoisonAmmo += amount;
+                break;
+            default:
+                Debug.LogError($"Wrong AmmoType({aT}) for Harpoon!");
+                break;
+        }
+    }
+
     private void Update()
     {
         if (bullet.GetDamageType() == DamageType.Bullet && currentAmmo <= 0) return;

@@ -6,6 +6,7 @@ public interface IGun
 {
     public void Shoot(float isShooting);
     public void Reload();
+    public void AddAmmo(AmmoType aT, int amount);
 
     public void ChangeBulletType(float input);
 
