@@ -19,7 +19,8 @@ public class CureController : MonoBehaviour
     [SerializeField] int cureProgressLevel;
     [SerializeField] float cureCurrentProgress;
 
-    bool cureMachineWorking;
+    [SerializeField] bool cureMachinePowered;
+    [SerializeField] bool cureMachineSupportFilled;
 
     private void Awake()
     {
@@ -27,17 +28,27 @@ public class CureController : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        CureMachine.Instance.SetCurrentUssage(cureProgress[0].machinesRequired);
+    }
+
     private void Update()
     {
-        if(cureMachineWorking)
+        if(cureMachinePowered && cureMachineSupportFilled)
         {
             cureCurrentProgress += Time.deltaTime ;
         }
     }
 
+    public void CureMachineSupportReady(bool filled)
+    {
+        cureMachineSupportFilled = filled;
+    }
+
     public void CureMachineRunning(bool on)
     {
-        cureMachineWorking = on;
+        cureMachinePowered = on;
     }
 
     public float GetCureCurrentProgress()

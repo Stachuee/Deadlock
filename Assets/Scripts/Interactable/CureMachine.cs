@@ -9,6 +9,8 @@ public class CureMachine : ScientistPoweredInteractable
     public static CureMachine Instance { get; private set; }
     [SerializeField] List<float> supportsLevels = new List<float>();
 
+    [SerializeField] List<CureMachineSupportType> currentUssage;
+
     [SerializeField] float supportUsageRate;
 
     protected override void Awake()
@@ -53,13 +55,31 @@ public class CureMachine : ScientistPoweredInteractable
 
     public void AddSupport(int type, float ammount)
     {
-        if(supportsLevels[type] == 0) CheckSupport();
-        supportsLevels[type] += ammount;
+        if (supportsLevels[type] == 0)
+        {
+            supportsLevels[type] = Mathf.Clamp01(supportsLevels[type] + ammount);
+            CheckSupport();
+        }
+        else
+        {
+            supportsLevels[type] = Mathf.Clamp01(supportsLevels[type] + ammount);
+        }
     }
 
     void CheckSupport()
     {
+        bool allFilled = true;
+        currentUssage.ForEach(toUse =>
+        {
+            if (supportsLevels[(int)toUse] <= 0) allFilled = false;
+        });
+        Debug.Log(allFilled);
+        CureController.instance.CureMachineSupportReady(allFilled);
+    }
 
+    public void SetCurrentUssage(List<CureMachineSupportType> toUse)
+    {
+        currentUssage = toUse;
     }
 
     public bool GetSupport(CureMachineSupportType type)
