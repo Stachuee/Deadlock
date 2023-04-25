@@ -136,6 +136,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
                 closest = x;
             }
         });
+
+
         if(closest != closestInRange)
         {
             if (closestInRange != null)
@@ -146,14 +148,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             if (closest != null)
             {
                 closest.Highlight();
-                if(closest is Item)
-                {
-                    uiController.ToHighlight = closest as Item;
-                }
-                else
-                {
-                    uiController.ToHighlight = null;
-                }
+                uiController.ToHighlight = closest;
             }
         }
         closestInRange = closest;
@@ -411,6 +406,17 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             {
                 toReturn = x;
             }
+        });
+        heldItems.Remove(toReturn);
+        return toReturn;
+    }
+
+    public ItemSO CheckIfHoldingAnyAndDeposit<T>()
+    {
+        ItemSO toReturn = null;
+        heldItems.ForEach(x =>
+        {
+            if(x is T) toReturn = x;
         });
         heldItems.Remove(toReturn);
         return toReturn;

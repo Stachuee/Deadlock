@@ -82,7 +82,7 @@ public class NavController : MonoBehaviour
     public Queue<NavNode> GetPathToScientist(Vector2 from)
     {
         Queue<NavNode> path = new Queue<NavNode>();
-        NavNode currentNode = FindClosestWaypoint(from);
+        NavNode currentNode = FindClosestWaypoint(from, true);
         if(currentNode == null) return path;
 
         path.Enqueue(currentNode);

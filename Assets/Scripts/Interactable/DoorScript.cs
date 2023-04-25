@@ -81,10 +81,10 @@ public class DoorScript : PoweredInteractable, ITakeDamage
     }
 
 
-    public override InfoContainer GetInfo()
+    public override ComputerInfoContainer GetInfo()
     {
         if (IsInfected) return infected.GetInfo();
-        else return new InfoContainer { hp = hp, maxHp = maxHp, showHp = true, name = displayName };
+        else return new ComputerInfoContainer { hp = hp, maxHp = maxHp, showHp = true, name = displayName };
     }
 
     public override void Highlight()

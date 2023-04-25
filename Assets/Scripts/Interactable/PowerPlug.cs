@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class PowerDeposit : InteractableBase
+public class PowerPlug : InteractableBase
 {
-
     List<ItemSO> acceptedItems;
 
     [SerializeField]
@@ -15,27 +13,25 @@ public class PowerDeposit : InteractableBase
     [SerializeField]
     SpriteRenderer powerCellRenderer;
 
-    FuseBox fuseBox;
+    [SerializeField]
+    List<ScientistPoweredInteractable> toManage;
 
-    protected override void Awake()
+    void Start()
     {
-        base.Awake();
-        fuseBox = transform.GetComponentInParent<FuseBox>();
-        AddAction(DepositBattery);
-
+        AddAction(PlugBattery);
         acceptedItems = new List<ItemSO>();
     }
 
-    public void DepositBattery(PlayerController player)
+    public void PlugBattery(PlayerController player)
     {
-        if(inDeposit == null)
+        if (inDeposit == null)
         {
             ItemSO deposited = player.CheckIfHoldingAnyAndDeposit<PowerCoreItem>();
             if (deposited != null)
             {
                 inDeposit = deposited;
                 powerCellRenderer.sprite = deposited.GetIconSprite();
-                fuseBox.PlugIn((deposited as PowerCoreItem).GetPowerLevel());
+                toManage.ForEach(powered => powered.PowerOn((deposited as PowerCoreItem).GetPowerLevel()));
             }
         }
         else
@@ -44,8 +40,7 @@ public class PowerDeposit : InteractableBase
             temp.GetComponentInChildren<Item>().Innit(inDeposit);
             inDeposit = null;
             powerCellRenderer.sprite = null;
-            fuseBox.PlugIn(0);
+            toManage.ForEach(powered => powered.PowerOn(0));
         }
     }
-
 }

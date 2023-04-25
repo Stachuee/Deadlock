@@ -25,7 +25,7 @@ public class HighlightController : MonoBehaviour
         this.toMonitor = toMonitor;
     }
 
-    public void UpdateHighlight(InfoContainer info)
+    public void UpdateHighlight(ComputerInfoContainer info)
     {
         nameText.text = info.name;
         if (info.showHp)

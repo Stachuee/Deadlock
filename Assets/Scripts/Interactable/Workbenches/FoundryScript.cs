@@ -9,6 +9,7 @@ public class FoundryScript : Workbench
     Vector2 itemDropOffset;
     public override void Craft(PlayerController player)
     {
+        if (!powered) return;
         List<ItemSO> itemsInDepostis = new List<ItemSO>();
 
         for(int i = 0; i < itemDeposits.Length; i++)

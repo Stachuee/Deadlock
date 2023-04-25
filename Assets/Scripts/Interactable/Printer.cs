@@ -43,8 +43,8 @@ public class Printer : PoweredInteractable
         }
     }
 
-    public override InfoContainer GetInfo()
+    public override ComputerInfoContainer GetInfo()
     {
-        return new InfoContainer { showProgress = true, progress = (1 - productionRemain/baseProduction), showCharge = true, charged =powered, name = displayName };
+        return new ComputerInfoContainer { showProgress = true, progress = (1 - productionRemain/baseProduction), showCharge = true, charged =powered, name = displayName };
     }
 }

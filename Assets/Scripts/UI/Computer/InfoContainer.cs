@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct InfoContainer
+public struct ComputerInfoContainer
 {
     public string name;
     
@@ -15,4 +15,13 @@ public struct InfoContainer
 
     public bool showProgress;
     public float progress;
+}
+
+
+public struct HandInfoContainer
+{
+    public string name;
+    public Sprite sprite;
+    public Sprite type;
+    public Sprite subtype;
 }

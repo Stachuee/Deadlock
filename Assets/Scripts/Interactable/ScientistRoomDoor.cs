@@ -35,13 +35,13 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
         if (doorHp <= 0)
         {
             GameController.gameController.DestroyedScientistDoor();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
     }
 
-    public override InfoContainer GetInfo()
+    public override ComputerInfoContainer GetInfo()
     {
-        return new InfoContainer() { name = displayName, hp = doorHp, maxHp = doorMaxHp, showHp = true };
+        return new ComputerInfoContainer() { name = displayName, hp = doorHp, maxHp = doorMaxHp, showHp = true };
     }
 }

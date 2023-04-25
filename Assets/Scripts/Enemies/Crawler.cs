@@ -60,6 +60,16 @@ public class Crawler : _EnemyBase
             Vector2 direction = new Vector2((currentTarget.transform.position - transform.position).x, 0);
             rb.velocity = direction.normalized * speed + new Vector2(0, rb.velocity.y);
 
+            if(direction.x > currentTarget.transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0,0,0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+
+
             if (direction.magnitude < 1f && path.Count > 0)
             {
                 if (currentTarget.navNodeType == NavNode.NavNodeType.Stairs)

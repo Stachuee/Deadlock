@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Item : InteractableBase
+public class Item : InteractableBase, IGetHandInfo
 {
     [SerializeField]
     ItemSO itemSO;
@@ -46,5 +46,10 @@ public class Item : InteractableBase
     public ItemSO GetItem()
     {
         return itemSO;
+    }
+
+    public HandInfoContainer GetHandInfo()
+    {
+        return new HandInfoContainer() { name = itemSO.GetItemName(), sprite = itemSO.GetIconSprite(), type = itemSO.GetTypeIcon(), subtype = itemSO.GetSubtypeIcon() };
     }
 }

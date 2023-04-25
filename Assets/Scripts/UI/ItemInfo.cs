@@ -15,11 +15,11 @@ public class ItemInfo : MonoBehaviour
     [SerializeField]
     Image itemSubtype;
 
-    public void SetupInfo(ItemSO item)
+    public void SetupInfo(HandInfoContainer infoContainer)
     {
-        itemName.text = item.name;
-        itemSprite.sprite = item.GetIconSprite();
-        itemType.sprite = item.GetTypeIcon();
-        itemSubtype.sprite = item.GetSubtypeIcon();
+        itemName.text = infoContainer.name;
+        itemSprite.sprite = infoContainer.sprite;
+        itemType.sprite = infoContainer.type;
+        itemSubtype.sprite = infoContainer.subtype;
     }
 }

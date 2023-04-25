@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public enum WorkbenchType { Foundry, Lab }
 
-public abstract class Workbench : InteractableBase //, IControllSubscriberMovment
+public abstract class Workbench : ScientistPoweredInteractable //, IControllSubscriberMovment
 {
     [SerializeField] protected List<WorkbenchType> workbenchTypes;
     protected List<CraftingRecipesSO> recipesAvalible;

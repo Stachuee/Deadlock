@@ -66,9 +66,9 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 1f);
     }
 
-    public virtual InfoContainer GetInfo()
+    public virtual ComputerInfoContainer GetInfo()
     {
-        return new InfoContainer { name = displayName };
+        return new ComputerInfoContainer { name = displayName };
     }
 
     public Vector2 GetPosition()

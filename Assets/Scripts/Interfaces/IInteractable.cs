@@ -18,7 +18,7 @@ public interface IInteractable
     public bool IsProximity();
     public void Highlight();
     public bool HideInComputer();
-    public InfoContainer GetInfo();
+    public ComputerInfoContainer GetInfo();
     public void UnHighlight();
     public Transform GetTransform();
 

@@ -25,15 +25,16 @@ public class UiController : MonoBehaviour
     PlayerController playerController;
 
 
-    public FuseBoxUIScript fuseBox;
-    public ComputerUI computer;
+    [HideInInspector] public FuseBoxUIScript fuseBox;
+    [HideInInspector] public ComputerUI computer;
+    [HideInInspector] public CureMachineUI cureMachine;
 
     Camera cam;
 
     public MultiplayerEventSystem myEventSystem; 
     
 
-    public Item ToHighlight
+    public IInteractable ToHighlight
     {
         get
         {
@@ -43,9 +44,9 @@ public class UiController : MonoBehaviour
         {
             if(value != tohighlight)
             {
-                if(value != null)
+                if(value != null && value is IGetHandInfo)
                 {
-                    itemInfoPanel.GetComponent<ItemInfo>().SetupInfo(value.GetItem());
+                    itemInfoPanel.GetComponent<ItemInfo>().SetupInfo((value as IGetHandInfo).GetHandInfo());
                     itemInfoPanel.gameObject.SetActive(true);
                 }
                 else
@@ -57,7 +58,15 @@ public class UiController : MonoBehaviour
         }
     }
 
-    Item tohighlight;
+    IInteractable tohighlight;
+
+    private void Awake()
+    {
+        fuseBox = GetComponentInChildren<FuseBoxUIScript>();
+        computer = GetComponentInChildren<ComputerUI>();
+        cureMachine = GetComponentInChildren<CureMachineUI>();
+    }
+
 
     private void Start()
     {
@@ -77,7 +86,7 @@ public class UiController : MonoBehaviour
     {
         if(ToHighlight != null)
         {
-            itemInfoPanel.position = ToHighlight.transform.position + (Vector3)itemInfoOffset;
+            itemInfoPanel.position = ToHighlight.GetTransform().position + (Vector3)itemInfoOffset;
         }
     }
 }

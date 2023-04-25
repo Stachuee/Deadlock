@@ -18,8 +18,8 @@ public abstract class PoweredInteractable : InteractableBase, PowerInterface
     {
         return useElectricityType;
     }
-    public override InfoContainer GetInfo()
+    public override ComputerInfoContainer GetInfo()
     {
-        return new InfoContainer() { name = displayName, showCharge = true, charged = powered};
+        return new ComputerInfoContainer() { name = displayName, showCharge = true, charged = powered};
     }
 }

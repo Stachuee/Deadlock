@@ -35,8 +35,8 @@ public class GardenTube : PoweredInteractable
             Instantiate(itemPrefab, transform.position, Quaternion.identity).GetComponentInChildren<Item>().Innit(createdObject);
         }
     }
-    override public InfoContainer GetInfo()
+    override public ComputerInfoContainer GetInfo()
     {
-        return new InfoContainer { name = displayName, showCharge = true, charged = powered, showProgress = true, progress = (1- growthTimerRemain/growthTimer) };
+        return new ComputerInfoContainer { name = displayName, showCharge = true, charged = powered, showProgress = true, progress = (1- growthTimerRemain/growthTimer) };
     }
 }

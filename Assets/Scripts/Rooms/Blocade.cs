@@ -42,8 +42,8 @@ public class Blocade : MonoBehaviour, ITakeDamage
         return damageAmmount;
     }
 
-    public InfoContainer GetInfo()
+    public ComputerInfoContainer GetInfo()
     {
-        return new InfoContainer { hp = hp, maxHp = maxHp, showHp = true, name = displayName };
+        return new ComputerInfoContainer { hp = hp, maxHp = maxHp, showHp = true, name = displayName };
     }
 }
