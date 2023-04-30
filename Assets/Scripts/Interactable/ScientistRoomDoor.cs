@@ -21,6 +21,11 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
         return damage;
     }
 
+    public void TakeArmorDamage(float damage)
+    {
+        
+    }
+
     private void Start()
     {
         doorHp = doorMaxHp;

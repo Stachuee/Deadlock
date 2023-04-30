@@ -361,6 +361,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         throw new System.NotImplementedException();
     }
+    public void TakeArmorDamage(float damage)
+    {
+        throw new System.NotImplementedException();
+    }
 
     #endregion
 

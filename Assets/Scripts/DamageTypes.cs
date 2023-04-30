@@ -35,4 +35,9 @@ public struct DamageTypeResistance
         }
         return 1;
     }
+
+    public void SetResistance(float value)
+    {
+        bulletResistance = value;
+    }
 }

@@ -40,7 +40,11 @@ public class RPGRocket : MonoBehaviour
                 if (collider.CompareTag("Enemy"))
                 {
                     ITakeDamage target = collider.GetComponent<ITakeDamage>();
-                    if (target != null) target.TakeDamage(damage, damageType);
+                    if (target != null)
+                    {
+                        target.TakeDamage(damage, damageType);
+                        target.TakeArmorDamage(0.1f);
+                    }
                 }
              }
             

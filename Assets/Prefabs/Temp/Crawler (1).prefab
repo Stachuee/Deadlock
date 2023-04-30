@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d89c8a68a3230419efd5e7f052e7c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMaxHp: 15
+  enemyMaxHp: 50
 --- !u!114 &238913776322736952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,11 +153,11 @@ MonoBehaviour:
   damage: 10
   attackSpeed: 1
   resistances:
-    bulletResistance: 0
-    fireResistance: 0
-    posionResistance: 0
-    iceResistance: 0
-    meleResistance: 0
+    bulletResistance: 0.417
+    fireResistance: 0.517
+    posionResistance: 0.4
+    iceResistance: 0.45
+    meleResistance: 0.433
   target: {fileID: 0}
 --- !u!61 &238913776322736949
 BoxCollider2D:

@@ -38,6 +38,11 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
         return damage;
     }
 
+    public void TakeArmorDamage(float damage)
+    {
+        
+    }
+
 
     public void Die()
     {
