@@ -9,7 +9,6 @@ public enum WorkbenchType { Foundry, Lab }
 public abstract class Workbench : ScientistPoweredInteractable //, IControllSubscriberMovment
 {
     [SerializeField] protected List<WorkbenchType> workbenchTypes;
-    protected List<CraftingRecipesSO> recipesAvalible;
 
     [SerializeField]
     protected GameObject itemPrefab;
@@ -25,13 +24,9 @@ public abstract class Workbench : ScientistPoweredInteractable //, IControllSubs
         itemDeposits = transform.GetComponentsInChildren<Deposit>();
         AddAction(Craft);
     }
-    private void Start()
-    {
-        recipesAvalible = RecipiesManager.recipies.FindAll(x => workbenchTypes.FindIndex(y => y == x.GetWorkbenchType()) != -1);
-    }
     public abstract void Craft(PlayerController player);
 
-    protected ItemSO FindRecipie()
+    protected CraftingRecipesSO FindRecipie()
     {
         List<ItemSO> itemsInDepostis = new List<ItemSO>();
 
@@ -41,15 +36,9 @@ public abstract class Workbench : ScientistPoweredInteractable //, IControllSubs
             if (deposit != null) itemsInDepostis.Add(deposit);
         }
 
-        List<ItemSO> uniqueItems = itemsInDepostis.Distinct().ToList();
-
-        List<ItemSO> recipes = new List<ItemSO>(recipesAvalible);
-        uniqueItems.ForEach(unique =>
-        {
-            recipes
-        });
-
-        return null;
+        int hash = RecipiesManager.GetHashFromItems(itemsInDepostis);
+        CraftingRecipesSO toCraft = (CraftingRecipesSO)RecipiesManager.recipes[hash];
+        return toCraft;
     }
 
     //public void SwapRecipe(bool right)

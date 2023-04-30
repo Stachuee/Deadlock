@@ -10,37 +10,16 @@ public class FoundryScript : Workbench
     public override void Craft(PlayerController player)
     {
         if (!powered) return;
-        List<ItemSO> itemsInDepostis = new List<ItemSO>();
-
-        for(int i = 0; i < itemDeposits.Length; i++)
+        CraftingRecipesSO toCraft = FindRecipie();
+        
+        if(toCraft != null)
         {
-            ItemSO deposit = itemDeposits[i].GetStoredIngredient();
-            if(deposit != null) itemsInDepostis.Add(deposit);
-        }
-
-        CraftingRecipesSO itemToCraft = recipesAvalible.Find(recipie =>
-        {
-            List<ItemSO> itemsRequired = recipie.GetIngredientsItem();
-            if (itemsRequired.Count == itemsInDepostis.Count)
-            {
-                for(int i = 0; i < itemsRequired.Count;i++)
-                {
-                    if (itemsRequired[i] != itemsInDepostis[i]) return false;
-                }
-                return true;
-            }
-            return false;
-        });
-
-        if(itemToCraft != null)
-        {
+            GameObject temp = Instantiate(itemPrefab, (Vector2)transform.position + itemDropOffset, Quaternion.identity);
+            temp.GetComponentInChildren<Item>().Innit(toCraft.GetCraftedItem());
             for (int i = 0; i < itemDeposits.Length; i++)
             {
                 itemDeposits[i].RemoveIngredient(true);
             }
-
-            GameObject temp = Instantiate(itemPrefab, (Vector2)transform.position + itemDropOffset, Quaternion.identity);
-            temp.GetComponentInChildren<Item>().Innit(itemToCraft.GetCraftedItem());
         }
     }
 
