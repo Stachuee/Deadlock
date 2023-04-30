@@ -17,9 +17,21 @@ public class ItemInfo : MonoBehaviour
 
     public void SetupInfo(HandInfoContainer infoContainer)
     {
+        if(!infoContainer.show)
+        {
+            HideInfo();
+            return;
+        }
+
         itemName.text = infoContainer.name;
         itemSprite.sprite = infoContainer.sprite;
         itemType.sprite = infoContainer.type;
         itemSubtype.sprite = infoContainer.subtype;
+        gameObject.SetActive(true);
+    }
+
+    public void HideInfo()
+    {
+        gameObject.SetActive(false);
     }
 }

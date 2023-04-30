@@ -10,6 +10,7 @@ public class CureMachine : ScientistPoweredInteractable
     [SerializeField] List<float> supportsLevels = new List<float>();
 
     [SerializeField] List<CureMachineSupportType> currentUssage;
+    [SerializeField] List<ItemSO> itemsToUse;
 
     [SerializeField] float supportUsageRate;
 
@@ -42,9 +43,21 @@ public class CureMachine : ScientistPoweredInteractable
 
     public void OpenInterface(PlayerController player)
     {
-        activePlayer = player;
-        player.LockInAction(CloseInterface);
-        activePlayer.uiController.cureMachine.Open(true);
+        ItemSO item = null;
+        if((item = player.CheckIfHoldingAnyAndDeposit(itemsToUse)) != null)
+        {
+            itemsToUse.Remove(item);
+            if(itemsToUse.Count == 0)
+            {
+                CureController.instance.CureMachineItemsReady(true);
+            }
+        }
+        else
+        {
+            activePlayer = player;
+            player.LockInAction(CloseInterface);
+            activePlayer.uiController.cureMachine.Open(true);
+        }
     }
 
     public void CloseInterface()
@@ -73,18 +86,33 @@ public class CureMachine : ScientistPoweredInteractable
         {
             if (supportsLevels[(int)toUse] <= 0) allFilled = false;
         });
-        Debug.Log(allFilled);
         CureController.instance.CureMachineSupportReady(allFilled);
     }
 
     public void SetCurrentUssage(List<CureMachineSupportType> toUse)
     {
         currentUssage = toUse;
+        CheckSupport();
     }
 
-    public bool GetSupport(CureMachineSupportType type)
+    public void SetCurrentItemUssage(List<ItemSO> toUse)
     {
-        return supportsLevels[(int)type] >= 0;
+        itemsToUse = toUse;
+    }
+
+    public List<ItemSO> GetRequiredItems()
+    {
+        return itemsToUse;
+    }
+
+    public List<CureMachineSupportType> GetRequiredSupport()
+    {
+        return currentUssage;
+    }
+
+    public float GetSupport(int type)
+    {
+        return supportsLevels[type];
     }
 
     public override void PowerOn(int power)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum CureMachineSupportType {Water, Heat, Samples }
 
-public class CureMachineSupport : InteractableBase, ITakeDamage
+public class CureMachineSupport : PoweredInteractable, ITakeDamage
 {
     [SerializeField] float maxHp;
     [SerializeField] float hp;
@@ -22,7 +22,7 @@ public class CureMachineSupport : InteractableBase, ITakeDamage
         while(true)
         {
             yield return new WaitForSeconds(addDelay);
-            if (hp > 0) CureMachine.Instance.AddSupport((int)type, baseOutput * addDelay);
+            if (hp > 0 && powered) CureMachine.Instance.AddSupport((int)type, baseOutput * addDelay);
         }
     }
 

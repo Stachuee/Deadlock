@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Printer : PoweredInteractable
+public class Printer : PoweredInteractable, IGetHandInfo
 {
+
+    [SerializeField] bool broken;
+    [SerializeField] List<ItemSO> toRepair;
+
     [SerializeField] bool readyToCollect;
 
     [SerializeField] float baseProduction;
-    [SerializeField]float productionRemain;
+    [SerializeField] float productionRemain;
 
     [SerializeField] ItemSO toPrint;
 
@@ -23,7 +27,7 @@ public class Printer : PoweredInteractable
 
     private void Update()
     {
-        if(powered && !readyToCollect)
+        if(!broken && powered && !readyToCollect)
         {
             productionRemain -= Time.deltaTime;
             if(productionRemain < 0)
@@ -35,16 +39,35 @@ public class Printer : PoweredInteractable
 
     public void Collect(PlayerController player)
     {
-        if(readyToCollect)
+        if(!broken)
         {
-            Instantiate(prefabToPrint, transform.position, Quaternion.identity).GetComponent<Item>().Innit(toPrint);
-            readyToCollect = false;
-            productionRemain = baseProduction;
+            if (readyToCollect)
+            {
+                Instantiate(prefabToPrint, transform.position, Quaternion.identity).GetComponent<Item>().Innit(toPrint);
+                readyToCollect = false;
+                productionRemain = baseProduction;
+            }
+        }
+        else
+        {
+            ItemSO input = player.CheckIfHoldingAnyAndDeposit(toRepair[0]);
+            if(input != null)
+            {
+                toRepair.Remove(input);
+                if (toRepair.Count == 0) broken = false;
+                player.UpdateHighlight();
+            }
         }
     }
 
     public override ComputerInfoContainer GetInfo()
     {
-        return new ComputerInfoContainer { showProgress = true, progress = (1 - productionRemain/baseProduction), showCharge = true, charged =powered, name = displayName };
+        return new ComputerInfoContainer { showProgress = true, progress = (1 - productionRemain/baseProduction), showCharge = true, charged = powered, name = displayName };
+    }
+
+    public HandInfoContainer GetHandInfo()
+    {
+        if (broken) return new HandInfoContainer {show = true, name = toRepair[0].GetItemName(), sprite = toRepair[0].GetIconSprite() };
+        else return new HandInfoContainer { show = false };
     }
 }

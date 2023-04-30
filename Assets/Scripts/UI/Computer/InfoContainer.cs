@@ -20,6 +20,8 @@ public struct ComputerInfoContainer
 
 public struct HandInfoContainer
 {
+    public bool show;
+
     public string name;
     public Sprite sprite;
     public Sprite type;

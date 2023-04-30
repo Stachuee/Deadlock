@@ -17,9 +17,10 @@ public interface IInteractable
     public Sprite GetComputerIcon();
     public bool IsProximity();
     public void Highlight();
+    public void UnHighlight();
     public bool HideInComputer();
     public ComputerInfoContainer GetInfo();
-    public void UnHighlight();
+    
     public Transform GetTransform();
 
     public Vector2 GetPosition();

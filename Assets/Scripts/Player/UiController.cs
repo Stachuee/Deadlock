@@ -15,7 +15,9 @@ public class UiController : MonoBehaviour
 
     [SerializeField]
     GameObject itemInfoPanelPrefab;
-    RectTransform itemInfoPanel;
+    RectTransform itemInfoPanelRect;
+    ItemInfo itemInfoPanel;
+
     [SerializeField]
     Vector2 itemInfoOffset;
 
@@ -42,19 +44,15 @@ public class UiController : MonoBehaviour
         }
         set
         {
-            if(value != tohighlight)
+            if(value != null && value is IGetHandInfo)
             {
-                if(value != null && value is IGetHandInfo)
-                {
-                    itemInfoPanel.GetComponent<ItemInfo>().SetupInfo((value as IGetHandInfo).GetHandInfo());
-                    itemInfoPanel.gameObject.SetActive(true);
-                }
-                else
-                {
-                    itemInfoPanel.gameObject.SetActive(false);
-                }
-                tohighlight = value;
+                itemInfoPanel.SetupInfo((value as IGetHandInfo).GetHandInfo());
             }
+            else
+            {
+                itemInfoPanel.HideInfo();
+            }
+            tohighlight = value;
         }
     }
 
@@ -77,8 +75,9 @@ public class UiController : MonoBehaviour
 
             Destroy(x.anchor.gameObject);
         });
-        itemInfoPanel = Instantiate(itemInfoPanelPrefab, Vector2.zero, Quaternion.identity, transform).GetComponent<RectTransform>();
-        itemInfoPanel.gameObject.SetActive(false);
+        itemInfoPanelRect = Instantiate(itemInfoPanelPrefab, Vector2.zero, Quaternion.identity, transform).GetComponent<RectTransform>();
+        itemInfoPanel = itemInfoPanelRect.GetComponent<ItemInfo>();
+        itemInfoPanelRect.gameObject.SetActive(false);
         cam = playerController.cameraController.cam;
     }
 
@@ -86,7 +85,7 @@ public class UiController : MonoBehaviour
     {
         if(ToHighlight != null)
         {
-            itemInfoPanel.position = ToHighlight.GetTransform().position + (Vector3)itemInfoOffset;
+            itemInfoPanelRect.position = ToHighlight.GetTransform().position + (Vector3)itemInfoOffset;
         }
     }
 }

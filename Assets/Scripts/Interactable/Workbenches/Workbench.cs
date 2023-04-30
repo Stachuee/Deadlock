@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +30,27 @@ public abstract class Workbench : ScientistPoweredInteractable //, IControllSubs
         recipesAvalible = RecipiesManager.recipies.FindAll(x => workbenchTypes.FindIndex(y => y == x.GetWorkbenchType()) != -1);
     }
     public abstract void Craft(PlayerController player);
+
+    protected ItemSO FindRecipie()
+    {
+        List<ItemSO> itemsInDepostis = new List<ItemSO>();
+
+        for (int i = 0; i < itemDeposits.Length; i++)
+        {
+            ItemSO deposit = itemDeposits[i].GetStoredIngredient();
+            if (deposit != null) itemsInDepostis.Add(deposit);
+        }
+
+        List<ItemSO> uniqueItems = itemsInDepostis.Distinct().ToList();
+
+        List<ItemSO> recipes = new List<ItemSO>(recipesAvalible);
+        uniqueItems.ForEach(unique =>
+        {
+            recipes
+        });
+
+        return null;
+    }
 
     //public void SwapRecipe(bool right)
     //{

@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             //callbackWhenUnlocking = null;
             //LockInAnimation = false;
         }
-        if (context.ReadValue<float>() > 0.9f)
+        else if (context.ReadValue<float>() > 0.9f)
         {
             SendbackControll();
             DropHolding();
@@ -386,6 +386,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     #region ExternalControll
 
+    public void UpdateHighlight()
+    {
+        uiController.ToHighlight = closestInRange;
+    }
+
     public ItemSO DepositIngredient()
     {
         if (heldItems.Count > 0)
@@ -402,11 +407,23 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         ItemSO toReturn = null;
         itemsAccepted.ForEach(x =>
         {
-            if(heldItems.Contains(x))
+            if(toReturn == null && heldItems.Contains(x))
             {
                 toReturn = x;
             }
         });
+        heldItems.Remove(toReturn);
+        return toReturn;
+    }
+
+    public ItemSO CheckIfHoldingAnyAndDeposit(ItemSO itemAccepted)
+    {
+        ItemSO toReturn = null;
+        
+        if (heldItems.Contains(itemAccepted))
+        {
+            toReturn = itemAccepted;
+        }
         heldItems.Remove(toReturn);
         return toReturn;
     }

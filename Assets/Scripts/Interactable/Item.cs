@@ -50,6 +50,6 @@ public class Item : InteractableBase, IGetHandInfo
 
     public HandInfoContainer GetHandInfo()
     {
-        return new HandInfoContainer() { name = itemSO.GetItemName(), sprite = itemSO.GetIconSprite(), type = itemSO.GetTypeIcon(), subtype = itemSO.GetSubtypeIcon() };
+        return new HandInfoContainer() { show = true, name = itemSO.GetItemName(), sprite = itemSO.GetIconSprite(), type = itemSO.GetTypeIcon(), subtype = itemSO.GetSubtypeIcon() };
     }
 }

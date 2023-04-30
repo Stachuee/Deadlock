@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WeakPowerCore
   m_EditorClassIdentifier: 
   id: 0
-  itemName: 
+  itemName: Weak power core
   defaultSprite: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
   icon: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
   typeIcon: {fileID: 0}
