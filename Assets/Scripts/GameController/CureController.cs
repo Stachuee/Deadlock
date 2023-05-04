@@ -25,6 +25,10 @@ public class CureController : MonoBehaviour
     [SerializeField] bool cureMachineSupportFilled;
     [SerializeField] bool cureMachineItemsFilled;
 
+    List<ICureLevelIncrease> toNotify = new List<ICureLevelIncrease>();
+
+
+
     private void Awake()
     {
         if(instance == null) instance = this;
@@ -59,6 +63,7 @@ public class CureController : MonoBehaviour
             cureMachineItemsFilled = cureProgress[cureProgressLevel].itemsNeeded.Count == 0;
             CureMachine.Instance.SetCurrentUssage(cureProgress[cureProgressLevel].machinesRequired);
             CureMachine.Instance.SetCurrentItemUssage(cureProgress[cureProgressLevel].itemsNeeded);
+            Notify();
         }
     }
 
@@ -86,5 +91,18 @@ public class CureController : MonoBehaviour
     public int GetCurrentLevel()
     {
         return cureProgressLevel;
+    }
+
+    public void AddToNotify(ICureLevelIncrease target)
+    {
+        toNotify.Add(target);
+    }
+
+    public void Notify()
+    {
+        toNotify.ForEach(x =>
+        {
+            x.IncreaseLevel(cureProgressLevel);
+        });
     }
 }

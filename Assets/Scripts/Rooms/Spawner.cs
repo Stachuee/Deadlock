@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : InteractableBase
+public class Spawner : InteractableBase, ICureLevelIncrease
 {
-    public bool isActive;
+    public bool isActive = false;
+
+    [SerializeField] int activateAt;
+    [SerializeField] int deactivateAt;
+
 
     [SerializeField]
     float spawnDelay;
@@ -16,12 +20,16 @@ public class Spawner : InteractableBase
 
     Queue<GameObject> prefabsToSpawn = new Queue<GameObject>();
 
+    protected override void Awake()
+    {
+        base.Awake();
+        isActive = false;
+    }
+
     private void Start()
     {
-        if (isActive)
-        {
-            SpawnerController.instance.AddSpawner(this);
-        }
+        SpawnerController.instance.AddSpawner(this);
+        CureController.instance.AddToNotify(this);
     }
 
     private void Update()
@@ -46,6 +54,13 @@ public class Spawner : InteractableBase
         isActive = true;
     }
 
+    public void DeactivateSpawner()
+    {
+        isActive = false;
+        prefabsToSpawn = null;
+        waveToSpawn = null;
+    }
+
     public void AddToSpawn(WaveSO.SubWave subWave)
     {
         waveToSpawn.Enqueue(subWave);
@@ -62,5 +77,11 @@ public class Spawner : InteractableBase
                 for (int i = 0; i < enemy.count; i++) prefabsToSpawn.Enqueue(enemy.enemy.GetPrefab());
             });
         }
+    }
+
+    public void IncreaseLevel(int level)
+    {
+        if(level == activateAt) ActivateSpanwer();
+        else if(level == deactivateAt) DeactivateSpawner();
     }
 }

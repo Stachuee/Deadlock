@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd41287f2d946143ba6681fe67a2ad4, type: 3}
+  m_Name: 901_Riffle_Frag_Ammo
+  m_EditorClassIdentifier: 
+  id: 901
+  workbenchType: 0
+  baseCraftTime: 5
+  craftedItem: {fileID: 11400000, guid: 8645a67beb434104ab5836a457353492, type: 2}
+  ingredients:
+  - {fileID: 11400000, guid: f82b06b2aa8869c4bacc393ccd7a5b8c, type: 2}
+  - {fileID: 11400000, guid: 2d02debe98a97374a814681759163d5c, type: 2}
+  - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
+  tab: 1

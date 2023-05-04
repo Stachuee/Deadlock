@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cd41287f2d946143ba6681fe67a2ad4, type: 3}
-  m_Name: Turret
+  m_Name: 907_Proximity_Luncher_Ammo
   m_EditorClassIdentifier: 
-  id: 1
+  id: 907
   workbenchType: 0
   baseCraftTime: 5
-  craftedItem: {fileID: 11400000, guid: 1f4e21d4ac955e649b52e7674c99be04, type: 2}
+  craftedItem: {fileID: 11400000, guid: 5961186019b7c3247941c9b1a47f16ce, type: 2}
   ingredients:
-  - {fileID: 11400000, guid: f82b06b2aa8869c4bacc393ccd7a5b8c, type: 2}
-  - {fileID: 11400000, guid: f82b06b2aa8869c4bacc393ccd7a5b8c, type: 2}
+  - {fileID: 11400000, guid: 2d02debe98a97374a814681759163d5c, type: 2}
+  - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
+  - {fileID: 11400000, guid: 62405db5c2496354ab3f4297dae8ab63, type: 2}
+  tab: 4

@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f0a9971e645304ebabfb74f4720707, type: 3}
-  m_Name: WeakPowerCore
+  m_Script: {fileID: 11500000, guid: b914482642d991c4e866ba45daa0daee, type: 3}
+  m_Name: 202_Stimulant
   m_EditorClassIdentifier: 
-  id: 0
-  itemName: Weak power core
-  defaultSprite: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
-  icon: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
+  id: 202
+  itemName: Stimulant
+  defaultSprite: {fileID: 21300000, guid: 6610cd07e4db1df49ad36843497ab1e9, type: 3}
+  icon: {fileID: 21300000, guid: 6610cd07e4db1df49ad36843497ab1e9, type: 3}
   typeIcon: {fileID: 0}
   subtypeIcon: {fileID: 0}
-  powerLevel: 2
+  ammoCount: 20

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd41287f2d946143ba6681fe67a2ad4, type: 3}
+  m_Name: 902_Harpoons
+  m_EditorClassIdentifier: 
+  id: 902
+  workbenchType: 0
+  baseCraftTime: 5
+  craftedItem: {fileID: 11400000, guid: d208bf2e59af7414b82d55662c4dbd3f, type: 2}
+  ingredients:
+  - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
+  - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
+  tab: 2

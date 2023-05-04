@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f0a9971e645304ebabfb74f4720707, type: 3}
+  m_Name: 020_Weak_Power_Core
+  m_EditorClassIdentifier: 
+  id: 20
+  itemName: Weak power core
+  defaultSprite: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
+  icon: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
+  typeIcon: {fileID: 0}
+  subtypeIcon: {fileID: 0}
+  powerLevel: 2

@@ -30,6 +30,7 @@ public class UiController : MonoBehaviour
     [HideInInspector] public FuseBoxUIScript fuseBox;
     [HideInInspector] public ComputerUI computer;
     [HideInInspector] public CureMachineUI cureMachine;
+    [HideInInspector] public CraftingHelperScript craftingHelper;
 
     Camera cam;
 
@@ -63,6 +64,7 @@ public class UiController : MonoBehaviour
         fuseBox = GetComponentInChildren<FuseBoxUIScript>();
         computer = GetComponentInChildren<ComputerUI>();
         cureMachine = GetComponentInChildren<CureMachineUI>();
+        craftingHelper = GetComponentInChildren<CraftingHelperScript>();
     }
 
 

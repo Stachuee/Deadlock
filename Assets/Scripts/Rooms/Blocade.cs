@@ -31,7 +31,6 @@ public class Blocade : MonoBehaviour, ITakeDamage
         hp -= damageAmmount;
         if (hp < 0)
         {
-            door.IsInfected = false;
             Destroy(gameObject);
         }
         else if (hp / maxHp < 0.25f && !bossSpawned)
