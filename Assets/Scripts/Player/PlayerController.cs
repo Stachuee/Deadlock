@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         float tmpBulletRes = playerInfo.damageResistance.bulletResistance;
         float tmpFireRes = playerInfo.damageResistance.fireResistance;
         float tmpIceRes = playerInfo.damageResistance.iceResistance;
-        float tmpPoisonRes = playerInfo.damageResistance.posionResistance;
+        float tmpPoisonRes = playerInfo.damageResistance.poisonResistance;
         float tmpMeleRes = playerInfo.damageResistance.meleResistance;
 
         playerInfo.speed *= 2;
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         playerInfo.damageResistance.bulletResistance += 0.5f;
         playerInfo.damageResistance.fireResistance += 0.5f;
         playerInfo.damageResistance.iceResistance += 0.5f;
-        playerInfo.damageResistance.posionResistance += 0.5f;
+        playerInfo.damageResistance.poisonResistance += 0.5f;
         playerInfo.damageResistance.meleResistance += 0.5f;
 
         yield return new WaitForSeconds(time);
@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         playerInfo.damageResistance.bulletResistance = tmpBulletRes;
         playerInfo.damageResistance.fireResistance = tmpFireRes;
         playerInfo.damageResistance.iceResistance = tmpIceRes;
-        playerInfo.damageResistance.posionResistance = tmpPoisonRes;
+        playerInfo.damageResistance.poisonResistance = tmpPoisonRes;
         playerInfo.damageResistance.meleResistance = tmpMeleRes;
     }
 
@@ -361,7 +361,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         throw new System.NotImplementedException();
     }
-    public void TakeArmorDamage(float damage)
+    public void TakeArmorDamage(DamageType type, float damage)
     {
         throw new System.NotImplementedException();
     }

@@ -21,7 +21,7 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
         return damage;
     }
 
-    public void TakeArmorDamage(float damage)
+    public void TakeArmorDamage(DamageType type, float damage)
     {
         
     }

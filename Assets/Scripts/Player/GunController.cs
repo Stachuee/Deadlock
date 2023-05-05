@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum WeaponType { Pistol, ARiffle, RPG, Firegun, Laser, Harpoon }
-public enum AmmoType { Bullet, Fire, Poison, Ice }
+public enum AmmoType { Bullet, Fire, Poison, Ice, Precise, Proximity, Repair, Disintegrating }
 
 public class GunController : MonoBehaviour
 {

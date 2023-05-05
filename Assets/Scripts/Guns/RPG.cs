@@ -15,7 +15,7 @@ public class RPG : GunBase
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
-    [SerializeField] int currentPoisonAmmo;
+    [SerializeField] int currentProximityAmmo;
 
     protected override void Start()
     {
@@ -36,8 +36,8 @@ public class RPG : GunBase
             case AmmoType.Bullet:
                 currentAmmo += amount;
                 break;
-            case AmmoType.Poison:
-                currentPoisonAmmo += amount;
+            case AmmoType.Proximity:
+                currentProximityAmmo += amount;
                 break;
             default:
                 Debug.LogError($"Wrong AmmoType({aT}) for RPG!");
@@ -47,8 +47,8 @@ public class RPG : GunBase
 
     private void Update()
     {
-        if (rocket.GetDamageType() == DamageType.Bullet && currentAmmo <= 0) return;
-        else if (rocket.GetDamageType() == DamageType.Poison && currentPoisonAmmo <= 0) return;
+        if (currentBulletIndex == 1 && currentProximityAmmo <= 0) return;
+        else if  (rocket.GetDamageType() == DamageType.Bullet && currentAmmo <= 0) return;
 
         if (isShooting >= 0.9f)
         {
@@ -60,10 +60,10 @@ public class RPG : GunBase
             Vector2 diff = (owner.currentAimDirection).normalized;
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
             Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
-            if (rocket.GetDamageType() == DamageType.Bullet)
+            if (currentBulletIndex == 1)
+                currentProximityAmmo--;
+            else if (rocket.GetDamageType() == DamageType.Bullet)
                 currentAmmo--;
-            else if (rocket.GetDamageType() == DamageType.Poison)
-                currentPoisonAmmo--;
 
             shootTimer = Time.time; // reset timer to current time
         }
@@ -81,10 +81,10 @@ public class RPG : GunBase
 
     override public int GetAmmoAmount()
     {
-        if (rocket.GetDamageType() == DamageType.Bullet)
+        if (currentBulletIndex == 1)
+            return currentProximityAmmo;
+        else if (rocket.GetDamageType() == DamageType.Bullet)
             return currentAmmo;
-        else if (rocket.GetDamageType() == DamageType.Poison)
-            return currentPoisonAmmo;
 
         return 0;
     }

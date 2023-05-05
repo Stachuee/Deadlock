@@ -101,7 +101,7 @@ public class Spawner : MonoBehaviour, ITakeDamage
         return damageAmmount;
     }
 
-    public void TakeArmorDamage(float damage)
+    public void TakeArmorDamage(DamageType type, float damage)
     {
         
     }

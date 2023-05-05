@@ -18,6 +18,8 @@ public class RPGRocket : MonoBehaviour
 
     [SerializeField] DamageType damageType;
 
+    [SerializeField] bool isProximity = false;
+
     private void Start()
     {
         prevPos = transform.position;
@@ -32,6 +34,11 @@ public class RPGRocket : MonoBehaviour
 
         if (hit.collider != null || timeToDespawnRemain < Time.time)
         {
+            if (isProximity)
+            {
+                speed = 0;
+                return;
+            }
             Instantiate(explosionVFX, transform.position, Quaternion.identity);
             // Check for enemies within explosion range
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
@@ -43,7 +50,10 @@ public class RPGRocket : MonoBehaviour
                     if (target != null)
                     {
                         target.TakeDamage(damage, damageType);
-                        target.TakeArmorDamage(0.1f);
+                        target.TakeArmorDamage(DamageType.Bullet, 0.1f);
+                        target.TakeArmorDamage(DamageType.Ice, 0.1f);
+                        target.TakeArmorDamage(DamageType.Fire, 0.1f);
+                        target.TakeArmorDamage(DamageType.Mele, 0.1f);
                     }
                 }
              }
@@ -53,6 +63,21 @@ public class RPGRocket : MonoBehaviour
          prevPos = transform.position;
         
         }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Enemy") && isProximity)
+        {
+            Instantiate(explosionVFX, transform.position, Quaternion.identity);
+            ITakeDamage target = collider.GetComponent<ITakeDamage>();
+            if (target != null)
+            {
+                target.TakeDamage(damage, damageType);
+                target.TakeArmorDamage(DamageType.Bullet, 0.1f);
+            }
+            Destroy(gameObject);
+        }
+    }
 
     public DamageType GetDamageType()
     {
