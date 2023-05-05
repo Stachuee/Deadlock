@@ -125,11 +125,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
+  hideInComputer: 0
   itemSO: {fileID: 11400000, guid: 1f4e21d4ac955e649b52e7674c99be04, type: 2}
 --- !u!1 &8873820216646291997
 GameObject:
@@ -147,7 +149,7 @@ GameObject:
   - component: {fileID: 8873820216646291985}
   m_Layer: 7
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,6 +305,7 @@ MonoBehaviour:
   shootingAreaRadius: 5
   fireRate: 0.1
   bulletPrefab: {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
+  inventorySlotPrefab: {fileID: 4569713353421880941, guid: aef6ea69c9f88a8428d7ada282747ec5, type: 3}
 --- !u!1 &8873820217366748661
 GameObject:
   m_ObjectHideFlags: 0

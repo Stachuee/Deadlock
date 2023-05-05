@@ -39,6 +39,22 @@ public class FireGun : GunBase
         currentAmmo = maxAmmo;
     }
 
+    public override void AddAmmo(AmmoType aT, int amount)
+    {
+        switch (aT)
+        {
+            case AmmoType.Bullet:
+                currentAmmo += amount;
+                break;
+            case AmmoType.Ice:
+                currentIceAmmo += amount;
+                break;
+            default:
+                Debug.LogError($"Wrong AmmoType({aT}) for Firegun!");
+                break;
+        }
+    }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {

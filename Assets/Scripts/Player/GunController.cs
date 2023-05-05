@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponType { Pistol, ARiffle, RPG, Firegun, Laser, Harpoon }
+public enum AmmoType { Bullet, Fire, Poison, Ice, Precise, Proximity, Repair, Disintegrating }
+
 public class GunController : MonoBehaviour
 {
     [SerializeField]
@@ -55,12 +58,37 @@ public class GunController : MonoBehaviour
         inventory.AddGun(weapons[4].GetInventorySlotPrefab());
         inventory.AddGun(weapons[5].GetInventorySlotPrefab());
 
-
     }
 
     private void Update()
     {
         RotateGun();
+    }
+
+
+    public void AddAmmo(WeaponType weaponType, AmmoType ammoType, int amount)
+    {
+        switch (weaponType)
+        {
+            case WeaponType.Pistol:
+                weapons[0].AddAmmo(ammoType, amount);
+                break;
+            case WeaponType.ARiffle:
+                weapons[1].AddAmmo(ammoType, amount);
+                break;
+            case WeaponType.RPG:
+                weapons[2].AddAmmo(ammoType, amount);
+                break;
+            case WeaponType.Firegun:
+                weapons[3].AddAmmo(ammoType, amount);
+                break;
+            case WeaponType.Laser:
+                weapons[4].AddAmmo(ammoType, amount);
+                break;
+            case WeaponType.Harpoon:
+                weapons[5].AddAmmo(ammoType, amount);
+                break;
+        }
     }
 
 

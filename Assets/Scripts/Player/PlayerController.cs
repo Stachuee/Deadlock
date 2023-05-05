@@ -190,6 +190,43 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         }
     }
 
+    public void Heal()
+    {
+        playerInfo.hp = playerInfo.maxHp;
+    }
+
+    public void Stimulate(float effectDuration)
+    {
+        StartCoroutine(SpeedIncrease(effectDuration));
+    }
+
+
+    IEnumerator SpeedIncrease(float time)
+    {
+        float tmpSpeed = playerInfo.speed;
+        float tmpBulletRes = playerInfo.damageResistance.bulletResistance;
+        float tmpFireRes = playerInfo.damageResistance.fireResistance;
+        float tmpIceRes = playerInfo.damageResistance.iceResistance;
+        float tmpPoisonRes = playerInfo.damageResistance.poisonResistance;
+        float tmpMeleRes = playerInfo.damageResistance.meleResistance;
+
+        playerInfo.speed *= 2;
+
+        playerInfo.damageResistance.bulletResistance += 0.5f;
+        playerInfo.damageResistance.fireResistance += 0.5f;
+        playerInfo.damageResistance.iceResistance += 0.5f;
+        playerInfo.damageResistance.poisonResistance += 0.5f;
+        playerInfo.damageResistance.meleResistance += 0.5f;
+
+        yield return new WaitForSeconds(time);
+        playerInfo.speed = tmpSpeed;
+        playerInfo.damageResistance.bulletResistance = tmpBulletRes;
+        playerInfo.damageResistance.fireResistance = tmpFireRes;
+        playerInfo.damageResistance.iceResistance = tmpIceRes;
+        playerInfo.damageResistance.poisonResistance = tmpPoisonRes;
+        playerInfo.damageResistance.meleResistance = tmpMeleRes;
+    }
+
     public Vector2 GetMovementDirection()
     {
         return moveDirection;
@@ -316,6 +353,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     #region interfaces
     public float TakeDamage(float damage, DamageType type)
+    {
+        throw new System.NotImplementedException();
+    }
+    public void TakeArmorDamage(DamageType type, float damage)
     {
         throw new System.NotImplementedException();
     }

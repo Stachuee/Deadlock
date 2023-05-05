@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingTowel : MonoBehaviour
+public class ShootingTower : MonoBehaviour
 {
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private LayerMask enemyLayer;
@@ -14,7 +14,7 @@ public class ShootingTowel : MonoBehaviour
 
     private float shootTimer = 0f;
 
-
+    [SerializeField] GameObject inventorySlotPrefab;
 
     void Update()
     {
@@ -54,6 +54,11 @@ public class ShootingTowel : MonoBehaviour
     {
         Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
         shootTimer = Time.time;
+    }
+
+    public GameObject GetInventorySlotPrefab()
+    {
+        return inventorySlotPrefab;
     }
 
     void OnDrawGizmosSelected()

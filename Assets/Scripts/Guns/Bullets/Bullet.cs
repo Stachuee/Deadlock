@@ -14,6 +14,8 @@ public class Bullet : MonoBehaviour
     float timeToDespawnRemain;
 
     [SerializeField] DamageType damageType;
+
+    [SerializeField] bool isPrecise = false;
     private void Start()
     {
         prevPos = transform.position;
@@ -31,7 +33,9 @@ public class Bullet : MonoBehaviour
             ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
 
             if (target != null) target.TakeDamage(damage, damageType);
-            Destroy(gameObject);
+            else return;
+            if (!isPrecise) Destroy(gameObject);
+            else StartCoroutine(UnableDamage());
         }
         prevPos = transform.position;
     }
@@ -39,5 +43,12 @@ public class Bullet : MonoBehaviour
     public DamageType GetDamageType()
     {
         return damageType;
+    }
+    private IEnumerator UnableDamage()
+    {
+        float tmpDamage = damage;
+        damage = 0f;
+        yield return new WaitForSeconds(0.3f);
+        damage = tmpDamage;
     }
 }

@@ -84,4 +84,9 @@ public class Spawner : InteractableBase, ICureLevelIncrease
         if(level == activateAt) ActivateSpanwer();
         else if(level == deactivateAt) DeactivateSpawner();
     }
+
+    public void TakeArmorDamage(DamageType type, float damage)
+    {
+        
+    }
 }

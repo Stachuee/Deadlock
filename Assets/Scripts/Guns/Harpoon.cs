@@ -14,8 +14,7 @@ public class Harpoon : GunBase
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
-    [SerializeField] int currentFireAmmo;
-    [SerializeField] int currentPoisonAmmo;
+    [SerializeField] int currentPreciseAmmo;
 
 
     protected override void Start()
@@ -29,11 +28,26 @@ public class Harpoon : GunBase
         currentAmmo = maxAmmo;
     }
 
+    public override void AddAmmo(AmmoType aT, int amount)
+    {
+        switch (aT)
+        {
+            case AmmoType.Bullet:
+                currentAmmo += amount;
+                break;
+            case AmmoType.Precise:
+                currentPreciseAmmo += amount;
+                break;
+            default:
+                Debug.LogError($"Wrong AmmoType({aT}) for Harpoon!");
+                break;
+        }
+    }
+
     private void Update()
     {
-        if (bullet.GetDamageType() == DamageType.Bullet && currentAmmo <= 0) return;
-        else if (bullet.GetDamageType() == DamageType.Fire && currentFireAmmo <= 0) return;
-        else if (bullet.GetDamageType() == DamageType.Poison && currentPoisonAmmo <= 0) return;
+        if ((currentBulletIndex == 0) && currentAmmo <= 0) return;
+        else if ((currentBulletIndex == 0) && currentPreciseAmmo <= 0) return;
 
         if (isShooting >= 0.9f)
         {
@@ -45,12 +59,10 @@ public class Harpoon : GunBase
             Vector2 diff = (owner.currentAimDirection).normalized;
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
             Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
-            if (bullet.GetDamageType() == DamageType.Bullet)
+            if (currentBulletIndex == 0)
                 currentAmmo--;
-            else if (bullet.GetDamageType() == DamageType.Fire)
-                currentFireAmmo--;
-            else if (bullet.GetDamageType() == DamageType.Poison)
-                currentPoisonAmmo--;
+            else if (currentBulletIndex == 1)
+                currentPreciseAmmo--;
 
             shootTimer = Time.time; // reset timer to current time
         }
@@ -68,12 +80,10 @@ public class Harpoon : GunBase
 
     override public int GetAmmoAmount()
     {
-        if (bullet.GetDamageType() == DamageType.Bullet)
+        if (currentBulletIndex == 0)
             return currentAmmo;
-        else if (bullet.GetDamageType() == DamageType.Fire)
-            return currentFireAmmo;
-        else if (bullet.GetDamageType() == DamageType.Poison)
-            return currentPoisonAmmo;
+        else if (currentBulletIndex == 1)
+            return currentPreciseAmmo;
 
         return 0;
     }

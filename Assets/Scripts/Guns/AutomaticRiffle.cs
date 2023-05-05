@@ -14,8 +14,7 @@ public class AutomaticRiffle : GunBase
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
-    [SerializeField] int currentFireAmmo;
-    [SerializeField] int currentPoisonAmmo;
+    [SerializeField] int currentDisintegratingAmmo;
 
     protected override void Start()
     {
@@ -29,11 +28,26 @@ public class AutomaticRiffle : GunBase
         currentAmmo = maxAmmo;
     }
 
+    public override void AddAmmo(AmmoType aT, int amount)
+    {
+        switch (aT)
+        {
+            case AmmoType.Bullet:
+                currentAmmo += amount;
+                break;
+            case AmmoType.Disintegrating:
+                currentDisintegratingAmmo += amount;
+                break;
+            default:
+                Debug.LogError($"Wrong AmmoType({aT}) for ARiffle!");
+                break;
+        }
+    }
+
     void Update()
     {
         if (bullet.GetDamageType() == DamageType.Bullet && currentAmmo <= 0) return;
-        else if (bullet.GetDamageType() == DamageType.Fire && currentFireAmmo <= 0) return;
-        else if (bullet.GetDamageType() == DamageType.Poison && currentPoisonAmmo <= 0) return;
+        else if (bullet.GetDamageType() == DamageType.Disintegrating && currentDisintegratingAmmo <= 0) return;
 
         if (isShooting >= 0.9f)
         {
@@ -46,10 +60,8 @@ public class AutomaticRiffle : GunBase
             Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
             if (bullet.GetDamageType() == DamageType.Bullet)
                 currentAmmo--;
-            else if (bullet.GetDamageType() == DamageType.Fire)
-                currentFireAmmo--;
-            else if (bullet.GetDamageType() == DamageType.Poison)
-                currentPoisonAmmo--;
+            else if (bullet.GetDamageType() == DamageType.Disintegrating)
+                currentDisintegratingAmmo--;
 
             shootTimer = Time.time; // reset timer to current time
         }
@@ -69,10 +81,8 @@ public class AutomaticRiffle : GunBase
     {
         if (bullet.GetDamageType() == DamageType.Bullet)
             return currentAmmo;
-        else if (bullet.GetDamageType() == DamageType.Fire)
-            return currentFireAmmo;
-        else if (bullet.GetDamageType() == DamageType.Poison)
-            return currentPoisonAmmo;
+        else if (bullet.GetDamageType() == DamageType.Disintegrating)
+            return currentDisintegratingAmmo;
 
         return 0;
     }

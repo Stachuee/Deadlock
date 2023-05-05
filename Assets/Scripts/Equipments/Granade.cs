@@ -16,6 +16,8 @@ public class Granade : MonoBehaviour
 
     [SerializeField] GameObject inventorySlotPrefab;
 
+    [SerializeField] DamageType damageType;
+
     private void Start()
     {
         explosionTimer = fuseDuration + Time.time;    
@@ -39,7 +41,7 @@ public class Granade : MonoBehaviour
             if (collider.CompareTag("Enemy"))
             {
                 ITakeDamage target = collider.GetComponent<ITakeDamage>();
-                if (target != null) target.TakeDamage(damage, DamageType.Bullet);
+                if (target != null) target.TakeDamage(damage, damageType);
             }
         }
         Destroy(gameObject);

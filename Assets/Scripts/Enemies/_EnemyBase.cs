@@ -21,7 +21,11 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     [SerializeField]
     DamageTypeResistance resistances;
 
-    protected virtual void Start()
+    bool poisoned = false;
+    bool onFire = false;
+    bool freezed = false;
+
+        protected virtual void Start()
     {
         hp = maxHp;
         speed = Random.Range(randomSpeed.x, randomSpeed.y);
@@ -29,15 +33,97 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
     public float TakeDamage(float damage, DamageType type)
     {
-        float damageTaken = (1 - resistances.GetResistance(type)) * damage;
-        hp -= damageTaken;
+        float damageTaken = damage;
+        switch (type)
+        {
+            case DamageType.Bullet:
+                damageTaken = (1 - resistances.GetResistance(type)) * damage;
+                hp -= damageTaken;
+                break;
+            case DamageType.Poison:
+                if (poisoned) break;
+                damageTaken = (1 - resistances.GetResistance(type)) * damage;
+                StartCoroutine(PoisonDamage(3, damageTaken));
+                break;
+            case DamageType.Fire:
+                if (onFire) break;
+                damageTaken = (1 - resistances.GetResistance(type)) * damage;
+                StartCoroutine(FireDamage(3, damageTaken));
+                break;
+            case DamageType.Ice:
+                if (freezed) break;
+                damageTaken = (1 - resistances.GetResistance(type)) * 0.5f;
+                StartCoroutine(Freeze(3, damageTaken));
+                break;
+            case DamageType.Mele:
+                damageTaken = (1 - resistances.GetResistance(type)) * damage;
+                hp -= damageTaken;
+                break;
+            case DamageType.Disintegrating:
+                float dResistance = resistances.GetResistance(DamageType.Bullet);
+                if (dResistance > 0.5f)
+                {
+                    damageTaken = damage * (1 - (dResistance - 0.5f));
+                }
+                else
+                {
+                    damageTaken = damage;
+                }
+                hp -= damageTaken;
+                break;
+            default:
+                Debug.LogError($"Invalid DamageType: {type} for Enemy");
+                break;
+        }
+        
 
         if (hp <= 0) Dead();
         return damageTaken;
     }
 
+    public void TakeArmorDamage(DamageType type, float damage)
+    {
+        resistances.SetResistance(type, resistances.GetResistance(type) - damage);
+    }
+
     public virtual void Dead()
     {
         Destroy(gameObject);
+    }
+
+    private IEnumerator PoisonDamage(int poisonStrenght, float damage)
+    {
+        poisoned = true;
+
+        while (poisonStrenght > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            hp -= damage;
+            poisonStrenght--;
+        }
+        poisoned = false;
+    }
+
+    private IEnumerator FireDamage(int fireStrenght, float damage)
+    {
+        onFire = true;
+
+        while (fireStrenght > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            hp -= damage;
+            fireStrenght--;
+        }
+        onFire = false;
+    }
+
+    private IEnumerator Freeze(int iceStrenght, float damage)
+    {
+        freezed = true;
+        float tmpSpeed = speed;
+        speed *= damage;
+        yield return new WaitForSeconds(iceStrenght);
+        freezed = false;
+        speed = tmpSpeed;
     }
 }
