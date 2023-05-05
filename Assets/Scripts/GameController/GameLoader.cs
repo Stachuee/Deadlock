@@ -12,6 +12,7 @@ public class GameLoader : MonoBehaviour
     [SerializeField]
     Transform soldierAnchor;
 
+    [SerializeField] OverlapRenderFeature renderFeature;
 
     PlayerInputManager playerInputManager;
 
@@ -35,12 +36,13 @@ public class GameLoader : MonoBehaviour
             List<InputDetection.NewDevice> devices = InputInfoHolder.Instance.GetDevices();
             GameObject temp;
             GameController.gameController.SetUp();
+            renderFeature.enabled = InputInfoHolder.Instance.UseGlasses();
 
             for (int i = 0; i < 2; i++)
             {
                 temp = playerInputManager.JoinPlayer(i, 0, devices[i].controlScheme, devices[i].device).gameObject;
                 PlayerController controller = temp.transform.GetComponent<PlayerController>();
-                controller.SetUpPlayer(devices[i].controlScheme, i, devices[i].scientist);
+                controller.SetUpPlayer(devices[i].controlScheme, i, devices[i].scientist, InputInfoHolder.Instance.UseGlasses());
                 if (devices[i].scientist) temp.transform.position = scientistAnchor.position;
                 else temp.transform.position = soldierAnchor.position;
             }

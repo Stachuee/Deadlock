@@ -20,6 +20,7 @@ public class CameraFollowScript : MonoBehaviour
     [SerializeField] Vector3 offset;
     [SerializeField] Vector2 maxCameraTilt;
 
+    [SerializeField] Material glassesMat;
     private void Awake()
     {
         cam = transform.GetComponent<Camera>();
@@ -36,15 +37,31 @@ public class CameraFollowScript : MonoBehaviour
         camHolder.position = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
     }
 
-    public void SetSplitScreenPosition(int index)
+    public void SetSplitScreenPosition(int index, bool glassesMode)
     {
         if(index == 0)
         {
-            cam.rect = new Rect(0, 0, 1, 0.5f);
+            if(glassesMode)
+            {
+
+            }
+            else
+            {
+                cam.rect = new Rect(0, 0, 1, 0.5f);
+            }
+            
         }
         else
         {
-            cam.rect = new Rect(0, 0.5f, 1, 0.5f);
+            if (glassesMode)
+            {
+                cam.transform.tag = "SecondaryCamera";
+                cam.gameObject.AddComponent<RenderFeatureSecondaryCameraOutput>().SetUp(glassesMat);
+            }
+            else
+            {
+                cam.rect = new Rect(0, 0.5f, 1, 0.5f);
+            }
         }
     }
 

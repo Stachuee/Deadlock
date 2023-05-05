@@ -8,6 +8,9 @@ public class AmmoItem : ItemSO
     [SerializeField]
     int ammoCount;
 
+    [SerializeField] WeaponType weapon;
+    [SerializeField] AmmoType ammoType;
+
     public override void Drop(PlayerController player, Item item)
     { 
          
@@ -15,7 +18,7 @@ public class AmmoItem : ItemSO
 
     public override bool PickUp(PlayerController player, Item item, out bool destroy)
     {
-        Debug.Log("Gain ammo");
+        player.gunController.AddAmmo(weapon, ammoType, ammoCount);
         destroy = true;
         if (player.isScientist) return true;
         else return false;

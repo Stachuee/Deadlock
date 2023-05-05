@@ -11,6 +11,7 @@ TagManager:
   - ARiffle
   - Tower
   - Medicine
+  - SecondaryCamera
   layers:
   - Default
   - TransparentFX

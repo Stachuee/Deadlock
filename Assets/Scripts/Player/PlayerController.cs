@@ -80,12 +80,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     UnityAction callbackWhenUnlocking;
     bool lockedInAnimation;
 
-    public void SetUpPlayer(string controllScheme, int index, bool scientist)
+    public void SetUpPlayer(string controllScheme, int index, bool scientist, bool glassesMode)
     {
         debugStart = false;
         keyboard = controllScheme == "Keyboard";
         GameController.gameController.AddPlayer(this);
-        cameraController.SetSplitScreenPosition(index);
+        cameraController.SetSplitScreenPosition(index, glassesMode);
         isScientist = scientist;
     }
 

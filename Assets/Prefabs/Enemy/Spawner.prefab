@@ -107,7 +107,9 @@ MonoBehaviour:
   handActivation: 1
   hideInComputer: 0
   isActive: 1
-  spawnDelay: 0.2
+  activateAt: 0
+  deactivateAt: 0
+  spawnDelay: 1
 --- !u!61 &6074803422656980267
 BoxCollider2D:
   m_ObjectHideFlags: 0

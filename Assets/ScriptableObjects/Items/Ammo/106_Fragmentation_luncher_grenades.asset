@@ -19,3 +19,5 @@ MonoBehaviour:
   typeIcon: {fileID: 0}
   subtypeIcon: {fileID: 0}
   ammoCount: 20
+  weapon: 2
+  ammoType: 0

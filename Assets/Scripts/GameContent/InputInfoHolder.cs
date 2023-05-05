@@ -8,6 +8,7 @@ public class InputInfoHolder : MonoBehaviour
     public static InputInfoHolder Instance { get; private set; }
     [SerializeField]
     List<InputDetection.NewDevice> heldDevices;
+    bool useGlasses;
 
     private void Awake()
     {
@@ -25,5 +26,15 @@ public class InputInfoHolder : MonoBehaviour
     public List<InputDetection.NewDevice> GetDevices()
     {
         return heldDevices;
+    }
+
+    public bool UseGlasses()
+    {
+        return useGlasses;
+    }
+
+    public void SetGlasses(bool value)
+    {
+        useGlasses = value;
     }
 }
