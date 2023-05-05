@@ -36,4 +36,9 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
         hp -= damage;
         return damage;
     }
+
+    public void TakeArmorDamage(DamageType type, float damage)
+    {
+        
+    }
 }

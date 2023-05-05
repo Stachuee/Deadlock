@@ -45,4 +45,9 @@ public class Blocade : MonoBehaviour, ITakeDamage
     {
         return new ComputerInfoContainer { hp = hp, maxHp = maxHp, showHp = true, name = displayName };
     }
+
+    public void TakeArmorDamage(DamageType type, float damage)
+    {
+        
+    }
 }
