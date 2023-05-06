@@ -21,6 +21,7 @@ public class CameraFollowScript : MonoBehaviour
     [SerializeField] Vector2 maxCameraTilt;
 
     [SerializeField] Material glassesMat;
+
     private void Awake()
     {
         cam = transform.GetComponent<Camera>();

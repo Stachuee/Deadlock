@@ -11,6 +11,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected float hp;
     [SerializeField, MinMaxSlider(0, 10)]
     protected Vector2 randomSpeed;
+    protected float baseSpeed;
     protected float speed;
     [SerializeField]
     protected float damage;
@@ -25,13 +26,14 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     bool onFire = false;
     bool freezed = false;
 
-        protected virtual void Start()
+    protected virtual void Start()
     {
         hp = maxHp;
-        speed = Random.Range(randomSpeed.x, randomSpeed.y);
+        baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
+        speed = baseSpeed;
     }
 
-    public float TakeDamage(float damage, DamageType type)
+    public virtual float TakeDamage(float damage, DamageType type)
     {
         float damageTaken = damage;
         switch (type)

@@ -53,14 +53,13 @@ public class Crawler : _EnemyBase
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(currentTarget != null && damaging == null)
         {
             Vector2 direction = new Vector2((currentTarget.transform.position - transform.position).x, 0);
             rb.velocity = direction.normalized * speed + new Vector2(0, rb.velocity.y);
-
-            if(direction.x > currentTarget.transform.position.x)
+            if (direction.x > currentTarget.transform.position.x)
             {
                 transform.rotation = Quaternion.Euler(0,0,0);
             }
