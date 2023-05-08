@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MapSegment : MonoBehaviour
+public class MapSegment : MonoBehaviour, ICureLevelIncrease
 {
     [SerializeField]
     public Vector2Int size;
@@ -11,8 +11,10 @@ public class MapSegment : MonoBehaviour
     public string sectorName;
     [SerializeField]
     public Color segmentColor;
+    [SerializeField] int activateAt;
     [SerializeField]
     List<Rooms> roomsInSegment;
+
 
     [SerializeField] bool segmentUnlocked;
 
@@ -48,6 +50,8 @@ public class MapSegment : MonoBehaviour
         else security = new List<PowerInterface>();
         if (lights != null) lights.ForEach(x => x.PowerOn(lightsPowered));
         else lights = new List<PowerInterface>();
+
+        CureController.instance.AddToNotify(this);
     }
 
     public void TurnOnOff(SwitchType switchType, bool on)
@@ -179,5 +183,10 @@ public class MapSegment : MonoBehaviour
         Gizmos.DrawLine(new Vector2(position.x - size.x, position.y + size.y), new Vector2(position.x - size.x, position.y - size.y));
         Gizmos.DrawLine(new Vector2(position.x - size.x, position.y - size.y), new Vector2(position.x + size.x, position.y - size.y));
         Gizmos.DrawLine(new Vector2(position.x + size.x, position.y - size.y), new Vector2(position.x + size.x, position.y + size.y));
+    }
+
+    public void IncreaseLevel(int level)
+    {
+        if (level == activateAt) UnlockSegment(true);
     }
 }

@@ -15,9 +15,11 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
     [SerializeField]
     float doorRepairSpeed;
 
+    Rooms parrent;
     public float TakeDamage(float damage, DamageType type)
     {
         doorHp -= damage;
+        parrent.SendWarning(WarningStrength.Strong);
         return damage;
     }
 
@@ -28,6 +30,7 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
 
     private void Start()
     {
+        parrent = transform.GetComponentInParent<Rooms>();
         doorHp = doorMaxHp;
     }
 
@@ -48,5 +51,10 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
     public override ComputerInfoContainer GetInfo()
     {
         return new ComputerInfoContainer() { name = displayName, hp = doorHp, maxHp = doorMaxHp, showHp = true };
+    }
+
+    public bool IsImmune()
+    {
+        return false;
     }
 }

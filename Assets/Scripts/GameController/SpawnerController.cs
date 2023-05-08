@@ -9,14 +9,24 @@ public class SpawnerController : MonoBehaviour
 
     List<Spawner> spawns = new List<Spawner>();
 
+    List<Spawner> spawningSpawners = new List<Spawner>();
+
     [SerializeField]
-    List<WaveSO> waves = new List<WaveSO>();
+    List<Wave> waves = new List<Wave>();
+
+    WaveSO currentWave;
+
+    [System.Serializable]
+    struct Wave
+    {
+        public List<WaveSO> waves;
+    }
 
     [SerializeField]
     bool toggleSpawns;
 
-    int wave;
     float nextWave;
+    bool cooldown;
 
     private void Awake()
     {
@@ -26,7 +36,7 @@ public class SpawnerController : MonoBehaviour
 
     private void Start()
     {
-        wave = 0;
+        cooldown = true;
     }
 
     public void AddSpawner(Spawner spawnerToAdd)
@@ -38,15 +48,27 @@ public class SpawnerController : MonoBehaviour
     private void Update()
     {
         if (!toggleSpawns) return;
-        if(Time.time >= nextWave)
+
+        if(spawningSpawners.Count == 0 && !cooldown)
+        {
+            nextWave = Time.time + currentWave.GetNextWaveDelay();
+            cooldown = true;
+        }
+
+        if(cooldown && Time.time >= nextWave)
         {
             TriggerWave();
+            cooldown = false;
         }
     }
 
     public void TriggerWave()
     {
-        WaveSO currentWave = waves[Mathf.Min(wave, waves.Count - 1)];
+        
+        Wave currentWavePool = waves[CureController.instance.GetCurrentLevel()];
+        currentWave = currentWavePool.waves[Random.Range(0, currentWavePool.waves.Count)];
+
+
 
         List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive);
 
@@ -56,10 +78,14 @@ public class SpawnerController : MonoBehaviour
             {
                 int randomSpawner = Random.Range(0, activeSpanwers.Count);
                 activeSpanwers[randomSpawner].AddToSpawn(currentWave.GetSubWaves()[i]);
+                spawningSpawners.Add(activeSpanwers[randomSpawner]);
             }
             else Debug.LogError("Not enough spawners");
         }
-        nextWave = Time.time + currentWave.GetNextWaveDelay();
-        wave++;
+    }
+
+    public void FinishedSpawning(Spawner spawning)
+    {
+        spawningSpawners.Remove(spawning);
     }
 }

@@ -128,4 +128,9 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         freezed = false;
         speed = tmpSpeed;
     }
+
+    public bool IsImmune()
+    {
+        return false;
+    }
 }

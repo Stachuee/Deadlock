@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item", menuName = "ScriptableObjects/Dialouge/Dialouge", order = 0)]
-public class Dialouge : ScriptableObject
+public class Dialogue : ScriptableObject
 {
-    public enum Trigger {Kill, Iddle }
+    public enum Trigger {Kill, OnNewItemPickup }
     [System.Serializable]
     public struct DialougeField
     {
         [TextArea(5, 10)]
         public string text;
         public Hero speaker;
+        public float timeOnScreen;
     };
 
     [SerializeField]

@@ -6,4 +6,5 @@ public interface ITakeDamage
 {
     public float TakeDamage(float damage, DamageType type);
     public void TakeArmorDamage(DamageType type, float damage);
+    public bool IsImmune();
 }

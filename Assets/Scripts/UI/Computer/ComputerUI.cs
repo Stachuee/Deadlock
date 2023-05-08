@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum WarningStrength {Weak, Medium, Strong };
+
 public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSubscriberUse
 {
     [SerializeField] Transform content;
@@ -32,13 +34,19 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
     Vector2 startingDrawPos;
 
-
+    bool isScientist;
     bool setUp;
+
+    public static List<ComputerUI> computers = new List<ComputerUI>();
 
 
     private void Start()
     {
-        SegmentController.segmentController.SubscribeToUnlock(this);
+        if(playerController.isScientist)
+        {
+            computers.Add(this);
+            SegmentController.segmentController.SubscribeToUnlock(this);
+        }
     }
 
     public void Setup()
@@ -89,7 +97,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             if (roomToDraw.startingRoom) firstButton = temp.gameObject;
 
             roomsUI.Add(button);
-            
+
             temp.anchoredPosition = ((Vector2)roomToDraw.transform.position - startingDrawPos) * scale;
             if (size.x < Mathf.Abs(temp.anchoredPosition.x)) size.x = Mathf.CeilToInt(Mathf.Abs(temp.anchoredPosition.x)) + roomToDraw.roomSize.x * scale;
             if (size.y < Mathf.Abs(temp.anchoredPosition.y)) size.y = Mathf.CeilToInt(Mathf.Abs(temp.anchoredPosition.y)) + roomToDraw.roomSize.y * scale;
@@ -343,9 +351,25 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         }
     }
 
-    public void UpdateEvent(RoomEvent eventToUpdate, bool isNew)
+    public void UpdateEvent(RoomEvent eventToUpdate, bool isNew, WarningStrength strength)
     {
-        roomsUI.Find(x => x.room == eventToUpdate.room).UpdateEvent(isNew);
+        if (!isScientist) return;
+        if (!setUp) Setup();
+        roomsUI.Find(x => x.room == eventToUpdate.room).UpdateEvent(isNew, strength);
     }
 
+    public void DisplayWarning(Rooms room, WarningStrength strength)
+    {
+        if (!isScientist) return;
+        if (!setUp) Setup();
+        roomsUI.Find(x => x.room == room).UpdateEvent(true, strength);
+    }
+
+    public static void DisplayWarningOnAllComputers(Rooms room, WarningStrength strength)
+    {
+        computers.ForEach(x =>
+        {
+            x.DisplayWarning(room, strength);
+        });
+    }
 }

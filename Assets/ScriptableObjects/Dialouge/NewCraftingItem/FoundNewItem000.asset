@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbe86c2cdff61c54683295fe30bb20ff, type: 3}
-  m_Name: OnKill001
+  m_Name: FoundNewItem000
   m_EditorClassIdentifier: 
   dialogue:
-  - text: Hey!
+  - text: Hey, I could use that!
     speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
-  - text: Hello
+    timeOnScreen: 3
+  - text: Just give me a moment, and Ill bring it to you.
     speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
-  trigger: 0
+    timeOnScreen: 5
+  trigger: 1

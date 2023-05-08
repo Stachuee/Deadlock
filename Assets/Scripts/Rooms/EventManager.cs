@@ -43,7 +43,7 @@ public class EventManager : MonoBehaviour
         activeEvents.Add(chosenEvent);
         events.Remove(chosenEvent);
 
-        UpdateEventsOnMap(chosenEvent, true);
+        UpdateEventsOnMap(chosenEvent, true, chosenEvent.GetWarningStrength());
     }
 
     public void AddEvent(RoomEvent eventToAdd)
@@ -54,7 +54,7 @@ public class EventManager : MonoBehaviour
     public void SolveEvent(RoomEvent eventToSolve)
     {
         activeEvents.Remove(eventToSolve);
-        UpdateEventsOnMap(eventToSolve, false);
+        UpdateEventsOnMap(eventToSolve, false, eventToSolve.GetWarningStrength());
     }
 
 
@@ -65,10 +65,9 @@ public class EventManager : MonoBehaviour
         listeners.Add(listener);
     }
 
-    public void UpdateEventsOnMap(RoomEvent eventToChange, bool isNew)
+    public void UpdateEventsOnMap(RoomEvent eventToChange, bool isNew, WarningStrength strength)
     {
-        listeners.ForEach(x => x.UpdateEvent(eventToChange, isNew));
+        listeners.ForEach(x => x.UpdateEvent(eventToChange, isNew, strength));
     }
-
 }
 

@@ -17,6 +17,13 @@ public class Printer : PoweredInteractable, IGetHandInfo
 
     [SerializeField] GameObject prefabToPrint;
 
+    [SerializeField] GameObject craftingBar;
+    [SerializeField] Transform mask;
+    [SerializeField] Vector2 startBarPos;
+    [SerializeField] Vector2 endBarPos;
+    
+    
+    
     protected override void Awake()
     {
         base.Awake();
@@ -34,6 +41,7 @@ public class Printer : PoweredInteractable, IGetHandInfo
             {
                 readyToCollect = true;
             }
+            craftingBar.transform.localPosition = Vector2.Lerp(startBarPos, endBarPos, 1 - (productionRemain / baseProduction));
         }
     }
 
@@ -43,7 +51,7 @@ public class Printer : PoweredInteractable, IGetHandInfo
         {
             if (readyToCollect)
             {
-                Instantiate(prefabToPrint, transform.position, Quaternion.identity).GetComponent<Item>().Innit(toPrint);
+                Instantiate(prefabToPrint, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), 0 , 0), Quaternion.identity).GetComponentInChildren<Item>().Innit(toPrint);
                 readyToCollect = false;
                 productionRemain = baseProduction;
             }

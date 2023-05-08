@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
         transform.position += transform.right * speed * Time.deltaTime;
 
         RaycastHit2D hit = Physics2D.Linecast(prevPos, transform.position, ~maskToIgnore);
-        if(hit.collider != null)
+        if(hit.collider != null && hit.transform.tag == "Enemy")
         {
             ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
 

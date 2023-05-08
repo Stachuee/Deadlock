@@ -21,6 +21,8 @@ public class CraftingHelperScript : MonoBehaviour
 
     List<CraftingHelperButtonScript> helpers = new List<CraftingHelperButtonScript>();
 
+    int currentCategory;
+
     private void Start()
     {
         for(int i =0; i < MAX_CRAFTING_ITEMS_IN_ONE_TAB; i++)
@@ -47,7 +49,9 @@ public class CraftingHelperScript : MonoBehaviour
 
     public void ChangeCategory(int tab)
     {
-        List<CraftingRecipesSO> toShow = RecipiesManager.instance.GetAllRecipies().FindAll(x => (int)x.GetTab() == tab);
+        List<CraftingRecipesSO> toShow = RecipiesManager.instance.GetUnlockedRecipies().FindAll(x => (int)x.GetTab() == tab);
+
+        currentCategory = tab;
 
         if (MAX_CRAFTING_ITEMS_IN_ONE_TAB < toShow.Count) Debug.LogError("add more prefabs");
 
@@ -65,6 +69,6 @@ public class CraftingHelperScript : MonoBehaviour
 
     public void RefreshCrafting()
     {
-
+        ChangeCategory(currentCategory);
     }
 }

@@ -59,7 +59,11 @@ public class RoomUiButton : MonoBehaviour
 
     public void Pressed()
     {
-        if(Active) computer.ChangeCamera(room);
+        if (Active)
+        {
+            computer.ChangeCamera(room);
+            UpdateEvent(false, WarningStrength.Strong);
+        }
     }
 
     public void Unlock(bool unlocked)
@@ -67,12 +71,23 @@ public class RoomUiButton : MonoBehaviour
         Active = unlocked;
     }
 
-
-    public void UpdateEvent(bool highlight)
+    public void UpdateEvent(bool highlight, WarningStrength strength)
     {
         if(highlight)
         {
-            myImage.color = Color.red;
+            switch (strength)
+            {
+                case WarningStrength.Weak:
+                    myImage.color = Color.yellow;
+                    break;
+                    case WarningStrength.Medium:
+                    myImage.color = new Color(255, 165, 0);
+                    break;
+                case WarningStrength.Strong:
+                    myImage.color = Color.red;
+                    break;
+            }
+            
         }
         else
         {

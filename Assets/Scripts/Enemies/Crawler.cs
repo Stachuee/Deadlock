@@ -24,7 +24,7 @@ public class Crawler : _EnemyBase
         if (collision.transform.tag == "Interactable")
         {
             ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
-            if (temp != null)
+            if (temp != null && !temp.IsImmune())
             {
                 damaging = temp;
             }
@@ -40,6 +40,26 @@ public class Crawler : _EnemyBase
             {
                 damaging = null;
             }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Interactable")
+        {
+            ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
+            if (temp != null && !temp.IsImmune())
+            {
+                damaging = temp;
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.transform.tag == "Interactable" && damaging == collision.transform.GetComponent<ITakeDamage>())
+        {
+            damaging = null;
         }
     }
 
@@ -87,6 +107,7 @@ public class Crawler : _EnemyBase
 
         if(damaging != null && lastAttack + attackSpeed < Time.time )
         {
+            if (damaging.IsImmune()) damaging = null;
             damaging.TakeDamage(damage, DamageType.Mele);
             lastAttack = Time.time;
         }

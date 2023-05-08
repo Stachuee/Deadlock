@@ -8,6 +8,8 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     [MinMaxSlider(-180, 0)]
     public Vector2Int minMaxTurretAngle;
 
+    bool automatic = true;
+
     [SerializeField]
     SpriteRenderer turretSprite;
     [SerializeField]
@@ -26,6 +28,30 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
 
     PlayerController user;
     float prevRotz = 0;
+
+    List<Transform> targets = new List<Transform>();
+    Transform target;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (automatic && collision.tag == "Enemy")
+        {
+            targets.Add(collision.transform);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(automatic && collision.tag == "Enemy")
+        {
+            targets.Remove(collision.transform);  
+            if(collision.transform == target)
+            {
+                target = null;
+                GetClosest();
+            }
+        }
+    }
 
     public void ForwardCommandMovment(Vector2 controll)
     {
@@ -47,16 +73,67 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     protected override void Awake()
     {
         base.Awake();
-        AddAction(TakeControll);
+        if (!automatic) AddAction(TakeControll);
+        else
+        {
+            StartCoroutine("GetClosestCoroutine");
+        }
     }
     private void Update()
     {
-        if (firing && nextShot < Time.time)
+        if(!automatic)
         {
-            Instantiate(bulletPrefab, barrelTransform.position, Quaternion.Euler(0, 0, turretAngle));
-            nextShot = Time.time + shootDelay;
+            if (firing && nextShot < Time.time)
+            {
+                Instantiate(bulletPrefab, barrelTransform.position, Quaternion.Euler(0, 0, turretAngle));
+                nextShot = Time.time + shootDelay;
+            }
+        }
+        else
+        {
+            if(powered && target != null)
+            {
+                Vector2 directionToTarget = (target.position - transform.position).normalized;
+                float rot_z = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+                if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
+                else turretSprite.flipY = false;
+                gunBarrel.rotation = Quaternion.RotateTowards(gunBarrel.rotation, Quaternion.Euler(0,0, rot_z), 180 * Time.deltaTime);
+            }
         }
     }
+
+    IEnumerator GetClosestCoroutine()
+    {
+        yield return new WaitForSeconds(Random.Range(0f,1f));
+
+        while (true)
+        {
+            if(powered) GetClosest();
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+
+    void GetClosest()
+    {
+        if (targets.Count > 0)
+        {
+            Transform closestTarget = target;
+            float closestDistance = target != null ? Vector2.Distance(target.position, transform.position) : Mathf.Infinity;
+
+            targets.ForEach(targetToCheck =>
+            {
+                float currentDistance = Vector2.Distance(targetToCheck.position, transform.position);
+                if (closestTarget != targetToCheck && currentDistance < closestDistance)
+                {
+                    closestDistance = currentDistance;
+                    closestTarget = targetToCheck;
+                }
+            });
+            target = closestTarget;
+        }
+    }
+
 
     public void TakeControll(PlayerController player)
     {

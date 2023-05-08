@@ -6,6 +6,7 @@ public abstract class RoomEvent : MonoBehaviour
 {
     [SerializeField] [Range(0,1)] protected float pacingRequrement;
     [SerializeField] bool oneTime;
+    [SerializeField] WarningStrength warningStrength;
     public Rooms room;
 
     protected virtual void Awake()
@@ -27,6 +28,11 @@ public abstract class RoomEvent : MonoBehaviour
     public float GetPacingRequrement()
     {
         return pacingRequrement;
+    }
+
+    public WarningStrength GetWarningStrength()
+    {
+        return warningStrength;
     }
 
 }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7157779000bb9354c919d2593fe3d70e, type: 3}
   m_Name: Crawler
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 238913776322736951, guid: 3dc7781769fd13a4fbc3884c0085a517, type: 3}
+  enemyPrefab: {fileID: 238913776322736951, guid: 48dcaff21eae30440a6c0153eabd404e, type: 3}
   weigth: 1
   minWave: 1

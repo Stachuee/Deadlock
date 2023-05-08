@@ -105,5 +105,8 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
         }
     }
 
-
+    public bool IsImmune()
+    {
+        return false;
+    }
 }

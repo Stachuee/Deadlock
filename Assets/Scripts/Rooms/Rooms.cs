@@ -132,6 +132,20 @@ public class Rooms : MonoBehaviour
         return mySegment;
     }
 
+    readonly float TIME_BETWEEN_WARNINGS = 5;
+    float lastWarning;
+    WarningStrength lastWarningStrength;
+
+    public void SendWarning(WarningStrength strength)
+    {
+        if(Time.time > lastWarning + TIME_BETWEEN_WARNINGS || (int)strength > (int)lastWarningStrength)
+        {
+            ComputerUI.DisplayWarningOnAllComputers(this, strength);
+            lastWarning = Time.time;
+            lastWarningStrength = strength;
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

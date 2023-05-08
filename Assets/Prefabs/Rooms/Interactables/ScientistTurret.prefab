@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 1205753906996754147}
   - component: {fileID: 1205753906996754146}
   - component: {fileID: 1205753906996754145}
+  - component: {fileID: 1495056965611224700}
   m_Layer: 0
   m_Name: ScientistTurret
   m_TagString: Untagged
@@ -214,10 +215,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 3.2397795, y: -1.3599069}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -228,7 +229,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.479559, y: 3.7198157}
   m_EdgeRadius: 0
 --- !u!114 &1205753906996754145
 MonoBehaviour:
@@ -251,12 +252,34 @@ MonoBehaviour:
   handActivation: 0
   hideInComputer: 0
   useElectricityType: 1
+  powered: 0
   minMaxTurretAngle: {x: -180, y: -41}
   turretSprite: {fileID: 1205753906326125290}
   gunBarrel: {fileID: 1205753906326125291}
   barrelTransform: {fileID: 1205753905961889385}
   bulletPrefab: {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
   shootDelay: 0.4
+--- !u!50 &1495056965611224700
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205753906996754144}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1205753907378012625
 GameObject:
   m_ObjectHideFlags: 0

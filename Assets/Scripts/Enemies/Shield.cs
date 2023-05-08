@@ -30,4 +30,9 @@ public class Shield : MonoBehaviour, ITakeDamage
         }
         return damageTaken;
     }
+
+    public bool IsImmune()
+    {
+        return false;
+    }
 }

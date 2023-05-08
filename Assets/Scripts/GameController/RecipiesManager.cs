@@ -9,7 +9,14 @@ public class RecipiesManager : MonoBehaviour
     [SerializeField]
     List<CraftingRecipesSO> recipiesActive;
 
+    [SerializeField]
+    List<CraftingRecipesSO> recipiesUnlocked = new List<CraftingRecipesSO>();
+
     [SerializeField] public static readonly int[] PRIMES = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
+
+    List<CraftingHelperScript> toNotify;
+
+    Dictionary<int, bool> pickedUp;
 
     public static Hashtable recipes;
     
@@ -17,6 +24,20 @@ public class RecipiesManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+
+        toNotify = new List<CraftingHelperScript>();
+        pickedUp = new Dictionary<int, bool>();
+
+        recipiesActive.ForEach(recipe =>
+        {
+            recipe.GetIngredientsItem().ForEach(item =>
+            {
+                if(!pickedUp.ContainsKey(item.GetId()))
+                {
+                    pickedUp.Add(item.GetId(), false);
+                }
+            });
+        });
 
         recipes = new Hashtable();
 
@@ -46,8 +67,42 @@ public class RecipiesManager : MonoBehaviour
         return hash;
     }
 
-    public List<CraftingRecipesSO> GetAllRecipies()
+    public List<CraftingRecipesSO> GetUnlockedRecipies()
     {
-        return recipiesActive;
+        return recipiesUnlocked;
     }
+
+    public void AddHelper(CraftingHelperScript toAdd)
+    {
+        toNotify.Add(toAdd);
+    }
+
+    public void PickedUp(ItemSO item)
+    {
+        if(!pickedUp[item.GetId()])
+        {
+            pickedUp[item.GetId()] = true;
+
+            DialogueManager.instance.TriggerDialogue(Dialogue.Trigger.OnNewItemPickup); // send dialogue
+
+            List<CraftingRecipesSO> toUnlock = new List<CraftingRecipesSO>();
+
+            recipiesActive.ForEach(recipie =>{
+                bool unlock = true;
+                recipie.GetIngredientsItem().ForEach(item =>
+                {
+                    if(!pickedUp[item.GetId()]) unlock = false;
+                });
+                if(unlock)
+                {
+                    toUnlock.Add(recipie);
+                }
+            });
+
+            toUnlock.ForEach(item => recipiesActive.Remove(item));
+            recipiesUnlocked.AddRange(toUnlock);
+            toNotify.ForEach(helper => helper.RefreshCrafting());
+        }
+    }
+
 }

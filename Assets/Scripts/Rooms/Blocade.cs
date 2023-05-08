@@ -50,4 +50,9 @@ public class Blocade : MonoBehaviour, ITakeDamage
     {
         
     }
+
+    public bool IsImmune()
+    {
+        return false;
+    }
 }

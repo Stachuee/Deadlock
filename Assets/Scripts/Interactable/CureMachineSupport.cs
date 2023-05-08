@@ -41,4 +41,9 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
     {
         
     }
+
+    public bool IsImmune()
+    {
+        return hp <= 0;
+    }
 }

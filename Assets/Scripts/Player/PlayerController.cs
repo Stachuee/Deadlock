@@ -361,6 +361,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         throw new System.NotImplementedException();
     }
 
+    public bool IsImmune()
+    {
+        throw new System.NotImplementedException();
+    }
+
     #endregion
 
     #region ForwardControll
@@ -492,6 +497,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         LockInAnimation = false;
         callbackWhenUnlocking = null;
     }
+
+
 
     #endregion
 

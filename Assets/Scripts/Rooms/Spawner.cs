@@ -15,6 +15,8 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     float spawnDelay;
     float lastSpawn;
 
+    bool spawning;
+
 
     Queue<WaveSO.SubWave> waveToSpawn = new Queue<WaveSO.SubWave>();
 
@@ -46,6 +48,11 @@ public class Spawner : InteractableBase, ICureLevelIncrease
                 temp.GetComponent<EnemyBase>();
                 lastSpawn = Time.time;
             }
+            else if(spawning)
+            {
+                SpawnerController.instance.FinishedSpawning(this);
+                spawning = false;
+            }
         }
     }
 
@@ -64,17 +71,21 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     public void AddToSpawn(WaveSO.SubWave subWave)
     {
         waveToSpawn.Enqueue(subWave);
+        spawning = true;
     }
 
     public void SetNewWave()
     {
-        if(waveToSpawn.Count > 0)
+        if (waveToSpawn.Count > 0)
         {
             List<WaveSO.EnemySpawn> enemiesToSpawn = waveToSpawn.Dequeue().enemies;
             prefabsToSpawn = new Queue<GameObject>();
             enemiesToSpawn.ForEach(enemy =>
             {
-                for (int i = 0; i < enemy.count; i++) prefabsToSpawn.Enqueue(enemy.enemy.GetPrefab());
+                for (int i = 0; i < enemy.count; i++)
+                {
+                    prefabsToSpawn.Enqueue(enemy.enemy.GetPrefab());
+                }
             });
         }
     }
