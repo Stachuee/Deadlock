@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3785274873224741399}
   m_Layer: 7
   m_Name: Granade
-  m_TagString: Untagged
+  m_TagString: Granade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   explosionRadius: 3
   explosionVFX: {fileID: 4292313124053347464, guid: 619a3936d905d0f4a93f1ba1d94ce79e, type: 3}
   inventorySlotPrefab: {fileID: 4569713353421880941, guid: fc49136005242d44784f893c20a4bf1a, type: 3}
+  damageType: 0
 --- !u!61 &-224902360194425957
 BoxCollider2D:
   m_ObjectHideFlags: 0

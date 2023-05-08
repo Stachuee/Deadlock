@@ -5,7 +5,7 @@ using UnityEngine;
 public class EquipmentController : MonoBehaviour
 {
 
-    
+
     GameObject throwable;
 
     PlayerController playerController;
@@ -17,6 +17,12 @@ public class EquipmentController : MonoBehaviour
 
     [SerializeField] private Transform towerPlace;
 
+    [SerializeField] private int grenadeAmount;
+    [SerializeField] private int molotovAmount;
+    [SerializeField] private int towerAmount;
+    [SerializeField] private int medicineAmount;
+    [SerializeField] private int stimulatorAmount;
+
     private void Awake()
     {
         playerController = transform.GetComponent<PlayerController>();
@@ -27,11 +33,10 @@ public class EquipmentController : MonoBehaviour
         throwable = equipment[currentEquipmentIndex];
 
         inventory.AddEquipment(equipment[0].GetComponent<Granade>().GetInventorySlotPrefab());
-        inventory.AddEquipment(equipment[1].GetComponent<Granade>().GetInventorySlotPrefab());
-        inventory.AddEquipment(equipment[2].GetComponent<ShootingTower>().GetInventorySlotPrefab());
-        inventory.AddEquipment(equipment[3].GetComponent<Granade>().GetInventorySlotPrefab());
-        inventory.AddEquipment(equipment[4].GetComponent<Medicine>().GetInventorySlotPrefab());
-        inventory.AddEquipment(equipment[5].GetComponent<Stimulator>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[1].GetComponent<ShootingTower>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[2].GetComponent<Granade>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[3].GetComponent<Medicine>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[4].GetComponent<Stimulator>().GetInventorySlotPrefab());
     }
 
     public void ChangeEquipment(int equipmentIndex)
@@ -42,17 +47,61 @@ public class EquipmentController : MonoBehaviour
 
     public void UseEquipment()
     {
+        if (throwable.CompareTag("Granade") && grenadeAmount <= 0)
+            return;
+        else if (throwable.CompareTag("Molotov") && molotovAmount <= 0)
+            return;
+        else if (throwable.CompareTag("Tower") && towerAmount <= 0)
+            return;
+        else if (throwable.CompareTag("Medicine") && medicineAmount <= 0)
+            return;
+        else if (throwable.CompareTag("Stimulator") && stimulatorAmount <= 0)
+            return;
+
 
         if (throwable.CompareTag("Tower"))
         {
+            towerAmount--;
             Instantiate(throwable, towerPlace.position, Quaternion.identity);
             return;
-        }else if (throwable.CompareTag("Medicine"))
+        }
+        else if (throwable.CompareTag("Medicine") || throwable.CompareTag("Stimulator"))
         {
+            if (throwable.CompareTag("Medicine"))
+                medicineAmount--;
+            else if (throwable.CompareTag("Stimulator"))
+                stimulatorAmount--;
             throwable.GetComponent<MedicineBase>().AddEffect(playerController);
             return;
         }
+
+        if (throwable.CompareTag("Granade"))
+            grenadeAmount--;
+        else if (throwable.CompareTag("Molotov"))
+            molotovAmount--;
         GameObject temp = Instantiate(throwable, transform.position, Quaternion.identity);
         temp.GetComponent<Rigidbody2D>().AddForce(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
+    }
+
+
+    public int GetGranadeAmount()
+    {
+        return grenadeAmount;
+    }
+    public int GetMolotovAmount()
+    {
+        return molotovAmount;
+    }
+    public int GetTowerAmount()
+    {
+        return towerAmount;
+    }
+    public int GetMedicineAmount()
+    {
+        return medicineAmount;
+    }
+    public int GetStimulatorAmount()
+    {
+        return stimulatorAmount;
     }
 }

@@ -11,6 +11,9 @@ TagManager:
   - ARiffle
   - Tower
   - Medicine
+  - Granade
+  - Stimulator
+  - Molotov
   layers:
   - Default
   - TransparentFX
