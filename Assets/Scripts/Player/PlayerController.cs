@@ -319,6 +319,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (!context.started) return;
         if (context.ReadValue<float>() > 0.9f) equipmentController.UseEquipment();
     }
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        if (context.ReadValue<float>() > 0.9f) gunController.Reload();
+    }
 
     public void OnOpenInventory(InputAction.CallbackContext context)
     {

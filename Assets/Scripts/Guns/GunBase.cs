@@ -46,8 +46,7 @@ public abstract class GunBase : MonoBehaviour, IGun
         return GetComponentInChildren<Transform>();
     }
 
-    public abstract int GetAmmoAmount();
-    //To Change
+    public abstract string GetAmmoAmount();
     public abstract DamageType GetBulletType();
 
     public void EnableGun(bool isActive)

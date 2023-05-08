@@ -768,10 +768,7 @@ MonoBehaviour:
   bullets:
   - {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
   shootDelay: 0.7
-  maxAmmo: 12
-  currentAmmo: 12
-  currentFireAmmo: 12
-  currentPoisonAmmo: 12
+  maxAmmo: 30
 --- !u!1 &322767848796322639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,9 +1011,8 @@ MonoBehaviour:
   - {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
   - {fileID: 2611703158886120060, guid: bf6968cc97951bf48ba6ee8e656237f3, type: 3}
   fireRate: 0.1
-  maxAmmo: 20
-  currentAmmo: 20
-  currentDisintegratingAmmo: 20
+  maxAmmo: 100
+  maxDisintegratingAmmo: 100
 --- !u!1 &371689181015684118
 GameObject:
   m_ObjectHideFlags: 0
@@ -4163,6 +4159,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: eebb63ab-dbe7-4559-8705-17230556b63c
     m_ActionName: Player/OpenInventory[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4552270140176820842}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnReload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a1fe8279-7017-4369-96a3-f4b85e7a1d3c
+    m_ActionName: Player/Reload[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

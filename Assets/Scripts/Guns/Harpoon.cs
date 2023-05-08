@@ -25,7 +25,6 @@ public class Harpoon : GunBase
     }
     public override void Reload()
     {
-        currentAmmo = maxAmmo;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -78,14 +77,14 @@ public class Harpoon : GunBase
         }
     }
 
-    override public int GetAmmoAmount()
+    override public string GetAmmoAmount()
     {
         if (currentBulletIndex == 0)
-            return currentAmmo;
+            return currentAmmo.ToString();
         else if (currentBulletIndex == 1)
-            return currentPreciseAmmo;
+            return currentPreciseAmmo.ToString();
 
-        return 0;
+        return "";
     }
 
     override public DamageType GetBulletType()

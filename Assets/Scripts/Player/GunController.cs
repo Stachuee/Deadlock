@@ -92,6 +92,11 @@ public class GunController : MonoBehaviour
     }
 
 
+    public void Reload()
+    {
+        gun.Reload();
+    }
+
 
     public void ChangeWeapon(int gunIndex)
     {

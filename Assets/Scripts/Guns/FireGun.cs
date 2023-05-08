@@ -36,7 +36,6 @@ public class FireGun : GunBase
 
     public override void Reload()
     {
-        currentAmmo = maxAmmo;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -114,14 +113,14 @@ public class FireGun : GunBase
         }
     }
 
-    override public int GetAmmoAmount()
+    override public string GetAmmoAmount()
     {
         if (fireDT.GetDamageType() == DamageType.Bullet)
-            return currentAmmo;
+            return currentAmmo.ToString();
         else if (fireDT.GetDamageType() == DamageType.Ice)
-            return currentIceAmmo;
+            return currentIceAmmo.ToString();
 
-        return 0;
+        return "";
     }
 
     override public DamageType GetBulletType()
