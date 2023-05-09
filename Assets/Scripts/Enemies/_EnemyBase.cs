@@ -86,6 +86,12 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         resistances.SetResistance(type, resistances.GetResistance(type) - damage);
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        FireGunDamageType damageType = other.GetComponent<FireGunDamageType>();
+        TakeDamage(10f, damageType.GetDamageType());
+    }
+
     public virtual void Dead()
     {
         Destroy(gameObject);

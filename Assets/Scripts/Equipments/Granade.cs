@@ -35,7 +35,7 @@ public class Granade : MonoBehaviour
     {
         Debug.Log("Boom");
         Instantiate(explosionVFX, transform.position, Quaternion.identity);
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
+        /*Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Enemy"))
@@ -43,7 +43,7 @@ public class Granade : MonoBehaviour
                 ITakeDamage target = collider.GetComponent<ITakeDamage>();
                 if (target != null) target.TakeDamage(damage, damageType);
             }
-        }
+        }*/
         Destroy(gameObject);
     }
 
