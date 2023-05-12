@@ -7,6 +7,8 @@ public class SpawnerController : MonoBehaviour
 {
     public static SpawnerController instance;
 
+    readonly float FIRST_SPAWN_DELAY = 10;
+
     List<Spawner> spawns = new List<Spawner>();
 
     List<Spawner> spawningSpawners = new List<Spawner>();
@@ -27,16 +29,12 @@ public class SpawnerController : MonoBehaviour
 
     float nextWave;
     bool cooldown;
+    bool active;
 
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-        cooldown = true;
     }
 
     public void AddSpawner(Spawner spawnerToAdd)
@@ -55,17 +53,24 @@ public class SpawnerController : MonoBehaviour
             cooldown = true;
         }
 
-        if(cooldown && Time.time >= nextWave)
+        if(active && cooldown && Time.time >= nextWave)
         {
             TriggerWave();
             cooldown = false;
         }
     }
 
+    public void StartSpawning()
+    {
+        cooldown = true;
+        active = true;
+        nextWave = Time.time + FIRST_SPAWN_DELAY;
+    }
+
     public void TriggerWave()
     {
         
-        Wave currentWavePool = waves[CureController.instance.GetCurrentLevel()];
+        Wave currentWavePool = waves[ProgressStageController.instance.GetCurrentLevel()];
         currentWave = currentWavePool.waves[Random.Range(0, currentWavePool.waves.Count)];
 
 

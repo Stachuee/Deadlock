@@ -49,7 +49,7 @@ public class CureMachine : ScientistPoweredInteractable
             itemsToUse.Remove(item);
             if(itemsToUse.Count == 0)
             {
-                CureController.instance.CureMachineItemsReady(true);
+                ProgressStageController.instance.MachineItemsReady(true);
             }
         }
         else
@@ -86,7 +86,7 @@ public class CureMachine : ScientistPoweredInteractable
         {
             if (supportsLevels[(int)toUse] <= 0) allFilled = false;
         });
-        CureController.instance.CureMachineSupportReady(allFilled);
+        ProgressStageController.instance.MachineSupportReady(allFilled);
     }
 
     public void SetCurrentUssage(List<CureMachineSupportType> toUse)
@@ -118,6 +118,6 @@ public class CureMachine : ScientistPoweredInteractable
     public override void PowerOn(int power)
     {
         base.PowerOn(power);
-        CureController.instance.CureMachineRunning(powered);
+        ProgressStageController.instance.MachineRunning(powered);
     }
 }

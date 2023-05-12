@@ -10,7 +10,7 @@ public class SealedDoor : MonoBehaviour, ICureLevelIncrease
 
     private void Start()
     {
-        CureController.instance.AddToNotify(this);
+        ProgressStageController.instance.AddToNotify(this);
         mySpawner = transform.GetComponentInChildren<Spawner>();
     }
 

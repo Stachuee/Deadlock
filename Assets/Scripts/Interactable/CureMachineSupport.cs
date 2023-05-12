@@ -11,6 +11,9 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
     [SerializeField] CureMachineSupportType type;
     [SerializeField] float baseOutput;
     [SerializeField] float addDelay;
+
+    [SerializeField] ItemSO toRepair;
+
     private void Start()
     {
         AddAction(Fix);
@@ -28,7 +31,11 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
 
     public void Fix(PlayerController player)
     {
-        hp = maxHp;
+        ItemSO temp = player.CheckIfHoldingAnyAndDeposit(toRepair);
+        if (temp != null)
+        {
+            hp = maxHp;
+        }
     }
 
     public float TakeDamage(float damage, DamageType type)
@@ -45,5 +52,10 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
     public bool IsImmune()
     {
         return hp <= 0;
+    }
+
+    public override bool IsUsable(PlayerController player)
+    {
+        return player.CheckIfHoldingAny(toRepair);
     }
 }

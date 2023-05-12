@@ -16,6 +16,8 @@ public class PowerPlug : InteractableBase
     [SerializeField]
     List<ScientistPoweredInteractable> toManage;
 
+    bool firstTime = true;
+
     void Start()
     {
         AddAction(PlugBattery);
@@ -32,6 +34,11 @@ public class PowerPlug : InteractableBase
                 inDeposit = deposited;
                 powerCellRenderer.sprite = deposited.GetIconSprite();
                 toManage.ForEach(powered => powered.PowerOn((deposited as PowerCoreItem).GetPowerLevel()));
+                if (firstTime)
+                {
+                    ProgressStageController.instance.StartGame();
+                    firstTime = false;
+                }
             }
         }
         else
@@ -42,5 +49,10 @@ public class PowerPlug : InteractableBase
             powerCellRenderer.sprite = null;
             toManage.ForEach(powered => powered.PowerOn(0));
         }
+    }
+
+    public override bool IsUsable(PlayerController player)
+    {
+        return inDeposit != null || player.CheckIfHoldingAny<PowerCoreItem>();
     }
 }

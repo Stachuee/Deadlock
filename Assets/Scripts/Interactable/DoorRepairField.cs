@@ -20,4 +20,9 @@ public class DoorRepairField : InteractableBase
             door.Repair();
         }
     }
+
+    public override bool IsUsable(PlayerController player)
+    {
+        return player.CheckIfHoldingAny(toRepair);
+    }
 }

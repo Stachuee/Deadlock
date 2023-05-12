@@ -40,6 +40,7 @@ public class Chute : InteractableBase
         {
             connectedChute.DropItems(temp);
         }
+        player.RefreshPrompt();
     }
     
     void DropItems(ItemSO item)
@@ -48,6 +49,10 @@ public class Chute : InteractableBase
         temp.GetComponentInChildren<Item>().Innit(item);
     }
 
+    public override bool IsUsable(PlayerController player)
+    {
+        return !oneWayOutput && player.CheckIfHoldingAny();
+    }
 
     private void OnDrawGizmos()
     {

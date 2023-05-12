@@ -79,7 +79,7 @@ public class RecipiesManager : MonoBehaviour
 
     public void PickedUp(ItemSO item)
     {
-        if(!pickedUp[item.GetId()])
+        if(pickedUp.ContainsKey(item.GetId()) && !pickedUp[item.GetId()])
         {
             pickedUp[item.GetId()] = true;
 

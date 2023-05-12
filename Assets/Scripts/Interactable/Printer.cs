@@ -6,7 +6,7 @@ public class Printer : PoweredInteractable, IGetHandInfo
 {
 
     [SerializeField] bool broken;
-    [SerializeField] List<ItemSO> toRepair;
+    [SerializeField] ItemSO toRepair;
 
     [SerializeField] bool readyToCollect;
 
@@ -58,11 +58,10 @@ public class Printer : PoweredInteractable, IGetHandInfo
         }
         else
         {
-            ItemSO input = player.CheckIfHoldingAnyAndDeposit(toRepair[0]);
+            ItemSO input = player.CheckIfHoldingAnyAndDeposit(toRepair);
             if(input != null)
             {
-                toRepair.Remove(input);
-                if (toRepair.Count == 0) broken = false;
+                broken = false;
                 player.UpdateHighlight();
             }
         }
@@ -75,7 +74,12 @@ public class Printer : PoweredInteractable, IGetHandInfo
 
     public HandInfoContainer GetHandInfo()
     {
-        if (broken) return new HandInfoContainer {show = true, name = toRepair[0].GetItemName(), sprite = toRepair[0].GetIconSprite() };
+        if (broken) return new HandInfoContainer {show = true, name = toRepair.GetItemName(), sprite = toRepair.GetIconSprite() };
         else return new HandInfoContainer { show = false };
+    }
+
+    public override bool IsUsable(PlayerController player)
+    {
+        return readyToCollect || (broken && player.CheckIfHoldingAny(toRepair));
     }
 }

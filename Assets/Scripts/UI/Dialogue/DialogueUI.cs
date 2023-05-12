@@ -10,6 +10,8 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] Transform parrent;
 
+    [SerializeField] PlayerController playerController;
+
     private void Start()
     {
         DialogueManager.instance.AddLisner(this);
@@ -20,9 +22,12 @@ public class DialogueUI : MonoBehaviour
         parrent.gameObject.SetActive(false);
     }
 
-    public void ShowText(string speaker, string text)
+    public void ShowText(string speaker, string text, Dialogue.ShowTo whoToShow)
     {
-        parrent.gameObject.SetActive(true);
-        dialogueText.text = "[" + speaker + "] " + text;
+        if ((whoToShow == Dialogue.ShowTo.All) || (whoToShow == Dialogue.ShowTo.Scientist && playerController.isScientist) || (whoToShow == Dialogue.ShowTo.Solider && !playerController.isScientist))
+        {
+            parrent.gameObject.SetActive(true);
+            dialogueText.text = "[" + speaker + "] " + text;
+        }
     }
 }

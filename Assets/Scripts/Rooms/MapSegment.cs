@@ -51,7 +51,7 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
         if (lights != null) lights.ForEach(x => x.PowerOn(lightsPowered));
         else lights = new List<PowerInterface>();
 
-        CureController.instance.AddToNotify(this);
+        ProgressStageController.instance.AddToNotify(this);
     }
 
     public void TurnOnOff(SwitchType switchType, bool on)

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1205753905961889385}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1205753906326125291}
   - component: {fileID: 1205753906326125290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1205753906996754146}
   - component: {fileID: 1205753906996754145}
   - component: {fileID: 1495056965611224700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ScientistTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1205753907378012626}
   - component: {fileID: 1205753907378012627}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -16,6 +16,7 @@ public interface IInteractable
     public bool IsRemote();
     public Sprite GetComputerIcon();
     public bool IsProximity();
+    public bool IsUsable(PlayerController player);
     public void Highlight();
     public void UnHighlight();
     public bool HideInComputer();

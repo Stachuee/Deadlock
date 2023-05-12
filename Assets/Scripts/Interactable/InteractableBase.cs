@@ -86,4 +86,8 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         return computerIcon;
     }
 
+    public virtual bool IsUsable(PlayerController player)
+    {
+        return true;
+    }
 }

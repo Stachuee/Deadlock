@@ -18,6 +18,6 @@ MonoBehaviour:
   craftedItem: {fileID: 11400000, guid: feba2950bb26b0945a38a7785c6e7314, type: 2}
   ingredients:
   - {fileID: 11400000, guid: 2d02debe98a97374a814681759163d5c, type: 2}
-  - {fileID: 11400000, guid: 2d02debe98a97374a814681759163d5c, type: 2}
+  - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
   - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
   tab: 4

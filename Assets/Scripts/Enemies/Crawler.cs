@@ -21,7 +21,7 @@ public class Crawler : _EnemyBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Interactable")
+        if (damaging == null && (collision.transform.tag == "Interactable" || collision.transform.tag == "Player"))
         {
             ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
             if (temp != null && !temp.IsImmune())
@@ -33,7 +33,7 @@ public class Crawler : _EnemyBase
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Interactable")
+        if (collision.transform.tag == "Interactable" || collision.transform.tag == "Player")
         {
             ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
             if (temp == damaging)
@@ -43,25 +43,25 @@ public class Crawler : _EnemyBase
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.tag == "Interactable")
-        {
-            ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
-            if (temp != null && !temp.IsImmune())
-            {
-                damaging = temp;
-            }
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.transform.tag == "Interactable")
+    //    {
+    //        ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
+    //        if (temp != null && !temp.IsImmune())
+    //        {
+    //            damaging = temp;
+    //        }
+    //    }
+    //}
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if(collision.transform.tag == "Interactable" && damaging == collision.transform.GetComponent<ITakeDamage>())
-        {
-            damaging = null;
-        }
-    }
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if(collision.transform.tag == "Interactable" && damaging == collision.transform.GetComponent<ITakeDamage>())
+    //    {
+    //        damaging = null;
+    //    }
+    //}
 
     protected override void Start()
     {

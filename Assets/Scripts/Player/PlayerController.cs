@@ -64,6 +64,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     int maxItemsHeld = 1;
     List<ItemSO> heldItems = new List<ItemSO>();
 
+    [SerializeField]
+    GameObject UsePrompt;
+
     public bool isScientist {get; private set;}
 
     public bool LockInAnimation
@@ -140,15 +143,20 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         if(closest != closestInRange)
         {
-            if (closestInRange != null)
+            if (closestInRange != null && closestInRange.IsProximity())
             {
                 closestInRange.UnHighlight();
                 uiController.ToHighlight = null;
             }
-            if (closest != null)
+            if (closest != null && closest.IsProximity())
             {
                 closest.Highlight();
                 uiController.ToHighlight = closest;
+                UsePrompt.SetActive(closest.IsUsable(this));
+            }
+            if(closest == null || !closest.IsProximity())
+            {
+                UsePrompt.SetActive(false);
             }
         }
         closestInRange = closest;
@@ -354,7 +362,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     #region interfaces
     public float TakeDamage(float damage, DamageType type)
     {
-        throw new System.NotImplementedException();
+        playerInfo.hp -= damage;
+        return damage;
     }
     public void TakeArmorDamage(DamageType type, float damage)
     {
@@ -363,7 +372,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public bool IsImmune()
     {
-        throw new System.NotImplementedException();
+        return false;
     }
 
     #endregion
@@ -474,6 +483,16 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         return toReturn;
     }
 
+    public bool CheckIfHoldingAny(ItemSO itemAccepted)
+    {
+        return heldItems.Contains(itemAccepted);
+    }
+
+    public bool CheckIfHoldingAny()
+    {
+        return heldItems.Count > 0;
+    }
+    
     public ItemSO CheckIfHoldingAnyAndDeposit<T>()
     {
         ItemSO toReturn = null;
@@ -484,6 +503,22 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         heldItems.Remove(toReturn);
         return toReturn;
     }
+    public bool CheckIfHoldingAny<T>()
+    {
+        ItemSO toReturn = null;
+        heldItems.ForEach(x =>
+        {
+            if (x is T) toReturn = x;
+        });
+        return toReturn != null;
+    }
+
+    public void RefreshPrompt()
+    {
+        if (closestInRange != null) UsePrompt.SetActive(closestInRange.IsUsable(this));
+    }
+
+
 
     public void LockInAction(UnityAction callback)
     {

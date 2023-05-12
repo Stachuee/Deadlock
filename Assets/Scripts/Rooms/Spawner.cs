@@ -31,7 +31,7 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     private void Start()
     {
         SpawnerController.instance.AddSpawner(this);
-        CureController.instance.AddToNotify(this);
+        ProgressStageController.instance.AddToNotify(this);
     }
 
     private void Update()

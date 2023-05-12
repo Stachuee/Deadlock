@@ -139,3 +139,4 @@ MonoBehaviour:
   type: 0
   baseOutput: 0.05
   addDelay: 1
+  toRepair: {fileID: 11400000, guid: 044d0e8d2ad915b499e6117fbcc74493, type: 2}

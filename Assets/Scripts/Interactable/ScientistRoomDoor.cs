@@ -57,4 +57,9 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
     {
         return false;
     }
+
+    public override bool IsUsable(PlayerController player)
+    {
+        return false;
+    }
 }

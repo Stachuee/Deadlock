@@ -17,6 +17,8 @@ public class PowerDeposit : InteractableBase
 
     FuseBox fuseBox;
 
+    bool firstTime = true;
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,6 +38,11 @@ public class PowerDeposit : InteractableBase
                 inDeposit = deposited;
                 powerCellRenderer.sprite = deposited.GetIconSprite();
                 fuseBox.PlugIn((deposited as PowerCoreItem).GetPowerLevel());
+                if(firstTime)
+                {
+                    ProgressStageController.instance.StartGame();
+                    firstTime = false;
+                }
             }
         }
         else
@@ -48,4 +55,9 @@ public class PowerDeposit : InteractableBase
         }
     }
 
+
+    public override bool IsUsable(PlayerController player)
+    {
+        return inDeposit != null || player.CheckIfHoldingAny<PowerCoreItem>();
+    }
 }

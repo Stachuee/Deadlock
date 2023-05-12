@@ -22,7 +22,7 @@ public class CureMachineUI : MonoBehaviour
     CureMachine cureMachineScript;
 
     int lastProgressIndex;
-    CureController cureController;
+    ProgressStageController cureController;
     public void Open(bool on)
     {
         if (on) cureMachine.SetActive(true);
@@ -34,7 +34,7 @@ public class CureMachineUI : MonoBehaviour
 
     private void Start()
     {
-        cureController = CureController.instance;
+        cureController = ProgressStageController.instance;
         cureMachineScript = CureMachine.Instance;
         items = new List<Image>();
 
@@ -52,7 +52,7 @@ public class CureMachineUI : MonoBehaviour
     {
         if(active)
         {
-            progressSlider.value = CureController.instance.GetCureCurrentProgress();
+            progressSlider.value = ProgressStageController.instance.GetCurrentProgress();
             for(int i = 0; i < supports.Count; i++)
             {
                 supports[i].value = cureMachineScript.GetSupport(i);

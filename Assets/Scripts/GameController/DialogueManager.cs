@@ -34,32 +34,45 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void QueueDialogue(Dialogue toPlay)
+    public void PlayDialogue(Dialogue toPlay, bool cutPlaying)
     {
-        StopCoroutine("PlayDialogue");
+        if (currentDialouge != null && !cutPlaying) return;
+        QueueDialogue(toPlay);
+    }
+
+    void QueueDialogue(Dialogue toPlay)
+    {
+        StopCoroutine("StartDialogue");
         currentDialouge = toPlay;
-        StartCoroutine("PlayDialogue");
+        StartCoroutine("StartDialogue");
     }
 
 
-    IEnumerator PlayDialogue()
+    IEnumerator StartDialogue()
     {
         int step = 0;
         while(currentDialouge.GetDialouge().Count > step)
         {
-            SendDialogue(currentDialouge.GetDialouge()[step].speaker.GetHeroName(), currentDialouge.GetDialouge()[step].text);
+            SendDialogue(currentDialouge.GetDialouge()[step].speaker.GetHeroName(), currentDialouge.GetDialouge()[step].text, currentDialouge.GetToShow());
             yield return new WaitForSeconds(currentDialouge.GetDialouge()[step].timeOnScreen);
             step++;
         }
-        HideDialogue();
-        currentDialouge = null;
+        if(currentDialouge.GetNextDialogue() != null)
+        {
+            PlayDialogue(currentDialouge.GetNextDialogue(), true);
+        }
+        else
+        {
+            HideDialogue();
+            currentDialouge = null;
+        }
     }
 
-    public void SendDialogue(string speaker, string toSend)
+    public void SendDialogue(string speaker, string toSend, Dialogue.ShowTo whoToShow)
     {
         dialogueLisners.ForEach(lisner =>
         {
-            lisner.ShowText(speaker, toSend);
+            lisner.ShowText(speaker, toSend, whoToShow);
         });
     }
 
