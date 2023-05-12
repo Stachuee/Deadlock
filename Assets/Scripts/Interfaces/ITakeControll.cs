@@ -5,6 +5,6 @@ using UnityEngine;
 public interface ITakeControll
 {
     public void TakeControll(PlayerController player);
-
+    public bool CanTakeControll();
     public void Leave();
 }

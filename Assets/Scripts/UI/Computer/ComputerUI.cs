@@ -343,10 +343,13 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             Highlighted.Use(playerController);
             if (Highlighted is ITakeControll)
             {
-                controlling = true;
                 controllingObject = Highlighted as ITakeControll;
-                playerController.cameraController.ChangeTarget(Highlighted.GetTransform());
-                Highlighted = null;
+                if(controllingObject.CanTakeControll())
+                {
+                    controlling = true;
+                    playerController.cameraController.ChangeTarget(Highlighted.GetTransform());
+                    Highlighted = null;
+                }
             }
         }
     }

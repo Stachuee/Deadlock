@@ -131,7 +131,7 @@ MonoBehaviour:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
-  hideInComputer: 0
+  hideInComputer: 1
   toRepair: {fileID: 11400000, guid: 044d0e8d2ad915b499e6117fbcc74493, type: 2}
   door: {fileID: 1960898261809082129}
 --- !u!1 &1960898261809082131

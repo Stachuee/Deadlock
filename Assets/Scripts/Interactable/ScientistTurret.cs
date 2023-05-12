@@ -137,6 +137,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
 
     public void TakeControll(PlayerController player)
     {
+        if (automatic) return;
         user = player;
         player.AddMovmentSubscriber(this);
         player.AddShootSubscriber(this);
@@ -161,5 +162,10 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         Gizmos.DrawLine((Vector2)transform.position + new Vector2(Mathf.Cos((minMaxTurretAngle.x + minMaxTurretAngle.y) / 2 * Mathf.Deg2Rad), Mathf.Sin((minMaxTurretAngle.x + minMaxTurretAngle.y) / 2 * Mathf.Deg2Rad)),
             (Vector2)transform.position + new Vector2(Mathf.Cos(minMaxTurretAngle.y * Mathf.Deg2Rad), Mathf.Sin(minMaxTurretAngle.y * Mathf.Deg2Rad)));
     
+    }
+
+    public bool CanTakeControll()
+    {
+        return !automatic;
     }
 }
