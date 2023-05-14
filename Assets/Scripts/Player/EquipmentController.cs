@@ -15,6 +15,8 @@ public class EquipmentController : MonoBehaviour
 
     [SerializeField] private Inventory inventory;
 
+    [SerializeField] private InventorySelector inventorySelector;
+
     [SerializeField] private Transform towerPlace;
 
     [SerializeField] private int grenadeAmount;
@@ -32,11 +34,17 @@ public class EquipmentController : MonoBehaviour
     {
         throwable = equipment[currentEquipmentIndex];
 
-        inventory.AddEquipment(equipment[0].GetComponent<Granade>().GetInventorySlotPrefab());
+        /*inventory.AddEquipment(equipment[0].GetComponent<Granade>().GetInventorySlotPrefab());
         inventory.AddEquipment(equipment[1].GetComponent<ShootingTower>().GetInventorySlotPrefab());
         inventory.AddEquipment(equipment[2].GetComponent<Granade>().GetInventorySlotPrefab());
         inventory.AddEquipment(equipment[3].GetComponent<Medicine>().GetInventorySlotPrefab());
-        inventory.AddEquipment(equipment[4].GetComponent<Stimulator>().GetInventorySlotPrefab());
+        inventory.AddEquipment(equipment[4].GetComponent<Stimulator>().GetInventorySlotPrefab());*/
+
+        inventorySelector.AddSlot(SlotType.Equipment, 0);
+        inventorySelector.AddSlot(SlotType.Equipment, 1);
+        inventorySelector.AddSlot(SlotType.Equipment, 2);
+        inventorySelector.AddSlot(SlotType.Equipment, 3);
+        inventorySelector.AddSlot(SlotType.Equipment, 4);
     }
 
     public void ChangeEquipment(int equipmentIndex)

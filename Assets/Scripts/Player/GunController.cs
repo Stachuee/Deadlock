@@ -27,6 +27,8 @@ public class GunController : MonoBehaviour
 
     [SerializeField] private Inventory inventory;
 
+    [SerializeField] private InventorySelector inventorySelector;
+
     GunBase gun;
 
     ParticleSystem effectToDeactivate = null; // if some PS can stay in scene but are unnecessary, make it inactive after changing the gun 
@@ -52,11 +54,17 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-        inventory.AddGun(weapons[1].GetInventorySlotPrefab());
+        /*inventory.AddGun(weapons[1].GetInventorySlotPrefab());
         inventory.AddGun(weapons[2].GetInventorySlotPrefab());
         inventory.AddGun(weapons[3].GetInventorySlotPrefab());
         inventory.AddGun(weapons[4].GetInventorySlotPrefab());
-        inventory.AddGun(weapons[5].GetInventorySlotPrefab());
+        inventory.AddGun(weapons[5].GetInventorySlotPrefab());*/
+        inventorySelector.AddSlot(SlotType.Weapon, 1);
+        inventorySelector.AddSlot(SlotType.Weapon, 2);
+        inventorySelector.AddSlot(SlotType.Weapon, 3);
+        inventorySelector.AddSlot(SlotType.Weapon, 4);
+        inventorySelector.AddSlot(SlotType.Weapon, 5);
+
 
     }
 
