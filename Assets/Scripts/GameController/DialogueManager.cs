@@ -11,7 +11,8 @@ public class DialogueManager : MonoBehaviour
 
     Dialogue currentDialouge;
 
-    List<DialogueUI> dialogueLisners = new List<DialogueUI>();
+    DialogueUI dialogueLisnerScientist;
+    DialogueUI dialogueLisnerSolider;
 
 
     private void Awake()
@@ -22,71 +23,45 @@ public class DialogueManager : MonoBehaviour
 
     public void TriggerDialogue(Dialogue.Trigger trigger, bool cutPlaying = false)
     {
-        if (currentDialouge != null && !cutPlaying) return;
-
         switch(trigger)
         {
             case Dialogue.Trigger.Kill:
                 break;
             case Dialogue.Trigger.OnNewItemPickup:
-                QueueDialogue(newItemDialogues[Random.Range(0, newItemDialogues.Count)]);
+                PlayDialogue(newItemDialogues[Random.Range(0, newItemDialogues.Count)], cutPlaying);
                 break;
         }
     }
 
     public void PlayDialogue(Dialogue toPlay, bool cutPlaying)
     {
-        if (currentDialouge != null && !cutPlaying) return;
-        QueueDialogue(toPlay);
-    }
-
-    void QueueDialogue(Dialogue toPlay)
-    {
-        StopCoroutine("StartDialogue");
-        currentDialouge = toPlay;
-        StartCoroutine("StartDialogue");
-    }
-
-
-    IEnumerator StartDialogue()
-    {
-        int step = 0;
-        while(currentDialouge.GetDialouge().Count > step)
+        if (toPlay.GetToShow() == Dialogue.ShowTo.Scientist && !(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
         {
-            SendDialogue(currentDialouge.GetDialouge()[step].speaker.GetHeroName(), currentDialouge.GetDialouge()[step].text, currentDialouge.GetToShow());
-            yield return new WaitForSeconds(currentDialouge.GetDialouge()[step].timeOnScreen);
-            step++;
+            dialogueLisnerScientist.ShowDialogue(toPlay);
         }
-        if(currentDialouge.GetNextDialogue() != null)
+        else if (toPlay.GetToShow() == Dialogue.ShowTo.Solider && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
         {
-            PlayDialogue(currentDialouge.GetNextDialogue(), true);
+            dialogueLisnerSolider.ShowDialogue(toPlay);
+        }
+        else if(!(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying) && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
+        {
+            dialogueLisnerScientist.ShowDialogue(toPlay);
+            dialogueLisnerSolider.ShowDialogue(toPlay);
+        }
+    }
+
+
+    public void AddLisner(DialogueUI toAdd, bool scientist)
+    {
+        if (scientist)
+        {
+            dialogueLisnerScientist = toAdd;
         }
         else
         {
-            HideDialogue();
-            currentDialouge = null;
+            dialogueLisnerSolider = toAdd;
         }
-    }
-
-    public void SendDialogue(string speaker, string toSend, Dialogue.ShowTo whoToShow)
-    {
-        dialogueLisners.ForEach(lisner =>
-        {
-            lisner.ShowText(speaker, toSend, whoToShow);
-        });
-    }
-
-    public void HideDialogue()
-    {
-        dialogueLisners.ForEach(lisner =>
-        {
-            lisner.HideText();
-        });
-    }
-
-    public void AddLisner(DialogueUI toAdd)
-    {
-        dialogueLisners.Add(toAdd);
+        
     }
 
 }

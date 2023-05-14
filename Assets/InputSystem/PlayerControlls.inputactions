@@ -272,7 +272,7 @@
                 {
                     "name": "",
                     "id": "96fd5742-d0ba-497a-94bd-eb401b8ae3f3",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

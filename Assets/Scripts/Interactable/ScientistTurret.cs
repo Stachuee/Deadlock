@@ -98,6 +98,12 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
                 if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
                 else turretSprite.flipY = false;
                 gunBarrel.rotation = Quaternion.RotateTowards(gunBarrel.rotation, Quaternion.Euler(0,0, rot_z), 180 * Time.deltaTime);
+
+                if (nextShot < Time.time)
+                {
+                    Instantiate(bulletPrefab, barrelTransform.position, Quaternion.Euler(0, 0, rot_z));
+                    nextShot = Time.time + shootDelay;
+                }
             }
         }
     }

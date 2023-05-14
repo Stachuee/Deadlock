@@ -257,7 +257,7 @@ MonoBehaviour:
   turretSprite: {fileID: 1205753906326125290}
   gunBarrel: {fileID: 1205753906326125291}
   barrelTransform: {fileID: 1205753905961889385}
-  bulletPrefab: {fileID: 2611703158886120060, guid: d6261b78017e13445a8a58316602aace, type: 3}
+  bulletPrefab: {fileID: 2611703158886120060, guid: 9b8d21ebbc1054a40892d0b6d14eaf91, type: 3}
   shootDelay: 0.4
 --- !u!50 &1495056965611224700
 Rigidbody2D:

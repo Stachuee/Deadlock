@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
-  randomSpeed: {x: 2, y: 3}
+  randomSpeed: {x: 0, y: 0.4}
   damage: 10
   attackSpeed: 1
   resistances:
@@ -160,7 +160,7 @@ MonoBehaviour:
   target: {fileID: 0}
   enraged: 0
   enrageingSpeed: 0.3
-  rageSpeedBoost: 5
+  rageSpeedBoost: 1
   rageDamageResistance: 0.5
   rageTimer: 2.5
   rageCd: 5

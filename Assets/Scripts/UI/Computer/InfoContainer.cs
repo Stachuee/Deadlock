@@ -24,6 +24,4 @@ public struct HandInfoContainer
 
     public string name;
     public Sprite sprite;
-    public Sprite type;
-    public Sprite subtype;
 }

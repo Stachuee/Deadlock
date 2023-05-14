@@ -63,6 +63,7 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     public void DeactivateSpawner()
     {
+        if(spawning) SpawnerController.instance.FinishedSpawning(this);
         isActive = false;
         prefabsToSpawn = null;
         waveToSpawn = null;
@@ -96,8 +97,4 @@ public class Spawner : InteractableBase, ICureLevelIncrease
         else if(level == deactivateAt) DeactivateSpawner();
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
-    {
-        
-    }
 }

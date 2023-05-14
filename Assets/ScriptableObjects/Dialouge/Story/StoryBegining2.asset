@@ -17,5 +17,5 @@ MonoBehaviour:
     speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
     timeOnScreen: 5
   nextDialogue: {fileID: 0}
-  toShow: 0
+  toShow: 1
   trigger: 0

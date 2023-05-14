@@ -246,8 +246,14 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         if(!setUp) Setup();
         panel.SetActive(true);
         lookingAtMap = true;
-        playerController.uiController.myEventSystem.SetSelectedGameObject(firstButton);
+        playerController.uiController.myEventSystem.SetSelectedGameObject(null);
+        StartCoroutine("SetSelected");
+    }
 
+    IEnumerator SetSelected()
+    {
+        yield return new WaitForEndOfFrame();
+        playerController.uiController.myEventSystem.SetSelectedGameObject(firstButton);
     }
 
     public bool Back()

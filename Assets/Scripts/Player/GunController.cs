@@ -124,7 +124,6 @@ public class GunController : MonoBehaviour
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         if (rot_z > 90 || rot_z < -90) gunSprite.flipY = true;
         else gunSprite.flipY = false;
-
         gunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z);
 
         RaycastHit2D hit = Physics2D.Raycast(barrel.position, diff, Mathf.Infinity, ~laserMask);

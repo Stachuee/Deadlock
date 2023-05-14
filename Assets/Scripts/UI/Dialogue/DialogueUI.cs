@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DialogueUI : MonoBehaviour
 {
+    public enum DialogueStatus {Ready, Playing }
+
     [SerializeField]
     TextMeshProUGUI dialogueText;
 
@@ -12,22 +14,41 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] PlayerController playerController;
 
+    Dialogue playing;
+
     private void Start()
     {
-        DialogueManager.instance.AddLisner(this);
+        DialogueManager.instance.AddLisner(this, playerController.isScientist);
     }
 
-    public void HideText()
+    public DialogueStatus GetStatus()
     {
-        parrent.gameObject.SetActive(false);
+        if (playing == null) return DialogueStatus.Ready;
+        else return DialogueStatus.Playing;
+    }
+    
+    public void ShowText(Dialogue.DialougeField dialogue)
+    {
+        parrent.gameObject.SetActive(true);
+        dialogueText.text = "[" + dialogue.speaker.name + "] " + dialogue.text;
     }
 
-    public void ShowText(string speaker, string text, Dialogue.ShowTo whoToShow)
+    public void ShowDialogue(Dialogue dialogue)
     {
-        if ((whoToShow == Dialogue.ShowTo.All) || (whoToShow == Dialogue.ShowTo.Scientist && playerController.isScientist) || (whoToShow == Dialogue.ShowTo.Solider && !playerController.isScientist))
+        StopCoroutine("PlayDialogue");
+        playing = dialogue;
+        StartCoroutine("PlayDialogue");
+    }
+
+    IEnumerator PlayDialogue()
+    {
+        int step = 0;
+        while (step < playing.GetDialouge().Count)
         {
-            parrent.gameObject.SetActive(true);
-            dialogueText.text = "[" + speaker + "] " + text;
+            ShowText(playing.GetDialouge()[step]);
+            yield return new WaitForSeconds(playing.GetDialouge()[step].timeOnScreen);
+            step++;
         }
+        parrent.gameObject.SetActive(false);
     }
 }

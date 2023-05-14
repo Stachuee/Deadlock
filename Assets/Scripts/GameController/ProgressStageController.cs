@@ -25,6 +25,7 @@ public class ProgressStageController : MonoBehaviour
     [SerializeField] bool machineSupportFilled;
     [SerializeField] bool machineItemsFilled;
 
+
     List<ICureLevelIncrease> toNotify = new List<ICureLevelIncrease>();
 
     bool started;
@@ -52,6 +53,7 @@ public class ProgressStageController : MonoBehaviour
         started = true;
         NextLevel();
         SpawnerController.instance.StartSpawning();
+        MapSegment.scientistSegment.ScientistSegmentUnlock();
     }
 
     private void NextLevel()

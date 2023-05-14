@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     Vector2 moveDirection = Vector2.zero;
     public Vector2 currentAimDirection { get; private set; }
+    public Vector2 currentWeaponDirection { get; private set; }
     Vector2 desiredAimDirection = Vector2.zero;
     public bool keyboard;
 
@@ -124,7 +125,14 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         else
         {
             Vector2 vel = Vector2.zero;
-            currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.03f);
+            if(desiredAimDirection.magnitude > 0.05f)
+            {
+                currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.03f);
+            }
+            else if(moveDirection.magnitude > 0.05f)
+            {
+                currentAimDirection = Vector2.SmoothDamp(currentAimDirection, moveDirection, ref vel, 0.03f);
+            }
             SendMovmentControll(desiredAimDirection);
         }
 
@@ -276,7 +284,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             {
                 closestInRange.Use(this);
             }
-                
         } // use one
     }
 
@@ -319,7 +326,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnAim(InputAction.CallbackContext context)
     {
         desiredAimDirection = context.ReadValue<Vector2>();
-        desiredAimDirection = desiredAimDirection.magnitude > 1 ? desiredAimDirection.normalized : desiredAimDirection;
+        float magnitude = desiredAimDirection.magnitude;
+        desiredAimDirection = magnitude > 1 ? desiredAimDirection.normalized : desiredAimDirection;
     }
 
     public void OnThrow(InputAction.CallbackContext context)

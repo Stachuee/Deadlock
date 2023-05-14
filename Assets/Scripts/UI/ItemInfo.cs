@@ -25,8 +25,6 @@ public class ItemInfo : MonoBehaviour
 
         itemName.text = infoContainer.name;
         itemSprite.sprite = infoContainer.sprite;
-        itemType.sprite = infoContainer.type;
-        itemSubtype.sprite = infoContainer.subtype;
         gameObject.SetActive(true);
     }
 

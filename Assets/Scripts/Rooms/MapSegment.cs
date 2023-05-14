@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MapSegment : MonoBehaviour, ICureLevelIncrease
 {
+    public static MapSegment scientistSegment;
+
     [SerializeField]
     public Vector2Int size;
     [SerializeField]
@@ -14,11 +16,13 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
     [SerializeField] int activateAt;
     [SerializeField]
     List<Rooms> roomsInSegment;
+    [SerializeField]
+    bool scientistSeg;
 
 
     [SerializeField] bool segmentUnlocked;
 
-    [SerializeField] bool alwaysPowered;
+    [SerializeField] bool createFuse;
 
 
     List<PowerInterface> doors;
@@ -51,12 +55,14 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
         if (lights != null) lights.ForEach(x => x.PowerOn(lightsPowered));
         else lights = new List<PowerInterface>();
 
+        if (scientistSeg) scientistSegment = this;
+
         ProgressStageController.instance.AddToNotify(this);
     }
 
     public void TurnOnOff(SwitchType switchType, bool on)
     {
-        if (alwaysPowered) return;
+        if (createFuse) return;
         switch (switchType)
         {
             case SwitchType.Doors:
@@ -84,20 +90,28 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
         switch (switchType)
         {
             case SwitchType.Doors:
-                return doorsPowered || alwaysPowered;
+                return doorsPowered || !createFuse;
             case SwitchType.Printers:
-                return printersPowered || alwaysPowered;
+                return printersPowered || !createFuse;
             case SwitchType.Security:
-                return securityPowered || alwaysPowered;
+                return securityPowered || !createFuse;
             case SwitchType.Lights:
-                return lightsPowered || alwaysPowered;
+                return lightsPowered || !createFuse;
         }
         return false;
     }
 
+    public void ScientistSegmentUnlock()
+    {
+        TurnOnOff(SwitchType.Printers, true);
+        TurnOnOff(SwitchType.Lights, true);
+        TurnOnOff(SwitchType.Security, true);
+        TurnOnOff(SwitchType.Doors, true);
+    }
+
     public bool CreateFuse()
     {
-        return !alwaysPowered;
+        return createFuse;
     }
 
     public bool IsUnlockerd()
@@ -115,55 +129,55 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
     {
         if(lights == null) lights = new List<PowerInterface>();
         this.lights.Add(light);
-        light.PowerOn(lightsPowered || alwaysPowered);
+        light.PowerOn(lightsPowered || !createFuse);
     }
 
     public void AddLight(List<PowerInterface> light)
     {
         if (lights == null) lights = new List<PowerInterface>();
         this.lights.AddRange(light);
-        lights.ForEach(x => x.PowerOn(lightsPowered || alwaysPowered));
+        lights.ForEach(x => x.PowerOn(lightsPowered || !createFuse));
     }
 
     public void AddDoors(PowerInterface doors)
     {
         if (this.doors == null) this.doors = new List<PowerInterface>();
         this.doors.Add(doors);
-        doors.PowerOn(doorsPowered || alwaysPowered);
+        doors.PowerOn(doorsPowered || !createFuse);
     }
 
     public void AddDoors(List<PowerInterface> doors)
     {
         if (this.doors == null) this.doors = new List<PowerInterface>();
         this.doors.AddRange(doors);
-        doors.ForEach(x => x.PowerOn(doorsPowered || alwaysPowered));
+        doors.ForEach(x => x.PowerOn(doorsPowered || !createFuse));
     }
 
     public void AddSecurity(PowerInterface security)
     {
         if (this.security == null) this.security = new List<PowerInterface>();
         this.security.Add(security);
-        security.PowerOn(securityPowered || alwaysPowered);
+        security.PowerOn(securityPowered || !createFuse);
     }
     public void AddSecurity(List<PowerInterface> security)
     {
         if (this.security == null) this.security = new List<PowerInterface>();
         this.security.AddRange(security);
-        security.ForEach(x => x.PowerOn(securityPowered || alwaysPowered));
+        security.ForEach(x => x.PowerOn(securityPowered || !createFuse));
     }
 
     public void AddPrinters(PowerInterface printers)
     {
         if (this.printers == null) this.printers = new List<PowerInterface>();
         this.printers.Add(printers);
-        printers.PowerOn(printersPowered || alwaysPowered);
+        printers.PowerOn(printersPowered || !createFuse);
     }
 
     public void AddPrinters(List<PowerInterface> printers)
     {
         if (this.printers == null) this.printers = new List<PowerInterface>();
         this.printers.AddRange(printers);
-        printers.ForEach(x => x.PowerOn(printersPowered || alwaysPowered));
+        printers.ForEach(x => x.PowerOn(printersPowered || !createFuse));
     }
 
     public void AddRoom(Rooms tooAdd)
