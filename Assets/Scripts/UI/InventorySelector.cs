@@ -42,11 +42,6 @@ public class InventorySelector : MonoBehaviour
     private void Update()
     {
         GetCurrentSelectedItem();
-        if (Input.GetButtonDown("Fire1"))
-        {
-            ChangePlayerSlot();
-        }
-
     }
 
     public void GetCurrentSelectedItem() 

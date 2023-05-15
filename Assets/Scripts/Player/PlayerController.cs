@@ -336,11 +336,15 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
+        //if (!context.started) return;
         if (context.ReadValue<float>() > 0.9f)
         {
-            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            gunController.SetSelectedSlot();
+            inventoryPanel.SetActive(true);
+        }
+        else
+        {
+            inventoryPanel.GetComponent<InventorySelector>().ChangePlayerSlot();
+            inventoryPanel.SetActive(false);
         }
         }
         #endregion
