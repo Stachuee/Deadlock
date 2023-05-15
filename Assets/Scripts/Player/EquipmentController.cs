@@ -63,7 +63,7 @@ public class EquipmentController : MonoBehaviour
             return;
         else if (throwable.CompareTag("Medicine") && medicineAmount <= 0)
             return;
-        else if (throwable.CompareTag("Stimulator") && stimulatorAmount <= 0)
+        else if ((throwable.CompareTag("Stimulator") && stimulatorAmount <= 0) || (throwable.CompareTag("Stimulator") && playerController.GetIsStimulated()))
             return;
 
 

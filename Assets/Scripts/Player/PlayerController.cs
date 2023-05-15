@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     [SerializeField] float attackDelay = 0.2f;
     float attackTimer = 0f;
     bool isAttacking = false;
+    bool isStimulated = false;
 
 
 
@@ -203,6 +204,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     IEnumerator SpeedIncrease(float time)
     {
+        isStimulated = true;
+
         float tmpSpeed = playerInfo.speed;
         float tmpBulletRes = playerInfo.damageResistance.bulletResistance;
         float tmpFireRes = playerInfo.damageResistance.fireResistance;
@@ -219,12 +222,18 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         playerInfo.damageResistance.meleResistance += 0.5f;
 
         yield return new WaitForSeconds(time);
+        isStimulated = false;
         playerInfo.speed = tmpSpeed;
         playerInfo.damageResistance.bulletResistance = tmpBulletRes;
         playerInfo.damageResistance.fireResistance = tmpFireRes;
         playerInfo.damageResistance.iceResistance = tmpIceRes;
         playerInfo.damageResistance.poisonResistance = tmpPoisonRes;
         playerInfo.damageResistance.meleResistance = tmpMeleRes;
+    }
+
+    public bool GetIsStimulated()
+    {
+        return isStimulated;
     }
 
     public Vector2 GetMovementDirection()
