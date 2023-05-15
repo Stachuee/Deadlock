@@ -133,3 +133,4 @@ MonoBehaviour:
   handActivation: 1
   hideInComputer: 1
   useElectricityType: 3
+  powered: 0

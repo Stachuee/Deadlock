@@ -36,11 +36,11 @@ public class Light : PoweredInteractable
         //if (!turnOn) return;
         if(on)
         {
-            myLight.intensity = 1;
+            myLight.enabled = true;
         }
         else
         {
-            myLight.intensity = 0;
+            myLight.enabled = false;
         }
     }
 }

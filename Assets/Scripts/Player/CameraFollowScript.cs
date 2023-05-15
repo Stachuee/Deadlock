@@ -22,6 +22,9 @@ public class CameraFollowScript : MonoBehaviour
 
     [SerializeField] Material glassesMat;
 
+    [SerializeField] float camDumping;
+    Vector3 dampVel = Vector3.zero;
+
     private void Awake()
     {
         cam = transform.GetComponent<Camera>();
@@ -35,7 +38,11 @@ public class CameraFollowScript : MonoBehaviour
     }
     void Update()
     {
-        camHolder.position = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
+        //camHolder.position = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
+        Vector3 desiredPos = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
+        if(Vector2.Distance(transform.position, (Vector2)desiredPos) < 0.2f) camHolder.position = desiredPos;
+        else camHolder.position = Vector3.SmoothDamp(camHolder.position, desiredPos, ref dampVel, camDumping);
+        
     }
 
     public void SetSplitScreenPosition(int index, bool glassesMode)
@@ -49,6 +56,7 @@ public class CameraFollowScript : MonoBehaviour
             else
             {
                 cam.rect = new Rect(0, 0, 1, 0.5f);
+                cam.orthographicSize = cam.orthographicSize / 2;
             }
             
         }
@@ -62,6 +70,7 @@ public class CameraFollowScript : MonoBehaviour
             else
             {
                 cam.rect = new Rect(0, 0.5f, 1, 0.5f);
+                cam.orthographicSize = cam.orthographicSize / 2;
             }
         }
     }

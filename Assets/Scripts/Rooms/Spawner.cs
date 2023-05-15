@@ -20,7 +20,11 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     Queue<WaveSO.SubWave> waveToSpawn = new Queue<WaveSO.SubWave>();
 
-    Queue<GameObject> prefabsToSpawn = new Queue<GameObject>();
+    WaveSO.EnemySpawn toSpawn;
+    int alreadySpawned;
+    int step;
+
+
 
     protected override void Awake()
     {
@@ -38,15 +42,16 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     {
         if (isActive && lastSpawn + spawnDelay < Time.time)
         {
-            if(waveToSpawn.Count > 0 && (prefabsToSpawn == null || prefabsToSpawn.Count == 0))
+            if(waveToSpawn.Count > 0 && (toSpawn.count <= alreadySpawned))
             {
                 SetNewWave();
             }
-            else if(prefabsToSpawn.Count != 0)
+            else if(toSpawn.count > alreadySpawned)
             {
-                GameObject temp = Instantiate(prefabsToSpawn.Dequeue(), transform.position, Quaternion.identity);
+                GameObject temp = Instantiate(toSpawn.enemy.GetPrefab(), transform.position, Quaternion.identity);
                 temp.GetComponent<EnemyBase>();
                 lastSpawn = Time.time;
+                alreadySpawned++;
             }
             else if(spawning)
             {
@@ -65,7 +70,6 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     {
         if(spawning) SpawnerController.instance.FinishedSpawning(this);
         isActive = false;
-        prefabsToSpawn = null;
         waveToSpawn = null;
     }
 
@@ -77,17 +81,16 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     public void SetNewWave()
     {
+        if(step >= waveToSpawn.Peek().enemies.Count)
+        {
+            waveToSpawn.Dequeue();
+            step = 0;
+        }
         if (waveToSpawn.Count > 0)
         {
-            List<WaveSO.EnemySpawn> enemiesToSpawn = waveToSpawn.Dequeue().enemies;
-            prefabsToSpawn = new Queue<GameObject>();
-            enemiesToSpawn.ForEach(enemy =>
-            {
-                for (int i = 0; i < enemy.count; i++)
-                {
-                    prefabsToSpawn.Enqueue(enemy.enemy.GetPrefab());
-                }
-            });
+            toSpawn = waveToSpawn.Peek().enemies[step];
+            spawnDelay = toSpawn.spawnDelay;
+            step++;
         }
     }
 

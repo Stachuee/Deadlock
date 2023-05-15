@@ -16,6 +16,7 @@ public class WaveSO : ScriptableObject
     {
         public int count;
         public EnemySO enemy;
+        public float spawnDelay;
     }
 
     [SerializeField]
