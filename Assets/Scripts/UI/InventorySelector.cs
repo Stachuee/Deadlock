@@ -67,23 +67,47 @@ public class InventorySelector : MonoBehaviour
         }
     }
 
-    public void ButtonAction()
-    {
-        slotButtons[currentSelectedItem].image.color = slotButtons[currentSelectedItem].PressedColor;
-        if (slotButtons[currentSelectedItem].slotType == SlotType.Weapon) Debug.Log("weapon");
-        else if (slotButtons[currentSelectedItem].slotType == SlotType.Equipment) Debug.Log("equip");
-    }
-
     public void ChangePlayerSlot()
     {
         slotButtons[currentSelectedItem].image.color = slotButtons[currentSelectedItem].PressedColor;
-        if (slotButtons[currentSelectedItem].isEmpty) return;
+        if (!slotButtons[currentSelectedItem].isActive || slotButtons[currentSelectedItem].isEmpty) return;
 
         if (slotButtons[currentSelectedItem].slotType == SlotType.Weapon) gC.ChangeWeapon(slotButtons[currentSelectedItem].id);
         else if (slotButtons[currentSelectedItem].slotType == SlotType.Equipment) eC.ChangeEquipment(slotButtons[currentSelectedItem].id);
     }
 
 
+    public void ActivateSlot(SlotType sT, int _id)
+    {
+        if (sT == SlotType.Weapon)
+        {
+            for (int i = 0; i < slotButtons.Count; i++)
+            {
+                if (slotButtons[i].slotType == SlotType.Weapon && slotButtons[i].id == _id)
+                {
+                    slotButtons[i].isActive = true;
+                    break;
+                }
+            }
+        }
+        else if (sT == SlotType.Equipment)
+        {
+            for (int i = 0; i < slotButtons.Count; i++)
+            {
+                if (slotButtons[i].slotType == SlotType.Equipment && slotButtons[i].id == _id)
+                {
+                    slotButtons[i].isActive = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    public EquipmentController GetEController()
+    {
+        return eC;
+    }
+    /*
     public void AddSlot(SlotType sT, int _id)
     {
         if(sT == SlotType.Weapon)
@@ -111,8 +135,10 @@ public class InventorySelector : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }
+
+
 
 public enum SlotType { Weapon, Equipment};
 
@@ -125,6 +151,7 @@ public class GunMenuButton
     public Color HoverColor = Color.gray;
     public Color PressedColor = Color.gray;
     public bool isEmpty = true;
+    public bool isActive = false;
 
     public SlotType slotType;
 
