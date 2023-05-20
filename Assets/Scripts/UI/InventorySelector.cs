@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySelector : MonoBehaviour
+public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
 {
     [SerializeField] List<GunMenuButton> slotButtons = new List<GunMenuButton>();
     private Vector2 mousePos;
@@ -28,6 +28,8 @@ public class InventorySelector : MonoBehaviour
         gC = player.GetComponent<GunController>();
         eC = player.GetComponent<EquipmentController>();
 
+        pC.AddMovmentSubscriber(this);
+
         gunMenuItemsAmount = slotButtons.Count;
 
         foreach(GunMenuButton gB in slotButtons)
@@ -41,7 +43,7 @@ public class InventorySelector : MonoBehaviour
 
     private void Update()
     {
-        GetCurrentSelectedItem();
+        //GetCurrentSelectedItem();
     }
 
     public void GetCurrentSelectedItem() 
@@ -58,6 +60,24 @@ public class InventorySelector : MonoBehaviour
 
 
         currentSelectedItem = (int)(angle / (360 / gunMenuItemsAmount));
+
+        if (currentSelectedItem != previousSelectedItem)
+        {
+            slotButtons[previousSelectedItem].image.color = slotButtons[previousSelectedItem].NormalColor;
+            previousSelectedItem = currentSelectedItem;
+            slotButtons[currentSelectedItem].image.color = slotButtons[currentSelectedItem].HoverColor;
+        }
+    }
+
+
+    public void ForwardCommandMovment(Vector2 controll)
+    {
+        float rot_z = -(Mathf.Atan2(controll.y, controll.x) * Mathf.Rad2Deg - 90);
+
+        if (rot_z < 0)
+            rot_z += 360;
+
+        currentSelectedItem = (int)(rot_z / (360 / gunMenuItemsAmount));
 
         if (currentSelectedItem != previousSelectedItem)
         {
