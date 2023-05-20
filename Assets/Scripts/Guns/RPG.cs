@@ -26,7 +26,6 @@ public class RPG : GunBase
 
     public override void Reload()
     {
-        currentAmmo = maxAmmo;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -79,14 +78,14 @@ public class RPG : GunBase
         }
     }
 
-    override public int GetAmmoAmount()
+    override public string GetAmmoAmount()
     {
         if (currentBulletIndex == 1)
-            return currentProximityAmmo;
+            return currentProximityAmmo.ToString();
         else if (rocket.GetDamageType() == DamageType.Bullet)
-            return currentAmmo;
+            return currentAmmo.ToString();
 
-        return 0;
+        return "";
     }
 
     override public DamageType GetBulletType()

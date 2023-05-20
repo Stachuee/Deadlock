@@ -35,7 +35,6 @@ public class Laser : GunBase
     }
     public override void Reload()
     {
-        currentAmmo = maxAmmo;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -136,9 +135,9 @@ public class Laser : GunBase
         }
     }
 
-    override public int GetAmmoAmount()
+    override public string GetAmmoAmount()
     {
-        return currentAmmo;
+        return currentAmmo.ToString();
     }
 
     override public DamageType GetBulletType()

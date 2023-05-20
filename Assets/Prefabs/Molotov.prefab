@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3785274873224741399}
   m_Layer: 7
   m_Name: Molotov
-  m_TagString: Untagged
+  m_TagString: Molotov
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   fuseDuration: 3
   damage: 20
   explosionRadius: 3
-  explosionVFX: {fileID: 8197920292685667388, guid: 02a110e70bbc0d040b2a7515fc1368fb, type: 3}
+  explosionVFX: {fileID: 3099755064458101187, guid: 535b303465b4fc14ba26eeaff06d7f57, type: 3}
   inventorySlotPrefab: {fileID: 4569713353421880941, guid: 276ad3397a1c3224aa99725085563172, type: 3}
   damageType: 1
 --- !u!61 &-224902360194425957

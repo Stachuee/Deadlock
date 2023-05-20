@@ -20,6 +20,8 @@ public class FireGun : GunBase
     ParticleSystem firePS;
 
     GunController gunController;
+    [SerializeField] Transform fireRightSide;
+    [SerializeField] Transform fireLeftSide;
 
 
     protected override void Start()
@@ -29,14 +31,15 @@ public class FireGun : GunBase
         fireVFX = fireVFXsList[currentFireIndex];
         fireDT = fireVFX.GetComponent<FireGunDamageType>();
 
-        firePS = Instantiate(fireVFX, barrel.position, transform.rotation);
+        firePS = Instantiate(fireVFX, barrel.position, Quaternion.identity);
         firePS.enableEmission = false;
         gunController.SetEffectToDeactivate(firePS);
+
+        barrel = fireRightSide;
     }
 
     public override void Reload()
     {
-        currentAmmo = maxAmmo;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -56,7 +59,7 @@ public class FireGun : GunBase
     }
 
 
-    private void OnTriggerStay2D(Collider2D collision)
+    /*private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.CompareTag("Enemy") && isShooting >= 0.9f && currentAmmo > 0)
         {
@@ -70,14 +73,17 @@ public class FireGun : GunBase
 
             shootTimer = Time.time; // reset timer to current time
         }
-    }
+    }*/
     void Update()
     {
         Vector2 diff = (owner.currentAimDirection).normalized;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
-        firePS.transform.rotation = transform.rotation;
-        firePS.transform.position = transform.position;
+        if (rot_z > 90 || rot_z < -90) barrel = fireLeftSide;
+        else barrel = fireRightSide;
+
+        //firePS.transform.rotation = transform.rotation;
+        firePS.transform.position = barrel.position;
 
         if (isShooting >= 0.9f && currentAmmo > 0)
         {
@@ -86,7 +92,7 @@ public class FireGun : GunBase
             {
                 return; // not enough time has passed since last shot
             }
-            if (fireDT.GetDamageType() == DamageType.Bullet)
+            if (fireDT.GetDamageType() == DamageType.Fire)
                 currentAmmo--;
             else if (fireDT.GetDamageType() == DamageType.Ice)
                 currentIceAmmo--;
@@ -107,21 +113,21 @@ public class FireGun : GunBase
             currentFireIndex = (currentFireIndex + 1) % fireVFXsList.Count;
             fireVFX = fireVFXsList[currentFireIndex];
             Destroy(firePS);
-            firePS = Instantiate(fireVFX, barrel.position, transform.rotation);
+            firePS = Instantiate(fireVFX, barrel.position, Quaternion.identity);
             firePS.enableEmission = false;
             fireDT = fireVFX.GetComponent<FireGunDamageType>();
             gunController.SetEffectToDeactivate(firePS);
         }
     }
 
-    override public int GetAmmoAmount()
+    override public string GetAmmoAmount()
     {
-        if (fireDT.GetDamageType() == DamageType.Bullet)
-            return currentAmmo;
+        if (fireDT.GetDamageType() == DamageType.Fire)
+            return currentAmmo.ToString();
         else if (fireDT.GetDamageType() == DamageType.Ice)
-            return currentIceAmmo;
+            return currentIceAmmo.ToString();
 
-        return 0;
+        return "";
     }
 
     override public DamageType GetBulletType()

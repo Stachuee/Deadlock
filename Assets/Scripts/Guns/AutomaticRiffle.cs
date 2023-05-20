@@ -13,19 +13,34 @@ public class AutomaticRiffle : GunBase
     private Bullet bullet;
 
     [SerializeField] int maxAmmo;
-    [SerializeField] int currentAmmo;
-    [SerializeField] int currentDisintegratingAmmo;
+    [SerializeField] int maxDisintegratingAmmo;
+    int currentAmmo;
+    int currentDisintegratingAmmo;
 
     protected override void Start()
     {
         base.Start();
         bulletPrefab = bullets[currentBulletIndex];
         bullet = bulletPrefab.GetComponent<Bullet>();
+        currentAmmo = 0;
+        currentDisintegratingAmmo = 0;
+        Reload();
     }
 
     public override void Reload()
     {
-        currentAmmo = maxAmmo;
+        if (bullet.GetDamageType() == DamageType.Bullet)
+            while (currentAmmo < 30 && maxAmmo > 0)
+            {
+                currentAmmo++;
+                maxAmmo--;
+            }
+        else if (bullet.GetDamageType() == DamageType.Disintegrating)
+            while (currentDisintegratingAmmo < 30 && maxDisintegratingAmmo > 0)
+            {
+                currentDisintegratingAmmo++;
+                maxDisintegratingAmmo--;
+            }
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -33,10 +48,10 @@ public class AutomaticRiffle : GunBase
         switch (aT)
         {
             case AmmoType.Bullet:
-                currentAmmo += amount;
+                maxAmmo += amount;
                 break;
             case AmmoType.Disintegrating:
-                currentDisintegratingAmmo += amount;
+                maxDisintegratingAmmo += amount;
                 break;
             default:
                 Debug.LogError($"Wrong AmmoType({aT}) for ARiffle!");
@@ -77,14 +92,14 @@ public class AutomaticRiffle : GunBase
         }
     }
 
-    override public int GetAmmoAmount()
+    override public string GetAmmoAmount()
     {
         if (bullet.GetDamageType() == DamageType.Bullet)
-            return currentAmmo;
+            return currentAmmo.ToString() + "/" + maxAmmo.ToString();
         else if (bullet.GetDamageType() == DamageType.Disintegrating)
-            return currentDisintegratingAmmo;
+            return currentDisintegratingAmmo.ToString() + "/" + maxDisintegratingAmmo.ToString();
 
-        return 0;
+        return "";
     }
 
     override public DamageType GetBulletType()

@@ -25,7 +25,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private List<GunBase> weapons;
     private int currentWeaponIndex = 0;
 
-    [SerializeField] private Inventory inventory;
+    [SerializeField] private InventorySelector inventorySelector;
 
     GunBase gun;
 
@@ -52,11 +52,12 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-        inventory.AddGun(weapons[1].GetInventorySlotPrefab());
-        inventory.AddGun(weapons[2].GetInventorySlotPrefab());
-        inventory.AddGun(weapons[3].GetInventorySlotPrefab());
-        inventory.AddGun(weapons[4].GetInventorySlotPrefab());
-        inventory.AddGun(weapons[5].GetInventorySlotPrefab());
+        inventorySelector.ActivateSlot(SlotType.Weapon, 0);
+        inventorySelector.ActivateSlot(SlotType.Weapon, 1);
+        inventorySelector.ActivateSlot(SlotType.Weapon, 2);
+        inventorySelector.ActivateSlot(SlotType.Weapon, 3);
+        inventorySelector.ActivateSlot(SlotType.Weapon, 4);
+        inventorySelector.ActivateSlot(SlotType.Weapon, 5);
 
     }
 
@@ -92,6 +93,11 @@ public class GunController : MonoBehaviour
     }
 
 
+    public void Reload()
+    {
+        gun.Reload();
+    }
+
 
     public void ChangeWeapon(int gunIndex)
     {
@@ -119,7 +125,6 @@ public class GunController : MonoBehaviour
 
     void RotateGun()
     {
-        //Debug.Log(playerController.currentAimDirection.normalized);
         Vector2 diff = (playerController.currentAimDirection).normalized;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         if (rot_z > 90 || rot_z < -90) gunSprite.flipY = true;
@@ -140,10 +145,6 @@ public class GunController : MonoBehaviour
         gun.Shoot(isShooting);
     }
 
-    public void SetSelectedSlot()
-    {
-        playerController.uiController.myEventSystem.SetSelectedGameObject(inventory.GetSelectedSlot());
-    }
 
     public void SetEffectToDeactivate(ParticleSystem ps)
     {

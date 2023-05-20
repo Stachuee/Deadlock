@@ -13,9 +13,7 @@ public class Pistol : GunBase
     private Bullet bullet;
 
     [SerializeField] int maxAmmo;
-    [SerializeField] int currentAmmo;
-    [SerializeField] int currentFireAmmo;
-    [SerializeField] int currentPoisonAmmo;
+    int currentAmmo;
 
 
     protected override void Start()
@@ -23,10 +21,16 @@ public class Pistol : GunBase
         base.Start();
         bulletPrefab = bullets[currentBulletIndex];
         bullet = bulletPrefab.GetComponent<Bullet>();
+        currentAmmo = 0;
+        Reload();
     }
     public override void Reload()
     {
-        currentAmmo = maxAmmo;
+        while (currentAmmo < 12 && maxAmmo > 0)
+        {
+            currentAmmo++;
+            maxAmmo--;
+        }
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -35,12 +39,6 @@ public class Pistol : GunBase
         {
             case AmmoType.Bullet:
                 currentAmmo += amount;
-                break;
-            case AmmoType.Fire:
-                currentFireAmmo += amount;
-                break;
-            case AmmoType.Poison:
-                currentPoisonAmmo += amount;
                 break;
             default:
                 Debug.LogError($"Wrong AmmoType({aT}) for Pistol!");
@@ -51,8 +49,6 @@ public class Pistol : GunBase
     private void Update()
     {
         if (bullet.GetDamageType() == DamageType.Bullet && currentAmmo <= 0) return;
-        else if (bullet.GetDamageType() == DamageType.Fire && currentFireAmmo <= 0) return;
-        else if (bullet.GetDamageType() == DamageType.Poison && currentPoisonAmmo <= 0) return;
 
         if (isShooting >= 0.9f)
         {
@@ -66,10 +62,6 @@ public class Pistol : GunBase
             Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
             if (bullet.GetDamageType() == DamageType.Bullet)
                 currentAmmo--;
-            else if (bullet.GetDamageType() == DamageType.Fire)
-                currentFireAmmo--;
-            else if (bullet.GetDamageType() == DamageType.Poison)
-                currentPoisonAmmo--;
 
             shootTimer = Time.time; // reset timer to current time
         }
@@ -85,16 +77,12 @@ public class Pistol : GunBase
         }
     }
 
-    override public int GetAmmoAmount()
+    override public string GetAmmoAmount()
     {
         if (bullet.GetDamageType() == DamageType.Bullet)
-            return currentAmmo;
-        else if (bullet.GetDamageType() == DamageType.Fire)
-            return currentFireAmmo;
-        else if (bullet.GetDamageType() == DamageType.Poison)
-            return currentPoisonAmmo;
+            return currentAmmo.ToString()+"/"+maxAmmo;
 
-        return 0;
+        return "";
     }
 
     override public DamageType GetBulletType()

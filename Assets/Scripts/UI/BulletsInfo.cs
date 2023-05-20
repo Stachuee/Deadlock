@@ -27,6 +27,6 @@ public class BulletsInfo : MonoBehaviour
         else if (gunController.GetCurrentGun().GetBulletType() == DamageType.Poison) bulletTypeSprite.color = Color.green;
         else if (gunController.GetCurrentGun().GetBulletType() == DamageType.Ice) bulletTypeSprite.color = Color.blue;
 
-        bulletsAmount.text = (gunController.GetCurrentGun().GetAmmoAmount()).ToString();
+        bulletsAmount.text = (gunController.GetCurrentGun().GetAmmoAmount());
     }
 }
