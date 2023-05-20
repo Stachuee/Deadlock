@@ -47,7 +47,7 @@ public class RPG : GunBase
     private void Update()
     {
         if (currentBulletIndex == 1 && currentProximityAmmo <= 0) return;
-        else if  (rocket.GetDamageType() == DamageType.Bullet && currentAmmo <= 0) return;
+        else if  (currentBulletIndex == 0 && currentAmmo <= 0) return;
 
         if (isShooting >= 0.9f)
         {
