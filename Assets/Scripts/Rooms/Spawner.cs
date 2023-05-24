@@ -49,7 +49,7 @@ public class Spawner : InteractableBase, ICureLevelIncrease
             else if(toSpawn.count > alreadySpawned)
             {
                 GameObject temp = Instantiate(toSpawn.enemy.GetPrefab(), transform.position, Quaternion.identity);
-                temp.GetComponent<EnemyBase>();
+                SpawnerController.instance.AddEnemyToMap(temp.GetComponent<ITakeDamage>(), temp.transform);
                 lastSpawn = Time.time;
                 alreadySpawned++;
             }

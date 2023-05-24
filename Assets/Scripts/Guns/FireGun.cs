@@ -4,42 +4,33 @@ using UnityEngine;
 
 public class FireGun : GunBase
 {
-    [SerializeField] private List<ParticleSystem> fireVFXsList;
-    private int currentFireIndex = 0;
-
     [SerializeField] float fireRate = 0.1f;
-    private float shootTimer = 0f; // time elapsed since last shot
 
-    ParticleSystem fireVFX;
-    FireGunDamageType fireDT;
+    [SerializeField] ParticleSystem fireVFX;
+    [SerializeField] ParticleSystem iceVFX;
+
+    bool startedShooting;
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
     [SerializeField] int currentIceAmmo;
 
-    ParticleSystem firePS;
+    int currentMode;
+
 
     GunController gunController;
-    [SerializeField] Transform fireRightSide;
-    [SerializeField] Transform fireLeftSide;
 
 
     protected override void Start()
     {
         gunController = FindObjectOfType<GunController>();
         base.Start();
-        fireVFX = fireVFXsList[currentFireIndex];
-        fireDT = fireVFX.GetComponent<FireGunDamageType>();
 
-        firePS = Instantiate(fireVFX, barrel.position, Quaternion.identity);
-        firePS.enableEmission = false;
-        gunController.SetEffectToDeactivate(firePS);
-
-        barrel = fireRightSide;
     }
 
     public override void Reload()
     {
+
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -58,81 +49,72 @@ public class FireGun : GunBase
         }
     }
 
-
-    /*private void OnTriggerStay2D(Collider2D collision)
+    private void OnDisable()
     {
-        if(collision.CompareTag("Enemy") && isShooting >= 0.9f && currentAmmo > 0)
-        {
-            
-            if (Time.time < shootTimer + fireRate)
-            {
-                return; // not enough time has passed since last shot
-            }
-            ITakeDamage enemy = collision.GetComponent<ITakeDamage>();
-            enemy.TakeDamage(10f, fireDT.GetDamageType());
+        fireVFX.Stop();
+        iceVFX.Stop();
+    }
 
-            shootTimer = Time.time; // reset timer to current time
-        }
-    }*/
-    void Update()
+    override protected void Update()
     {
-        Vector2 diff = (owner.currentAimDirection).normalized;
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-
-        if (rot_z > 90 || rot_z < -90) barrel = fireLeftSide;
-        else barrel = fireRightSide;
-
+        base.Update();
         //firePS.transform.rotation = transform.rotation;
-        firePS.transform.position = barrel.position;
+        //firePS.transform.position = barrel.position;
 
-        if (isShooting >= 0.9f && currentAmmo > 0)
+        if (isShooting && currentAmmo > 0)
         {
-            firePS.enableEmission = true;
-            if (Time.time < shootTimer + fireRate)
+            if(!startedShooting)
             {
-                return; // not enough time has passed since last shot
+                if(currentMode == 0)
+                {
+                    fireVFX.Play();
+                    startedShooting = true;
+                }
+                else if(currentMode == 1)
+                {
+                    iceVFX.Play();
+                    startedShooting = true;
+                }
             }
-            if (fireDT.GetDamageType() == DamageType.Fire)
-                currentAmmo--;
-            else if (fireDT.GetDamageType() == DamageType.Ice)
-                currentIceAmmo--;
         }
         else
-        {
-            firePS.enableEmission = false;
+        {   
+            if(startedShooting)
+            {
+                fireVFX.Stop();
+                iceVFX.Stop();
+                startedShooting = false;
+            }
         }
-
-        if(!gameObject.activeSelf) Destroy(firePS);
 
     }
 
-    override public void ChangeBulletType(float input)
+    override public void ChangeBulletType(bool input)
     {
-        if (input >= 1)
+        if (input )
         {
-            currentFireIndex = (currentFireIndex + 1) % fireVFXsList.Count;
-            fireVFX = fireVFXsList[currentFireIndex];
-            Destroy(firePS);
-            firePS = Instantiate(fireVFX, barrel.position, Quaternion.identity);
-            firePS.enableEmission = false;
-            fireDT = fireVFX.GetComponent<FireGunDamageType>();
-            gunController.SetEffectToDeactivate(firePS);
+            fireVFX.Stop();
+            iceVFX.Stop();
+            startedShooting = false;
+            currentMode = (currentMode + 1) % 2;
         }
     }
 
     override public string GetAmmoAmount()
     {
-        if (fireDT.GetDamageType() == DamageType.Fire)
-            return currentAmmo.ToString();
-        else if (fireDT.GetDamageType() == DamageType.Ice)
-            return currentIceAmmo.ToString();
-
-        return "";
+        if (currentMode == 0) return currentAmmo.ToString();
+        else if (currentMode == 1) return currentIceAmmo.ToString();
+        else return "";
     }
 
     override public DamageType GetBulletType()
     {
-        return fireDT.GetDamageType();
+        if (currentMode == 0) return DamageType.Fire;
+        else return DamageType.Ice;
     }
 
+    public override string GetBothAmmoString()
+    {
+        return currentAmmo + " " + currentIceAmmo;
+    }
 }

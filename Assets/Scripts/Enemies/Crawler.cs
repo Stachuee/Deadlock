@@ -73,8 +73,9 @@ public class Crawler : _EnemyBase
         }
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
         if(currentTarget != null && damaging == null)
         {
             Vector2 direction = new Vector2((currentTarget.transform.position - transform.position).x, 0);

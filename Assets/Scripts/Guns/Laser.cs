@@ -1,3 +1,4 @@
+using GD.MinMaxSlider;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,25 +7,27 @@ public class Laser : GunBase
 {
     [SerializeField] private List<AmmoType> laserTypeList;
 
-    [SerializeField] float fireRate = 0.1f;
-    private float shootTimer = 0f; // time elapsed since last shot
-
     [SerializeField] Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
 
-    [SerializeField] LayerMask maskToIgnore;
-
     [SerializeField] float damage = 5f;
-    bool ableToDamage = true;
+    [SerializeField] float armorAndResistShreadPerSecond;
+    [SerializeField] float maxDamage;
+    [SerializeField] float damageIncreasePerSecond;
 
-    [SerializeField] int maxAmmo;
-    [SerializeField] int currentAmmo;
-    [SerializeField] int restoreAmmo;
+    [SerializeField] float maxAmmo;
+    [SerializeField] float ammoUssagePerSecond;
+    [SerializeField] float currentAmmo;
+    [SerializeField] float restoreAmmo;
 
-    [SerializeField] private float currentHitTime = 0f;
-    [SerializeField] private float damagePerSecond = 1f;
-    private ITakeDamage lastTargetHit = null;
+    [SerializeField, MinMaxSlider(0, 2)] Vector2 laserMinWidth;
+
     private float baseDamage;
+
+    private Transform lastTargetHit = null;
+    ITakeDamage lastHitITakeDamage;
+
+
 
     AmmoType laserType;
     int currentAmmoTypeId = 0;
@@ -54,71 +57,68 @@ public class Laser : GunBase
     }
 
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         if(laserType == AmmoType.Bullet)
         {
-            if (isShooting >= 0.9f && currentAmmo > 0)
+            if (isShooting && currentAmmo > 0)
             {
-                if (Time.time < shootTimer + fireRate)
-                {
-                    ableToDamage = false;
-                    currentAmmo -= 5;
-                }
-                else ableToDamage = true;
+                //if (Time.time < shootTimer + fireRate)
+                //{
+                //    ableToDamage = false;
+                //    currentAmmo -= 5;
+                //}
+                //else ableToDamage = true;
                 lineRenderer.enabled = true;
 
-                if (Physics2D.Raycast(transform.position, transform.right))
-                {
-                    RaycastHit2D hit = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity, ~maskToIgnore);
-                    DrawRay(firePoint.position, hit.point);
-                    if (hit.collider != null && ableToDamage)
-                    {
-                        ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
+                RaycastHit2D hit;
 
-                        if (target != null)
+                if (hit = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity, ~laserLayerMask))
+                {
+                    DrawRay(firePoint.position, hit.point);
+                    if (hit.transform.tag == "Enemy")
+                    {
+                        if(lastTargetHit != hit.transform)
                         {
-                            if (target == lastTargetHit)
-                            {
-                                // Increase the damage based on how long the laser has been hitting the enemy
-                                currentHitTime += Time.deltaTime;
-                                damage += currentHitTime * damagePerSecond;
-                            }
-                            else
-                            {
-                                // Reset the hit time and damage for a new enemy
-                                lastTargetHit = target;
-                                currentHitTime = 0f;
-                                damage = baseDamage;
-                            }
-                            target.TakeDamage(damage, DamageType.Bullet);
-                            target.TakeArmorDamage(DamageType.Bullet, 0.1f);
-                            target.TakeArmorDamage(DamageType.Ice, 0.1f);
-                            target.TakeArmorDamage(DamageType.Fire, 0.1f);
-                            target.TakeArmorDamage(DamageType.Mele, 0.1f);
+                            lastTargetHit = hit.transform;
+                            lastHitITakeDamage = hit.transform.GetComponent<ITakeDamage>();
+                            damage = baseDamage;
                         }
-                        shootTimer = Time.time;
+
+                        if (lastHitITakeDamage != null)
+                        {
+                            lastHitITakeDamage.TakeDamage(damage * Time.deltaTime, DamageType.Bullet);
+                            lastHitITakeDamage.TakeArmorDamage(DamageType.Bullet, armorAndResistShreadPerSecond * Time.deltaTime);
+                            lastHitITakeDamage.TakeArmorDamage(DamageType.Ice, armorAndResistShreadPerSecond * Time.deltaTime);
+                            lastHitITakeDamage.TakeArmorDamage(DamageType.Fire, armorAndResistShreadPerSecond * Time.deltaTime);
+                            lastHitITakeDamage.TakeArmorDamage(DamageType.Mele, armorAndResistShreadPerSecond * Time.deltaTime);
+                            damage = Mathf.Clamp(damage + damageIncreasePerSecond * Time.deltaTime, damage, maxDamage);
+                        }
+                    }
+                    else
+                    {
+                        damage = baseDamage;
                     }
                 }
                 else
                 {
                     lastTargetHit = null;
-                    currentHitTime = 0f;
                     damage = baseDamage;
                 }
+                currentAmmo -= ammoUssagePerSecond * Time.deltaTime;
             }
 
             else
             {
                 lastTargetHit = null;
-                currentHitTime = 0f;
                 damage = baseDamage;
                 lineRenderer.enabled = false;
             }
         }
         else if (laserType == AmmoType.Repair)
         {
-            if (isShooting >= 0.9f && currentAmmo > 0)
+            if (isShooting && currentAmmo > 0)
             {
                 //todo
             }
@@ -126,9 +126,9 @@ public class Laser : GunBase
         
     }
 
-    override public void ChangeBulletType(float input)
+    override public void ChangeBulletType(bool input)
     {
-        if (input >= 1)
+        if (input)
         {
             currentAmmoTypeId = (currentAmmoTypeId + 1) % laserTypeList.Count;
             laserType = laserTypeList[currentAmmoTypeId];
@@ -137,7 +137,7 @@ public class Laser : GunBase
 
     override public string GetAmmoAmount()
     {
-        return currentAmmo.ToString();
+        return (Mathf.FloorToInt(currentAmmo)).ToString();
     }
 
     override public DamageType GetBulletType()
@@ -150,6 +150,13 @@ public class Laser : GunBase
     {
         lineRenderer.SetPosition(0, startPosition);
         lineRenderer.SetPosition(1, endPosition);
+        float laserWidth = Mathf.Lerp(laserMinWidth.x, laserMinWidth.y, (damage - baseDamage) / (maxDamage - baseDamage));
+        lineRenderer.startWidth = laserWidth;
+        lineRenderer.endWidth = laserWidth;
     }
 
+    public override string GetBothAmmoString()
+    {
+        return Mathf.FloorToInt(currentAmmo) + " " + Mathf.FloorToInt(restoreAmmo);
+    }
 }

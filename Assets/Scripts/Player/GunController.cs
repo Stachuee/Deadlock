@@ -52,12 +52,13 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-        inventorySelector.ActivateSlot(SlotType.Weapon, 0);
-        inventorySelector.ActivateSlot(SlotType.Weapon, 1);
-        inventorySelector.ActivateSlot(SlotType.Weapon, 2);
-        inventorySelector.ActivateSlot(SlotType.Weapon, 3);
-        inventorySelector.ActivateSlot(SlotType.Weapon, 4);
-        inventorySelector.ActivateSlot(SlotType.Weapon, 5);
+        inventorySelector.ActivateSlot(WeaponType.Pistol);
+        inventorySelector.ActivateSlot(WeaponType.Firegun);
+        inventorySelector.ActivateSlot(WeaponType.ARiffle);
+        inventorySelector.ActivateSlot(WeaponType.Pistol);
+        inventorySelector.ActivateSlot(WeaponType.Laser);
+        inventorySelector.ActivateSlot(WeaponType.RPG);
+        inventorySelector.ActivateSlot(WeaponType.Harpoon);
 
     }
 
@@ -93,31 +94,53 @@ public class GunController : MonoBehaviour
     }
 
 
+    public string GetAmmoString(WeaponType type)
+    {
+        return weapons[(int)type].GetBothAmmoString();
+    }
+
     public void Reload()
     {
         gun.Reload();
     }
 
 
-    public void ChangeWeapon(int gunIndex)
+    //public void ChangeWeapon(int gunIndex)
+    //{
+    //    weapons[currentWeaponIndex].EnableGun(false);
+    //    currentWeaponIndex = gunIndex;
+
+    //    gunTransform = weapons[currentWeaponIndex].GetGunTransform();
+    //    barrel = weapons[currentWeaponIndex].GetBarrelTransform();
+    //    gun = weapons[currentWeaponIndex].GetGunScript();
+
+    //    weapons[currentWeaponIndex].EnableGun(true);
+
+    //    if (effectToDeactivate != null)
+    //    {
+    //        effectToDeactivate.enableEmission = false;
+    //    }
+    //}
+
+    public void ChangeWeapon(WeaponType type)
     {
         weapons[currentWeaponIndex].EnableGun(false);
-        currentWeaponIndex = gunIndex;
-
+        currentWeaponIndex = (int)type;
+        
         gunTransform = weapons[currentWeaponIndex].GetGunTransform();
         barrel = weapons[currentWeaponIndex].GetBarrelTransform();
         gun = weapons[currentWeaponIndex].GetGunScript();
 
         weapons[currentWeaponIndex].EnableGun(true);
 
-        if (effectToDeactivate != null)
-        {
-            effectToDeactivate.enableEmission = false;
-        }
+        //if (effectToDeactivate != null)
+        //{
+        //    effectToDeactivate.enableEmission = false;
+        //}
     }
 
 
-    public void ChangeBullet(float input)
+    public void ChangeBullet(bool input)
     {
         gun.ChangeBulletType(input);
 
@@ -125,31 +148,31 @@ public class GunController : MonoBehaviour
 
     void RotateGun()
     {
-        Vector2 diff = (playerController.currentAimDirection).normalized;
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        if (rot_z > 90 || rot_z < -90) gunSprite.flipY = true;
-        else gunSprite.flipY = false;
-        gunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z);
+        //Vector2 diff = (playerController.currentAimDirection).normalized;
+        //float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        //if (rot_z > 90 || rot_z < -90) gunSprite.flipY = true;
+        //else gunSprite.flipY = false;
+        //gunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z);
 
-        RaycastHit2D hit = Physics2D.Raycast(barrel.position, diff, Mathf.Infinity, ~laserMask);
+        //RaycastHit2D hit = Physics2D.Raycast(barrel.position, diff, Mathf.Infinity, ~laserMask);
 
-        if (hit.collider != null)
-        {
-            laser.SetPosition(0, barrel.position);
-            laser.SetPosition(1, hit.point);
-        }
+        //if (hit.collider != null)
+        //{
+        //    laser.SetPosition(0, barrel.position);
+        //    laser.SetPosition(1, hit.point);
+        //}
     }
 
-    public void ShootGun(float isShooting)
+    public void ShootGun(bool isShooting)
     {
         gun.Shoot(isShooting);
     }
 
 
-    public void SetEffectToDeactivate(ParticleSystem ps)
-    {
-        effectToDeactivate = ps;
-    }
+    //public void SetEffectToDeactivate(ParticleSystem ps)
+    //{
+    //    effectToDeactivate = ps;
+    //}
 
     public GunBase GetCurrentGun()
     {

@@ -16,6 +16,10 @@ public class SpawnerController : MonoBehaviour
     [SerializeField]
     List<Wave> waves = new List<Wave>();
 
+
+    Dictionary<int, ITakeDamage> damageMap = new Dictionary<int, ITakeDamage>();
+
+
     WaveSO currentWave;
 
     [System.Serializable]
@@ -90,5 +94,27 @@ public class SpawnerController : MonoBehaviour
     public void FinishedSpawning(Spawner spawning)
     {
         spawningSpawners.Remove(spawning);
+    }
+
+    int maxId = 1024;
+    int nextId;
+
+    public void AddEnemyToMap(ITakeDamage toAdd, Transform transformToAdd)
+    {
+        nextId++;
+        if(nextId > maxId) nextId = 0;
+
+        transformToAdd.name = nextId.ToString();
+        damageMap.Add(nextId, toAdd);
+    }
+
+    public void RemoveFromMap(Transform toRemove)
+    {
+        damageMap.Remove(int.Parse(toRemove.name));
+    }
+
+    public ITakeDamage GetITakeDamageFormMap(string key)
+    {
+        return damageMap[int.Parse(key)];
     }
 }

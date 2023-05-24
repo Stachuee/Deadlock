@@ -62,4 +62,9 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
     {
         return false;
     }
+
+    public void ApplyStatus(Status toApply)
+    {
+        
+    }
 }

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
 {
     [SerializeField] List<GunMenuButton> slotButtons = new List<GunMenuButton>();
+
+    [SerializeField] GameObject inventoryPanel;
     private Vector2 mousePos;
     private Vector2 fromVector2M = new Vector2(0.5f, 1.0f);
     private Vector2 centerCircle = new Vector2(0.5f, 0.5f);
@@ -16,114 +19,140 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
     private int previousSelectedItem;
 
     [SerializeField]
-    private GameObject player;
-
     private PlayerController pC;
+
     private GunController gC;
     private EquipmentController eC;
 
+    bool open;
+
     private void Start()
     {
-        pC = player.GetComponent<PlayerController>();
-        gC = player.GetComponent<GunController>();
-        eC = player.GetComponent<EquipmentController>();
-
-        pC.AddMovmentSubscriber(this);
-
         gunMenuItemsAmount = slotButtons.Count;
+        gC = pC.gunController;
+        eC = pC.equipmentController;
 
-        foreach(GunMenuButton gB in slotButtons)
+        foreach (GunMenuButton gB in slotButtons)
         {
             gB.image.color = gB.NormalColor;
         }
 
-        currentSelectedItem = 0;
-        previousSelectedItem = 0;
+        currentSelectedItem = -1;
+        previousSelectedItem = -1;
     }
 
-    private void Update()
+    public void OpenInventory()
     {
-        //GetCurrentSelectedItem();
+        if (open) return;
+        inventoryPanel.SetActive(true);
+        RefreshAmmo();
+        pC.AddMovmentSubscriber(this);
+        open = true;
     }
-
-    public void GetCurrentSelectedItem() 
-    {
-        mousePos = pC.currentAimDirection;
-
-        toVector2M = mousePos.normalized;
-
-
-        float angle = (Mathf.Atan2(fromVector2M.y - centerCircle.y, fromVector2M.x - centerCircle.x) - Mathf.Atan2(toVector2M.y - centerCircle.y, toVector2M.x - centerCircle.x)) * Mathf.Rad2Deg;
-
-        if (angle < 0)
-            angle += 360;
-
-
-        currentSelectedItem = (int)(angle / (360 / gunMenuItemsAmount));
-
-        if (currentSelectedItem != previousSelectedItem)
-        {
-            slotButtons[previousSelectedItem].image.color = slotButtons[previousSelectedItem].NormalColor;
-            previousSelectedItem = currentSelectedItem;
-            slotButtons[currentSelectedItem].image.color = slotButtons[currentSelectedItem].HoverColor;
-        }
-    }
-
 
     public void ForwardCommandMovment(Vector2 controll)
     {
+        if (controll.magnitude < 0.2f)
+        {
+            currentSelectedItem = -1;
+            if(previousSelectedItem != -1)
+            {
+                slotButtons[previousSelectedItem].image.color = slotButtons[previousSelectedItem].NormalColor;
+                previousSelectedItem = -1;
+            }
+            return;
+        }
+
         float rot_z = -(Mathf.Atan2(controll.y, controll.x) * Mathf.Rad2Deg - 90);
 
         if (rot_z < 0)
             rot_z += 360;
 
-        currentSelectedItem = (int)(rot_z / (360 / gunMenuItemsAmount));
+        currentSelectedItem = Mathf.Clamp(Mathf.FloorToInt(rot_z / (360 / gunMenuItemsAmount)), 0, gunMenuItemsAmount - 1);
 
         if (currentSelectedItem != previousSelectedItem)
         {
-            slotButtons[previousSelectedItem].image.color = slotButtons[previousSelectedItem].NormalColor;
+            if(previousSelectedItem != -1) slotButtons[previousSelectedItem].image.color = slotButtons[previousSelectedItem].NormalColor;
             previousSelectedItem = currentSelectedItem;
             slotButtons[currentSelectedItem].image.color = slotButtons[currentSelectedItem].HoverColor;
         }
     }
 
+    public void RefreshAmmo()
+    {
+        slotButtons.ForEach(button =>
+        {
+            if(!button.isEmpty)
+            {
+                if (button.slotType == SlotType.Weapon)
+                {
+                    button.ammoCount.text = gC.GetAmmoString(button.weaponType);
+                }
+                else
+                {
+                    button.ammoCount.text = eC.GetEquipmentAmmo(button.equipmentType);
+                }
+            }
+            else
+            {
+                button.ammoCount.text = "";
+            }
+        });
+    }
+
     public void ChangePlayerSlot()
     {
-        slotButtons[currentSelectedItem].image.color = slotButtons[currentSelectedItem].PressedColor;
-        if (!slotButtons[currentSelectedItem].isActive || slotButtons[currentSelectedItem].isEmpty) return;
-
-        if (slotButtons[currentSelectedItem].slotType == SlotType.Weapon) gC.ChangeWeapon(slotButtons[currentSelectedItem].id);
-        else if (slotButtons[currentSelectedItem].slotType == SlotType.Equipment) eC.ChangeEquipment(slotButtons[currentSelectedItem].id);
+        if (!open) return;
+        if (currentSelectedItem >= 0)
+        {
+            slotButtons[currentSelectedItem].image.color = slotButtons[currentSelectedItem].PressedColor;
+            if (slotButtons[currentSelectedItem].isActive && !slotButtons[currentSelectedItem].isEmpty)
+            {
+                if (slotButtons[currentSelectedItem].slotType == SlotType.Weapon) gC.ChangeWeapon(slotButtons[currentSelectedItem].weaponType);
+                else if (slotButtons[currentSelectedItem].slotType == SlotType.Equipment) eC.ChangeEquipment(slotButtons[currentSelectedItem].equipmentType);
+            }
+        }
+        inventoryPanel.SetActive(false);
+        pC.RemoveMovmentSubscriber(this);
+        open = false;
     }
 
 
-    public void ActivateSlot(SlotType sT, int _id)
+    public void ActivateSlot(WeaponType weapon)
     {
-        if (sT == SlotType.Weapon)
-        {
-            for (int i = 0; i < slotButtons.Count; i++)
-            {
-                if (slotButtons[i].slotType == SlotType.Weapon && slotButtons[i].id == _id)
-                {
-                    slotButtons[i].isActive = true;
-                    break;
-                }
-            }
-        }
-        else if (sT == SlotType.Equipment)
-        {
-            for (int i = 0; i < slotButtons.Count; i++)
-            {
-                if (slotButtons[i].slotType == SlotType.Equipment && slotButtons[i].id == _id)
-                {
-                    slotButtons[i].isActive = true;
-                    break;
-                }
-            }
-        }
+        slotButtons.Find(slot => slot.weaponType == weapon && slot.slotType == SlotType.Weapon).isActive = true;     
     }
 
-    public EquipmentController GetEController()
+    public void ActivateSlot(EquipmentType equipment)
+    {
+        slotButtons.Find(slot => slot.equipmentType == equipment && slot.slotType == SlotType.Equipment).isActive = true;
+    }
+
+//    if (sT == SlotType.Weapon)
+//        {
+//            for (int i = 0; i<slotButtons.Count; i++)
+//            {
+//                if (slotButtons[i].slotType == SlotType.Weapon && slotButtons[i].id == _id)
+//                {
+//                    slotButtons[i].isActive = true;
+//                    break;
+//                }
+//            }
+//        }
+//        else if (sT == SlotType.Equipment)
+//{
+//    for (int i = 0; i < slotButtons.Count; i++)
+//    {
+//        if (slotButtons[i].slotType == SlotType.Equipment && slotButtons[i].id == _id)
+//        {
+//            slotButtons[i].isActive = true;
+//            break;
+//        }
+//    }
+//}
+
+
+public EquipmentController GetEController()
     {
         return eC;
     }
@@ -165,8 +194,8 @@ public enum SlotType { Weapon, Equipment};
 [System.Serializable]
 public class GunMenuButton
 {
-    public int id;
     public Image image;
+    public TextMeshProUGUI ammoCount;
     public Color NormalColor = Color.white;
     public Color HoverColor = Color.gray;
     public Color PressedColor = Color.gray;
@@ -174,5 +203,8 @@ public class GunMenuButton
     public bool isActive = false;
 
     public SlotType slotType;
+
+    public WeaponType weaponType;
+    public EquipmentType equipmentType;
 
 }

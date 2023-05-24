@@ -58,4 +58,9 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
     {
         return player.CheckIfHoldingAny(toRepair);
     }
+
+    public void ApplyStatus(Status toApply)
+    {
+    
+    }
 }

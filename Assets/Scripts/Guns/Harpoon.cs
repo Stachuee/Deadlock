@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class Harpoon : GunBase
 {
-    [SerializeField] private List<GameObject> bullets;
-    private int currentBulletIndex = 0;
 
     public float shootDelay = 0.2f;
     private float shootTimer = 0f; // time elapsed since last shot
-
-    private Bullet bullet;
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
     [SerializeField] int currentPreciseAmmo;
 
+    int fireMode;
+
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject preciseBulletPrefab;
 
     protected override void Start()
     {
         base.Start();
-        bulletPrefab = bullets[currentBulletIndex];
-        bullet = bulletPrefab.GetComponent<Bullet>();
+        //bulletPrefab = bullets[currentBulletIndex];
+        //bullet = bulletPrefab.GetComponent<Bullet>();
     }
     public override void Reload()
     {
+
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -43,45 +44,45 @@ public class Harpoon : GunBase
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if ((currentBulletIndex == 0) && currentAmmo <= 0) return;
-        else if ((currentBulletIndex == 0) && currentPreciseAmmo <= 0) return;
+        base.Update();
 
-        if (isShooting >= 0.9f)
+        if ((fireMode == 0) && currentAmmo <= 0) return;
+        else if ((fireMode == 1) && currentPreciseAmmo <= 0) return;
+
+        if (isShooting )
         {
             if (Time.time < shootTimer + shootDelay)
             {
                 return; // not enough time has passed since last shot
             }
+            Instantiate(fireMode == 0 ? bulletPrefab : preciseBulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
 
-            Vector2 diff = (owner.currentAimDirection).normalized;
-            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
-            if (currentBulletIndex == 0)
+            if (fireMode == 0)
                 currentAmmo--;
-            else if (currentBulletIndex == 1)
+            else if (fireMode == 1)
                 currentPreciseAmmo--;
 
             shootTimer = Time.time; // reset timer to current time
         }
     }
 
-    override public void ChangeBulletType(float input)
+    override public void ChangeBulletType(bool input)
     {
-        if (input >= 1)
+        if (input)
         {
-            currentBulletIndex = (currentBulletIndex + 1) % bullets.Count;
-            bulletPrefab = bullets[currentBulletIndex];
-            bullet = bulletPrefab.GetComponent<Bullet>();
+            fireMode = (fireMode + 1) % 2;
+            //bulletPrefab = bullets[currentBulletIndex];
+            //bullet = bulletPrefab.GetComponent<Bullet>();
         }
     }
 
     override public string GetAmmoAmount()
     {
-        if (currentBulletIndex == 0)
+        if (fireMode == 0)
             return currentAmmo.ToString();
-        else if (currentBulletIndex == 1)
+        else if (fireMode == 1)
             return currentPreciseAmmo.ToString();
 
         return "";
@@ -89,6 +90,11 @@ public class Harpoon : GunBase
 
     override public DamageType GetBulletType()
     {
-        return bullet.GetDamageType();
+        return DamageType.Bullet;
+    }
+
+    public override string GetBothAmmoString()
+    {
+        return currentAmmo + " " + currentPreciseAmmo;
     }
 }

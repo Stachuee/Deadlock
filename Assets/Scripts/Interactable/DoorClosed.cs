@@ -25,4 +25,9 @@ public class DoorClosed : MonoBehaviour, ITakeDamage
     {
 
     }
+
+    public void ApplyStatus(Status toApply)
+    {
+        
+    }
 }

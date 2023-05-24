@@ -522,6 +522,17 @@
                 },
                 {
                     "name": "",
+                    "id": "b7834622-bde8-4ff2-83e5-4617eb446d7d",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ChangeBullet",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f9126d36-695d-47ee-9e70-14fa2aac3283",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
@@ -549,6 +560,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb8107c9-d6ad-4210-84c7-cb2a76b59fc1",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
                     "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -55,4 +55,9 @@ public class Blocade : MonoBehaviour, ITakeDamage
     {
         return false;
     }
+
+    public void ApplyStatus(Status toApply)
+    {
+        
+    }
 }

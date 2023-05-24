@@ -109,4 +109,9 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
     {
         return false;
     }
+
+    public void ApplyStatus(Status toApply)
+    {
+        
+    }
 }

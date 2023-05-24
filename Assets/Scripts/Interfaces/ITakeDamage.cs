@@ -5,6 +5,7 @@ using UnityEngine;
 public interface ITakeDamage 
 {
     public float TakeDamage(float damage, DamageType type);
+    public void ApplyStatus(Status toApply);
     public void TakeArmorDamage(DamageType type, float damage);
     public bool IsImmune();
 }

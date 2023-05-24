@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipmentController : MonoBehaviour
+public enum EquipmentType { Granade, Molotov, Stim, Medkit, Turret }
+
+public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
 {
 
 
@@ -17,91 +19,108 @@ public class EquipmentController : MonoBehaviour
 
     [SerializeField] private Transform towerPlace;
 
-    [SerializeField] private int grenadeAmount;
-    [SerializeField] private int molotovAmount;
-    [SerializeField] private int towerAmount;
-    [SerializeField] private int medicineAmount;
-    [SerializeField] private int stimulatorAmount;
+    [SerializeField]
+    Dictionary<EquipmentType, int> backpack = new Dictionary<EquipmentType, int>();
+
+
+    Vector2 aimDirection;
 
     private void Awake()
     {
+        for(int i = 0; i < System.Enum.GetValues(typeof(EquipmentType)).Length; i++)
+        {
+            backpack.Add((EquipmentType)i, 10); // starting ammo. Change to 0 later
+        }
+
         playerController = transform.GetComponent<PlayerController>();
     }
 
     private void Start()
     {
+        playerController.AddMovmentSubscriber(this);
+
         throwable = equipment[currentEquipmentIndex];
 
-        inventorySelector.ActivateSlot(SlotType.Equipment, 0);
-        inventorySelector.ActivateSlot(SlotType.Equipment, 1);
-        inventorySelector.ActivateSlot(SlotType.Equipment, 2);
-        inventorySelector.ActivateSlot(SlotType.Equipment, 3);
-        inventorySelector.ActivateSlot(SlotType.Equipment, 4);
+        inventorySelector.ActivateSlot(EquipmentType.Molotov);
+        inventorySelector.ActivateSlot(EquipmentType.Medkit);
+        inventorySelector.ActivateSlot(EquipmentType.Granade);
+        inventorySelector.ActivateSlot(EquipmentType.Stim);
+        inventorySelector.ActivateSlot(EquipmentType.Turret);
     }
 
-    public void ChangeEquipment(int equipmentIndex)
+    public void ChangeEquipment(EquipmentType type)
     {
-        currentEquipmentIndex = equipmentIndex;
+        Debug.Log(type);
+        currentEquipmentIndex = (int)type;
         throwable = equipment[currentEquipmentIndex];
     }
 
     public void UseEquipment()
     {
-        if (throwable.CompareTag("Granade") && grenadeAmount <= 0)
+        if (throwable.CompareTag("Granade") && backpack[EquipmentType.Granade] <= 0)
             return;
-        else if (throwable.CompareTag("Molotov") && molotovAmount <= 0)
+        else if (throwable.CompareTag("Molotov") && backpack[EquipmentType.Molotov] <= 0)
             return;
-        else if (throwable.CompareTag("Tower") && towerAmount <= 0)
+        else if (throwable.CompareTag("Tower") && backpack[EquipmentType.Turret] <= 0)
             return;
-        else if (throwable.CompareTag("Medicine") && medicineAmount <= 0)
+        else if (throwable.CompareTag("Medicine") && backpack[EquipmentType.Medkit] <= 0)
             return;
-        else if ((throwable.CompareTag("Stimulator") && stimulatorAmount <= 0) || (throwable.CompareTag("Stimulator") && playerController.GetIsStimulated()))
+        else if ((throwable.CompareTag("Stimulator") && backpack[EquipmentType.Stim] <= 0) || (throwable.CompareTag("Stimulator") && playerController.GetIsStimulated()))
             return;
 
 
         if (throwable.CompareTag("Tower"))
         {
-            towerAmount--;
+            backpack[EquipmentType.Turret]--;
             Instantiate(throwable, towerPlace.position, Quaternion.identity);
             return;
         }
         else if (throwable.CompareTag("Medicine") || throwable.CompareTag("Stimulator"))
         {
             if (throwable.CompareTag("Medicine"))
-                medicineAmount--;
+                backpack[EquipmentType.Medkit]--;
             else if (throwable.CompareTag("Stimulator"))
-                stimulatorAmount--;
+                backpack[EquipmentType.Stim]--;
             throwable.GetComponent<MedicineBase>().AddEffect(playerController);
             return;
         }
 
         if (throwable.CompareTag("Granade"))
-            grenadeAmount--;
+            backpack[EquipmentType.Granade]--;
         else if (throwable.CompareTag("Molotov"))
-            molotovAmount--;
+            backpack[EquipmentType.Molotov]--;
         GameObject temp = Instantiate(throwable, transform.position, Quaternion.identity);
-        temp.GetComponent<Rigidbody2D>().AddForce(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
+        temp.GetComponent<NadeBase>().Lunch(aimDirection.normalized * playerController.playerInfo.throwStrength);
     }
 
+    public string GetEquipmentAmmo(EquipmentType type)
+    {
+        return backpack[type].ToString();
+    }
 
-    public int GetGranadeAmount()
+    public void ForwardCommandMovment(Vector2 controll)
     {
-        return grenadeAmount;
+        aimDirection = controll;
     }
-    public int GetMolotovAmount()
-    {
-        return molotovAmount;
-    }
-    public int GetTowerAmount()
-    {
-        return towerAmount;
-    }
-    public int GetMedicineAmount()
-    {
-        return medicineAmount;
-    }
-    public int GetStimulatorAmount()
-    {
-        return stimulatorAmount;
-    }
+
+    //public int GetGranadeAmount()
+    //{
+    //    return grenadeAmount;
+    //}
+    //public int GetMolotovAmount()
+    //{
+    //    return molotovAmount;
+    //}
+    //public int GetTowerAmount()
+    //{
+    //    return towerAmount;
+    //}
+    //public int GetMedicineAmount()
+    //{
+    //    return medicineAmount;
+    //}
+    //public int GetStimulatorAmount()
+    //{
+    //    return stimulatorAmount;
+    //}
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public interface IGun
 {
-    public void Shoot(float isShooting);
+    public void Shoot(bool isShooting);
     public void Reload();
     public void AddAmmo(AmmoType aT, int amount);
 
-    public void ChangeBulletType(float input);
+    public void ChangeBulletType(bool input);
 
     public Transform GetGunTransform();
     public GunBase GetGunScript();
@@ -16,6 +16,6 @@ public interface IGun
     public void EnableGun(bool isActive);
     public GameObject GetInventorySlotPrefab();
     public string GetAmmoAmount();
-
+    public string GetBothAmmoString();
 
 }

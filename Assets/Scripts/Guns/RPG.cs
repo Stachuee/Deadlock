@@ -5,23 +5,30 @@ using UnityEngine;
 public class RPG : GunBase
 {
 
-    [SerializeField] private List<GameObject> bullets;
-    private int currentBulletIndex = 0;
+    //[SerializeField] private List<GameObject> bullets;
+    //private int currentBulletIndex = 0;
 
     public float shootDelay = 0.5f;
     private float shootTimer = 0f; // time elapsed since last shot
 
-    private RPGRocket rocket;
+    //private RPGRocket rocket;
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
     [SerializeField] int currentProximityAmmo;
 
+    [SerializeField] float lunchStrength;
+
+    [SerializeField] GameObject granade;
+    [SerializeField] GameObject proximityGranade;
+
+    int fireMode;
+
     protected override void Start()
     {
         base.Start();
-        bulletPrefab = bullets[currentBulletIndex];
-        rocket = bulletPrefab.GetComponent<RPGRocket>();
+        //bulletPrefab = bullets[currentBulletIndex];
+        //rocket = bulletPrefab.GetComponent<RPGRocket>();
     }
 
     public override void Reload()
@@ -44,52 +51,58 @@ public class RPG : GunBase
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (currentBulletIndex == 1 && currentProximityAmmo <= 0) return;
-        else if  (currentBulletIndex == 0 && currentAmmo <= 0) return;
+        base.Update();
 
-        if (isShooting >= 0.9f)
+        if (fireMode == 1 && currentProximityAmmo <= 0) return;
+        else if  (fireMode == 0 && currentAmmo <= 0) return;
+
+        if (isShooting)
         {
             if (Time.time < shootTimer + shootDelay)
             {
                 return; // not enough time has passed since last shot
             }
 
-            Vector2 diff = (owner.currentAimDirection).normalized;
-            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            Instantiate(bulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
-            if (currentBulletIndex == 1)
-                currentProximityAmmo--;
-            else if (rocket.GetDamageType() == DamageType.Bullet)
+            NadeBase temp = Instantiate(fireMode == 0 ? granade : proximityGranade, barrel.position, Quaternion.Euler(0, 0, currentBarrelAngle)).GetComponent<NadeBase>();
+            temp.Lunch(aimVectorWithRecoil.normalized * lunchStrength);
+
+            if (fireMode == 0)
                 currentAmmo--;
+            else if (fireMode == 1)
+                currentProximityAmmo--;
 
             shootTimer = Time.time; // reset timer to current time
         }
     }
 
-    override public void ChangeBulletType(float input)
+    override public void ChangeBulletType(bool input)
     {
-        if (input >= 1)
+        if (input)
         {
-            currentBulletIndex = (currentBulletIndex + 1) % bullets.Count;
-            bulletPrefab = bullets[currentBulletIndex];
-            rocket = bulletPrefab.GetComponent<RPGRocket>();
+            fireMode = (fireMode + 1) % 2;
+            //bulletPrefab = bullets[currentBulletIndex];
+            //rocket = bulletPrefab.GetComponent<RPGRocket>();
         }
     }
 
     override public string GetAmmoAmount()
     {
-        if (currentBulletIndex == 1)
-            return currentProximityAmmo.ToString();
-        else if (rocket.GetDamageType() == DamageType.Bullet)
+        if (fireMode == 0)
             return currentAmmo.ToString();
-
+        else if (fireMode == 1)
+            return currentProximityAmmo.ToString();
         return "";
     }
 
     override public DamageType GetBulletType()
     {
-        return rocket.GetDamageType();
+        return fireMode == 0 ? DamageType.Bullet : DamageType.Bullet;
+    }
+
+    public override string GetBothAmmoString()
+    {
+        return currentAmmo + " " + currentProximityAmmo;
     }
 }

@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     Vector2 desiredAimDirection = Vector2.zero;
     public bool keyboard;
 
-    float jumping;
+    bool jumping;
 
     Rigidbody2D myBody;
     PlayerInput myinput;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     bool debugStart = true;
 
     [SerializeField]
-    GameObject inventoryPanel;
+    InventorySelector inventorySelector;
 
     List<IInteractable> inRange = new List<IInteractable>();
     IInteractable closestInRange;
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         myinput = transform.GetComponent<PlayerInput>();
         gunController = transform.GetComponent<GunController>();
         equipmentController = transform.GetComponent<EquipmentController>();
-        playerInfo = new PlayerInfo() { hp = 100, maxHp = 100, speed = 5, throwStrength = 500};
+        //playerInfo = new PlayerInfo() { hp = 100, maxHp = 100, speed = 5, throwStrength = 150};
     }
 
     private void Start()
@@ -269,24 +269,25 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnDrop(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-        if (lockedInAnimation)
+        if (context.performed)
         {
-            callbackWhenUnlocking.Invoke();
-            //callbackWhenUnlocking = null;
-            //LockInAnimation = false;
-        }
-        else if (context.ReadValue<float>() > 0.9f)
-        {
-            SendbackControll();
-            DropHolding();
+            if (lockedInAnimation)
+            {
+                callbackWhenUnlocking.Invoke();
+                //callbackWhenUnlocking = null;
+                //LockInAnimation = false;
+            }
+            else
+            {
+                SendbackControll();
+                DropHolding();
+            }
         }
     }
 
     public void OnUse(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-        if (context.ReadValue<float>() > 0.9f)
+        if (context.performed)
         {
             SendUseControll();
             if (closestInRange != null && !LockInAnimation)
@@ -298,23 +299,20 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        jumping = context.ReadValue<float>();
+        jumping = context.ReadValueAsButton();
         //myBody.AddForce(new Vector2(0, 200));
     }
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        float isShooting = context.ReadValue<float>();
-        //if (!context.started) return;
-        SendShootControll(isShooting > 0.8f);
+        SendShootControll(context.ReadValueAsButton());
         if (lockedInAnimation) return;
-        gunController.ShootGun(isShooting);
+        gunController.ShootGun(context.ReadValueAsButton());
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<float>());
-        if (context.ReadValue<float>() > 0.9f)
+        if (context.ReadValueAsButton())
         {
             isAttacking = true;
             attackArea.SetActive(isAttacking);
@@ -328,8 +326,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void onChangeBullet(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-        gunController.ChangeBullet(context.ReadValue<float>());
+        gunController.ChangeBullet(context.performed);
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -341,26 +338,23 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-        if (context.ReadValue<float>() > 0.9f) equipmentController.UseEquipment();
+        if (context.performed) equipmentController.UseEquipment();
     }
     public void OnReload(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-        if (context.ReadValue<float>() > 0.9f) gunController.Reload();
+        if (context.performed) gunController.Reload();
     }
 
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
         //if (!context.started) return;
-        if (context.ReadValue<float>() > 0.9f)
+        if (context.ReadValueAsButton())
         {
-            inventoryPanel.SetActive(true);
+            inventorySelector.OpenInventory();
         }
         else
         {
-            inventoryPanel.GetComponent<InventorySelector>().ChangePlayerSlot();
-            inventoryPanel.SetActive(false);
+            inventorySelector.ChangePlayerSlot();
         }
         }
         #endregion
@@ -391,6 +385,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         playerInfo.hp -= damage;
         return damage;
     }
+    public void ApplyStatus(Status toApply)
+    {
+        
+    }
+
     public void TakeArmorDamage(DamageType type, float damage)
     {
         throw new System.NotImplementedException();
@@ -558,6 +557,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         LockInAnimation = false;
         callbackWhenUnlocking = null;
     }
+
 
 
 
