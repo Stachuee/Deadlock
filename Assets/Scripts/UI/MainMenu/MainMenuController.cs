@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -10,10 +12,19 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField] Toggle useGlasses;
 
+    EventSystem eSystem;
+    [SerializeField] GameObject FirstMenuButton, FirstSettingsButton, FirstChoosingButton, SettingsButton;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+    private void Start()
+    {
+        eSystem = EventSystem.current;
+        eSystem.SetSelectedGameObject(null);
+        eSystem.SetSelectedGameObject(FirstMenuButton);
     }
 
     public void StartGame()
@@ -23,5 +34,21 @@ public class MainMenuController : MonoBehaviour
         InputInfoHolder.Instance.SaveDevices(newDevices);
         InputInfoHolder.Instance.SetGlasses(useGlasses.isOn);
         SceneManager.LoadScene(1);
+    }
+
+    public void OpenSettings()
+    {
+        eSystem.SetSelectedGameObject(null);
+        eSystem.SetSelectedGameObject(FirstSettingsButton);
+    }
+    public void CloseSettings()
+    {
+        eSystem.SetSelectedGameObject(null);
+        eSystem.SetSelectedGameObject(SettingsButton);
+    }
+    public void OpenChoosing()
+    {
+        eSystem.SetSelectedGameObject(null);
+        eSystem.SetSelectedGameObject(FirstChoosingButton);
     }
 }
