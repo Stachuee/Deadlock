@@ -15,6 +15,9 @@ public class MainMenuController : MonoBehaviour
     EventSystem eSystem;
     [SerializeField] GameObject FirstMenuButton, FirstSettingsButton, FirstChoosingButton, SettingsButton;
 
+    Resolution[] resolutions;
+    [SerializeField] Dropdown resolutionsDropdown;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -25,6 +28,36 @@ public class MainMenuController : MonoBehaviour
         eSystem = EventSystem.current;
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(FirstMenuButton);
+
+        resolutions = Screen.resolutions;
+
+        resolutionsDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+
+            if(resolutions[i].height == Screen.currentResolution.height && resolutions[i].width == Screen.currentResolution.width)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionsDropdown.AddOptions(options);
+        resolutionsDropdown.value = currentResolutionIndex;
+        resolutionsDropdown.RefreshShownValue();
+
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
     public void StartGame()
