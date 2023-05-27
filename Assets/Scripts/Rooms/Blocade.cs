@@ -21,7 +21,7 @@ public class Blocade : MonoBehaviour, ITakeDamage
         hp = maxHp;
     }
 
-    public float TakeDamage(float damage, DamageType type)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
         float damageAmmount = damage;
         //if (type == DamageType.Fire)
@@ -46,7 +46,7 @@ public class Blocade : MonoBehaviour, ITakeDamage
         return new ComputerInfoContainer { hp = hp, maxHp = maxHp, showHp = true, name = displayName };
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
+    public void TakeArmorDamage(float damage)
     {
         
     }
@@ -59,5 +59,11 @@ public class Blocade : MonoBehaviour, ITakeDamage
     public void ApplyStatus(Status toApply)
     {
         
+    }
+
+
+    public float GetArmor()
+    {
+        return 0;
     }
 }

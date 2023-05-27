@@ -5,28 +5,32 @@ using UnityEngine;
 public class Harpoon : GunBase
 {
 
+    readonly int MAX_AMMO = 1;
+
     public float shootDelay = 0.2f;
     private float shootTimer = 0f; // time elapsed since last shot
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
+    [SerializeField] int maxPreciseAmmo;
     [SerializeField] int currentPreciseAmmo;
 
     int fireMode;
+    int targetFireMode;
 
+    [SerializeField] Sprite ammoIcon;
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Sprite ammoPreciseIcon;
     [SerializeField] GameObject preciseBulletPrefab;
+    
 
     protected override void Start()
     {
         base.Start();
-        //bulletPrefab = bullets[currentBulletIndex];
-        //bullet = bulletPrefab.GetComponent<Bullet>();
+        currentAmmo = MAX_AMMO;
+        currentPreciseAmmo = MAX_AMMO;
     }
-    public override void Reload()
-    {
 
-    }
 
     public override void AddAmmo(AmmoType aT, int amount)
     {
@@ -48,8 +52,17 @@ public class Harpoon : GunBase
     {
         base.Update();
 
-        if ((fireMode == 0) && currentAmmo <= 0) return;
-        else if ((fireMode == 1) && currentPreciseAmmo <= 0) return;
+        if (reloading) return;
+
+        if ((fireMode == 0 && currentAmmo <= 0) || (fireMode == 1 && currentPreciseAmmo <= 0))
+        {
+            if (fireMode == 0 && maxAmmo > 0 || fireMode == 1 && maxPreciseAmmo > 0)
+            {
+                Reload();
+                return;
+            }
+            else return;
+        }
 
         if (isShooting )
         {
@@ -70,9 +83,12 @@ public class Harpoon : GunBase
 
     override public void ChangeBulletType(bool input)
     {
+        fireMode = targetFireMode;
         if (input)
         {
-            fireMode = (fireMode + 1) % 2;
+            StopReload();
+            targetFireMode = (fireMode + 1) % 2;
+            Reload(true);
             //bulletPrefab = bullets[currentBulletIndex];
             //bullet = bulletPrefab.GetComponent<Bullet>();
         }
@@ -81,20 +97,51 @@ public class Harpoon : GunBase
     override public string GetAmmoAmount()
     {
         if (fireMode == 0)
-            return currentAmmo.ToString();
+            return currentAmmo.ToString() + "/" + maxAmmo.ToString();
         else if (fireMode == 1)
-            return currentPreciseAmmo.ToString();
+            return currentPreciseAmmo.ToString() + "/" + maxPreciseAmmo.ToString();
 
         return "";
     }
 
-    override public DamageType GetBulletType()
-    {
-        return DamageType.Bullet;
-    }
-
     public override string GetBothAmmoString()
     {
-        return currentAmmo + " " + currentPreciseAmmo;
+        return (currentAmmo + maxAmmo) + " " + (currentPreciseAmmo + maxPreciseAmmo);
+    }
+
+    public override void RefillAmmo()
+    {
+        if (fireMode == 0)
+        {
+            maxAmmo += currentAmmo;
+            currentAmmo = Mathf.Min(MAX_AMMO, maxAmmo);
+            maxAmmo -= currentAmmo;
+        }
+        else if (fireMode == 1)
+        {
+            maxPreciseAmmo += currentPreciseAmmo;
+            currentPreciseAmmo = Mathf.Min(MAX_AMMO, maxPreciseAmmo);
+            maxPreciseAmmo -= currentPreciseAmmo;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopReload();
+    }
+    private void OnEnable()
+    {
+        targetFireMode = fireMode;
+    }
+
+    protected override bool IsFullOnAmmo()
+    {
+        if (fireMode == 0) return currentAmmo == MAX_AMMO;
+        else return currentPreciseAmmo == MAX_AMMO;
+    }
+    public override Sprite GetAmmoIcon()
+    {
+        if (fireMode == 0) return ammoIcon;
+        else return ammoPreciseIcon;
     }
 }

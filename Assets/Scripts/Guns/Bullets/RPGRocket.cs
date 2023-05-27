@@ -16,7 +16,6 @@ public class RPGRocket : MonoBehaviour
     float timeToDespawn;
     float timeToDespawnRemain;
 
-    [SerializeField] DamageType damageType;
 
     [SerializeField] bool isProximity = false;
 
@@ -49,11 +48,8 @@ public class RPGRocket : MonoBehaviour
                     ITakeDamage target = collider.GetComponent<ITakeDamage>();
                     if (target != null)
                     {
-                        target.TakeDamage(damage, damageType);
-                        target.TakeArmorDamage(DamageType.Bullet, 0.1f);
-                        target.TakeArmorDamage(DamageType.Ice, 0.1f);
-                        target.TakeArmorDamage(DamageType.Fire, 0.1f);
-                        target.TakeArmorDamage(DamageType.Mele, 0.1f);
+                        target.TakeDamage(damage);
+                        target.TakeArmorDamage(0.1f);
                     }
                 }
              }
@@ -72,17 +68,17 @@ public class RPGRocket : MonoBehaviour
             ITakeDamage target = collider.GetComponent<ITakeDamage>();
             if (target != null)
             {
-                target.TakeDamage(damage, damageType);
-                target.TakeArmorDamage(DamageType.Bullet, 0.1f);
+                target.TakeDamage(damage);
+                target.TakeArmorDamage(0.1f);
             }
             Destroy(gameObject);
         }
     }
 
-    public DamageType GetDamageType()
-    {
-        return damageType;
-    }
+    //public DamageType GetDamageType()
+    //{
+    //    return damageType;
+    //}
 
     private void OnDrawGizmosSelected()
     {
@@ -90,4 +86,6 @@ public class RPGRocket : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
+
+
 }

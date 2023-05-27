@@ -16,14 +16,14 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
     float doorRepairSpeed;
 
     Rooms parrent;
-    public float TakeDamage(float damage, DamageType type)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
         doorHp -= damage;
         parrent.SendWarning(WarningStrength.Strong);
         return damage;
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
+    public void TakeArmorDamage(float damage)
     {
         
     }
@@ -66,5 +66,10 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
     public void ApplyStatus(Status toApply)
     {
         
+    }
+
+    public float GetArmor()
+    {
+        return 0;
     }
 }

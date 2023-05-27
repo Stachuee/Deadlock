@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RPG : GunBase
 {
-
+    readonly int MAX_AMMO = 6;
     //[SerializeField] private List<GameObject> bullets;
     //private int currentBulletIndex = 0;
 
@@ -15,24 +15,23 @@ public class RPG : GunBase
 
     [SerializeField] int maxAmmo;
     [SerializeField] int currentAmmo;
+    [SerializeField] int maxProximityAmmo;
     [SerializeField] int currentProximityAmmo;
 
     [SerializeField] float lunchStrength;
 
+    [SerializeField] Sprite ammoIcon;
     [SerializeField] GameObject granade;
+    [SerializeField] Sprite ammoProximityIcon;
     [SerializeField] GameObject proximityGranade;
 
     int fireMode;
-
+    int targetFireMode;
     protected override void Start()
     {
         base.Start();
-        //bulletPrefab = bullets[currentBulletIndex];
-        //rocket = bulletPrefab.GetComponent<RPGRocket>();
-    }
-
-    public override void Reload()
-    {
+        currentAmmo = MAX_AMMO;
+        currentProximityAmmo = MAX_AMMO;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -55,8 +54,18 @@ public class RPG : GunBase
     {
         base.Update();
 
-        if (fireMode == 1 && currentProximityAmmo <= 0) return;
-        else if  (fireMode == 0 && currentAmmo <= 0) return;
+
+        if (reloading) return;
+
+        if ((fireMode == 0 && currentAmmo <= 0) || (fireMode == 1 && currentProximityAmmo <= 0))
+        {
+            if (fireMode == 0 && maxAmmo > 0 || fireMode == 1 && maxProximityAmmo > 0)
+            {
+                Reload();
+                return;
+            }
+            else return;
+        }
 
         if (isShooting)
         {
@@ -81,7 +90,9 @@ public class RPG : GunBase
     {
         if (input)
         {
-            fireMode = (fireMode + 1) % 2;
+            StopReload();
+            targetFireMode = (fireMode + 1) % 2;
+            Reload(true);
             //bulletPrefab = bullets[currentBulletIndex];
             //rocket = bulletPrefab.GetComponent<RPGRocket>();
         }
@@ -90,19 +101,58 @@ public class RPG : GunBase
     override public string GetAmmoAmount()
     {
         if (fireMode == 0)
-            return currentAmmo.ToString();
+            return currentAmmo.ToString() + "/" + maxAmmo.ToString();
         else if (fireMode == 1)
-            return currentProximityAmmo.ToString();
+            return currentProximityAmmo.ToString() + "/" + maxProximityAmmo.ToString();
         return "";
     }
 
-    override public DamageType GetBulletType()
-    {
-        return fireMode == 0 ? DamageType.Bullet : DamageType.Bullet;
-    }
+    //override public DamageType GetBulletType()
+    //{
+    //    return fireMode == 0 ? DamageType.Bullet : DamageType.Bullet;
+    //}
 
     public override string GetBothAmmoString()
     {
-        return currentAmmo + " " + currentProximityAmmo;
+        return (currentAmmo + maxAmmo) + " " + (currentProximityAmmo + maxProximityAmmo);
+    }
+
+    public override void RefillAmmo()
+    {
+        fireMode = targetFireMode;
+        if (fireMode == 0)
+        {
+            maxAmmo += currentAmmo;
+            currentAmmo = Mathf.Min(MAX_AMMO, maxAmmo);
+            maxAmmo -= currentAmmo;
+        }
+        else if (fireMode == 1)
+        {
+            maxProximityAmmo += currentProximityAmmo;
+            currentProximityAmmo = Mathf.Min(MAX_AMMO, maxProximityAmmo);
+            maxProximityAmmo -= currentProximityAmmo;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopReload();
+    }
+
+    private void OnEnable()
+    {
+        targetFireMode = fireMode;
+    }
+
+    protected override bool IsFullOnAmmo()
+    {
+        if (fireMode == 0) return currentAmmo == MAX_AMMO;
+        else return currentProximityAmmo == MAX_AMMO;
+    }
+
+    public override Sprite GetAmmoIcon()
+    {
+        if (fireMode == 0) return ammoIcon;
+        else return ammoProximityIcon;
     }
 }

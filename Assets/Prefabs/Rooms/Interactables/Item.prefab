@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,11 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd95fd5d5b2f5ed4b887db61fe4385c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
   remoteActivation: 0
   handActivation: 1
+  hideInComputer: 0
   itemSO: {fileID: 11400000, guid: 58f5050cac7a15d4cb1bf4a4c706dc43, type: 2}
 --- !u!1 &5381100886079257117
 GameObject:

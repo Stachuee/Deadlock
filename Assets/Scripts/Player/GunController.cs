@@ -62,11 +62,6 @@ public class GunController : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        RotateGun();
-    }
-
 
     public void AddAmmo(WeaponType weaponType, AmmoType ammoType, int amount)
     {
@@ -124,6 +119,7 @@ public class GunController : MonoBehaviour
 
     public void ChangeWeapon(WeaponType type)
     {
+        if (currentWeaponIndex == (int)type) return;
         weapons[currentWeaponIndex].EnableGun(false);
         currentWeaponIndex = (int)type;
         
@@ -146,33 +142,10 @@ public class GunController : MonoBehaviour
 
     }
 
-    void RotateGun()
-    {
-        //Vector2 diff = (playerController.currentAimDirection).normalized;
-        //float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        //if (rot_z > 90 || rot_z < -90) gunSprite.flipY = true;
-        //else gunSprite.flipY = false;
-        //gunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z);
-
-        //RaycastHit2D hit = Physics2D.Raycast(barrel.position, diff, Mathf.Infinity, ~laserMask);
-
-        //if (hit.collider != null)
-        //{
-        //    laser.SetPosition(0, barrel.position);
-        //    laser.SetPosition(1, hit.point);
-        //}
-    }
-
     public void ShootGun(bool isShooting)
     {
         gun.Shoot(isShooting);
     }
-
-
-    //public void SetEffectToDeactivate(ParticleSystem ps)
-    //{
-    //    effectToDeactivate = ps;
-    //}
 
     public GunBase GetCurrentGun()
     {

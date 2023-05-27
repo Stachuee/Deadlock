@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Medicine : MedicineBase
 {
-
+    [SerializeField] float healing;
+    [SerializeField] float healingDuration;
     public override void AddEffect(PlayerController pC)
     {
-        pC.Heal();
+        pC.Heal(healing, healingDuration);
     }
 
 

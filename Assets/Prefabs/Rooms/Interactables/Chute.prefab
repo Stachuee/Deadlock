@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 8d9dd16c3740ca74ba91816a85955efd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,8 +124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db97f8e1e090c35428f2bf17df22fbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayName: 
+  computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
-  outputChute: 0
+  remoteActivation: 0
+  handActivation: 1
+  hideInComputer: 0
+  connectedChute: {fileID: 0}
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
+  oneWay: 0
+  oneWayOutput: 0

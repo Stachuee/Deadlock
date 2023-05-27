@@ -13,7 +13,7 @@ public class HarpoonAmmo : MonoBehaviour
     float timeToDespawn;
     float timeToDespawnRemain;
 
-    [SerializeField] DamageType damageType;
+    //[SerializeField] DamageType damageType;
 
     [SerializeField] bool isPrecise = false;
 
@@ -45,14 +45,14 @@ public class HarpoonAmmo : MonoBehaviour
                 if(!isPrecise)
                 {
                     ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
-                    target.TakeDamage(damage, damageType);
+                    target.TakeDamage(damage);
                     stuck = true;
                     transform.SetParent(hit.transform);
                 }
                 else if(!alreadyHit.ContainsKey(hit.transform.name))
                 {
                     ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
-                    target.TakeDamage(damage, damageType);
+                    target.TakeDamage(damage);
                     alreadyHit.Add(hit.transform.name, true);
                 }
             }
@@ -80,10 +80,10 @@ public class HarpoonAmmo : MonoBehaviour
         prevPos = transform.position;
     }
 
-    public DamageType GetDamageType()
-    {
-        return damageType;
-    }
+    //public DamageType GetDamageType()
+    //{
+    //    return damageType;
+    //}
     private IEnumerator UnableDamage()
     {
         float tmpDamage = damage;

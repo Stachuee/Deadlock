@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class FireGun : GunBase
 {
-    [SerializeField] float fireRate = 0.1f;
+    readonly int MAX_AMMO = 100;
 
+    [SerializeField] float fireRate = 0.1f;
+    [SerializeField] float usagePerSecond;
+
+    [SerializeField] Transform particleHandle;
     [SerializeField] ParticleSystem fireVFX;
     [SerializeField] ParticleSystem iceVFX;
 
     bool startedShooting;
 
-    [SerializeField] int maxAmmo;
-    [SerializeField] int currentAmmo;
-    [SerializeField] int currentIceAmmo;
+    [SerializeField] Sprite ammoIcon;
+    [SerializeField] float maxAmmo;
+    [SerializeField] float currentAmmo;
+    [SerializeField] Sprite ammoIceIcon;
+    [SerializeField] float maxIceAmmo;
+    [SerializeField] float currentIceAmmo;
 
-    int currentMode;
-
+    int fireMode;
+    int targetFireMode;
 
     GunController gunController;
 
@@ -25,12 +32,8 @@ public class FireGun : GunBase
     {
         gunController = FindObjectOfType<GunController>();
         base.Start();
-
-    }
-
-    public override void Reload()
-    {
-
+        currentAmmo = MAX_AMMO;
+        currentIceAmmo = MAX_AMMO;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -53,6 +56,7 @@ public class FireGun : GunBase
     {
         fireVFX.Stop();
         iceVFX.Stop();
+        StopReload();
     }
 
     override protected void Update()
@@ -61,16 +65,34 @@ public class FireGun : GunBase
         //firePS.transform.rotation = transform.rotation;
         //firePS.transform.position = barrel.position;
 
-        if (isShooting && currentAmmo > 0)
+        if (reloading) return;
+
+        if ((fireMode == 0 && currentAmmo <= 0) || (fireMode == 1 && currentIceAmmo <= 0))
         {
-            if(!startedShooting)
+            if (fireMode == 0 && maxAmmo > 0 || fireMode == 1 && maxIceAmmo > 0)
             {
-                if(currentMode == 0)
+                Reload();
+                return;
+            }
+            else return;
+        }
+
+        if (isShooting && ((fireMode == 0 && currentAmmo <= 0 && currentAmmo > 0) || (fireMode == 1 && currentIceAmmo <= 0 && currentIceAmmo > 0)))
+        {
+            if (fireMode == 0) currentAmmo -= usagePerSecond * Time.deltaTime;
+            else currentIceAmmo -= usagePerSecond * Time.deltaTime;
+
+            particleHandle.position = barrel.position;
+            particleHandle.rotation = Quaternion.Euler(0, 0, rot_z);
+
+            if (!startedShooting)
+            {
+                if(fireMode == 0)
                 {
                     fireVFX.Play();
                     startedShooting = true;
                 }
-                else if(currentMode == 1)
+                else if(fireMode == 1)
                 {
                     iceVFX.Play();
                     startedShooting = true;
@@ -93,28 +115,54 @@ public class FireGun : GunBase
     {
         if (input )
         {
+            StopReload();
             fireVFX.Stop();
             iceVFX.Stop();
             startedShooting = false;
-            currentMode = (currentMode + 1) % 2;
+            targetFireMode = (fireMode + 1) % 2;
+            Reload(true);
         }
     }
 
     override public string GetAmmoAmount()
     {
-        if (currentMode == 0) return currentAmmo.ToString();
-        else if (currentMode == 1) return currentIceAmmo.ToString();
+        if (fireMode == 0) return Mathf.CeilToInt(currentAmmo).ToString() + "/" + Mathf.CeilToInt(maxAmmo).ToString();
+        else if (fireMode == 1) return Mathf.CeilToInt(currentIceAmmo).ToString() + "/" + Mathf.CeilToInt(maxIceAmmo).ToString();
         else return "";
     }
 
-    override public DamageType GetBulletType()
-    {
-        if (currentMode == 0) return DamageType.Fire;
-        else return DamageType.Ice;
-    }
 
     public override string GetBothAmmoString()
     {
-        return currentAmmo + " " + currentIceAmmo;
+        return Mathf.CeilToInt(currentAmmo + maxAmmo) + " " + Mathf.CeilToInt(currentIceAmmo + maxIceAmmo);
+    }
+
+    public override void RefillAmmo()
+    {
+        fireMode = targetFireMode;
+        if (fireMode == 0)
+        {
+            maxAmmo += currentAmmo;
+            currentAmmo = Mathf.Min(MAX_AMMO, maxAmmo);
+            maxAmmo -= currentAmmo;
+        }
+        else if (fireMode == 1)
+        {
+            maxIceAmmo += currentIceAmmo;
+            currentIceAmmo = Mathf.Min(MAX_AMMO, maxIceAmmo);
+            maxIceAmmo -= currentIceAmmo;
+        }
+    }
+
+    protected override bool IsFullOnAmmo()
+    {
+        if (fireMode == 0) return currentAmmo == MAX_AMMO;
+        else return currentIceAmmo == MAX_AMMO;
+    }
+
+    public override Sprite GetAmmoIcon()
+    {
+        if (fireMode == 0) return ammoIcon;
+        else return ammoIceIcon;
     }
 }

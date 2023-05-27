@@ -17,28 +17,28 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
     public abstract void Move(Vector3 targetPosition);
     //public abstract void Attack();
 
-    public float TakeDamage(float damage, DamageType type)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
 
-        switch (type)
-        {
-            case DamageType.Bullet:
-                Damage(damage);
-                break;
-            case DamageType.Poison:
-                StartCoroutine(PoisonDamage(3, damage));
-                break;
-            case DamageType.Fire:
-                Damage(damage * 2);
-                break;
-        }
+        //switch (type)
+        //{
+        //    case DamageType.Bullet:
+        //        Damage(damage);
+        //        break;
+        //    case DamageType.Poison:
+        //        StartCoroutine(PoisonDamage(3, damage));
+        //        break;
+        //    case DamageType.Fire:
+        //        Damage(damage * 2);
+        //        break;
+        //}
 
         if (currentHp <= 0) Die();
 
         return damage;
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
+    public void TakeArmorDamage( float damage)
     {
         
     }
@@ -113,5 +113,11 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
     public void ApplyStatus(Status toApply)
     {
         
+    }
+
+
+    public float GetArmor()
+    {
+        return 0;
     }
 }

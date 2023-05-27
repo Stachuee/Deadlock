@@ -16,12 +16,12 @@ public class DoorClosed : MonoBehaviour, ITakeDamage
         return false;
     }
 
-    public float TakeDamage(float damage, DamageType type)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
-        return parrent.TakeDamage(damage, type);
+        return parrent.TakeDamage(damage);
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
+    public void TakeArmorDamage(float damage)
     {
 
     }
@@ -29,5 +29,10 @@ public class DoorClosed : MonoBehaviour, ITakeDamage
     public void ApplyStatus(Status toApply)
     {
         
+    }
+
+    public float GetArmor()
+    {
+        return 0;
     }
 }

@@ -60,7 +60,7 @@ public class DoorScript : PoweredInteractable
 
     }
 
-    public float TakeDamage(float damage, DamageType type)
+    public float TakeDamage(float damage)
     {
         float damageAmmount = damage;
         hp -= damageAmmount;

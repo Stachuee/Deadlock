@@ -24,7 +24,7 @@ public class Banshee : Crawler
         rageCdRemain -= Time.deltaTime;
     }
 
-    public override float TakeDamage(float damage, DamageType type)
+    public override float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
         if (!enraged && rageCdRemain <= 0)
         {
@@ -32,8 +32,8 @@ public class Banshee : Crawler
             enraged = true;
             StartCoroutine("Enraged");
         }
-        if(enraged) return base.TakeDamage(damage * (1 - rageDamageResistance), type);
-        else return base.TakeDamage(damage, type);
+        if(enraged) return base.TakeDamage(damage * (1 - rageDamageResistance));
+        else return base.TakeDamage(damage);
     }
 
     IEnumerator Enraged()

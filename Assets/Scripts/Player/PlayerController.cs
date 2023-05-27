@@ -15,7 +15,7 @@ public struct PlayerInfo
     public float throwStrength;
 
 
-    public DamageTypeResistance damageResistance;
+    public float armor;
 }
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
@@ -44,11 +44,16 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public UiController uiController;
     public CameraFollowScript cameraController;
 
-    [SerializeField] GameObject attackArea;
-    [SerializeField] float attackDelay = 0.2f;
-    float attackTimer = 0f;
+
+    [SerializeField] float meleDelay = 0.2f;
+    float meleTimer = 0f;
+    [SerializeField] float meleOffset;
+    [SerializeField] float meleRadius;
+    [SerializeField] float meleDamage;
+
     bool isAttacking = false;
     bool isStimulated = false;
+    bool isHealing = false;
 
 
 
@@ -172,13 +177,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         if (isAttacking)
         {
-            attackTimer += Time.deltaTime;
+            meleTimer += Time.deltaTime;
 
-            if (attackTimer >= attackDelay)
+            if (meleTimer >= meleDelay)
             {
-                attackTimer = 0;
+                meleTimer = 0;
                 isAttacking = false;
-                attackArea.SetActive(isAttacking);
             }
         }
     }
@@ -207,9 +211,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         }
     }
 
-    public void Heal()
+    public void Heal(float hpRestore, float time)
     {
-        playerInfo.hp = playerInfo.maxHp;
+        StartCoroutine(Healing(hpRestore, time));
     }
 
     public void Stimulate(float effectDuration)
@@ -217,39 +221,49 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         StartCoroutine(SpeedIncrease(effectDuration));
     }
 
+    readonly float HEALING_TICK = 0.2f;
+
+    [SerializeField] ParticleSystem tempHealing;
+    [SerializeField] ParticleSystem tempStim;
+    IEnumerator Healing(float hpRestore, float time)
+    {
+        isHealing = true;
+        tempHealing.Play();
+        for (float i = 0; i <= time; i += HEALING_TICK)
+        {
+            yield return new WaitForSeconds(HEALING_TICK);
+            playerInfo.hp = Mathf.Clamp(playerInfo.hp + (hpRestore/time) * HEALING_TICK, 0, playerInfo.maxHp);
+        }
+        tempHealing.Stop();
+        isHealing = false;
+    }
 
     IEnumerator SpeedIncrease(float time)
     {
         isStimulated = true;
+        tempStim.Play();
 
         float tmpSpeed = playerInfo.speed;
-        float tmpBulletRes = playerInfo.damageResistance.bulletResistance;
-        float tmpFireRes = playerInfo.damageResistance.fireResistance;
-        float tmpIceRes = playerInfo.damageResistance.iceResistance;
-        float tmpPoisonRes = playerInfo.damageResistance.poisonResistance;
-        float tmpMeleRes = playerInfo.damageResistance.meleResistance;
+        float tmpArmor = playerInfo.armor;
 
         playerInfo.speed *= 2;
 
-        playerInfo.damageResistance.bulletResistance += 0.5f;
-        playerInfo.damageResistance.fireResistance += 0.5f;
-        playerInfo.damageResistance.iceResistance += 0.5f;
-        playerInfo.damageResistance.poisonResistance += 0.5f;
-        playerInfo.damageResistance.meleResistance += 0.5f;
+        playerInfo.armor += 0.5f;
 
         yield return new WaitForSeconds(time);
         isStimulated = false;
+        tempStim.Stop();
         playerInfo.speed = tmpSpeed;
-        playerInfo.damageResistance.bulletResistance = tmpBulletRes;
-        playerInfo.damageResistance.fireResistance = tmpFireRes;
-        playerInfo.damageResistance.iceResistance = tmpIceRes;
-        playerInfo.damageResistance.poisonResistance = tmpPoisonRes;
-        playerInfo.damageResistance.meleResistance = tmpMeleRes;
+        playerInfo.armor = tmpArmor;
     }
 
     public bool GetIsStimulated()
     {
         return isStimulated;
+    }
+    public bool GetIsHealing()
+    {
+        return isHealing;
     }
 
     public Vector2 GetMovementDirection()
@@ -310,12 +324,21 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         gunController.ShootGun(context.ReadValueAsButton());
     }
 
+
+
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.ReadValueAsButton())
+        if (context.ReadValueAsButton() && !isAttacking)
         {
             isAttacking = true;
-            attackArea.SetActive(isAttacking);
+            Collider2D[] hits = Physics2D.OverlapCircleAll((Vector2)transform.position + currentAimDirection * meleOffset, meleRadius);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if(hits[i].transform.tag == "Enemy")
+                {
+                    hits[i].GetComponent<ITakeDamage>().TakeDamage(meleDamage);
+                }
+            }
         }
     }
 
@@ -380,7 +403,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     #endregion
 
     #region interfaces
-    public float TakeDamage(float damage, DamageType type)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
         playerInfo.hp -= damage;
         return damage;
@@ -390,9 +413,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
+    public void TakeArmorDamage(float damage)
     {
         throw new System.NotImplementedException();
+    }
+    public float GetArmor()
+    {
+        return 0;
     }
 
     public bool IsImmune()
@@ -563,4 +590,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     #endregion
 
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere((Vector2)transform.position + currentAimDirection.normalized * meleOffset, meleRadius);
+    }
 }

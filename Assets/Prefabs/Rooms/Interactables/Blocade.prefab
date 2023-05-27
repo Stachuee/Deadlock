@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,16 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7cf4240a8c96974fb9c6f6bdd8298fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Blocade
-  computerIcon: {fileID: 21300000, guid: a300325b4881a1a4d9fb2998d3ee253a, type: 3}
-  onTrigger:
-    m_PersistentCalls:
-      m_Calls: []
-  remoteActivation: 0
-  handActivation: 0
-  hideInComputer: 0
   maxHp: 100
   hp: 0
-  unlocksNewSegment: 0
-  segmentToUnlock: {fileID: 0}
+  displayName: Blocade
+  door: {fileID: 0}
   bossToSpawn: {fileID: 238913776322736951, guid: 3dc7781769fd13a4fbc3884c0085a517, type: 3}

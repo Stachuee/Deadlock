@@ -22,10 +22,7 @@ public class BulletsInfo : MonoBehaviour
 
     void Update()
     {
-        if (gunController.GetCurrentGun().GetBulletType() == DamageType.Bullet) bulletTypeSprite.color = Color.gray;
-        else if (gunController.GetCurrentGun().GetBulletType() == DamageType.Fire) bulletTypeSprite.color = Color.red;
-        else if (gunController.GetCurrentGun().GetBulletType() == DamageType.Poison) bulletTypeSprite.color = Color.green;
-        else if (gunController.GetCurrentGun().GetBulletType() == DamageType.Ice) bulletTypeSprite.color = Color.blue;
+        bulletTypeSprite.sprite = gunController.GetCurrentGun().GetAmmoIcon();
 
         bulletsAmount.text = (gunController.GetCurrentGun().GetAmmoAmount());
     }

@@ -38,13 +38,13 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
         }
     }
 
-    public float TakeDamage(float damage, DamageType type)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
         hp -= damage;
         return damage;
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
+    public void TakeArmorDamage(float damage)
     {
         
     }
@@ -62,5 +62,10 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
     public void ApplyStatus(Status toApply)
     {
     
+    }
+
+    public float GetArmor()
+    {
+        return 0;
     }
 }

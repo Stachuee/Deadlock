@@ -6,13 +6,6 @@ using UnityEngine;
 
 public class _EnemyBase : MonoBehaviour, ITakeDamage
 {
-    public readonly float POISON_DAMAGE_PER_TICK = 10f;
-    public readonly float FIRE_DAMAGE_PER_TICK = 10f;
-    public readonly float FREEZE_DAMAGE_PER_TICK = 10f;
-    public readonly float FREEZE_BASE_STRENGTH = 0.5f;
-
-    public readonly float BASE_EFFECT_DURATION = 5f;
-    public readonly float BASE_EFFECT_TICK = 0.5f;
 
     [SerializeField]
     protected float maxHp;
@@ -28,7 +21,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected float lastAttack;
 
     [SerializeField]
-    DamageTypeResistance resistances;
+    float armor;
 
 
     [SerializeField]
@@ -59,8 +52,8 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             if (poisonStop < Time.time) poisoned = false;
             if (nextPoisonTick < Time.time) 
             {
-                TakeDamage(POISON_DAMAGE_PER_TICK, DamageType.Poison);
-                nextPoisonTick = Time.time + BASE_EFFECT_TICK;
+                TakeDamage(CombatController.POISON_DAMAGE_PER_TICK);
+                nextPoisonTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
         if (frozen)
@@ -72,8 +65,8 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             }
             if (nextFreezeTick < Time.time)
             {
-                TakeDamage(FREEZE_DAMAGE_PER_TICK, DamageType.Ice);
-                nextFreezeTick = Time.time + BASE_EFFECT_TICK;
+                TakeDamage(CombatController.FREEZE_DAMAGE_PER_TICK);
+                nextFreezeTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
         if (onFire)
@@ -85,57 +78,71 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             }
             if (nextFireTick < Time.time)
             {
-                TakeDamage(FIRE_DAMAGE_PER_TICK, DamageType.Fire);
-                nextFireTick = Time.time + BASE_EFFECT_TICK;
+                TakeDamage(CombatController.FIRE_DAMAGE_PER_TICK);
+                nextFireTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
     }
 
-    public virtual float TakeDamage(float damage, DamageType type)
+    public virtual float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
+
         float damageTaken = damage;
-        switch (type)
+
+        switch (effects)
         {
-            case DamageType.Bullet:
-                damageTaken = (1 - resistances.GetResistance(type)) * damage;
+            case DamageEffetcts.None:
+                damageTaken = (1 - armor) * damage;
                 break;
-            case DamageType.Poison:
-                //if (poisoned) break;
-                damageTaken = (1 - resistances.GetResistance(type)) * damage;
-                //StartCoroutine(PoisonDamage(3, damageTaken));
-                break;
-            case DamageType.Fire:
-                //if (onFire) break;
-                damageTaken = (1 - resistances.GetResistance(type)) * damage;
-                //StartCoroutine(FireDamage(3, damageTaken));
-                break;
-            case DamageType.Ice:
-                //if (frozen) break;
-                damageTaken = (1 - resistances.GetResistance(type)) * damage;
-                //StartCoroutine(Freeze(3, damageTaken));
-                break;
-            case DamageType.Mele:
-                damageTaken = (1 - resistances.GetResistance(type)) * damage;
-                break;
-            case DamageType.Disintegrating:
-                float dResistance = resistances.GetResistance(DamageType.Bullet);
-                if (dResistance > 0.5f)
-                {
-                    damageTaken = damage * (1 - (dResistance - 0.5f));
-                }
-                else
-                {
-                    damageTaken = damage;
-                }
-                break;
-            default:
-                Debug.LogError($"Invalid DamageType: {type} for Enemy");
+            case DamageEffetcts.Disintegrating:
+                damageTaken = CombatController.DISINTEGRATING_FALLOFF.Evaluate(armor) * damage;
                 break;
         }
+
         hp -= damageTaken;
 
         if (hp <= 0) Dead();
         return damageTaken;
+        //switch (type)
+        //{
+        //    case DamageType.Bullet:
+        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
+        //        break;
+        //    case DamageType.Poison:
+        //        //if (poisoned) break;
+        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
+        //        //StartCoroutine(PoisonDamage(3, damageTaken));
+        //        break;
+        //    case DamageType.Fire:
+        //        //if (onFire) break;
+        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
+        //        //StartCoroutine(FireDamage(3, damageTaken));
+        //        break;
+        //    case DamageType.Ice:
+        //        //if (frozen) break;
+        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
+        //        //StartCoroutine(Freeze(3, damageTaken));
+        //        break;
+        //    case DamageType.Mele:
+        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
+        //        break;
+        //    case DamageType.Disintegrating:
+        //        float dResistance = resistances.GetResistance(DamageType.Bullet);
+        //        damageTaken = CombatController.DISINTEGRATING_FALLOFF.Evaluate(dResistance) * damage;
+        //        //if (dResistance > 0.5f)
+        //        //{
+        //        //    damageTaken = damage * (1 - (dResistance - 0.5f));
+        //        //}
+        //        //else
+        //        //{
+        //        //    damageTaken = damage;
+        //        //}
+        //        break;
+        //    default:
+        //        Debug.LogError($"Invalid DamageType: {type} for Enemy");
+        //        break;
+        //}
+
     }
 
     public void ApplyStatus(Status toApply)
@@ -144,13 +151,13 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         {
             case Status.Poison:
                 poisoned = true;
-                poisonStop = Time.time + BASE_EFFECT_DURATION * (1 - resistances.GetResistance(DamageType.Poison));
+                poisonStop = Time.time + CombatController.BASE_EFFECT_DURATION;
                 break;
             case Status.Freeze:
-                freezeStop = Time.time + BASE_EFFECT_DURATION * (1 - resistances.GetResistance(DamageType.Ice));
+                freezeStop = Time.time + CombatController.BASE_EFFECT_DURATION;
                 if (!frozen)
                 {
-                    speed *= 1 - FREEZE_BASE_STRENGTH;
+                    speed *= 1 - CombatController.FREEZE_BASE_STRENGTH;
                 }
                 frozen = true;
                 break;
@@ -160,14 +167,14 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
                     onFireParticle.Play();
                 }
                 onFire = true;
-                fireStop = Time.time + BASE_EFFECT_DURATION * (1 - resistances.GetResistance(DamageType.Fire));
+                fireStop = Time.time + CombatController.BASE_EFFECT_DURATION;
                 break;
         }
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
+    public void TakeArmorDamage(float damage)
     {
-        resistances.SetResistance(type, resistances.GetResistance(type) - damage);
+        armor = Mathf.Clamp01(armor - damage);
     }
 
     //private void OnParticleCollision(GameObject other)
@@ -223,5 +230,8 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         return false;
     }
 
-
+    public float GetArmor()
+    {
+        return armor;
+    }
 }

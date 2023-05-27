@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IGun
 {
     public void Shoot(bool isShooting);
-    public void Reload();
+    public void Reload(bool forceReload = false);
     public void AddAmmo(AmmoType aT, int amount);
 
     public void ChangeBulletType(bool input);

@@ -16,8 +16,6 @@ public class Granade : MonoBehaviour
 
     [SerializeField] GameObject inventorySlotPrefab;
 
-    [SerializeField] DamageType damageType;
-
     private void Start()
     {
         explosionTimer = fuseDuration + Time.time;    

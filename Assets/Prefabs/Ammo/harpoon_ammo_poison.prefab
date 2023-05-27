@@ -97,10 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ce2521534d4e14b83252bf84f6cbf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 100
   damage: 15
   maskToIgnore:
     serializedVersion: 2
     m_Bits: 448
   timeToDespawn: 5
-  damageType: 2
+  damageType: 0
+  isPrecise: 1

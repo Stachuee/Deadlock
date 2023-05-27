@@ -10,27 +10,28 @@ public abstract class NadeBase : MonoBehaviour
     [SerializeField] float fuse;
     float explosionTime;
     bool armed;
+    Vector2 stickedWallNormal;
 
     [SerializeField] float explosionRadius;
     [SerializeField] float damage;
     [SerializeField] float armorAndResistDamage;
-    [SerializeField] DamageType damageType;
 
-    [SerializeField] GameObject explosionVFX;
+    [SerializeField] protected GameObject explosionVFX;
 
     [SerializeField] Rigidbody2D myBody;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!explodeOnContact && proximity)
         {
             myBody.bodyType = RigidbodyType2D.Kinematic;
             myBody.velocity = Vector2.zero;
             armed = true;
+            stickedWallNormal = collision.GetContact(0).normal;
         }
         else if (explodeOnContact)
         {
-            Explode();
+            Explode(true, collision.GetContact(0).normal);
         }
     }
 
@@ -38,7 +39,7 @@ public abstract class NadeBase : MonoBehaviour
     {
         if (proximity && armed && collision.transform.tag == "Enemy")
         {
-            Explode();
+            Explode(false, stickedWallNormal);
         }
     }
 
@@ -48,17 +49,17 @@ public abstract class NadeBase : MonoBehaviour
         myBody.AddForce(force);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(explosionTime < Time.time)
         {
-            Explode();
+            Explode(false, Vector2.up);
         }
     }
 
-    private void Explode()
+    protected virtual void Explode(bool onContact = false, Vector2? normals = null)
     {
-        Instantiate(explosionVFX, transform.position, Quaternion.identity);
+        //Destroy(Instantiate(explosionVFX, (Vector2)transform.position, Quaternion.identity), 1);
         // Check for enemies within explosion range
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D collider in colliders)
@@ -68,15 +69,12 @@ public abstract class NadeBase : MonoBehaviour
                 ITakeDamage target = collider.GetComponent<ITakeDamage>();
                 if (target != null)
                 {
-                    target.TakeArmorDamage(DamageType.Bullet, armorAndResistDamage);
-                    target.TakeArmorDamage(DamageType.Ice, armorAndResistDamage);
-                    target.TakeArmorDamage(DamageType.Fire, armorAndResistDamage);
-                    target.TakeArmorDamage(DamageType.Mele, armorAndResistDamage);
-                    target.TakeDamage(damage, damageType);
+                    target.TakeArmorDamage(armorAndResistDamage);
+                    target.TakeDamage(damage);
                 }
             }
         }
-
+        
         Destroy(gameObject);
     }
 }

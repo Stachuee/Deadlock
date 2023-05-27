@@ -109,7 +109,7 @@ public class Crawler : _EnemyBase
         if(damaging != null && lastAttack + attackSpeed < Time.time )
         {
             if (damaging.IsImmune()) damaging = null;
-            damaging.TakeDamage(damage, DamageType.Mele);
+            damaging.TakeDamage(damage);
             lastAttack = Time.time;
         }
 

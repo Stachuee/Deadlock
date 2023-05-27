@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 5c5ff08eb0fdbee49843118ff7c83d73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -133,7 +133,6 @@ MonoBehaviour:
   remoteActivation: 0
   handActivation: 1
   hideInComputer: 1
-  useElectricityType: 4
   type: 2
   powerStrength: 0
   currentPowerConsumption: 0
@@ -270,10 +269,6 @@ MonoBehaviour:
   remoteActivation: 0
   handActivation: 1
   hideInComputer: 1
-  useElectricityType: 4
-  powerCellsStrength:
-  - cell: {fileID: 11400000, guid: d07f82cfe08ed504db7a257fb3a5d35b, type: 2}
-    strength: 1
   inDeposit: {fileID: 0}
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   powerCellRenderer: {fileID: 940326108313521810}

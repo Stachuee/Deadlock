@@ -7,7 +7,7 @@ public class Shield : MonoBehaviour, ITakeDamage
     [SerializeField] float hp;
     [SerializeField] float maxHp;
 
-    [SerializeField] float resistance = 0;
+    [SerializeField] float armor = 0;
 
 
     private void Awake()
@@ -15,14 +15,14 @@ public class Shield : MonoBehaviour, ITakeDamage
         hp = maxHp;
     }
 
-    public void TakeArmorDamage(DamageType type, float damage)
+    public void TakeArmorDamage(float damage)
     {
-        if (type == DamageType.Bullet) resistance -= damage;
+         armor -= damage;
     }
 
-    public float TakeDamage(float damage, DamageType type)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
-        float damageTaken = damage * (-resistance + 1);
+        float damageTaken = damage * (-armor + 1);
         hp -= damageTaken;
         if(hp <= 0)
         {
@@ -38,5 +38,10 @@ public class Shield : MonoBehaviour, ITakeDamage
 
     public void ApplyStatus(Status toApply)
     {
+    }
+
+    public float GetArmor()
+    {
+        return armor;
     }
 }

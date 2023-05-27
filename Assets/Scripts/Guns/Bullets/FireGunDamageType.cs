@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class FireGunDamageType : MonoBehaviour
 {
-    [SerializeField] DamageType damageType;
+    //[SerializeField] DamageType damageType;
 
-    public DamageType GetDamageType()
-    {
-        return damageType;
-    }
+    //public DamageType GetDamageType()
+    //{
+    //    return damageType;
+    //}
 }

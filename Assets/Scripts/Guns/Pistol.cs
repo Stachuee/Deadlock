@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Pistol : GunBase
 {
-    readonly float TRAIL_LIFE_TIME = 0.1f;
+    readonly float TRAIL_LIFE_TIME = 0.05f;
+
+    readonly int MAX_AMMO = 12;
 
     //[SerializeField] private List<GameObject> bullets;
     //private int currentBulletIndex = 0;
@@ -12,8 +14,10 @@ public class Pistol : GunBase
     public float shootDelay = 0.2f;
     private float shootTimer = 0f; // time elapsed since last shot
 
+    [SerializeField] Sprite ammoIcon;
     //private Bullet bullet;
     [SerializeField] int damagePerBullet;
+    
     int currentAmmo;
 
     [SerializeField] LineRenderer gunTrail;
@@ -28,13 +32,10 @@ public class Pistol : GunBase
         base.Start();
         //bulletPrefab = bullets[currentBulletIndex];
         //bullet = bulletPrefab.GetComponent<Bullet>();
-        currentAmmo = 0;
+        currentAmmo = MAX_AMMO;
         Reload();
     }
-    public override void Reload()
-    {
-        currentAmmo = 12;
-    }
+
 
     public override void AddAmmo(AmmoType aT, int amount)
     {
@@ -59,8 +60,13 @@ public class Pistol : GunBase
             trailShown = false;
         }
 
-        if (currentAmmo <= 0) return;
+        if (reloading) return;
 
+        if (currentAmmo <= 0)
+        {
+            Reload();
+            return;
+        } 
         if (isShooting )
         {
             if (Time.time < shootTimer + shootDelay)
@@ -80,7 +86,7 @@ public class Pistol : GunBase
 
                 if(hit.transform.tag == "Enemy")
                 {
-                    hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet, DamageType.Bullet);
+                    hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet);
                 }
             }
 
@@ -107,14 +113,34 @@ public class Pistol : GunBase
         //return "";
     }
 
-    override public DamageType GetBulletType()
-    {
-        return DamageType.Bullet;
-        //return bullet.GetDamageType();
-    }
+    //override public DamageType GetBulletType()
+    //{
+    //    return DamageType.Bullet;
+    //    //return bullet.GetDamageType();
+    //}
 
     public override string GetBothAmmoString()
     {
         return "";
+    }
+
+    private void OnDisable()
+    {
+        StopReload();
+    }
+
+    public override void RefillAmmo()
+    {
+        currentAmmo = MAX_AMMO;
+    }
+
+    protected override bool IsFullOnAmmo()
+    {
+        return MAX_AMMO == currentAmmo;
+    }
+
+    public override Sprite GetAmmoIcon()
+    {
+        return ammoIcon;
     }
 }

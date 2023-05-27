@@ -8,12 +8,11 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
 {
 
 
-    GameObject throwable;
+    EquipmentType equiped;
 
     PlayerController playerController;
 
     [SerializeField] private List<GameObject> equipment;
-    private int currentEquipmentIndex = 0;
 
     [SerializeField] private InventorySelector inventorySelector;
 
@@ -22,6 +21,8 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
     [SerializeField]
     Dictionary<EquipmentType, int> backpack = new Dictionary<EquipmentType, int>();
 
+    [SerializeField] MedicineBase medkit;
+    [SerializeField] MedicineBase stim;
 
     Vector2 aimDirection;
 
@@ -39,7 +40,7 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
     {
         playerController.AddMovmentSubscriber(this);
 
-        throwable = equipment[currentEquipmentIndex];
+        equiped = EquipmentType.Granade;
 
         inventorySelector.ActivateSlot(EquipmentType.Molotov);
         inventorySelector.ActivateSlot(EquipmentType.Medkit);
@@ -50,47 +51,45 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
 
     public void ChangeEquipment(EquipmentType type)
     {
-        Debug.Log(type);
-        currentEquipmentIndex = (int)type;
-        throwable = equipment[currentEquipmentIndex];
+        equiped = type;
     }
 
     public void UseEquipment()
     {
-        if (throwable.CompareTag("Granade") && backpack[EquipmentType.Granade] <= 0)
-            return;
-        else if (throwable.CompareTag("Molotov") && backpack[EquipmentType.Molotov] <= 0)
-            return;
-        else if (throwable.CompareTag("Tower") && backpack[EquipmentType.Turret] <= 0)
-            return;
-        else if (throwable.CompareTag("Medicine") && backpack[EquipmentType.Medkit] <= 0)
-            return;
-        else if ((throwable.CompareTag("Stimulator") && backpack[EquipmentType.Stim] <= 0) || (throwable.CompareTag("Stimulator") && playerController.GetIsStimulated()))
-            return;
+        GameObject temp;
 
+        switch (equiped)
+        {
+            case EquipmentType.Granade:
+                if (backpack[EquipmentType.Granade] <= 0) return;
+                temp = Instantiate(equipment[(int)equiped], transform.position, Quaternion.identity);
+                temp.GetComponent<NadeBase>().Lunch(aimDirection.normalized * playerController.playerInfo.throwStrength);
+                return;
 
-        if (throwable.CompareTag("Tower"))
-        {
-            backpack[EquipmentType.Turret]--;
-            Instantiate(throwable, towerPlace.position, Quaternion.identity);
-            return;
-        }
-        else if (throwable.CompareTag("Medicine") || throwable.CompareTag("Stimulator"))
-        {
-            if (throwable.CompareTag("Medicine"))
+            case EquipmentType.Molotov:
+                if (backpack[EquipmentType.Molotov] <= 0) return;
+                temp = Instantiate(equipment[(int)equiped], transform.position, Quaternion.identity);
+                temp.GetComponent<NadeBase>().Lunch(aimDirection.normalized * playerController.playerInfo.throwStrength);
+                return;
+
+            case EquipmentType.Turret:
+                if (backpack[EquipmentType.Turret] <= 0) return;
+                backpack[EquipmentType.Turret]--;
+                Instantiate(equipment[(int)equiped], (Vector2)transform.position + aimDirection.normalized * 1, Quaternion.identity).GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * playerController.playerInfo.throwStrength);
+                return;
+
+            case EquipmentType.Medkit:
+                if (backpack[EquipmentType.Medkit] <= 0 || playerController.GetIsHealing()) return;
                 backpack[EquipmentType.Medkit]--;
-            else if (throwable.CompareTag("Stimulator"))
-                backpack[EquipmentType.Stim]--;
-            throwable.GetComponent<MedicineBase>().AddEffect(playerController);
-            return;
-        }
+                medkit.AddEffect(playerController);
+                return;
 
-        if (throwable.CompareTag("Granade"))
-            backpack[EquipmentType.Granade]--;
-        else if (throwable.CompareTag("Molotov"))
-            backpack[EquipmentType.Molotov]--;
-        GameObject temp = Instantiate(throwable, transform.position, Quaternion.identity);
-        temp.GetComponent<NadeBase>().Lunch(aimDirection.normalized * playerController.playerInfo.throwStrength);
+            case EquipmentType.Stim:
+                if (backpack[EquipmentType.Stim] <= 0 || playerController.GetIsStimulated()) return;
+                backpack[EquipmentType.Stim]--;
+                stim.AddEffect(playerController);
+                return;
+        }
     }
 
     public string GetEquipmentAmmo(EquipmentType type)

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Laser : GunBase
 {
+    readonly float MAX_AMMO = 100;
+
     [SerializeField] private List<AmmoType> laserTypeList;
 
     [SerializeField] Transform firePoint;
@@ -15,10 +17,15 @@ public class Laser : GunBase
     [SerializeField] float maxDamage;
     [SerializeField] float damageIncreasePerSecond;
 
-    [SerializeField] float maxAmmo;
+
     [SerializeField] float ammoUssagePerSecond;
+
+    [SerializeField] Sprite ammoIcon;
+    [SerializeField] float maxAmmo;
     [SerializeField] float currentAmmo;
-    [SerializeField] float restoreAmmo;
+    [SerializeField] Sprite ammoRestoreIcon;
+    [SerializeField] float maxRestoreAmmo;
+    [SerializeField] float currentRestoreAmmo;
 
     [SerializeField, MinMaxSlider(0, 2)] Vector2 laserMinWidth;
 
@@ -27,17 +34,18 @@ public class Laser : GunBase
     private Transform lastTargetHit = null;
     ITakeDamage lastHitITakeDamage;
 
-
+    int fireMode;
+    int targetFireMode;
 
     AmmoType laserType;
     int currentAmmoTypeId = 0;
+
     protected override void Start()
     {
         base.Start();
         baseDamage = damage;
-    }
-    public override void Reload()
-    {
+        currentAmmo = MAX_AMMO;
+        currentRestoreAmmo = MAX_AMMO;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -48,7 +56,7 @@ public class Laser : GunBase
                 currentAmmo += amount;
                 break;
             case AmmoType.Repair:
-                restoreAmmo += amount;
+                currentRestoreAmmo += amount;
                 break;
             default:
                 Debug.LogError($"Wrong AmmoType({aT}) for Laser!");
@@ -60,16 +68,27 @@ public class Laser : GunBase
     protected override void Update()
     {
         base.Update();
-        if(laserType == AmmoType.Bullet)
+
+        if (reloading)
+        {
+            lineRenderer.enabled = false;
+            return;
+        }
+
+        if ((fireMode == 0 && currentAmmo <= 0) || (fireMode == 1 && currentRestoreAmmo <= 0))
+        {
+            if (fireMode == 0 && maxAmmo > 0 || fireMode == 1 && maxRestoreAmmo > 0)
+            {
+                Reload();
+                return;
+            }
+            else return;
+        }
+
+        if (fireMode == 0)
         {
             if (isShooting && currentAmmo > 0)
             {
-                //if (Time.time < shootTimer + fireRate)
-                //{
-                //    ableToDamage = false;
-                //    currentAmmo -= 5;
-                //}
-                //else ableToDamage = true;
                 lineRenderer.enabled = true;
 
                 RaycastHit2D hit;
@@ -88,11 +107,8 @@ public class Laser : GunBase
 
                         if (lastHitITakeDamage != null)
                         {
-                            lastHitITakeDamage.TakeDamage(damage * Time.deltaTime, DamageType.Bullet);
-                            lastHitITakeDamage.TakeArmorDamage(DamageType.Bullet, armorAndResistShreadPerSecond * Time.deltaTime);
-                            lastHitITakeDamage.TakeArmorDamage(DamageType.Ice, armorAndResistShreadPerSecond * Time.deltaTime);
-                            lastHitITakeDamage.TakeArmorDamage(DamageType.Fire, armorAndResistShreadPerSecond * Time.deltaTime);
-                            lastHitITakeDamage.TakeArmorDamage(DamageType.Mele, armorAndResistShreadPerSecond * Time.deltaTime);
+                            lastHitITakeDamage.TakeDamage(damage * Time.deltaTime);
+                            lastHitITakeDamage.TakeArmorDamage(armorAndResistShreadPerSecond * Time.deltaTime);
                             damage = Mathf.Clamp(damage + damageIncreasePerSecond * Time.deltaTime, damage, maxDamage);
                         }
                     }
@@ -116,33 +132,28 @@ public class Laser : GunBase
                 lineRenderer.enabled = false;
             }
         }
-        else if (laserType == AmmoType.Repair)
+        else if (fireMode == 1)
         {
-            if (isShooting && currentAmmo > 0)
-            {
-                //todo
-            }
-            }
-        
+            //todo
+        }
     }
 
     override public void ChangeBulletType(bool input)
     {
         if (input)
         {
-            currentAmmoTypeId = (currentAmmoTypeId + 1) % laserTypeList.Count;
+            StopReload();
+            targetFireMode = (currentAmmoTypeId + 1) % laserTypeList.Count;
             laserType = laserTypeList[currentAmmoTypeId];
+            Reload(true);
         }
     }
 
     override public string GetAmmoAmount()
     {
-        return (Mathf.FloorToInt(currentAmmo)).ToString();
-    }
-
-    override public DamageType GetBulletType()
-    {
-        return DamageType.Bullet;
+        if (fireMode == 0) return Mathf.CeilToInt(currentAmmo).ToString() + "/" + Mathf.CeilToInt(maxAmmo).ToString();
+        else if (fireMode == 1) return Mathf.CeilToInt(currentRestoreAmmo).ToString() + "/" + Mathf.CeilToInt(maxRestoreAmmo).ToString();
+        else return "";
     }
 
 
@@ -157,6 +168,45 @@ public class Laser : GunBase
 
     public override string GetBothAmmoString()
     {
-        return Mathf.FloorToInt(currentAmmo) + " " + Mathf.FloorToInt(restoreAmmo);
+        return Mathf.CeilToInt(currentAmmo + maxAmmo) + " " + Mathf.CeilToInt(currentRestoreAmmo + maxRestoreAmmo);
+    }
+
+    public override void RefillAmmo()
+    {
+        fireMode = targetFireMode;
+        if (fireMode == 0)
+        {
+            maxAmmo += currentAmmo;
+            currentAmmo = Mathf.Min(MAX_AMMO, maxAmmo);
+            maxAmmo -= currentAmmo;
+        }
+        else if (fireMode == 1)
+        {
+            maxRestoreAmmo += currentRestoreAmmo;
+            currentRestoreAmmo = Mathf.Min(MAX_AMMO, maxRestoreAmmo);
+            maxRestoreAmmo -= currentRestoreAmmo;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopReload();
+    }
+
+    private void OnEnable()
+    {
+        targetFireMode = fireMode;
+    }
+
+    protected override bool IsFullOnAmmo()
+    {
+        if (fireMode == 0) return currentAmmo == MAX_AMMO;
+        else return currentRestoreAmmo == MAX_AMMO;
+    }
+
+    public override Sprite GetAmmoIcon()
+    {
+        if (fireMode == 0) return ammoIcon;
+        else return ammoRestoreIcon;
     }
 }

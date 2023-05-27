@@ -5,17 +5,21 @@ using UnityEngine.InputSystem;
 
 public class AutomaticRiffle : GunBase
 {
-    readonly float TRAIL_LIFE_TIME = 0.1f;
+    readonly float TRAIL_LIFE_TIME = 0.05f;
+    readonly int MAX_AMMO = 30;
+
 
     //[SerializeField] private List<GameObject> bullets;
     //private int currentBulletIndex = 0;
 
     [SerializeField] float fireRate = 0.1f;
     private float shootTimer = 0f; // time elapsed since last shot
-    //private Bullet bullet;
+                                   //private Bullet bullet;
 
+    [SerializeField] Sprite ammoIcon;
     [SerializeField] float damagePerBullet;
     [SerializeField] int maxAmmo;
+    [SerializeField] Sprite ammoIconDesintegrating;
     [SerializeField] float damagePerDisintegratingBullet;
     [SerializeField] int maxDisintegratingAmmo;
     int currentAmmo;
@@ -23,9 +27,14 @@ public class AutomaticRiffle : GunBase
 
     [SerializeField] LineRenderer gunTrail;
     [SerializeField] LayerMask toIgnore;
+
+    [SerializeField] Transform bulletImpact;
+    [SerializeField] ParticleSystem bulletImpactVFXWall;
+    [SerializeField] ParticleSystem bulletImpactVFXFlesh;
     float trailDisapearTimer;
     bool trailShown;
     int fireMode;
+    int targetFireMode;
 
 
     protected override void Start()
@@ -33,25 +42,9 @@ public class AutomaticRiffle : GunBase
         base.Start();
         //bulletPrefab = bullets[currentBulletIndex];
         //bullet = bulletPrefab.GetComponent<Bullet>();
-        currentAmmo = 0;
-        currentDisintegratingAmmo = 0;
+        currentAmmo = MAX_AMMO;
+        currentDisintegratingAmmo = MAX_AMMO;
         Reload();
-    }
-
-    public override void Reload()
-    {
-        if (fireMode == 0)
-        {
-            maxAmmo += currentAmmo;
-            currentAmmo = Mathf.Min(30, maxAmmo);
-            maxAmmo -= currentAmmo;
-        }
-        else if (fireMode == 1)
-        {
-            maxDisintegratingAmmo += currentDisintegratingAmmo;
-            currentDisintegratingAmmo = Mathf.Min(30, maxDisintegratingAmmo);
-            maxDisintegratingAmmo -= currentDisintegratingAmmo;
-        }
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -105,11 +98,22 @@ public class AutomaticRiffle : GunBase
         {
             gunTrail.transform.gameObject.SetActive(false);
             trailShown = false;
+            barrelFlash.SetActive(false);
         }
 
-        if ((fireMode == 0 && currentAmmo <= 0) || (fireMode == 1 && currentDisintegratingAmmo <= 0)) return;
+        if (reloading) return;
 
-        if(isShooting)
+        if ((fireMode == 0 && currentAmmo <= 0) || (fireMode == 1 && currentDisintegratingAmmo <= 0))
+        {
+            if (fireMode == 0 && maxAmmo > 0 || fireMode == 1 && maxDisintegratingAmmo > 0)
+            {
+                Reload();
+                return;
+            }
+            else return;
+        }
+
+        if (isShooting)
         {
             if (Time.time < shootTimer + fireRate)
             {
@@ -121,21 +125,33 @@ public class AutomaticRiffle : GunBase
             {
                 gunTrail.SetPosition(0, barrel.position);
                 gunTrail.SetPosition(1, hit.point);
+
+                bulletImpact.position = hit.point;
+                bulletImpact.rotation = Quaternion.Euler(0,0, rot_z - 180);
+                
+
                 trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
                 gunTrail.transform.gameObject.SetActive(true);
                 currentRecoilAngle += (Random.Range(0f,1f) > 0.5f ? -1 : 1) * recoilAnglePerShot;
                 trailShown = true;
+                barrelFlash.SetActive(true);
+                shotAudio.Play();
 
                 if (hit.transform.tag == "Enemy")
                 {
                     if(fireMode == 0)
                     {
-                        hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet, DamageType.Bullet);
+                        hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet);
                     }
                     else
                     {
-                        hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerDisintegratingBullet, DamageType.Disintegrating);
+                        hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerDisintegratingBullet, DamageEffetcts.Disintegrating);
                     }
+                    bulletImpactVFXFlesh.Play();
+                }
+                else
+                {
+                    bulletImpactVFXWall.Play();
                 }
             }
 
@@ -150,7 +166,9 @@ public class AutomaticRiffle : GunBase
     {
         if (input )
         {
-            fireMode = (fireMode + 1) % 2;
+            StopReload();
+            targetFireMode = (fireMode + 1) % 2;
+            Reload(true);
             //currentBulletIndex = (currentBulletIndex + 1) % bullets.Count;
             //bulletPrefab = bullets[currentBulletIndex];
             //bullet = bulletPrefab.GetComponent<Bullet>();
@@ -167,14 +185,53 @@ public class AutomaticRiffle : GunBase
         return "";
     }
 
-    override public DamageType GetBulletType()
-    {
-        if(fireMode == 0) return DamageType.Bullet;
-        else return DamageType.Disintegrating;
-    }
+    //override public DamageType GetBulletType()
+    //{
+    //    if(fireMode == 0) return DamageType.Bullet;
+    //    else return DamageType.Disintegrating;
+    //}
 
     public override string GetBothAmmoString()
     {
         return currentAmmo + maxAmmo + " " + currentDisintegratingAmmo + maxDisintegratingAmmo;
+    }
+
+    public override void RefillAmmo()
+    {
+        fireMode = targetFireMode;
+        if (fireMode == 0)
+        {
+            maxAmmo += currentAmmo;
+            currentAmmo = Mathf.Min(MAX_AMMO, maxAmmo);
+            maxAmmo -= currentAmmo;
+        }
+        else if (fireMode == 1)
+        {
+            maxDisintegratingAmmo += currentDisintegratingAmmo;
+            currentDisintegratingAmmo = Mathf.Min(MAX_AMMO, maxDisintegratingAmmo);
+            maxDisintegratingAmmo -= currentDisintegratingAmmo;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopReload();
+    }
+
+    private void OnEnable()
+    {
+        targetFireMode = fireMode;
+    }
+
+    protected override bool IsFullOnAmmo()
+    {
+        if (fireMode == 0) return currentAmmo == MAX_AMMO;
+        else return currentDisintegratingAmmo == MAX_AMMO;
+    }
+
+    public override Sprite GetAmmoIcon()
+    {
+        if (fireMode == 0) return ammoIcon;
+        else return ammoIconDesintegrating;
     }
 }
