@@ -66,4 +66,10 @@ public class Blocade : MonoBehaviour, ITakeDamage
     {
         return 0;
     }
+
+    public float Heal(float ammount)
+    {
+        hp = Mathf.Min(ammount + hp, maxHp);
+        return ammount;
+    }
 }

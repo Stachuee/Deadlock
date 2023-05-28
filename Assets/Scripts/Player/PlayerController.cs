@@ -135,9 +135,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             {
                 currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.03f);
             }
-            else if(moveDirection.magnitude > 0.05f)
+            else if(moveDirection.magnitude > 0.05f && !LockInAnimation)
             {
                 currentAimDirection = Vector2.SmoothDamp(currentAimDirection, moveDirection, ref vel, 0.03f);
+            }
+            else if(currentAimDirection.magnitude > 0.05f)
+            {
+                currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.03f);
             }
             SendMovmentControll(desiredAimDirection);
         }
@@ -232,7 +236,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         for (float i = 0; i <= time; i += HEALING_TICK)
         {
             yield return new WaitForSeconds(HEALING_TICK);
-            playerInfo.hp = Mathf.Clamp(playerInfo.hp + (hpRestore/time) * HEALING_TICK, 0, playerInfo.maxHp);
+
+            Heal(hpRestore/time * HEALING_TICK);
+            //playerInfo.hp = Mathf.Clamp(playerInfo.hp +  * HEALING_TICK, 0, playerInfo.maxHp);
         }
         tempHealing.Stop();
         isHealing = false;
@@ -425,6 +431,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public bool IsImmune()
     {
         return false;
+    }
+
+    public float Heal(float ammount)
+    {
+        playerInfo.hp = Mathf.Min(ammount + playerInfo.hp, playerInfo.maxHp);
+        return ammount;
     }
 
     #endregion

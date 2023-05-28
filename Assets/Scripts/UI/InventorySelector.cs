@@ -25,9 +25,14 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
     private EquipmentController eC;
 
     bool open;
-
+    bool active = true;
     private void Start()
     {
+        if(pC.isScientist)
+        {
+            active = false;
+            return;
+        }
         gunMenuItemsAmount = slotButtons.Count;
         gC = pC.gunController;
         eC = pC.equipmentController;
@@ -43,7 +48,7 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
 
     public void OpenInventory()
     {
-        if (open) return;
+        if (open || !active) return;
         inventoryPanel.SetActive(true);
         RefreshAmmo();
         pC.AddMovmentSubscriber(this);

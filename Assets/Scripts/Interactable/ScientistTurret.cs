@@ -5,9 +5,12 @@ using GD.MinMaxSlider;
 
 public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubscriberMovment, IControllSubscriberShoot
 {
+    readonly float TRAIL_LIFE_TIME = 0.05f;
+
     [MinMaxSlider(-180, 0)]
     public Vector2Int minMaxTurretAngle;
 
+    [SerializeField] int damagePerBullet;
     bool automatic = true;
 
     [SerializeField]
@@ -31,6 +34,13 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
 
     List<Transform> targets = new List<Transform>();
     Transform target;
+
+
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] LineRenderer gunTrail;
+    float trailDisapearTimer;
+    bool trailShown;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -81,7 +91,13 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     }
     private void Update()
     {
-        if(!automatic)
+        if (trailShown && trailDisapearTimer <= Time.time)
+        {
+            gunTrail.transform.gameObject.SetActive(false);
+            trailShown = false;
+        }
+
+        if (!automatic)
         {
             if (firing && nextShot < Time.time)
             {
@@ -101,7 +117,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
 
                 if (nextShot < Time.time)
                 {
-                    Instantiate(bulletPrefab, barrelTransform.position, Quaternion.Euler(0, 0, rot_z));
+                    Shoot();
                     nextShot = Time.time + shootDelay;
                 }
             }
@@ -137,6 +153,24 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
                 }
             });
             target = closestTarget;
+        }
+    }
+
+    private void Shoot()
+    {
+        RaycastHit2D hit;
+        if (hit = Physics2D.Raycast(gunBarrel.transform.position, target.position - gunBarrel.position, 100, enemyLayer))
+        {
+            gunTrail.SetPosition(0, gunBarrel.position);
+            gunTrail.SetPosition(1, hit.point);
+            trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
+            gunTrail.transform.gameObject.SetActive(true);
+            trailShown = true;
+
+            if (hit.transform.tag == "Enemy")
+            {
+                hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet);
+            }
         }
     }
 

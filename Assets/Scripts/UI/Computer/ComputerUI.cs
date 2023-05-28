@@ -173,11 +173,6 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     {
         if(lookingAtMap)
         {
-            if(!playerController.keyboard)
-            {
-                contentPanel.anchoredPosition = Vector2.SmoothDamp(contentPanel.anchoredPosition, (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
-        - (Vector2)scrollRect.transform.InverseTransformPoint(playerController.uiController.myEventSystem.currentSelectedGameObject.transform.position), ref vel, 0.05f);
-            }
 
             if(player != null)
             {
@@ -200,6 +195,11 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
                         player = playerToCheck;
                     }
                 });
+            }
+            if (!playerController.keyboard)
+            {
+                contentPanel.anchoredPosition = Vector2.SmoothDamp(contentPanel.anchoredPosition, (Vector2)scrollRect.transform.InverseTransformPoint(contentPanel.position)
+        - (Vector2)scrollRect.transform.InverseTransformPoint(playerController.uiController.myEventSystem.currentSelectedGameObject.transform.position), ref vel, 0.05f);
             }
         }
 

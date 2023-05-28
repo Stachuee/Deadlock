@@ -234,4 +234,10 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     {
         return armor;
     }
+
+    public float Heal(float ammount)
+    {
+        hp = Mathf.Min(ammount + hp, maxHp);
+        return ammount;
+    }
 }

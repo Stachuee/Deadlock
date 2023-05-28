@@ -15,15 +15,4 @@ public class BulletsInfo : MonoBehaviour
     [SerializeField] GameObject fireBullet;
     [SerializeField] GameObject poisonBullet;
 
-    private void Start()
-    {
-        gunController = FindObjectOfType<GunController>();
-    }
-
-    void Update()
-    {
-        bulletTypeSprite.sprite = gunController.GetCurrentGun().GetAmmoIcon();
-
-        bulletsAmount.text = (gunController.GetCurrentGun().GetAmmoAmount());
-    }
 }

@@ -35,4 +35,8 @@ public class DoorClosed : MonoBehaviour, ITakeDamage
     {
         return 0;
     }
+    public float Heal(float ammount)
+    {
+        return parrent.Heal(ammount);
+    }
 }

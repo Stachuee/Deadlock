@@ -120,4 +120,9 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
     {
         return 0;
     }
+
+    public float Heal(float ammount)
+    {
+        return 0;
+    }
 }

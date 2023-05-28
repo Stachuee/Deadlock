@@ -4,22 +4,45 @@ using UnityEngine;
 
 public class ShootingTower : MonoBehaviour
 {
+
+    readonly float TRAIL_LIFE_TIME = 0.05f;
+
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float shootingAreaRadius = 5f;
     [SerializeField] private float fireRate = 0.1f;
+    [SerializeField] int damagePerBullet;
 
-    [SerializeField] protected GameObject bulletPrefab;
+    [SerializeField] float LifeTime;
+    float lifeRimeRemain;
 
+    [SerializeField] Transform barrel;
+    [SerializeField] LineRenderer gunTrail;
+    float trailDisapearTimer;
+    bool trailShown;
 
     private float shootTimer = 0f;
 
     [SerializeField] GameObject inventorySlotPrefab;
 
+    Transform target;
+
+    private void Start()
+    {
+        lifeRimeRemain = LifeTime;
+    }
+
     void Update()
     {
+        if (trailShown && trailDisapearTimer <= Time.time)
+        {
+            gunTrail.transform.gameObject.SetActive(false);
+            trailShown = false;
+        }
+
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, shootingAreaRadius, enemyLayer);
-        Transform target = null;
+        target = null;
         float closestDistance = float.MaxValue;
 
         foreach (Collider2D hitCollider in hitColliders)
@@ -41,6 +64,8 @@ public class ShootingTower : MonoBehaviour
                 Shoot();
             }
         }
+        if (lifeRimeRemain <= 0) Destroy(gameObject);
+        lifeRimeRemain -= Time.deltaTime;
     }
 
     private void AimAt(Vector3 targetPosition)
@@ -52,7 +77,21 @@ public class ShootingTower : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+        RaycastHit2D hit;
+        if (hit = Physics2D.Raycast(barrel.transform.position, target.position - barrel.position, 100, enemyLayer))
+        {
+            gunTrail.SetPosition(0, barrel.position);
+            gunTrail.SetPosition(1, hit.point);
+            trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
+            gunTrail.transform.gameObject.SetActive(true);
+            trailShown = true;
+
+            if (hit.transform.tag == "Enemy")
+            {
+                hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet);
+            }
+        }
+
         shootTimer = Time.time;
     }
 

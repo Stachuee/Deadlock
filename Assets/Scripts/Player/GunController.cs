@@ -31,16 +31,26 @@ public class GunController : MonoBehaviour
 
     ParticleSystem effectToDeactivate = null; // if some PS can stay in scene but are unnecessary, make it inactive after changing the gun 
 
-
+    bool active = true;
 
     private void Awake()
     {
         playerController = transform.GetComponent<PlayerController>();
         gunSprite = gunTransform.GetComponent<SpriteRenderer>();
-
+        
+        
         foreach (GunBase weapon in weapons)
         {
             weapon.EnableGun(false);
+        }
+    }
+
+    private void Start()
+    {
+        if(playerController.isScientist)
+        {
+            active = false;
+            return;
         }
         currentWeaponIndex = 0;
         weapons[currentWeaponIndex].EnableGun(true);
@@ -48,10 +58,8 @@ public class GunController : MonoBehaviour
         gunTransform = weapons[currentWeaponIndex].GetGunTransform();
         barrel = weapons[currentWeaponIndex].GetBarrelTransform();
         gun = weapons[currentWeaponIndex].GetGunScript();
-    }
 
-    private void Start()
-    {
+
         inventorySelector.ActivateSlot(WeaponType.Pistol);
         inventorySelector.ActivateSlot(WeaponType.Firegun);
         inventorySelector.ActivateSlot(WeaponType.ARiffle);
@@ -96,6 +104,7 @@ public class GunController : MonoBehaviour
 
     public void Reload()
     {
+        if (!active) return;
         gun.Reload();
     }
 
@@ -119,6 +128,7 @@ public class GunController : MonoBehaviour
 
     public void ChangeWeapon(WeaponType type)
     {
+        if (!active) return;
         if (currentWeaponIndex == (int)type) return;
         weapons[currentWeaponIndex].EnableGun(false);
         currentWeaponIndex = (int)type;
@@ -138,12 +148,14 @@ public class GunController : MonoBehaviour
 
     public void ChangeBullet(bool input)
     {
+        if (!active) return;
         gun.ChangeBulletType(input);
 
     }
 
     public void ShootGun(bool isShooting)
     {
+        if (!active) return;
         gun.Shoot(isShooting);
     }
 

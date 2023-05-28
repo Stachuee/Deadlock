@@ -17,7 +17,8 @@ public class CameraFollowScript : MonoBehaviour
     public Camera cam;
 
     [Range(0, .3f)][SerializeField] float damping;
-    [SerializeField] Vector3 offset;
+    [SerializeField] Vector3 playerOffset;
+    [SerializeField] Vector3 cameraOffset;
     [SerializeField] Vector2 maxCameraTilt;
 
     [SerializeField] Material glassesMat;
@@ -25,10 +26,14 @@ public class CameraFollowScript : MonoBehaviour
     [SerializeField] float camDumping;
     Vector3 dampVel = Vector3.zero;
 
+
+    bool onPlayer;
+
     private void Awake()
     {
         cam = transform.GetComponent<Camera>();
         camHolder = transform.parent;
+        onPlayer = true;
     }
 
     private void Start()
@@ -39,7 +44,7 @@ public class CameraFollowScript : MonoBehaviour
     void Update()
     {
         //camHolder.position = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
-        Vector3 desiredPos = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
+        Vector3 desiredPos = target.position + (onPlayer ? playerOffset : cameraOffset) + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
         if(Vector2.Distance(transform.position, (Vector2)desiredPos) < 0.2f) camHolder.position = desiredPos;
         else camHolder.position = Vector3.SmoothDamp(camHolder.position, desiredPos, ref dampVel, camDumping);
         
@@ -78,6 +83,7 @@ public class CameraFollowScript : MonoBehaviour
     public void ChangeTarget(Transform target)
     {
         this.target = target;
+        onPlayer = false;
     }
 
     public void ResetTarget()

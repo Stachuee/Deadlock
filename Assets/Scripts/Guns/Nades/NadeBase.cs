@@ -16,6 +16,10 @@ public abstract class NadeBase : MonoBehaviour
     [SerializeField] float damage;
     [SerializeField] float armorAndResistDamage;
 
+    [SerializeField] float explosionDuration;
+    [SerializeField] EffectManager.ScreenShakeRange explosionRange;
+    [SerializeField] EffectManager.ScreenShakeStrength explosionStrength;
+
     [SerializeField] protected GameObject explosionVFX;
 
     [SerializeField] Rigidbody2D myBody;
@@ -61,6 +65,8 @@ public abstract class NadeBase : MonoBehaviour
     {
         //Destroy(Instantiate(explosionVFX, (Vector2)transform.position, Quaternion.identity), 1);
         // Check for enemies within explosion range
+        EffectManager.instance.ScreenShake(explosionDuration, explosionRange, explosionStrength, transform.position);
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D collider in colliders)
         {

@@ -75,4 +75,10 @@ public class DoorScript : PoweredInteractable
         return damageAmmount;
     }
 
+    public float Heal(float ammount)
+    {
+        hp = Mathf.Min(ammount + hp, maxHp);
+        return ammount;
+    }
+
 }

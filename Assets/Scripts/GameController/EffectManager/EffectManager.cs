@@ -48,13 +48,13 @@ public class EffectManager : MonoBehaviour
         switch (range)
         {
             case ScreenShakeRange.Small:
-                fallout = 0.2f;
-                break;
-            case ScreenShakeRange.Medium:
                 fallout = 0.1f;
                 break;
-            case ScreenShakeRange.Large:
+            case ScreenShakeRange.Medium:
                 fallout = 0.05f;
+                break;
+            case ScreenShakeRange.Large:
+                fallout = 0.025f;
                 break;
             case ScreenShakeRange.Global:
                 fallout = 0f;

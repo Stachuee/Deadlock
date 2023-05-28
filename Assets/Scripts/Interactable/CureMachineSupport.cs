@@ -68,4 +68,9 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
     {
         return 0;
     }
+    public float Heal(float ammount)
+    {
+        hp = Mathf.Min(ammount + hp, maxHp);
+        return ammount;
+    }
 }

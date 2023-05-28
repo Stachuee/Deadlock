@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 238913776322736959}
   - component: {fileID: 238913776322736958}
   - component: {fileID: 238913776322736954}
-  - component: {fileID: 238913776322736949}
   - component: {fileID: 238913776322736948}
+  - component: {fileID: 5043778629561328276}
   m_Layer: 9
   m_Name: Crawler
   m_TagString: Enemy
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 238913776322736951}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -18.67, y: 1.53, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7758465280792571514}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c18f867b8e830143a8bca1ac7f35124, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,43 +102,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
+  hp: 0
   randomSpeed: {x: 0.2, y: 0.4}
   damage: 10
   attackSpeed: 1
-  resistances:
-    bulletResistance: 0.417
-    fireResistance: 0.517
-    poisonResistance: 0
-    iceResistance: 0.45
-    meleResistance: 0.433
+  armor: 0
   onFireParticle: {fileID: 78671214567525062}
   target: {fileID: 0}
---- !u!61 &238913776322736949
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238913776322736951}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!50 &238913776322736948
 Rigidbody2D:
   serializedVersion: 4
@@ -160,6 +130,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!70 &5043778629561328276
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238913776322736951}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.04922533, y: -0.003516078}
+  m_Size: {x: 0.9936876, y: 2.3882048}
+  m_Direction: 0
 --- !u!1 &318161093025500484
 GameObject:
   m_ObjectHideFlags: 0
@@ -5018,7 +5004,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.7307606, y: 0.12673098}
+  m_Offset: {x: 0.8364997, y: 0.058000624}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5029,7 +5015,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9868355, y: 0.6214529}
+  m_Size: {x: 1.1983137, y: 1.1748205}
   m_EdgeRadius: 0
 --- !u!114 &9109046639686524418
 MonoBehaviour:

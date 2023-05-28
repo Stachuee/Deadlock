@@ -72,12 +72,14 @@ public class FireGun : GunBase
             if (fireMode == 0 && maxAmmo > 0 || fireMode == 1 && maxIceAmmo > 0)
             {
                 Reload();
+                fireVFX.Stop();
+                iceVFX.Stop();
                 return;
             }
             else return;
         }
 
-        if (isShooting && ((fireMode == 0 && currentAmmo <= 0 && currentAmmo > 0) || (fireMode == 1 && currentIceAmmo <= 0 && currentIceAmmo > 0)))
+        if (isShooting && ((fireMode == 0 && currentAmmo > 0) || (fireMode == 1 && currentIceAmmo > 0)))
         {
             if (fireMode == 0) currentAmmo -= usagePerSecond * Time.deltaTime;
             else currentIceAmmo -= usagePerSecond * Time.deltaTime;

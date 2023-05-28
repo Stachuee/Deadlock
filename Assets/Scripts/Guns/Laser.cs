@@ -29,6 +29,38 @@ public class Laser : GunBase
 
     [SerializeField, MinMaxSlider(0, 2)] Vector2 laserMinWidth;
 
+    [SerializeField] GameObject laserStart;
+    ParticleSystem laserStartParticle;
+    [SerializeField] GameObject laserEnd;
+    ParticleSystem laserEndParticle;
+
+    bool LaserActive
+    {
+        set
+        {
+            if(laserActive != value)
+            {
+                laserActive = value;
+                lineRenderer.enabled = value;
+                if(value)
+                {
+                    laserStartParticle.Play();
+                    laserEndParticle.Play();
+                }
+                else
+                {
+                    laserStartParticle.Stop();
+                    laserEndParticle.Stop();
+                }
+            }
+        }
+        get
+        {
+            return laserActive;
+        }
+    }
+    bool laserActive;
+
     private float baseDamage;
 
     private Transform lastTargetHit = null;
@@ -46,6 +78,11 @@ public class Laser : GunBase
         baseDamage = damage;
         currentAmmo = MAX_AMMO;
         currentRestoreAmmo = MAX_AMMO;
+
+        laserStartParticle = laserStart.GetComponentInChildren<ParticleSystem>();
+        laserEndParticle = laserEnd.GetComponentInChildren<ParticleSystem>();
+
+        LaserActive = false;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -71,7 +108,7 @@ public class Laser : GunBase
 
         if (reloading)
         {
-            lineRenderer.enabled = false;
+            LaserActive = false;
             return;
         }
 
@@ -89,13 +126,19 @@ public class Laser : GunBase
         {
             if (isShooting && currentAmmo > 0)
             {
-                lineRenderer.enabled = true;
+                LaserActive = true;
 
                 RaycastHit2D hit;
 
                 if (hit = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity, ~laserLayerMask))
                 {
                     DrawRay(firePoint.position, hit.point);
+                    
+                    laserStart.transform.position = firePoint.position;
+                    laserStart.transform.rotation = Quaternion.Euler(0, 0, rot_z);
+                    laserEnd.transform.position = hit.point;
+                    laserEnd.transform.rotation = Quaternion.Euler(0, 0, rot_z - 180);
+
                     if (hit.transform.tag == "Enemy")
                     {
                         if(lastTargetHit != hit.transform)
@@ -129,7 +172,7 @@ public class Laser : GunBase
             {
                 lastTargetHit = null;
                 damage = baseDamage;
-                lineRenderer.enabled = false;
+                LaserActive = false;
             }
         }
         else if (fireMode == 1)

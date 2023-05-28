@@ -16,8 +16,6 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
 
     [SerializeField] private InventorySelector inventorySelector;
 
-    [SerializeField] private Transform towerPlace;
-
     [SerializeField]
     Dictionary<EquipmentType, int> backpack = new Dictionary<EquipmentType, int>();
 
@@ -25,6 +23,8 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
     [SerializeField] MedicineBase stim;
 
     Vector2 aimDirection;
+
+    bool active = true;
 
     private void Awake()
     {
@@ -38,6 +38,11 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
 
     private void Start()
     {
+        if(playerController.isScientist)
+        {
+            active = false;
+            return;
+        }
         playerController.AddMovmentSubscriber(this);
 
         equiped = EquipmentType.Granade;
@@ -47,15 +52,22 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
         inventorySelector.ActivateSlot(EquipmentType.Granade);
         inventorySelector.ActivateSlot(EquipmentType.Stim);
         inventorySelector.ActivateSlot(EquipmentType.Turret);
+
+        playerController.uiController.combatHUDController.UpdateEquipment(equiped);
+        playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);
     }
 
     public void ChangeEquipment(EquipmentType type)
     {
+        if (!active) return;
         equiped = type;
+        playerController.uiController.combatHUDController.UpdateEquipment(type);
+        playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[type]);
     }
 
     public void UseEquipment()
     {
+        if (!active) return;
         GameObject temp;
 
         switch (equiped)
@@ -63,33 +75,37 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
             case EquipmentType.Granade:
                 if (backpack[EquipmentType.Granade] <= 0) return;
                 temp = Instantiate(equipment[(int)equiped], transform.position, Quaternion.identity);
-                temp.GetComponent<NadeBase>().Lunch(aimDirection.normalized * playerController.playerInfo.throwStrength);
-                return;
+                backpack[EquipmentType.Granade]--;
+                temp.GetComponent<NadeBase>().Lunch(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
+                break;
 
             case EquipmentType.Molotov:
                 if (backpack[EquipmentType.Molotov] <= 0) return;
                 temp = Instantiate(equipment[(int)equiped], transform.position, Quaternion.identity);
-                temp.GetComponent<NadeBase>().Lunch(aimDirection.normalized * playerController.playerInfo.throwStrength);
-                return;
+                backpack[EquipmentType.Molotov]--;
+                temp.GetComponent<NadeBase>().Lunch(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
+                break;
 
             case EquipmentType.Turret:
                 if (backpack[EquipmentType.Turret] <= 0) return;
                 backpack[EquipmentType.Turret]--;
-                Instantiate(equipment[(int)equiped], (Vector2)transform.position + aimDirection.normalized * 1, Quaternion.identity).GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * playerController.playerInfo.throwStrength);
-                return;
+                Instantiate(equipment[(int)equiped], (Vector2)transform.position + playerController.currentAimDirection.normalized * 1, Quaternion.identity).GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * playerController.playerInfo.throwStrength);
+                break;
 
             case EquipmentType.Medkit:
                 if (backpack[EquipmentType.Medkit] <= 0 || playerController.GetIsHealing()) return;
                 backpack[EquipmentType.Medkit]--;
                 medkit.AddEffect(playerController);
-                return;
+                break;
 
             case EquipmentType.Stim:
                 if (backpack[EquipmentType.Stim] <= 0 || playerController.GetIsStimulated()) return;
                 backpack[EquipmentType.Stim]--;
                 stim.AddEffect(playerController);
-                return;
+                break;
         }
+
+        playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);
     }
 
     public string GetEquipmentAmmo(EquipmentType type)

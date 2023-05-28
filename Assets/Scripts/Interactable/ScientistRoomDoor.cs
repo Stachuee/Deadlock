@@ -72,4 +72,10 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
     {
         return 0;
     }
+
+    public float Heal(float ammount)
+    {
+        doorHp = Mathf.Min(ammount + doorHp, doorMaxHp);
+        return ammount;
+    }
 }
