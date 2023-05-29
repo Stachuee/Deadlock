@@ -37,14 +37,14 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     bool isScientist;
     bool setUp;
 
-    public static List<ComputerUI> computers = new List<ComputerUI>();
+    public static ComputerUI scientistComputer;
 
 
     private void Start()
     {
         if(playerController.isScientist)
         {
-            computers.Add(this);
+            scientistComputer = this;
             SegmentController.segmentController.SubscribeToUnlock(this);
         }
     }
@@ -376,9 +376,21 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
     public static void DisplayWarningOnAllComputers(Rooms room, WarningStrength strength)
     {
-        computers.ForEach(x =>
-        {
-            x.DisplayWarning(room, strength);
-        });
+        scientistComputer.DisplayWarning(room, strength);
+    }
+
+    public RectTransform CreateMarker()
+    {
+        return Instantiate(playerMarkerPrefab, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+    }
+
+    public void UpdateMarker(Vector2 position, RectTransform marker)
+    {
+        marker.anchoredPosition = (position - startingDrawPos) * scale;
+    }
+
+    public void DeleteMarker(RectTransform marker)
+    {
+        Destroy(marker.gameObject);
     }
 }

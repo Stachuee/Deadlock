@@ -9,6 +9,7 @@ public abstract class ItemSO : ScriptableObject
     [SerializeField] string itemName;
     [SerializeField] Sprite defaultSprite;
     [SerializeField] Sprite icon;
+    [SerializeField, TextArea(5, 10)] string itemDesc;
 
     public abstract bool PickUp(PlayerController player, Item item, out bool destroy);
     public abstract void Drop(PlayerController player, Item item);
@@ -31,6 +32,9 @@ public abstract class ItemSO : ScriptableObject
     {
         return icon;
     }
-
+    public string GetItemDesc()
+    {
+        return itemDesc;
+    }
     #endregion
 }

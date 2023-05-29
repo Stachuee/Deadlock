@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: Molotov
   defaultSprite: {fileID: 21300000, guid: 6610cd07e4db1df49ad36843497ab1e9, type: 3}
   icon: {fileID: 21300000, guid: 6610cd07e4db1df49ad36843497ab1e9, type: 3}
-  typeIcon: {fileID: 0}
-  subtypeIcon: {fileID: 0}
+  itemDesc: Will ignite enemies.
   ammoCount: 20
+  weapon: 0
+  ammoType: 0

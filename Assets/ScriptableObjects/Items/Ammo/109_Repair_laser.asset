@@ -16,8 +16,7 @@ MonoBehaviour:
   itemName: Repair laser
   defaultSprite: {fileID: 21300000, guid: 6610cd07e4db1df49ad36843497ab1e9, type: 3}
   icon: {fileID: 21300000, guid: 6610cd07e4db1df49ad36843497ab1e9, type: 3}
-  typeIcon: {fileID: 0}
-  subtypeIcon: {fileID: 0}
+  itemDesc: Will repair structures.
   ammoCount: 20
   weapon: 4
   ammoType: 6

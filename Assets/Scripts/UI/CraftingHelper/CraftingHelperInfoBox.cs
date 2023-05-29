@@ -10,14 +10,18 @@ public class CraftingHelperInfoBox : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemName;
     [SerializeField] Image[] recipie;
     [SerializeField] TextMeshProUGUI[] recipieText;
+    [SerializeField] TextMeshProUGUI itemDesc;
+
 
     public void SetUp(CraftingRecipesSO toCraft)
     {
 
         itemIcon.sprite = toCraft.GetCraftedItem().GetIconSprite();
         itemName.text = toCraft.GetCraftedItem().GetItemName();
+        itemDesc.text = toCraft.GetCraftedItem().GetItemDesc();
         itemName.gameObject.SetActive(true);
         itemIcon.gameObject.SetActive(true);
+        itemDesc.gameObject.SetActive(true);
 
         int index = 0;
 

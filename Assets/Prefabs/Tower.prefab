@@ -331,10 +331,10 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
-  shootingAreaRadius: 5
+  shootingAreaRadius: 10
   fireRate: 0.25
   damagePerBullet: 25
-  LifeTime: 0
+  LifeTime: 120
   barrel: {fileID: 6839144043887642241}
   gunTrail: {fileID: 6739853618272173996}
   inventorySlotPrefab: {fileID: 4569713353421880941, guid: aef6ea69c9f88a8428d7ada282747ec5, type: 3}

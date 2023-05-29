@@ -9,6 +9,8 @@ public class Light : PoweredInteractable
 
     bool turnOn;
 
+    [SerializeField] bool inverted;
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,11 +38,11 @@ public class Light : PoweredInteractable
         //if (!turnOn) return;
         if(on)
         {
-            myLight.enabled = true;
+            myLight.enabled = true ^ inverted;
         }
         else
         {
-            myLight.enabled = false;
+            myLight.enabled = false ^ inverted;
         }
     }
 }

@@ -7,12 +7,14 @@ public class Laser : GunBase
 {
     readonly float MAX_AMMO = 100;
 
-    [SerializeField] private List<AmmoType> laserTypeList;
+    [SerializeField] protected LayerMask laserHealingLayerMask;
+
 
     [SerializeField] Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
 
     [SerializeField] float damage = 5f;
+    [SerializeField] float healing = 5f;
     [SerializeField] float armorAndResistShreadPerSecond;
     [SerializeField] float maxDamage;
     [SerializeField] float damageIncreasePerSecond;
@@ -69,9 +71,6 @@ public class Laser : GunBase
     int fireMode;
     int targetFireMode;
 
-    AmmoType laserType;
-    int currentAmmoTypeId = 0;
-
     protected override void Start()
     {
         base.Start();
@@ -82,7 +81,6 @@ public class Laser : GunBase
         laserStartParticle = laserStart.GetComponentInChildren<ParticleSystem>();
         laserEndParticle = laserEnd.GetComponentInChildren<ParticleSystem>();
 
-        LaserActive = false;
     }
 
     public override void AddAmmo(AmmoType aT, int amount)
@@ -177,7 +175,53 @@ public class Laser : GunBase
         }
         else if (fireMode == 1)
         {
-            //todo
+            if (isShooting && currentRestoreAmmo > 0)
+            {
+                LaserActive = true;
+
+                RaycastHit2D hit;
+
+                if (hit = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity, ~laserHealingLayerMask))
+                {
+                    DrawRay(firePoint.position, hit.point);
+
+                    laserStart.transform.position = firePoint.position;
+                    laserStart.transform.rotation = Quaternion.Euler(0, 0, rot_z);
+                    laserEnd.transform.position = hit.point;
+                    laserEnd.transform.rotation = Quaternion.Euler(0, 0, rot_z - 180);
+
+                    if (hit.transform.tag == "Interactable")
+                    {
+                        if (lastTargetHit != hit.transform)
+                        {
+                            lastTargetHit = hit.transform;
+                            lastHitITakeDamage = hit.transform.GetComponent<ITakeDamage>();
+                        }
+
+                        if (lastHitITakeDamage != null)
+                        {
+                            lastHitITakeDamage.Heal(healing * Time.deltaTime);
+                        }
+                    }
+                    else
+                    {
+                        damage = baseDamage;
+                    }
+                }
+                else
+                {
+                    lastTargetHit = null;
+                    damage = baseDamage;
+                }
+                currentRestoreAmmo -= ammoUssagePerSecond * Time.deltaTime;
+            }
+
+            else
+            {
+                lastTargetHit = null;
+                damage = baseDamage;
+                LaserActive = false;
+            }
         }
     }
 
@@ -186,8 +230,7 @@ public class Laser : GunBase
         if (input)
         {
             StopReload();
-            targetFireMode = (currentAmmoTypeId + 1) % laserTypeList.Count;
-            laserType = laserTypeList[currentAmmoTypeId];
+            fireMode = (fireMode + 1) % 2;
             Reload(true);
         }
     }

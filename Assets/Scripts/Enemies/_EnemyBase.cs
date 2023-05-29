@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class _EnemyBase : MonoBehaviour, ITakeDamage
 {
+    readonly float MAP_UPDATE_TICK = 0.1f;
 
     [SerializeField]
     protected float maxHp;
@@ -38,11 +39,25 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     float freezeStop;
     float nextFreezeTick;
 
+    RectTransform myMarker;
+
     protected virtual void Start()
     {
         hp = maxHp;
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
+        myMarker = ComputerUI.scientistComputer.CreateMarker();
+
+        StartCoroutine("UpdateMarker");
+    }
+
+    IEnumerator UpdateMarker()
+    {
+        while(true)
+        {
+            ComputerUI.scientistComputer.UpdateMarker(transform.position, myMarker);
+            yield return new WaitForSeconds(MAP_UPDATE_TICK);
+        }
     }
 
     protected virtual void Update()
@@ -186,6 +201,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     public virtual void Dead()
     {
         SpawnerController.instance.RemoveFromMap(transform);
+        ComputerUI.scientistComputer.DeleteMarker(myMarker);
         Destroy(gameObject);
     }
 

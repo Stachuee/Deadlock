@@ -58,6 +58,7 @@ public class Pistol : GunBase
         {
             gunTrail.transform.gameObject.SetActive(false);
             trailShown = false;
+            barrelFlash.SetActive(false);
         }
 
         if (reloading) return;
@@ -83,8 +84,9 @@ public class Pistol : GunBase
                 gunTrail.transform.gameObject.SetActive(true);
                 currentRecoilAngle += (Random.Range(0f, 1f) > 0.5f ? -1 : 1) * recoilAnglePerShot;
                 trailShown = true;
+                barrelFlash.SetActive(true);
 
-                if(hit.transform.tag == "Enemy")
+                if (hit.transform.tag == "Enemy")
                 {
                     hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet);
                 }
