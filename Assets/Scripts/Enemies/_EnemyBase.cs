@@ -46,7 +46,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         hp = maxHp;
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
-        myMarker = ComputerUI.scientistComputer.CreateMarker();
+        if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker();
 
         StartCoroutine("UpdateMarker");
     }

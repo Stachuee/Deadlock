@@ -99,6 +99,7 @@ public class CameraFollowScript : MonoBehaviour
     public Vector2 ViewAngle()
     {
         Vector2 returnValue;
+        if (target == null) return Vector2.zero;
         Vector2 mouse = Mouse.current.position.ReadValue();
         Vector2 centerOfScreen = GetCenterOfCameraOnScreen();
         returnValue = (mouse - (Vector2)cam.WorldToScreenPoint(target.position)) / centerOfScreen.x;

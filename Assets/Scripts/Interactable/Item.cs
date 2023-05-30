@@ -38,7 +38,6 @@ public class Item : InteractableBase, IGetHandInfo
             if (player.PickUp(itemSO))
             {
                 Destroy(transform.parent.gameObject);
-                RecipiesManager.instance.PickedUp(itemSO);
             }
         }
         else if(destroy)

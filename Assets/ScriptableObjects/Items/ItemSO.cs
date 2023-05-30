@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class ItemSO : ScriptableObject
 {
-    [SerializeField] int id;
+    [SerializeField] protected int id;
     [SerializeField] string itemName;
     [SerializeField] Sprite defaultSprite;
     [SerializeField] Sprite icon;

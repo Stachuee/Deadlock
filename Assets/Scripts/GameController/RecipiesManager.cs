@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RecipiesManager : MonoBehaviour
@@ -16,7 +17,6 @@ public class RecipiesManager : MonoBehaviour
 
     List<CraftingHelperScript> toNotify;
 
-    Dictionary<int, bool> pickedUp;
 
     public static Hashtable recipes;
     
@@ -26,18 +26,6 @@ public class RecipiesManager : MonoBehaviour
         else Destroy(gameObject);
 
         toNotify = new List<CraftingHelperScript>();
-        pickedUp = new Dictionary<int, bool>();
-
-        recipiesActive.ForEach(recipe =>
-        {
-            recipe.GetIngredientsItem().ForEach(item =>
-            {
-                if(!pickedUp.ContainsKey(item.GetId()))
-                {
-                    pickedUp.Add(item.GetId(), false);
-                }
-            });
-        });
 
         recipes = new Hashtable();
 
@@ -77,32 +65,10 @@ public class RecipiesManager : MonoBehaviour
         toNotify.Add(toAdd);
     }
 
-    public void PickedUp(ItemSO item)
+    public void UnlockTech(ScienceItem unlocked)
     {
-        if(pickedUp.ContainsKey(item.GetId()) && !pickedUp[item.GetId()])
-        {
-            pickedUp[item.GetId()] = true;
-
-            DialogueManager.instance.TriggerDialogue(Dialogue.Trigger.OnNewItemPickup); // send dialogue
-
-            List<CraftingRecipesSO> toUnlock = new List<CraftingRecipesSO>();
-
-            recipiesActive.ForEach(recipie =>{
-                bool unlock = true;
-                recipie.GetIngredientsItem().ForEach(item =>
-                {
-                    if(!pickedUp[item.GetId()]) unlock = false;
-                });
-                if(unlock)
-                {
-                    toUnlock.Add(recipie);
-                }
-            });
-
-            toUnlock.ForEach(item => recipiesActive.Remove(item));
-            recipiesUnlocked.AddRange(toUnlock);
-            toNotify.ForEach(helper => helper.RefreshCrafting());
-        }
+        recipiesUnlocked.AddRange(unlocked.GetUnlockedRecipies());
+        recipiesUnlocked = recipiesUnlocked.Distinct().ToList();
     }
 
 }

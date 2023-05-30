@@ -26,6 +26,16 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
 
     bool open;
     bool active = true;
+
+
+    private void Awake()
+    {
+        foreach (GunMenuButton gB in slotButtons)
+        {
+            gB.Hide();
+        }
+    }
+
     private void Start()
     {
         if(pC.isScientist)
@@ -37,10 +47,6 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
         gC = pC.gunController;
         eC = pC.equipmentController;
 
-        foreach (GunMenuButton gB in slotButtons)
-        {
-            gB.image.color = gB.NormalColor;
-        }
 
         currentSelectedItem = -1;
         previousSelectedItem = -1;
@@ -125,12 +131,13 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
 
     public void ActivateSlot(WeaponType weapon)
     {
-        slotButtons.Find(slot => slot.weaponType == weapon && slot.slotType == SlotType.Weapon).isActive = true;     
+
+        slotButtons.Find(slot => slot.weaponType == weapon && slot.slotType == SlotType.Weapon).Show();     
     }
 
     public void ActivateSlot(EquipmentType equipment)
     {
-        slotButtons.Find(slot => slot.equipmentType == equipment && slot.slotType == SlotType.Equipment).isActive = true;
+        slotButtons.Find(slot => slot.equipmentType == equipment && slot.slotType == SlotType.Equipment).Show();
     }
 
 //    if (sT == SlotType.Weapon)
@@ -200,16 +207,30 @@ public enum SlotType { Weapon, Equipment};
 public class GunMenuButton
 {
     public Image image;
+    public GameObject slot;
     public TextMeshProUGUI ammoCount;
     public Color NormalColor = Color.white;
     public Color HoverColor = Color.gray;
     public Color PressedColor = Color.gray;
     public bool isEmpty = true;
     public bool isActive = false;
+    
 
     public SlotType slotType;
 
     public WeaponType weaponType;
     public EquipmentType equipmentType;
+
+    public void Hide()
+    {
+        isActive = false;
+        slot.SetActive(false);
+    }
+
+    public void Show()
+    {
+        isActive = true;
+        slot.SetActive(true);
+    }
 
 }

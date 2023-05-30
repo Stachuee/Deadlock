@@ -6,14 +6,18 @@ using UnityEngine.InputSystem;
 
 
 [System.Serializable]
-public struct PlayerInfo
+public class PlayerInfo
 {
     public float hp;
     public float maxHp;
 
     public float speed;
     public float throwStrength;
+    
+    public float meleeDamage;
 
+    public float deathTimer;
+    public float healthRecivedAfterRevive;
 
     public float armor;
 }
@@ -39,30 +43,37 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     Rigidbody2D myBody;
     PlayerInput myinput;
+    [Header("Controllers")]
     public GunController gunController;
     public EquipmentController equipmentController;
     public UiController uiController;
     public CameraFollowScript cameraController;
+    public InventorySelector inventorySelector;
 
-
-    [SerializeField] float meleDelay = 0.2f;
-    float meleTimer = 0f;
-    [SerializeField] float meleOffset;
-    [SerializeField] float meleRadius;
-    [SerializeField] float meleDamage;
+    [Header("Mele")]
+    [SerializeField] float meleeDelay = 0.2f;
+    float meleeTimer = 0f;
+    [SerializeField] float meleeOffset;
+    [SerializeField] float meleeRadius;
 
     bool isAttacking = false;
     bool isStimulated = false;
     bool isHealing = false;
 
+    [Header("Death")]
+    float reviveTimer;
+    bool dead;
 
+    [Header("Invincibility")]
+    [SerializeField] float invincibilityAfterHitDuration;
+    float invincibilityEnd;
 
+    [Header("Camera")]
     [SerializeField]
     Camera cam;
     bool debugStart = true;
 
-    [SerializeField]
-    InventorySelector inventorySelector;
+    [Header("Inventory")]
 
     List<IInteractable> inRange = new List<IInteractable>();
     IInteractable closestInRange;
@@ -73,6 +84,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     [SerializeField]
     GameObject UsePrompt;
+
+    [Header("Upgrades")]
+
+    Dictionary<int, bool> upgrades = new Dictionary<int, bool>();
 
     public bool isScientist {get; private set;}
 
@@ -120,8 +135,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     private void Update() 
     {
-        if (!LockInAnimation) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, new Vector2(moveDirection.x * playerInfo.speed, myBody.velocity.y), ref m_Velocity, m_MovementSmoothing);
-        else myBody.velocity = new Vector2(0, myBody.velocity.y);
+        if (!LockInAnimation && !dead) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, new Vector2(moveDirection.x * playerInfo.speed, myBody.velocity.y), ref m_Velocity, m_MovementSmoothing);
+        else
+        {
+            myBody.velocity = new Vector2(0, myBody.velocity.y);
+        }
 
         if (keyboard) 
         {
@@ -145,6 +163,18 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             }
             SendMovmentControll(desiredAimDirection);
         }
+
+        if (dead)
+        {
+            if (reviveTimer < Time.time)
+            {
+                dead = false;
+                invincibilityEnd = Time.time + invincibilityAfterHitDuration;
+            }
+            else playerInfo.hp = Mathf.Min(playerInfo.maxHp, playerInfo.hp + (playerInfo.healthRecivedAfterRevive / playerInfo.deathTimer) * Time.deltaTime);
+            return;
+        }
+
 
         float closestDistance = Mathf.Infinity;
         IInteractable closest = null;
@@ -181,11 +211,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         if (isAttacking)
         {
-            meleTimer += Time.deltaTime;
+            meleeTimer += Time.deltaTime;
 
-            if (meleTimer >= meleDelay)
+            if (meleeTimer >= meleeDelay)
             {
-                meleTimer = 0;
+                meleeTimer = 0;
                 isAttacking = false;
             }
         }
@@ -291,6 +321,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         if (context.performed)
         {
+            if (dead) return;
             if (lockedInAnimation)
             {
                 callbackWhenUnlocking.Invoke();
@@ -309,6 +340,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         if (context.performed)
         {
+            if (dead) return;
             SendUseControll();
             if (closestInRange != null && !LockInAnimation)
             {
@@ -325,6 +357,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnShoot(InputAction.CallbackContext context)
     {
+        if (dead) return;
         SendShootControll(context.ReadValueAsButton());
         if (lockedInAnimation) return;
         gunController.ShootGun(context.ReadValueAsButton());
@@ -334,15 +367,16 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (dead) return;
         if (context.ReadValueAsButton() && !isAttacking)
         {
             isAttacking = true;
-            Collider2D[] hits = Physics2D.OverlapCircleAll((Vector2)transform.position + currentAimDirection * meleOffset, meleRadius);
+            Collider2D[] hits = Physics2D.OverlapCircleAll((Vector2)transform.position + currentAimDirection * meleeOffset, meleeRadius);
             for (int i = 0; i < hits.Length; i++)
             {
                 if(hits[i].transform.tag == "Enemy")
                 {
-                    hits[i].GetComponent<ITakeDamage>().TakeDamage(meleDamage);
+                    hits[i].GetComponent<ITakeDamage>().TakeDamage(playerInfo.meleeDamage);
                 }
             }
         }
@@ -350,11 +384,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnChangeWeapon(InputAction.CallbackContext context)
     {
+        if (dead) return;
         if (!context.started) return;
     }
 
     public void onChangeBullet(InputAction.CallbackContext context)
     {
+        if (dead) return;
         gunController.ChangeBullet(context.performed);
     }
 
@@ -367,16 +403,19 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnThrow(InputAction.CallbackContext context)
     {
+        if (dead) return;
         if (context.performed) equipmentController.UseEquipment();
     }
     public void OnReload(InputAction.CallbackContext context)
     {
+        if (dead) return;
         if (context.performed) gunController.Reload();
     }
 
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
         //if (!context.started) return;
+        if (dead) return;
         if (context.ReadValueAsButton())
         {
             inventorySelector.OpenInventory();
@@ -411,7 +450,16 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     #region interfaces
     public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
     {
+        if (invincibilityEnd > Time.time) return 0;
         playerInfo.hp -= damage;
+        invincibilityEnd = Time.time + invincibilityAfterHitDuration;
+        if (playerInfo.hp <= 0)
+        {
+            reviveTimer = playerInfo.deathTimer + Time.time;
+            playerInfo.hp = 0;
+            dead = true;
+            gunController.ShootGun(false);
+        }
         return damage;
     }
     public void ApplyStatus(Status toApply)
@@ -430,7 +478,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public bool IsImmune()
     {
-        return false;
+        return dead;
     }
 
     public float Heal(float ammount)
@@ -598,6 +646,23 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     }
 
 
+    public bool HasUpgrade(int id)
+    {
+        if(upgrades.ContainsKey(id))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void GetUpgrade(int id)
+    {
+        upgrades.Add(id, true);
+    }
+
 
 
     #endregion
@@ -606,6 +671,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere((Vector2)transform.position + currentAimDirection.normalized * meleOffset, meleRadius);
+        Gizmos.DrawWireSphere((Vector2)transform.position + currentAimDirection.normalized * meleeOffset, meleeRadius);
     }
 }

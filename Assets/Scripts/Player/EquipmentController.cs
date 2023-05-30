@@ -47,11 +47,12 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
 
         equiped = EquipmentType.Granade;
 
-        inventorySelector.ActivateSlot(EquipmentType.Molotov);
-        inventorySelector.ActivateSlot(EquipmentType.Medkit);
         inventorySelector.ActivateSlot(EquipmentType.Granade);
-        inventorySelector.ActivateSlot(EquipmentType.Stim);
-        inventorySelector.ActivateSlot(EquipmentType.Turret);
+
+        //inventorySelector.ActivateSlot(EquipmentType.Molotov);
+        //inventorySelector.ActivateSlot(EquipmentType.Medkit);
+        //inventorySelector.ActivateSlot(EquipmentType.Stim);
+        //inventorySelector.ActivateSlot(EquipmentType.Turret);
 
         playerController.uiController.combatHUDController.UpdateEquipment(equiped);
         playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);

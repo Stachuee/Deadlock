@@ -43,11 +43,8 @@ public class GunController : MonoBehaviour
         {
             weapon.EnableGun(false);
         }
-    }
 
-    private void Start()
-    {
-        if(playerController.isScientist)
+        if (playerController.isScientist)
         {
             active = false;
             return;
@@ -58,7 +55,10 @@ public class GunController : MonoBehaviour
         gunTransform = weapons[currentWeaponIndex].GetGunTransform();
         barrel = weapons[currentWeaponIndex].GetBarrelTransform();
         gun = weapons[currentWeaponIndex].GetGunScript();
+    }
 
+    private void Start()
+    {
 
         inventorySelector.ActivateSlot(WeaponType.Pistol);
         inventorySelector.ActivateSlot(WeaponType.Firegun);

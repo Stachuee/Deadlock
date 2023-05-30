@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,7 +76,7 @@ public class SpawnerController : MonoBehaviour
     {
         
         Wave currentWavePool = waves[ProgressStageController.instance.GetCurrentLevel()];
-        currentWave = currentWavePool.waves[Random.Range(0, currentWavePool.waves.Count)];
+        currentWave = currentWavePool.waves[UnityEngine.Random.Range(0, currentWavePool.waves.Count)];
 
         List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive);
 
@@ -83,7 +84,7 @@ public class SpawnerController : MonoBehaviour
         {
             if (activeSpanwers.Count > 0)
             {
-                int randomSpawner = Random.Range(0, activeSpanwers.Count);
+                int randomSpawner = UnityEngine.Random.Range(0, activeSpanwers.Count);
                 activeSpanwers[randomSpawner].AddToSpawn(currentWave.GetSubWaves()[i]);
                 spawningSpawners.Add(activeSpanwers[randomSpawner]);
             }
@@ -110,7 +111,14 @@ public class SpawnerController : MonoBehaviour
 
     public void RemoveFromMap(Transform toRemove)
     {
-        damageMap.Remove(int.Parse(toRemove.name));
+        try
+        {
+            damageMap.Remove(int.Parse(toRemove.name));
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Wrong unit name");
+        }
     }
 
     public ITakeDamage GetITakeDamageFormMap(string key)
