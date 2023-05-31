@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController gameController;
-    public static List<PlayerController> players;
+    public static PlayerController scientist;
+    public static PlayerController solider;
 
 
     private void Awake()
@@ -14,18 +15,12 @@ public class GameController : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void SetUp()
-    {
-        players = new List<PlayerController>();
-    }
-
     public void AddPlayer(PlayerController player)
     {
-        if(players == null)
-        {
-            players = new List<PlayerController>();
-        }
-        players.Add(player);
+        if(player.isScientist)
+            scientist = player;
+        else
+            solider = player;
     }
 
     public void DestroyedScientistDoor()

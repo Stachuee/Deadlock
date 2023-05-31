@@ -188,13 +188,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             }
             else
             {
-                GameController.players.ForEach(playerToCheck =>
-                {
-                    if(playerToCheck != playerController)
-                    {
-                        player = playerToCheck;
-                    }
-                });
+                player = GameController.solider;
             }
             if (!playerController.keyboard)
             {

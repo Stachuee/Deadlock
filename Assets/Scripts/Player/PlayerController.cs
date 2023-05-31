@@ -109,9 +109,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         debugStart = false;
         keyboard = controllScheme == "Keyboard";
+        isScientist = scientist;
         GameController.gameController.AddPlayer(this);
         cameraController.SetSplitScreenPosition(index, glassesMode);
-        isScientist = scientist;
     }
 
     private void Awake()

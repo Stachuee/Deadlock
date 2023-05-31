@@ -32,6 +32,7 @@ public class UiController : MonoBehaviour
     [HideInInspector] public CureMachineUI cureMachine;
     [HideInInspector] public CraftingHelperScript craftingHelper;
     [HideInInspector] public CombatHUDController combatHUDController;
+    [HideInInspector] public UpgradeGuide upgradeGuide;
 
     Camera cam;
 
@@ -67,6 +68,7 @@ public class UiController : MonoBehaviour
         cureMachine = GetComponentInChildren<CureMachineUI>();
         craftingHelper = GetComponentInChildren<CraftingHelperScript>();
         combatHUDController = GetComponentInChildren<CombatHUDController>();
+        upgradeGuide = GetComponentInChildren<UpgradeGuide>();
     }
 
 

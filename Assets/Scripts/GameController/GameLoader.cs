@@ -35,7 +35,6 @@ public class GameLoader : MonoBehaviour
         {
             List<InputDetection.NewDevice> devices = InputInfoHolder.Instance.GetDevices();
             GameObject temp;
-            GameController.gameController.SetUp();
             renderFeature.enabled = InputInfoHolder.Instance.UseGlasses();
 
             for (int i = 0; i < 2; i++)

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 300_ReviveUpgrade
   m_EditorClassIdentifier: 
   id: 300
-  itemName: Self reveive kit
+  itemName: Revive kit
   defaultSprite: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
   icon: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
-  itemDesc: Will reduce death timer and give more hp upon revive.
+  itemDesc: Quicker respawn, and more hp.
   forScientist: 0
   reviveHealthMultiplier: 2
   deathTimerMultiplier: 0.6
