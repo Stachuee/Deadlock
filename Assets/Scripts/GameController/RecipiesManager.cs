@@ -17,7 +17,6 @@ public class RecipiesManager : MonoBehaviour
 
     List<CraftingHelperScript> toNotify;
 
-
     public static Hashtable recipes;
     
     private void Awake()
@@ -44,6 +43,8 @@ public class RecipiesManager : MonoBehaviour
         });
     }
 
+    
+
     public static int GetHashFromItems(List<ItemSO> items)
     {
         int hash = 1;
@@ -67,7 +68,9 @@ public class RecipiesManager : MonoBehaviour
 
     public void UnlockTech(ScienceItem unlocked)
     {
-        recipiesUnlocked.AddRange(unlocked.GetUnlockedRecipies());
+        List<CraftingRecipesSO> unlockedRecipes = unlocked.GetUnlockedRecipies();
+        unlockedRecipes.ForEach(x => GameController.scientist.uiController.upgradeGuide.UnlockRecipie(x));
+        recipiesUnlocked.AddRange(unlockedRecipes);
         recipiesUnlocked = recipiesUnlocked.Distinct().ToList();
     }
 

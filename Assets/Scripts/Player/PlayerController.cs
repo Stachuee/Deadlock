@@ -13,11 +13,16 @@ public class PlayerInfo
 
     public float speed;
     public float throwStrength;
-    
+
+    public float kickArmorShred;
+    public float kickCooldown;
+
     public float meleeDamage;
 
     public float deathTimer;
     public float healthRecivedAfterRevive;
+
+    public float bonusAmmo;
 
     public float armor;
 }
@@ -371,12 +376,14 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (context.ReadValueAsButton() && !isAttacking)
         {
             isAttacking = true;
-            Collider2D[] hits = Physics2D.OverlapCircleAll((Vector2)transform.position + currentAimDirection * meleeOffset, meleeRadius);
+            Collider2D[] hits = Physics2D.OverlapCircleAll((Vector2)transform.position + new Vector2((currentAimDirection.x >= 0 ? 1 : -1) * meleeOffset, 0), meleeRadius);
             for (int i = 0; i < hits.Length; i++)
             {
                 if(hits[i].transform.tag == "Enemy")
                 {
-                    hits[i].GetComponent<ITakeDamage>().TakeDamage(playerInfo.meleeDamage);
+                    ITakeDamage hit = hits[i].GetComponent<ITakeDamage>();
+                    hit.TakeDamage(playerInfo.meleeDamage);
+                    hit.TakeArmorDamage(playerInfo.kickArmorShred);
                 }
             }
         }

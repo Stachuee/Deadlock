@@ -73,16 +73,15 @@ public class Crawler : _EnemyBase
         }
     }
 
-    protected override void Update()
+    private void FixedUpdate()
     {
-        base.Update();
-        if(currentTarget != null && damaging == null)
+        if (currentTarget != null && damaging == null)
         {
             Vector2 direction = new Vector2((currentTarget.transform.position - transform.position).x, 0);
             rb.velocity = direction.normalized * speed + new Vector2(0, rb.velocity.y);
             if (direction.x > currentTarget.transform.position.x)
             {
-                transform.rotation = Quaternion.Euler(0,0,0);
+                transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             else
             {
@@ -104,8 +103,12 @@ public class Crawler : _EnemyBase
                 }
             }
         }
-        
+    }
 
+    protected override void Update()
+    {
+        base.Update();
+        
         if(damaging != null && lastAttack + attackSpeed < Time.time )
         {
             if (damaging.IsImmune()) damaging = null;

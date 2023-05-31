@@ -15,12 +15,9 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     float spawnDelay;
     float lastSpawn;
 
-    bool spawning;
+    public bool spawning;
 
-
-    Queue<WaveSO.SubWave> waveToSpawn = new Queue<WaveSO.SubWave>();
-
-    WaveSO.EnemySpawn toSpawn;
+    List<WaveSO.EnemySpawn> toSpawnList;
     int alreadySpawned;
     int step;
 
@@ -40,22 +37,22 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     private void Update()
     {
-        if (isActive && lastSpawn + spawnDelay < Time.time)
+        if (spawning && isActive && lastSpawn + spawnDelay < Time.time)
         {
-            if(waveToSpawn.Count > 0 && (toSpawn.count <= alreadySpawned))
+            if (toSpawnList[step].count > alreadySpawned)
             {
-                SetNewWave();
-            }
-            else if(toSpawn.count > alreadySpawned)
-            {
-                GameObject temp = Instantiate(toSpawn.enemy.GetPrefab(), transform.position, Quaternion.identity);
+                GameObject temp = Instantiate(toSpawnList[step].enemy.GetPrefab(), transform.position, Quaternion.identity);
                 SpawnerController.instance.AddEnemyToMap(temp.GetComponent<ITakeDamage>(), temp.transform);
                 lastSpawn = Time.time;
                 alreadySpawned++;
             }
-            else if(spawning)
+            else if(step < toSpawnList.Count - 1)
             {
-                SpawnerController.instance.FinishedSpawning(this);
+                step++;
+                alreadySpawned = 0;
+            }
+            else
+            {
                 spawning = false;
             }
         }
@@ -68,31 +65,18 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     public void DeactivateSpawner()
     {
-        if(spawning) SpawnerController.instance.FinishedSpawning(this);
         isActive = false;
-        waveToSpawn = null;
     }
 
-    public void AddToSpawn(WaveSO.SubWave subWave)
+    public void AddToSpawn(List<WaveSO.EnemySpawn> subWave)
     {
-        waveToSpawn.Enqueue(subWave);
+        Debug.Log(subWave.Count);
+        toSpawnList = subWave;
+        step = 0;
         spawning = true;
     }
 
-    public void SetNewWave()
-    {
-        if(step >= waveToSpawn.Peek().enemies.Count)
-        {
-            waveToSpawn.Dequeue();
-            step = 0;
-        }
-        if (waveToSpawn.Count > 0)
-        {
-            toSpawn = waveToSpawn.Peek().enemies[step];
-            spawnDelay = toSpawn.spawnDelay;
-            step++;
-        }
-    }
+
 
     public void IncreaseLevel(int level)
     {

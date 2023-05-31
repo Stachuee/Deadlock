@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public static PlayerController scientist;
     public static PlayerController solider;
 
+    public static bool playersConnected;
 
     private void Awake()
     {

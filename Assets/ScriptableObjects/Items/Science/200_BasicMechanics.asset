@@ -18,5 +18,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a300325b4881a1a4d9fb2998d3ee253a, type: 3}
   itemDesc: I TURNED MYSELF INTO A PICKLE. IM A PICKLE RICK.
   unlocks:
+  - {fileID: 11400000, guid: ee603f96b2a8e0b49bb0f46064b125e2, type: 2}
   - {fileID: 11400000, guid: c04b4ce301a3c2446b5666da73fe0983, type: 2}
-  - {fileID: 11400000, guid: 76a05ebcf112a5a4e916b599018bb85c, type: 2}

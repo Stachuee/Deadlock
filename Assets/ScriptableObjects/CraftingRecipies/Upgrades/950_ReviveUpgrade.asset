@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cd41287f2d946143ba6681fe67a2ad4, type: 3}
-  m_Name: ReviveUpgrade
+  m_Name: 950_ReviveUpgrade
   m_EditorClassIdentifier: 
-  id: 300
+  id: 950
   workbenchType: 0
   baseCraftTime: 30
   craftedItem: {fileID: 11400000, guid: 5fc3d0f06a527b644bbf1755dc8f101c, type: 2}

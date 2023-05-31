@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,33 @@ public class UpgradeGuide : MonoBehaviour
 
     [SerializeField] Slider hpSlider;
 
+
+    bool connected = false;
+
+    [SerializeField] List<GameObject> guns;
+    [SerializeField] List<GameObject> equipments;
+
+    [SerializeField] List<UpgradeGuideButton> upgrades;
+
+
+    private void Awake()
+    {
+        upgrades = new List<UpgradeGuideButton>();
+        upgrades = transform.GetComponentsInChildren<UpgradeGuideButton>().ToList();
+
+        firstSelected.gameObject.SetActive(true);
+
+        guns.ForEach(gun =>
+        {
+            gun.SetActive(false);
+        });
+
+        equipments.ForEach(equipment =>
+        {
+            equipment.SetActive(false);
+        });
+    }
+
     private void Update()
     {
         UpdateStatus();
@@ -27,15 +55,22 @@ public class UpgradeGuide : MonoBehaviour
 
     public void UpdateStatus()
     {
-        hpSlider.value = GameController.solider.playerInfo.hp;
-        hpSlider.maxValue = GameController.solider.playerInfo.maxHp;
+        if(connected)
+        {
+            hpSlider.value = GameController.solider.playerInfo.hp;
+            hpSlider.maxValue = GameController.solider.playerInfo.maxHp;
+        }
+        else if(GameController.playersConnected)
+        {
+            connected = true;
+        }
+        
     }
 
     public void Open(bool on)
     {
         if (on) upgradeGuide.SetActive(true);
         else upgradeGuide.SetActive(false);
-        DeselectRecipie();
         playerController.uiController.myEventSystem.SetSelectedGameObject(firstSelected.gameObject);
     }
 
@@ -76,5 +111,20 @@ public class UpgradeGuide : MonoBehaviour
         {
             recipie[i].gameObject.SetActive(false);
         }
+    }
+
+    public void UnlockRecipie(CraftingRecipesSO recipe)
+    {
+        upgrades.Find(x => x.GetRecipe() == recipe).Unlock();
+    }
+
+    public void UnlockGun(WeaponType type)
+    {
+        guns[(int)type].SetActive(true);
+    }
+
+    public void UnlockEquipment(EquipmentType type)
+    {
+        equipments[(int)type].SetActive(true);
     }
 }

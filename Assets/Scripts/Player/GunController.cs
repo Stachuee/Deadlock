@@ -59,15 +59,7 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-
-        inventorySelector.ActivateSlot(WeaponType.Pistol);
-        inventorySelector.ActivateSlot(WeaponType.Firegun);
-        inventorySelector.ActivateSlot(WeaponType.ARiffle);
-        inventorySelector.ActivateSlot(WeaponType.Pistol);
-        inventorySelector.ActivateSlot(WeaponType.Laser);
-        inventorySelector.ActivateSlot(WeaponType.RPG);
-        inventorySelector.ActivateSlot(WeaponType.Harpoon);
-
+        UnlockWeapon(WeaponType.Pistol);
     }
 
 
@@ -76,24 +68,30 @@ public class GunController : MonoBehaviour
         switch (weaponType)
         {
             case WeaponType.Pistol:
-                weapons[0].AddAmmo(ammoType, amount);
+                weapons[0].AddAmmo(ammoType, Mathf.FloorToInt(amount * (1 + playerController.playerInfo.bonusAmmo)));
                 break;
             case WeaponType.ARiffle:
-                weapons[1].AddAmmo(ammoType, amount);
+                weapons[1].AddAmmo(ammoType, Mathf.FloorToInt(amount * (1 + playerController.playerInfo.bonusAmmo)));
                 break;
             case WeaponType.RPG:
-                weapons[2].AddAmmo(ammoType, amount);
+                weapons[2].AddAmmo(ammoType, Mathf.FloorToInt(amount * (1 + playerController.playerInfo.bonusAmmo)));
                 break;
             case WeaponType.Firegun:
-                weapons[3].AddAmmo(ammoType, amount);
+                weapons[3].AddAmmo(ammoType, Mathf.FloorToInt(amount * (1 + playerController.playerInfo.bonusAmmo)));
                 break;
             case WeaponType.Laser:
-                weapons[4].AddAmmo(ammoType, amount);
+                weapons[4].AddAmmo(ammoType, Mathf.FloorToInt(amount * (1 + playerController.playerInfo.bonusAmmo)));
                 break;
             case WeaponType.Harpoon:
-                weapons[5].AddAmmo(ammoType, amount);
+                weapons[5].AddAmmo(ammoType, Mathf.FloorToInt(amount * (1 + playerController.playerInfo.bonusAmmo)));
                 break;
         }
+    }
+
+    public void UnlockWeapon(WeaponType weaponType)
+    {
+        inventorySelector.ActivateSlot(weaponType);
+        GameController.scientist.uiController.upgradeGuide.UnlockGun(weaponType);
     }
 
 

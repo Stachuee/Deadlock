@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum WarningStrength {Weak, Medium, Strong };
-
+public enum Marker {Normal, Elite }
 public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSubscriberUse
 {
     [SerializeField] Transform content;
@@ -166,8 +166,11 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     RectTransform marker;
     [SerializeField]
     PlayerController player;
-    [SerializeField]
-    GameObject playerMarkerPrefab;
+    [SerializeField] GameObject playerMarkerPrefab;
+
+    [SerializeField] GameObject normalMarker;
+    [SerializeField] GameObject eliteMarker;
+
 
     private void Update()
     {
@@ -373,9 +376,16 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         scientistComputer.DisplayWarning(room, strength);
     }
 
-    public RectTransform CreateMarker()
+    public RectTransform CreateMarker(Marker marker)
     {
-        return Instantiate(playerMarkerPrefab, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+        switch (marker)
+        {
+            case Marker.Normal:
+                return Instantiate(normalMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+            case Marker.Elite:
+                return Instantiate(eliteMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+        }
+        return null;
     }
 
     public void UpdateMarker(Vector2 position, RectTransform marker)

@@ -9,8 +9,10 @@ public class UpgradeGuideButton : MonoBehaviour, ISelectHandler, IPointerEnterHa
     UpgradeGuide guide;
 
     [SerializeField] CraftingRecipesSO upgradeRecipe;
-
+    [SerializeField] CraftingRecipesSO unknownRecipe;
     Button myButton;
+
+    [SerializeField] bool unlocked;
 
     private void Awake()
     {
@@ -19,7 +21,7 @@ public class UpgradeGuideButton : MonoBehaviour, ISelectHandler, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-       guide.SelectRecipe(upgradeRecipe);
+       guide.SelectRecipe(unlocked ? upgradeRecipe : unknownRecipe);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -28,7 +30,7 @@ public class UpgradeGuideButton : MonoBehaviour, ISelectHandler, IPointerEnterHa
 
     public void OnSelect(BaseEventData eventData)
     {
-        guide.SelectRecipe(upgradeRecipe);
+        guide.SelectRecipe(unlocked ? upgradeRecipe : unknownRecipe);
     }
 
     public void SetupUpgradeButton(UpgradeGuide guide)
@@ -38,5 +40,13 @@ public class UpgradeGuideButton : MonoBehaviour, ISelectHandler, IPointerEnterHa
         this.guide = guide;
     }
 
+    public CraftingRecipesSO GetRecipe()
+    {
+        return upgradeRecipe;
+    }
 
+    public void Unlock()
+    {
+        unlocked = true;
+    }
 }

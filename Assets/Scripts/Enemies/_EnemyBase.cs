@@ -39,6 +39,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     float freezeStop;
     float nextFreezeTick;
 
+    [SerializeField] Marker markerType;
     RectTransform myMarker;
 
     protected virtual void Start()
@@ -46,7 +47,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         hp = maxHp;
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
-        if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker();
+        if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
 
         StartCoroutine("UpdateMarker");
     }

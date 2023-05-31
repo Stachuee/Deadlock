@@ -12,7 +12,6 @@ public class SpawnerController : MonoBehaviour
 
     List<Spawner> spawns = new List<Spawner>();
 
-    List<Spawner> spawningSpawners = new List<Spawner>();
 
     [SerializeField]
     List<Wave> waves = new List<Wave>();
@@ -33,7 +32,6 @@ public class SpawnerController : MonoBehaviour
     bool toggleSpawns;
 
     float nextWave;
-    bool cooldown;
     bool active;
 
     private void Awake()
@@ -52,22 +50,15 @@ public class SpawnerController : MonoBehaviour
     {
         if (!toggleSpawns || !active) return;
 
-        if (spawningSpawners.Count == 0 && !cooldown)
-        {
-            nextWave = Time.time + currentWave.GetNextWaveDelay();
-            cooldown = true;
-        }
-
-        if(cooldown && Time.time >= nextWave)
+        if(Time.time >= nextWave)
         {
             TriggerWave();
-            cooldown = false;
+            nextWave = Time.time + currentWave.GetNextWaveDelay();
         }
     }
 
     public void StartSpawning()
     {
-        cooldown = true;
         active = true;
         nextWave = Time.time + FIRST_SPAWN_DELAY;
     }
@@ -78,23 +69,16 @@ public class SpawnerController : MonoBehaviour
         Wave currentWavePool = waves[ProgressStageController.instance.GetCurrentLevel()];
         currentWave = currentWavePool.waves[UnityEngine.Random.Range(0, currentWavePool.waves.Count)];
 
-        List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive);
+        List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive && !x.spawning);
 
-        for (int i = 0; i < currentWave.GetSubWaves().Count; i++)
+        if(activeSpanwers.Count > 0)
         {
-            if (activeSpanwers.Count > 0)
-            {
-                int randomSpawner = UnityEngine.Random.Range(0, activeSpanwers.Count);
-                activeSpanwers[randomSpawner].AddToSpawn(currentWave.GetSubWaves()[i]);
-                spawningSpawners.Add(activeSpanwers[randomSpawner]);
-            }
-            else Debug.LogError("Not enough spawners");
+            activeSpanwers[UnityEngine.Random.Range(0, activeSpanwers.Count)].AddToSpawn(currentWave.GetEnemySpawn());
         }
-    }
-
-    public void FinishedSpawning(Spawner spawning)
-    {
-        spawningSpawners.Remove(spawning);
+        else
+        {
+            Debug.Log("Zero active spanwers");
+        }
     }
 
     int maxId = 1024;

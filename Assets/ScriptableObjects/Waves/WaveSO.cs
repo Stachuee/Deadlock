@@ -6,12 +6,6 @@ using UnityEngine;
 public class WaveSO : ScriptableObject
 {
     [System.Serializable]
-    public struct SubWave
-    {
-        public List<EnemySpawn> enemies;
-    }
-
-    [System.Serializable]
     public struct EnemySpawn
     {
         public int count;
@@ -23,9 +17,9 @@ public class WaveSO : ScriptableObject
     float nextWaveDelay;
 
     [SerializeField]
-    List<SubWave> subWaves;
+    List<EnemySpawn> subWaves;
 
-    public List<SubWave> GetSubWaves()
+    public List<EnemySpawn> GetEnemySpawn()
     {
         return subWaves;
     }
