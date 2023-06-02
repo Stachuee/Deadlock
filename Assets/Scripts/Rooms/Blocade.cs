@@ -21,7 +21,7 @@ public class Blocade : MonoBehaviour, ITakeDamage
         hp = maxHp;
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
         float damageAmmount = damage;
         //if (type == DamageType.Fire)

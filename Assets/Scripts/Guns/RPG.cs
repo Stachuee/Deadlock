@@ -25,8 +25,7 @@ public class RPG : GunBase
     [SerializeField] Sprite ammoProximityIcon;
     [SerializeField] GameObject proximityGranade;
 
-    int fireMode;
-    int targetFireMode;
+
     protected override void Start()
     {
         base.Start();
@@ -86,18 +85,6 @@ public class RPG : GunBase
         }
     }
 
-    override public void ChangeBulletType(bool input)
-    {
-        if (input)
-        {
-            StopReload();
-            targetFireMode = (fireMode + 1) % 2;
-            Reload(true);
-            //bulletPrefab = bullets[currentBulletIndex];
-            //rocket = bulletPrefab.GetComponent<RPGRocket>();
-        }
-    }
-
     override public string GetAmmoAmount()
     {
         if (fireMode == 0)
@@ -119,7 +106,7 @@ public class RPG : GunBase
 
     public override void RefillAmmo()
     {
-        fireMode = targetFireMode;
+        base.RefillAmmo();
         if (fireMode == 0)
         {
             maxAmmo += currentAmmo;
@@ -132,16 +119,6 @@ public class RPG : GunBase
             currentProximityAmmo = Mathf.Min(MAX_AMMO, maxProximityAmmo);
             maxProximityAmmo -= currentProximityAmmo;
         }
-    }
-
-    private void OnDisable()
-    {
-        StopReload();
-    }
-
-    private void OnEnable()
-    {
-        targetFireMode = fireMode;
     }
 
     protected override bool IsFullOnAmmo()

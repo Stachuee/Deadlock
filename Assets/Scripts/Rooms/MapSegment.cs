@@ -14,6 +14,9 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
     [SerializeField]
     public Color segmentColor;
     [SerializeField] int activateAt;
+    public bool broken;
+    bool active;
+
     [SerializeField]
     List<Rooms> roomsInSegment;
     [SerializeField]
@@ -33,6 +36,9 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
     [SerializeField] bool printersPowered;
     List<PowerInterface> lights;
     [SerializeField] bool lightsPowered;
+
+    
+
 
     private void Awake()
     {
@@ -60,6 +66,7 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
         ProgressStageController.instance.AddToNotify(this);
     }
 
+
     public void TurnOnOff(SwitchType switchType, bool on)
     {
         if (createFuse) return;
@@ -77,12 +84,14 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
                 security.ForEach(x => x.PowerOn(on));
                 securityPowered = on;
                 break;
-            case SwitchType.Lights:
-                lights.ForEach(x => x.PowerOn(on));
-                lightsPowered = on;
-                break;
         }
 
+    }
+
+    public void TurnOnOffLights(bool on)
+    {
+        lights.ForEach(x => x.PowerOn(on));
+        lightsPowered = on;
     }
 
     public bool GetPowerStatus(SwitchType switchType)
@@ -95,10 +104,14 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
                 return printersPowered || !createFuse;
             case SwitchType.Security:
                 return securityPowered || !createFuse;
-            case SwitchType.Lights:
-                return lightsPowered || !createFuse;
         }
         return false;
+    }
+
+    public void Breakelectricity()
+    {
+        broken = true;
+        TurnOnOffLights(false);
     }
 
     public void ScientistSegmentUnlock()
@@ -201,6 +214,11 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
 
     public void IncreaseLevel(int level)
     {
-        if (level == activateAt) UnlockSegment(true);
-    }
+        if (level == activateAt)
+        {
+            UnlockSegment(true);
+            TurnOnOffLights(true);
+        }
+        
+    }    
 }

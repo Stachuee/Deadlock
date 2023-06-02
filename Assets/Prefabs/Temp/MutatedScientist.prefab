@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 200
   hp: 200
-  randomSpeed: {x: 1, y: 2}
+  randomSpeed: {x: 0, y: 0.5}
   damage: 25
   attackSpeed: 0.3
   armor: 0.3

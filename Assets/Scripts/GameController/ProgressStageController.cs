@@ -92,7 +92,7 @@ public class ProgressStageController : MonoBehaviour
 
     public float GetCurrentProgress()
     {
-        return currentProgress/cureProgress[progressLevel].timeToCompleate;
+        return currentProgress/cureProgress[Mathf.Max(progressLevel, 0)].timeToCompleate;
     }
 
     public int GetCurrentLevel()

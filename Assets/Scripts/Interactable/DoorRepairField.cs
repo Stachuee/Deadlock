@@ -14,15 +14,16 @@ public class DoorRepairField : InteractableBase
 
     public void RepairDoor(PlayerController player)
     {
-        ItemSO temp = player.CheckIfHoldingAnyAndDeposit(toRepair);
-        if (temp != null)
+        if (player.equipmentController.GetCurrentlyEquiped() == EquipmentType.RepairKit && player.equipmentController.GetCurrentlyEquipedAmmo() > 0)
         {
             door.Repair();
+            player.equipmentController.UseCurretnlyEquiped();
+            player.RefreshPrompt();
         }
     }
 
     public override bool IsUsable(PlayerController player)
     {
-        return player.CheckIfHoldingAny(toRepair);
+        return player.equipmentController.GetCurrentlyEquiped() == EquipmentType.RepairKit && player.equipmentController.GetCurrentlyEquipedAmmo() > 0;
     }
 }

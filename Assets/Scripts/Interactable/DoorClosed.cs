@@ -16,7 +16,7 @@ public class DoorClosed : MonoBehaviour, ITakeDamage
         return false;
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
         return parrent.TakeDamage(damage);
     }

@@ -9,16 +9,21 @@ public class SpawnerController : MonoBehaviour
     public static SpawnerController instance;
 
     readonly float FIRST_SPAWN_DELAY = 0;
+    readonly int WAVE_STRENGTH_MAX_COUNT = 5;
 
     List<Spawner> spawns = new List<Spawner>();
 
 
     [SerializeField]
     List<Wave> waves = new List<Wave>();
-
+    [SerializeField]
+    List<float> targetDifficulty;
+    [SerializeField] float avrgOfLastWaves;
 
     Dictionary<int, ITakeDamage> damageMap = new Dictionary<int, ITakeDamage>();
 
+    float lastWavesStrength;
+    Queue<float> wavesStrength = new Queue<float>();
 
     WaveSO currentWave;
 
@@ -65,9 +70,36 @@ public class SpawnerController : MonoBehaviour
 
     public void TriggerWave()
     {
+        int currentLevel = ProgressStageController.instance.GetCurrentLevel();
+        if (wavesStrength.Count > 0)
+        {
+            avrgOfLastWaves = lastWavesStrength / wavesStrength.Count;
+        }
+        else
+        {
+            avrgOfLastWaves = targetDifficulty[currentLevel];
+        }
         
-        Wave currentWavePool = waves[ProgressStageController.instance.GetCurrentLevel()];
-        currentWave = currentWavePool.waves[UnityEngine.Random.Range(0, currentWavePool.waves.Count)];
+        Wave currentWavePool = waves[currentLevel];
+        
+        if(0.5f * (targetDifficulty[currentLevel]/ avrgOfLastWaves) > UnityEngine.Random.Range(0f, 1f))
+        {
+            List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() > targetDifficulty[currentLevel]);
+            currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
+        }
+        else
+        {
+            List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() <= targetDifficulty[currentLevel]);
+            currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
+        }
+
+        lastWavesStrength += currentWave.GetWaveStrength();
+        wavesStrength.Enqueue(currentWave.GetWaveStrength());
+        if(wavesStrength.Count >= WAVE_STRENGTH_MAX_COUNT)
+        {
+            lastWavesStrength -= wavesStrength.Dequeue();
+        }
+
 
         List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive && !x.spawning);
 

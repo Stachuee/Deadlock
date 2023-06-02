@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Laser : GunBase
 {
+
+    public static bool reflect = true;
+    public static bool recharge;
+
     readonly float MAX_AMMO = 100;
 
     [SerializeField] protected LayerMask laserHealingLayerMask;
@@ -68,9 +72,6 @@ public class Laser : GunBase
     private Transform lastTargetHit = null;
     ITakeDamage lastHitITakeDamage;
 
-    int fireMode;
-    int targetFireMode;
-
     protected override void Start()
     {
         base.Start();
@@ -130,6 +131,7 @@ public class Laser : GunBase
 
                 if (hit = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity, ~laserLayerMask))
                 {
+
                     DrawRay(firePoint.position, hit.point);
                     
                     laserStart.transform.position = firePoint.position;
@@ -175,6 +177,7 @@ public class Laser : GunBase
         }
         else if (fireMode == 1)
         {
+
             if (isShooting && currentRestoreAmmo > 0)
             {
                 LaserActive = true;
@@ -183,12 +186,13 @@ public class Laser : GunBase
 
                 if (hit = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity, ~laserHealingLayerMask))
                 {
+                    
                     DrawRay(firePoint.position, hit.point);
+                    laserEnd.transform.position = hit.point;
+                    laserEnd.transform.rotation = Quaternion.Euler(0, 0, rot_z - 180);
 
                     laserStart.transform.position = firePoint.position;
                     laserStart.transform.rotation = Quaternion.Euler(0, 0, rot_z);
-                    laserEnd.transform.position = hit.point;
-                    laserEnd.transform.rotation = Quaternion.Euler(0, 0, rot_z - 180);
 
                     if (hit.transform.tag == "Interactable")
                     {
@@ -225,16 +229,6 @@ public class Laser : GunBase
         }
     }
 
-    override public void ChangeBulletType(bool input)
-    {
-        if (input)
-        {
-            StopReload();
-            fireMode = (fireMode + 1) % 2;
-            Reload(true);
-        }
-    }
-
     override public string GetAmmoAmount()
     {
         if (fireMode == 0) return Mathf.CeilToInt(currentAmmo).ToString() + "/" + Mathf.CeilToInt(maxAmmo).ToString();
@@ -259,7 +253,7 @@ public class Laser : GunBase
 
     public override void RefillAmmo()
     {
-        fireMode = targetFireMode;
+        base.RefillAmmo();
         if (fireMode == 0)
         {
             maxAmmo += currentAmmo;
@@ -272,16 +266,6 @@ public class Laser : GunBase
             currentRestoreAmmo = Mathf.Min(MAX_AMMO, maxRestoreAmmo);
             maxRestoreAmmo -= currentRestoreAmmo;
         }
-    }
-
-    private void OnDisable()
-    {
-        StopReload();
-    }
-
-    private void OnEnable()
-    {
-        targetFireMode = fireMode;
     }
 
     protected override bool IsFullOnAmmo()

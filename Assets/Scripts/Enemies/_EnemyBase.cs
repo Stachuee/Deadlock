@@ -100,7 +100,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         }
     }
 
-    public virtual float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public virtual float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
 
         float damageTaken = damage;
@@ -108,7 +108,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         switch (effects)
         {
             case DamageEffetcts.None:
-                damageTaken = (1 - armor) * damage;
+                damageTaken = (1 - (armor - armor_piercing)) * damage;
                 break;
             case DamageEffetcts.Disintegrating:
                 damageTaken = CombatController.DISINTEGRATING_FALLOFF.Evaluate(armor) * damage;

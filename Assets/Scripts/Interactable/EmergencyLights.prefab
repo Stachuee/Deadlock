@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmergencyLights
       objectReference: {fileID: 0}
+    - target: {fileID: 6444604580531731428, guid: edee7a1f54322a848a9f46a12223f4da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6444604580531731429, guid: edee7a1f54322a848a9f46a12223f4da, type: 3}
       propertyPath: m_Color.b
       value: 0

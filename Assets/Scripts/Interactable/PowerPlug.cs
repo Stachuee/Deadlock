@@ -13,6 +13,9 @@ public class PowerPlug : InteractableBase
     [SerializeField]
     SpriteRenderer powerCellRenderer;
 
+    [SerializeField] Sprite empty;
+    [SerializeField] Sprite full;
+
     [SerializeField]
     List<ScientistPoweredInteractable> toManage;
 
@@ -32,7 +35,7 @@ public class PowerPlug : InteractableBase
             if (deposited != null)
             {
                 inDeposit = deposited;
-                powerCellRenderer.sprite = deposited.GetIconSprite();
+                powerCellRenderer.sprite = full;
                 toManage.ForEach(powered => powered.PowerOn((deposited as PowerCoreItem).GetPowerLevel()));
                 if (firstTime)
                 {
@@ -46,7 +49,7 @@ public class PowerPlug : InteractableBase
             GameObject temp = Instantiate(itemPrefab, transform.position, Quaternion.identity);
             temp.GetComponentInChildren<Item>().Innit(inDeposit);
             inDeposit = null;
-            powerCellRenderer.sprite = null;
+            powerCellRenderer.sprite = empty;
             toManage.ForEach(powered => powered.PowerOn(0));
         }
     }

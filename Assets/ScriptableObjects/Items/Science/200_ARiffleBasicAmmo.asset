@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f94800d59c45d0248a2ba65a53f8fa77, type: 3}
-  m_Name: 200_BasicMechanics
+  m_Name: 200_ARiffleBasicAmmo
   m_EditorClassIdentifier: 
   id: 200
-  itemName: Basic mechanics
+  itemName: ARiffle basic ammo
   defaultSprite: {fileID: 21300000, guid: a300325b4881a1a4d9fb2998d3ee253a, type: 3}
   icon: {fileID: 21300000, guid: a300325b4881a1a4d9fb2998d3ee253a, type: 3}
   itemDesc: I TURNED MYSELF INTO A PICKLE. IM A PICKLE RICK.
   unlocks:
-  - {fileID: 11400000, guid: ee603f96b2a8e0b49bb0f46064b125e2, type: 2}
   - {fileID: 11400000, guid: c04b4ce301a3c2446b5666da73fe0983, type: 2}

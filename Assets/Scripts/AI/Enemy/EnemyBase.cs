@@ -17,7 +17,7 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
     public abstract void Move(Vector3 targetPosition);
     //public abstract void Attack();
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
 
         //switch (type)

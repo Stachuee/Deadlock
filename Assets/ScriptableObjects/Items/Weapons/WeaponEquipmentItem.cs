@@ -6,6 +6,8 @@ using UnityEngine;
 public class WeaponEquipmentItem : ItemSO
 {
     [SerializeField] WeaponType weaponType;
+
+    [SerializeField] ScienceItem unlocks;
     public override void Drop(PlayerController player, Item item)
     {
         
@@ -16,6 +18,7 @@ public class WeaponEquipmentItem : ItemSO
         if (!player.isScientist)
         {
             player.gunController.UnlockWeapon(weaponType);
+            RecipiesManager.instance.UnlockTech(unlocks);
             destroy = true;
             return false;
         }

@@ -19,6 +19,8 @@ public class WaveSO : ScriptableObject
     [SerializeField]
     List<EnemySpawn> subWaves;
 
+    [SerializeField] float difficulty;
+
     public List<EnemySpawn> GetEnemySpawn()
     {
         return subWaves;
@@ -26,6 +28,10 @@ public class WaveSO : ScriptableObject
     public float GetNextWaveDelay()
     {
         return nextWaveDelay;
+    }
+    public float GetWaveStrength()
+    {
+        return difficulty;
     }
 
 }

@@ -20,9 +20,9 @@ public class Shield : MonoBehaviour, ITakeDamage
          armor -= damage;
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
-        float damageTaken = damage * (-armor + 1);
+        float damageTaken = damage * ( 1 - (armor - armor_piercing));
         hp -= damageTaken;
         if(hp <= 0)
         {

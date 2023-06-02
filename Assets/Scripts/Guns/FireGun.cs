@@ -22,8 +22,6 @@ public class FireGun : GunBase
     [SerializeField] float maxIceAmmo;
     [SerializeField] float currentIceAmmo;
 
-    int fireMode;
-    int targetFireMode;
 
     GunController gunController;
 
@@ -52,8 +50,9 @@ public class FireGun : GunBase
         }
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         fireVFX.Stop();
         iceVFX.Stop();
         StopReload();
@@ -115,14 +114,12 @@ public class FireGun : GunBase
 
     override public void ChangeBulletType(bool input)
     {
+        base.ChangeBulletType(input);
         if (input )
         {
-            StopReload();
             fireVFX.Stop();
             iceVFX.Stop();
             startedShooting = false;
-            targetFireMode = (fireMode + 1) % 2;
-            Reload(true);
         }
     }
 
@@ -141,7 +138,7 @@ public class FireGun : GunBase
 
     public override void RefillAmmo()
     {
-        fireMode = targetFireMode;
+        base.RefillAmmo();
         if (fireMode == 0)
         {
             maxAmmo += currentAmmo;

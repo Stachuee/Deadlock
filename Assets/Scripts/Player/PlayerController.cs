@@ -455,7 +455,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     #endregion
 
     #region interfaces
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
         if (invincibilityEnd > Time.time) return 0;
         playerInfo.hp -= damage;

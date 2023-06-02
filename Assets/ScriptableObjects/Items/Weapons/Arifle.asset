@@ -18,3 +18,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: d23233402dc30a147821610a7e20857c, type: 3}
   itemDesc: Riffle
   weaponType: 1
+  unlocks: {fileID: 11400000, guid: cfc2829202aacaa449132a6dd3dfbc0a, type: 2}

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EquipmentType { Granade, Molotov, Stim, Medkit, Turret }
+public enum EquipmentType { Granade, Molotov, Stim, Medkit, Turret, RepairKit }
 
 public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
 {
-
+    readonly float EQUIPMENT_CD = 1;
 
     EquipmentType equiped;
 
@@ -23,6 +23,8 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
     [SerializeField] MedicineBase stim;
 
     Vector2 aimDirection;
+
+    float equipmentCdRemain;
 
     bool active = true;
 
@@ -48,6 +50,7 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
         equiped = EquipmentType.Granade;
 
         UnlockEquipment(EquipmentType.Granade);
+        UnlockEquipment(EquipmentType.RepairKit);
 
         playerController.uiController.combatHUDController.UpdateEquipment(equiped);
         playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);
@@ -56,7 +59,7 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
     public void UnlockEquipment(EquipmentType type)
     {
         inventorySelector.ActivateSlot(type);
-        GameController.scientist.uiController.upgradeGuide.UnlockEquipment(type);
+        if (GameController.scientist != null) GameController.scientist.uiController.upgradeGuide.UnlockEquipment(type);
     }
 
     public void ChangeEquipment(EquipmentType type)
@@ -65,11 +68,12 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
         equiped = type;
         playerController.uiController.combatHUDController.UpdateEquipment(type);
         playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[type]);
+        playerController.RefreshPrompt();
     }
 
     public void UseEquipment()
     {
-        if (!active) return;
+        if (!active || equipmentCdRemain > Time.time) return;
         GameObject temp;
 
         switch (equiped)
@@ -105,14 +109,33 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
                 backpack[EquipmentType.Stim]--;
                 stim.AddEffect(playerController);
                 break;
+            case EquipmentType.RepairKit:
+                break;
         }
-
+        equipmentCdRemain = EQUIPMENT_CD + Time.time;
         playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);
     }
 
     public string GetEquipmentAmmo(EquipmentType type)
     {
         return backpack[type].ToString();
+    }
+
+
+    public EquipmentType GetCurrentlyEquiped()
+    {
+        return equiped;
+    }
+
+    public int GetCurrentlyEquipedAmmo()
+    {
+        return backpack[equiped];
+    }
+
+    public void UseCurretnlyEquiped()
+    {
+        backpack[equiped]--;
+        playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);
     }
 
     public void ForwardCommandMovment(Vector2 controll)

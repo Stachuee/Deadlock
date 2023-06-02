@@ -217,7 +217,7 @@ MonoBehaviour:
   roomSize: {x: 5, y: 3}
   startingRoom: 0
   roomEvents: []
-  position: {x: 10, y: -0.1168561}
+  position: {x: 0, y: 0}
 --- !u!1 &4280092251742586851
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   - {x: 5.04996, y: -3.125748, z: 0}
   m_ShapePathHash: 118548827
   m_Mesh: {fileID: 0}
-  m_InstanceId: -245808
+  m_InstanceId: 53390
 --- !u!1 &9200668378087306056
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
   - {x: -4.6960654, y: -0.17183912, z: 0}
   m_ShapePathHash: -1456809845
   m_Mesh: {fileID: 0}
-  m_InstanceId: 208168
+  m_InstanceId: 53382
 --- !u!1001 &661677018336483524
 PrefabInstance:
   m_ObjectHideFlags: 0

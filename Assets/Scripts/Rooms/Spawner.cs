@@ -16,6 +16,7 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     float lastSpawn;
 
     public bool spawning;
+    public float distanceToTravel;
 
     List<WaveSO.EnemySpawn> toSpawnList;
     int alreadySpawned;
@@ -70,7 +71,6 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     public void AddToSpawn(List<WaveSO.EnemySpawn> subWave)
     {
-        Debug.Log(subWave.Count);
         toSpawnList = subWave;
         step = 0;
         spawning = true;

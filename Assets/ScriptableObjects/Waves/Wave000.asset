@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fa7e6a1b17d7546bd49b1f1c00b7cd, type: 3}
   m_Name: Wave000
   m_EditorClassIdentifier: 
-  nextWaveDelay: 10
+  nextWaveDelay: 6
   subWaves:
-  - count: 5
+  - count: 3
     enemy: {fileID: 11400000, guid: 2e82a583baf0a3540a90d71d6d1875bd, type: 2}
     spawnDelay: 1
-  - count: 1
-    enemy: {fileID: 11400000, guid: d7e40543117b29c40be4106dd6c65409, type: 2}
-    spawnDelay: 1
+  difficulty: 10

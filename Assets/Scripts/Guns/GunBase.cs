@@ -44,6 +44,10 @@ public abstract class GunBase : MonoBehaviour, IGun
     [SerializeField] float reloadTime;
     float reloadTimer;
 
+
+    protected int fireMode;
+    int targetFireMode;
+
     protected virtual void Start()
     {
         owner = transform.GetComponentInParent<PlayerController>();
@@ -84,7 +88,10 @@ public abstract class GunBase : MonoBehaviour, IGun
 
     }
 
-    public abstract void RefillAmmo();
+    public virtual void RefillAmmo()
+    {
+        fireMode = targetFireMode;
+    }
 
     public virtual void Reload(bool forceReload = false)
     {
@@ -105,7 +112,12 @@ public abstract class GunBase : MonoBehaviour, IGun
 
     public virtual void ChangeBulletType(bool input)
     {
-        Reload(true);
+        if (input)
+        {
+            StopReload();
+            targetFireMode = (fireMode + 1) % 2;
+            Reload(true);
+        }
     }
 
     public void Shoot(bool _isShooting)
@@ -149,6 +161,12 @@ public abstract class GunBase : MonoBehaviour, IGun
     {
         if(owner != null)
         laser.gameObject.SetActive(useLaser);
+        targetFireMode = fireMode;
+    }
+
+    protected virtual void OnDisable()
+    {
+        StopReload();
     }
 
 }

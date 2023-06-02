@@ -15,6 +15,9 @@ public class PowerDeposit : InteractableBase
     [SerializeField]
     SpriteRenderer powerCellRenderer;
 
+    [SerializeField] Sprite empty;
+    [SerializeField] Sprite full;
+
     FuseBox fuseBox;
 
     bool firstTime = true;
@@ -36,7 +39,7 @@ public class PowerDeposit : InteractableBase
             if (deposited != null)
             {
                 inDeposit = deposited;
-                powerCellRenderer.sprite = deposited.GetIconSprite();
+                powerCellRenderer.sprite = full;
                 fuseBox.PlugIn((deposited as PowerCoreItem).GetPowerLevel());
                 if(firstTime)
                 {
@@ -50,7 +53,7 @@ public class PowerDeposit : InteractableBase
             GameObject temp = Instantiate(itemPrefab, transform.position, Quaternion.identity);
             temp.GetComponentInChildren<Item>().Innit(inDeposit);
             inDeposit = null;
-            powerCellRenderer.sprite = null;
+            powerCellRenderer.sprite = empty;
             fuseBox.PlugIn(0);
         }
     }

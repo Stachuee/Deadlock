@@ -16,6 +16,8 @@ public class AutomaticRiffle : GunBase
     private float shootTimer = 0f; // time elapsed since last shot
                                    //private Bullet bullet;
 
+    public float aromrPierce = 0;
+
     [SerializeField] Sprite ammoIcon;
     [SerializeField] float damagePerBullet;
     [SerializeField] int maxAmmo;
@@ -33,8 +35,6 @@ public class AutomaticRiffle : GunBase
     [SerializeField] ParticleSystem bulletImpactVFXFlesh;
     float trailDisapearTimer;
     bool trailShown;
-    int fireMode;
-    int targetFireMode;
 
 
     protected override void Start()
@@ -162,18 +162,6 @@ public class AutomaticRiffle : GunBase
         }
     }
 
-    override public void ChangeBulletType(bool input)
-    {
-        if (input )
-        {
-            StopReload();
-            targetFireMode = (fireMode + 1) % 2;
-            Reload(true);
-            //currentBulletIndex = (currentBulletIndex + 1) % bullets.Count;
-            //bulletPrefab = bullets[currentBulletIndex];
-            //bullet = bulletPrefab.GetComponent<Bullet>();
-        }
-    }
 
     override public string GetAmmoAmount()
     {
@@ -198,7 +186,7 @@ public class AutomaticRiffle : GunBase
 
     public override void RefillAmmo()
     {
-        fireMode = targetFireMode;
+        base.RefillAmmo();
         if (fireMode == 0)
         {
             maxAmmo += currentAmmo;
@@ -211,16 +199,6 @@ public class AutomaticRiffle : GunBase
             currentDisintegratingAmmo = Mathf.Min(MAX_AMMO, maxDisintegratingAmmo);
             maxDisintegratingAmmo -= currentDisintegratingAmmo;
         }
-    }
-
-    private void OnDisable()
-    {
-        StopReload();
-    }
-
-    private void OnEnable()
-    {
-        targetFireMode = fireMode;
     }
 
     protected override bool IsFullOnAmmo()

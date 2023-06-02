@@ -14,6 +14,8 @@ public struct Interactable
 [ExecuteInEditMode]
 public class Rooms : MonoBehaviour
 {
+
+    public static Rooms starting;
     //[SerializeField]
     //public string roomGUID;
     [SerializeField]
@@ -66,6 +68,7 @@ public class Rooms : MonoBehaviour
             stairs = new List<StairsScript>();
             stairs = transform.GetComponentsInChildren<StairsScript>().ToList();
             doorMarkers = transform.GetComponentsInChildren<DoorMarker>().ToList();
+            if (startingRoom) starting = this;
 
             mySegment = GetComponentInParent<MapSegment>();
 

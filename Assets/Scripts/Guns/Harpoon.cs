@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Harpoon : GunBase
 {
+    public static float armorPierce = 0;
+    public static bool doubleShot = false;
 
     readonly int MAX_AMMO = 1;
 
@@ -15,8 +17,6 @@ public class Harpoon : GunBase
     [SerializeField] int maxPreciseAmmo;
     [SerializeField] int currentPreciseAmmo;
 
-    int fireMode;
-    int targetFireMode;
 
     [SerializeField] Sprite ammoIcon;
     [SerializeField] GameObject bulletPrefab;
@@ -70,7 +70,7 @@ public class Harpoon : GunBase
             {
                 return; // not enough time has passed since last shot
             }
-            Instantiate(fireMode == 0 ? bulletPrefab : preciseBulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
+            Fire();
 
             if (fireMode == 0)
                 currentAmmo--;
@@ -81,16 +81,18 @@ public class Harpoon : GunBase
         }
     }
 
-    override public void ChangeBulletType(bool input)
+    public void Fire()
     {
-        fireMode = targetFireMode;
-        if (input)
+        Instantiate(fireMode == 0 ? bulletPrefab : preciseBulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
+        if(doubleShot) StartCoroutine("FireDelayed");
+    }
+
+    public IEnumerator FireDelayed()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if(gameObject.activeInHierarchy)
         {
-            StopReload();
-            targetFireMode = (fireMode + 1) % 2;
-            Reload(true);
-            //bulletPrefab = bullets[currentBulletIndex];
-            //bullet = bulletPrefab.GetComponent<Bullet>();
+            Instantiate(fireMode == 0 ? bulletPrefab : preciseBulletPrefab, barrel.position, Quaternion.Euler(0, 0, rot_z));
         }
     }
 
@@ -111,6 +113,7 @@ public class Harpoon : GunBase
 
     public override void RefillAmmo()
     {
+        base.RefillAmmo();
         if (fireMode == 0)
         {
             maxAmmo += currentAmmo;
@@ -123,15 +126,6 @@ public class Harpoon : GunBase
             currentPreciseAmmo = Mathf.Min(MAX_AMMO, maxPreciseAmmo);
             maxPreciseAmmo -= currentPreciseAmmo;
         }
-    }
-
-    private void OnDisable()
-    {
-        StopReload();
-    }
-    private void OnEnable()
-    {
-        targetFireMode = fireMode;
     }
 
     protected override bool IsFullOnAmmo()

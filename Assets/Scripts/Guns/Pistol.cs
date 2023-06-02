@@ -6,12 +6,14 @@ public class Pistol : GunBase
 {
     readonly float TRAIL_LIFE_TIME = 0.05f;
 
-    readonly int MAX_AMMO = 12;
+
 
     //[SerializeField] private List<GameObject> bullets;
     //private int currentBulletIndex = 0;
 
-    public float shootDelay = 0.2f;
+
+    public static int MAX_AMMO = 12;
+    public static float shootDelay = 0.2f;
     private float shootTimer = 0f; // time elapsed since last shot
 
     [SerializeField] Sprite ammoIcon;
@@ -24,7 +26,6 @@ public class Pistol : GunBase
     [SerializeField] LayerMask toIgnore;
     float trailDisapearTimer;
     bool trailShown;
-    int fireMode;
 
 
     protected override void Start()
@@ -102,9 +103,7 @@ public class Pistol : GunBase
     {
         if (input)
         {
-            //currentBulletIndex = (currentBulletIndex + 1) % bullets.Count;
-            //bulletPrefab = bullets[currentBulletIndex];
-            //bullet = bulletPrefab.GetComponent<Bullet>();
+
         }
     }
 
@@ -115,24 +114,15 @@ public class Pistol : GunBase
         //return "";
     }
 
-    //override public DamageType GetBulletType()
-    //{
-    //    return DamageType.Bullet;
-    //    //return bullet.GetDamageType();
-    //}
-
     public override string GetBothAmmoString()
     {
         return "";
     }
 
-    private void OnDisable()
-    {
-        StopReload();
-    }
 
     public override void RefillAmmo()
     {
+        base.RefillAmmo();
         currentAmmo = MAX_AMMO;
     }
 

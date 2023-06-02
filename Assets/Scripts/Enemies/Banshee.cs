@@ -24,7 +24,7 @@ public class Banshee : Crawler
         rageCdRemain -= Time.deltaTime;
     }
 
-    public override float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public override float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
         if (!enraged && rageCdRemain <= 0)
         {

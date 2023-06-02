@@ -71,9 +71,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb226803c5344740b1dbbd2408259f9, type: 3}
   m_Name: OverlapRenderFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   settings:
     material: {fileID: 2100000, guid: 9e5af113a61287340b11cf78338d445c, type: 2}
     materialPassIndex: 0
     renderEvent: 500
-  enabled: 0
+  enabled: 1

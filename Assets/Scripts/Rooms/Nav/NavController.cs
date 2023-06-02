@@ -268,6 +268,8 @@ public class NavController : MonoBehaviour
         });
 
 
+
+
         AddWeigthToNodes();
     }
 }

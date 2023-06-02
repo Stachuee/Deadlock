@@ -196,7 +196,7 @@ MonoBehaviour:
   - {x: -4.6969, y: 0.00080400705, z: 0}
   m_ShapePathHash: 1050694757
   m_Mesh: {fileID: 0}
-  m_InstanceId: 34080
+  m_InstanceId: 53050
 --- !u!1 &1983567303784746072
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   roomSize: {x: 5, y: 3}
   startingRoom: 0
   roomEvents: []
-  position: {x: 10, y: -6.266856}
+  position: {x: 0, y: 0}
 --- !u!1 &2373213932252646758
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +312,7 @@ MonoBehaviour:
   - {x: 5.04996, y: -3.125748, z: 0}
   m_ShapePathHash: 118548827
   m_Mesh: {fileID: 0}
-  m_InstanceId: 34060
+  m_InstanceId: 53028
 --- !u!1 &6286689519577958271
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
   - {x: -4.6960654, y: -0.17183912, z: 0}
   m_ShapePathHash: -1456809845
   m_Mesh: {fileID: 0}
-  m_InstanceId: 34086
+  m_InstanceId: 53056
 --- !u!1001 &321335885577385721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -638,6 +638,10 @@ PrefabInstance:
     - target: {fileID: 6444604580531731428, guid: edee7a1f54322a848a9f46a12223f4da, type: 3}
       propertyPath: m_Name
       value: Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 6444604580531731428, guid: edee7a1f54322a848a9f46a12223f4da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6444604580531731430, guid: edee7a1f54322a848a9f46a12223f4da, type: 3}
       propertyPath: m_RootOrder

@@ -8,11 +8,21 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
 {
     [SerializeField] float maxHp;
     [SerializeField] float hp;
+
+    bool broken;
     [SerializeField] CureMachineSupportType type;
     [SerializeField] float baseOutput;
     [SerializeField] float addDelay;
 
     [SerializeField] ItemSO toRepair;
+
+    Animator anim;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        anim = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -31,16 +41,22 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
 
     public void Fix(PlayerController player)
     {
-        ItemSO temp = player.CheckIfHoldingAnyAndDeposit(toRepair);
-        if (temp != null)
+        if (player.equipmentController.GetCurrentlyEquiped() == EquipmentType.RepairKit && player.equipmentController.GetCurrentlyEquipedAmmo() > 0)
         {
+            player.equipmentController.UseCurretnlyEquiped();
+            player.RefreshPrompt();
             hp = maxHp;
         }
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
         hp -= damage;
+        if (!broken && hp <= 0)
+        {
+            broken = true;
+            anim.SetBool("Broken", true);
+        }
         return damage;
     }
 
@@ -56,7 +72,7 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
 
     public override bool IsUsable(PlayerController player)
     {
-        return player.CheckIfHoldingAny(toRepair);
+        return player.equipmentController.GetCurrentlyEquiped() == EquipmentType.RepairKit && player.equipmentController.GetCurrentlyEquipedAmmo() > 0;
     }
 
     public void ApplyStatus(Status toApply)
@@ -71,6 +87,11 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
     public float Heal(float ammount)
     {
         hp = Mathf.Min(ammount + hp, maxHp);
+        if(broken && hp > 0)
+        {
+            broken = false;
+            anim.SetBool("Broken", false);
+        }
         return ammount;
     }
 }

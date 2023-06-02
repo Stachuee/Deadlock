@@ -16,7 +16,7 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
     float doorRepairSpeed;
 
     Rooms parrent;
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None)
+    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
     {
         doorHp -= damage;
         parrent.SendWarning(WarningStrength.Strong);

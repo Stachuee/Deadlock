@@ -44,11 +44,7 @@ public class GunController : MonoBehaviour
             weapon.EnableGun(false);
         }
 
-        if (playerController.isScientist)
-        {
-            active = false;
-            return;
-        }
+
         currentWeaponIndex = 0;
         weapons[currentWeaponIndex].EnableGun(true);
 
@@ -60,8 +56,17 @@ public class GunController : MonoBehaviour
     private void Start()
     {
         UnlockWeapon(WeaponType.Pistol);
-    }
+        if (playerController.isScientist)
+        {
+            active = false;
+            foreach (GunBase weapon in weapons)
+            {
+                weapon.EnableGun(false);
+            }
+            return;
+        }
 
+    }
 
     public void AddAmmo(WeaponType weaponType, AmmoType ammoType, int amount)
     {
@@ -91,9 +96,13 @@ public class GunController : MonoBehaviour
     public void UnlockWeapon(WeaponType weaponType)
     {
         inventorySelector.ActivateSlot(weaponType);
-        GameController.scientist.uiController.upgradeGuide.UnlockGun(weaponType);
+        if(GameController.scientist != null) GameController.scientist.uiController.upgradeGuide.UnlockGun(weaponType);
     }
 
+    public GunBase GetGun(WeaponType type)
+    {
+        return weapons[(int)type];
+    }
 
     public string GetAmmoString(WeaponType type)
     {
