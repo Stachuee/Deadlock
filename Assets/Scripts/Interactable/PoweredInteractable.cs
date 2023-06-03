@@ -6,7 +6,7 @@ public abstract class PoweredInteractable : InteractableBase, PowerInterface
 {
     [SerializeField] protected SwitchType useElectricityType;
     [SerializeField] protected bool powered;
-    public virtual void PowerOn(bool on)
+    public virtual void PowerOn(bool on, string sectorName)
     {
         powered = on;
     }

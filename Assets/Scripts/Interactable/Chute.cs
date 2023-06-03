@@ -33,7 +33,7 @@ public class Chute : InteractableBase
         if(connectedChute == null) connectedChute = scientistChute;
     }
 
-    void DumpItems(PlayerController player)
+    void DumpItems(PlayerController player, UseType type)
     {
         if (oneWayOutput) return;
         for (ItemSO temp = player.DepositIngredient(); temp != null; temp = player.DepositIngredient())

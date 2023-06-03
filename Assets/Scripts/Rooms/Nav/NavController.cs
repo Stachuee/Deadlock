@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class NavController : MonoBehaviour
@@ -12,10 +13,16 @@ public class NavController : MonoBehaviour
     
     [SerializeField]
     Rooms targetRoom;
+    [SerializeField]
     NavNode targetNode;
 
     [SerializeField]
     GameObject navNode;
+    [SerializeField]
+    GameObject doorsBetweenRooms;
+
+    [SerializeField]
+    Transform spawnDoorsUnder;
 
     private void Awake()
     {
@@ -89,6 +96,7 @@ public class NavController : MonoBehaviour
 
         while (currentNode.nextNode != null)
         {
+
             currentNode = currentNode.nextNode;
             path.Enqueue(currentNode);
         }
@@ -98,7 +106,7 @@ public class NavController : MonoBehaviour
 
     [SerializeField]
     LayerMask navNodeLayerMask;
-    private NavNode FindClosestWaypoint(Vector2 target, bool toScientist = false)
+    public NavNode FindClosestWaypoint(Vector2 target, bool toScientist = false)
     {
         NavNode closest = null;
         float closestDist = Mathf.Infinity;
@@ -128,7 +136,7 @@ public class NavController : MonoBehaviour
 
     }
 
-    void AddWeigthToNodes()
+    public void UpdateWeigths()
     {
         List<NavNode> closedList = new List<NavNode>();
         List<NavNode> openList = new List<NavNode>();
@@ -148,7 +156,7 @@ public class NavController : MonoBehaviour
             {
                 if(!(openList.Contains(n) || closedList.Contains(n)))
                 {
-                    n.distanceToScientist = distance + Vector2.Distance(targetNode.transform.position, n.transform.position);
+                    n.distanceToScientist = distance + Vector2.Distance(targetNode.transform.position, n.transform.position) + n.obstaclesWeigths;
                     n.nextNode = targetNode;
                     openList.Add(n);
                 }
@@ -174,7 +182,9 @@ public class NavController : MonoBehaviour
         }
     }
 
-    [ContextMenu("Create navmesh from premade map")]
+    #if UNITY_EDITOR
+
+    [ContextMenu("Create navmesh and connect doors from premade map")]
     void createNavMeshPremade()
     {
         List<Rooms> allRooms = FindObjectsOfType<Rooms>().ToList();
@@ -247,6 +257,12 @@ public class NavController : MonoBehaviour
         //Connect doors and remove redundant nodes
 
         List<DoorMarker> doors = FindObjectsOfType<DoorMarker>().ToList();
+        List<DoorsBetweenRooms> doorsToDestroy = FindObjectsOfType<DoorsBetweenRooms>().ToList();
+
+        doorsToDestroy.ForEach(doorToDestroy =>
+        {
+            DestroyImmediate(doorToDestroy);
+        });
 
         doors.ForEach(door =>
         {
@@ -255,6 +271,10 @@ public class NavController : MonoBehaviour
             {
                 DoorMarker connected = doors.Find(toFind => Vector2.Distance(door.transform.position, toFind.transform.position) < 0.1f && door != toFind);
                 NavNode redundant = connected.GetComponentInChildren<NavNode>();
+
+                Instantiate(doorsBetweenRooms, door.transform.position, Quaternion.identity, spawnDoorsUnder).GetComponent<DoorsBetweenRooms>().SetParrents(door.GetComponentInParent<Rooms>(),
+                    connected.GetComponentInParent<Rooms>(), myNode);
+
                 nodes.Remove(redundant);
                 redundant.GetConnectedNodes().ForEach(nodeToUpdate =>
                 {
@@ -270,6 +290,8 @@ public class NavController : MonoBehaviour
 
 
 
-        AddWeigthToNodes();
+        UpdateWeigths();
     }
+
+    #endif
 }

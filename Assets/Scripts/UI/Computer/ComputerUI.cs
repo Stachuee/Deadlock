@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public enum WarningStrength {Weak, Medium, Strong };
 public enum Marker {Normal, Elite }
-public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSubscriberUse
+public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubscriberUse
 {
     [SerializeField] Transform content;
     [SerializeField] GameObject panel;
@@ -13,6 +13,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     [SerializeField] GameObject segmentPrefab;
     [SerializeField] GameObject doorPrefab;
     [SerializeField] GameObject stairsPrefab;
+    [SerializeField] GameObject IconPrefab;
 
     [SerializeField] PlayerController playerController;
 
@@ -154,6 +155,19 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             });
         });
 
+        allRooms.ForEach(room =>
+        {
+            room.remoteAvtivation.ForEach(x =>
+            {
+                GameObject temp = Instantiate(IconPrefab, Vector3.zero, Quaternion.identity, content);
+                RectTransform tempTransform = temp.GetComponent<RectTransform>();
+                tempTransform.anchoredPosition = (x.GetPosition() - startingDrawPos) * scale;
+                tempTransform.sizeDelta = new Vector2(1, 1) * scale;
+                temp.GetComponent<Image>().sprite = x.GetComputerIcon();
+            });
+        });
+        
+
         size *= 2;
         content.GetComponent<RectTransform>().sizeDelta = new Vector2(Mathf.Max(size.x, myRect.sizeDelta.x), Mathf.Max(size.y, myRect.sizeDelta.y));
 
@@ -227,7 +241,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             });
         });
 
-        playerController.AddMovmentSubscriber(this);
+        playerController.AddMoveSubscriber(this);
         playerController.AddUseSubscriber(this);
         panel.SetActive(false);
         lookingAtMap = false;
@@ -244,6 +258,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         panel.SetActive(true);
         lookingAtMap = true;
         playerController.uiController.myEventSystem.SetSelectedGameObject(null);
+        playerController.cameraController.useMove = true;
         StartCoroutine("SetSelected");
     }
 
@@ -266,6 +281,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
         {
             panel.SetActive(false);
             playerController.cameraController.ResetTarget();
+            playerController.cameraController.useMove = false;
             return true;
         }
         else
@@ -273,7 +289,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
             panel.SetActive(true);
             lookingAtMap = true;
             activeRoom = null;
-            playerController.RemoveMovmentSubscriber(this);
+            playerController.RemoveMoveSubscriber(this);
             playerController.RemoveUseSubscriber(this);
             Highlighted = null;
             return false;
@@ -314,10 +330,10 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
     IInteractable highlighted;
 
-    public void ForwardCommandMovment(Vector2 controll)
+    public void ForwardCommandMove(Vector2 controll, Vector2 controllSmooth)
     {
         if (controlling) return;
-        if(controll.magnitude > 0)
+        if (controll.magnitude > 0)
         {
             IInteractable newHighlighted = null;
             float smallestAngle = 45;
@@ -333,17 +349,18 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
                 }
             });
 
-            if(newHighlighted != Highlighted)
+            if (newHighlighted != Highlighted)
             {
                 Highlighted = newHighlighted;
             }
         }
     }
+
     public void ForwardCommandUse()
     {
         if(Highlighted != null && !controlling)
         {
-            Highlighted.Use(playerController);
+            Highlighted.Use(playerController, UseType.Computer);
             if (Highlighted is ITakeControll)
             {
                 controllingObject = Highlighted as ITakeControll;
@@ -373,7 +390,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
 
     public static void DisplayWarningOnAllComputers(Rooms room, WarningStrength strength)
     {
-        scientistComputer.DisplayWarning(room, strength);
+        if (scientistComputer != null) scientistComputer.DisplayWarning(room, strength);
     }
 
     public RectTransform CreateMarker(Marker marker)
@@ -397,4 +414,6 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMovment, IControllSu
     {
         Destroy(marker.gameObject);
     }
+
+
 }

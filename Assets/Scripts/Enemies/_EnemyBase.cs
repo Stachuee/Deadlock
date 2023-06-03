@@ -21,6 +21,8 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected float attackSpeed;
     protected float lastAttack;
 
+    [SerializeField] float patience;
+
     [SerializeField]
     float armor;
 
@@ -42,12 +44,15 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     [SerializeField] Marker markerType;
     RectTransform myMarker;
 
+    protected NavNode currentTarget;
+
     protected virtual void Start()
     {
         hp = maxHp;
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
         if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
+        currentTarget = NavController.instance.FindClosestWaypoint(transform.position, true);
 
         StartCoroutine("UpdateMarker");
     }
@@ -206,42 +211,41 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         Destroy(gameObject);
     }
 
-    private IEnumerator PoisonDamage(int poisonStrenght, float damage)
+    protected void FindNextTarget()
     {
-        poisoned = true;
+        float closestWithObs = Mathf.Infinity;
+        NavNode closestObs = null;
 
-        while (poisonStrenght > 0)
+        currentTarget.GetConnectedNodes().ForEach(node =>
         {
-            yield return new WaitForSeconds(1f);
-            hp -= damage;
-            poisonStrenght--;
-        }
-        poisoned = false;
-    }
+            if (node.distanceToScientist + node.obstaclesWeigths < closestWithObs)
+            {
+                closestWithObs = node.distanceToScientist + node.obstaclesWeigths + Vector2.Distance(transform.position, node.transform.position);
+                closestObs = node;
+            }
+        });
 
-    private IEnumerator FireDamage(int fireStrenght, float damage)
-    {
-        onFire = true;
 
-        while (fireStrenght > 0)
+        if (closestWithObs < currentTarget.distanceToScientist + patience)
         {
-            yield return new WaitForSeconds(1f);
-            hp -= damage;
-            fireStrenght--;
+            patience = Mathf.Clamp(patience - Mathf.Max(0, closestWithObs - currentTarget.distanceToScientist), 0, patience);
+            currentTarget = closestObs;
+            return;
         }
-        onFire = false;
-    }
 
-    private IEnumerator Freeze(int iceStrenght, float damage)
-    {
-        frozen = true;
-        float tmpSpeed = speed;
-        speed *= damage;
-        yield return new WaitForSeconds(iceStrenght);
-        frozen = false;
-        speed = tmpSpeed;
-    }
+        float closestWithoutObs = Mathf.Infinity;
+        NavNode closestWoObs = null;
+        currentTarget.GetConnectedNodes().ForEach(node =>
+        {
+            if (node.distanceToScientist < closestWithoutObs)
+            {
+                closestWithoutObs = node.distanceToScientist + node.obstaclesWeigths + Vector2.Distance(transform.position, node.transform.position);
+                closestWoObs = node;
+            }
+        });
 
+        currentTarget = closestWoObs;
+    }
     public bool IsImmune()
     {
         return false;

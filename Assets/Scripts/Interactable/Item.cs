@@ -28,7 +28,7 @@ public class Item : InteractableBase, IGetHandInfo
         item.Drop(player, this);
     }
 
-    void PickUpMatherial(PlayerController player)
+    void PickUpMatherial(PlayerController player, UseType type)
     {
         //if (player.PickUp(itemSO)) Destroy(transform.parent.gameObject);
         bool destroy = false;

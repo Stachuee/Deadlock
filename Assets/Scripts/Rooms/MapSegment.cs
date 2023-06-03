@@ -52,13 +52,13 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
 
     private void Start()
     {
-        if (doors != null) doors.ForEach(x => x.PowerOn(doorsPowered));
+        if (doors != null) doors.ForEach(x => x.PowerOn(doorsPowered, sectorName));
         else doors = new List<PowerInterface>();
-        if (printers != null) printers.ForEach(x => x.PowerOn(printersPowered));
+        if (printers != null) printers.ForEach(x => x.PowerOn(printersPowered, sectorName));
         else printers = new List<PowerInterface>();
-        if (security != null) security.ForEach(x => x.PowerOn(securityPowered));
+        if (security != null) security.ForEach(x => x.PowerOn(securityPowered, sectorName));
         else security = new List<PowerInterface>();
-        if (lights != null) lights.ForEach(x => x.PowerOn(lightsPowered));
+        if (lights != null) lights.ForEach(x => x.PowerOn(lightsPowered, sectorName));
         else lights = new List<PowerInterface>();
 
         if (scientistSeg) scientistSegment = this;
@@ -69,19 +69,19 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
 
     public void TurnOnOff(SwitchType switchType, bool on)
     {
-        if (createFuse) return;
+        //if (!createFuse) return;
         switch (switchType)
         {
             case SwitchType.Doors:
-                doors.ForEach(x => x.PowerOn(on));
+                doors.ForEach(x => x.PowerOn(on, sectorName));
                 doorsPowered = on;
                 break;
             case SwitchType.Printers:
-                printers.ForEach(x => x.PowerOn(on));
+                printers.ForEach(x => x.PowerOn(on, sectorName));
                 printersPowered = on;
                 break;
             case SwitchType.Security:
-                security.ForEach(x => x.PowerOn(on));
+                security.ForEach(x => x.PowerOn(on, sectorName));
                 securityPowered = on;
                 break;
         }
@@ -90,7 +90,7 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
 
     public void TurnOnOffLights(bool on)
     {
-        lights.ForEach(x => x.PowerOn(on));
+        lights.ForEach(x => x.PowerOn(on, sectorName));
         lightsPowered = on;
     }
 
@@ -117,7 +117,6 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
     public void ScientistSegmentUnlock()
     {
         TurnOnOff(SwitchType.Printers, true);
-        TurnOnOff(SwitchType.Lights, true);
         TurnOnOff(SwitchType.Security, true);
         TurnOnOff(SwitchType.Doors, true);
     }
@@ -142,55 +141,55 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
     {
         if(lights == null) lights = new List<PowerInterface>();
         this.lights.Add(light);
-        light.PowerOn(lightsPowered || !createFuse);
+        light.PowerOn(lightsPowered || !createFuse, sectorName);
     }
 
     public void AddLight(List<PowerInterface> light)
     {
         if (lights == null) lights = new List<PowerInterface>();
         this.lights.AddRange(light);
-        lights.ForEach(x => x.PowerOn(lightsPowered || !createFuse));
+        lights.ForEach(x => x.PowerOn(lightsPowered || !createFuse, sectorName));
     }
 
     public void AddDoors(PowerInterface doors)
     {
         if (this.doors == null) this.doors = new List<PowerInterface>();
         this.doors.Add(doors);
-        doors.PowerOn(doorsPowered || !createFuse);
+        doors.PowerOn(doorsPowered || !createFuse, sectorName);
     }
 
     public void AddDoors(List<PowerInterface> doors)
     {
         if (this.doors == null) this.doors = new List<PowerInterface>();
         this.doors.AddRange(doors);
-        doors.ForEach(x => x.PowerOn(doorsPowered || !createFuse));
+        doors.ForEach(x => x.PowerOn(doorsPowered || !createFuse, sectorName));
     }
 
     public void AddSecurity(PowerInterface security)
     {
         if (this.security == null) this.security = new List<PowerInterface>();
         this.security.Add(security);
-        security.PowerOn(securityPowered || !createFuse);
+        security.PowerOn(securityPowered || !createFuse, sectorName);
     }
     public void AddSecurity(List<PowerInterface> security)
     {
         if (this.security == null) this.security = new List<PowerInterface>();
         this.security.AddRange(security);
-        security.ForEach(x => x.PowerOn(securityPowered || !createFuse));
+        security.ForEach(x => x.PowerOn(securityPowered || !createFuse, sectorName));
     }
 
     public void AddPrinters(PowerInterface printers)
     {
         if (this.printers == null) this.printers = new List<PowerInterface>();
         this.printers.Add(printers);
-        printers.PowerOn(printersPowered || !createFuse);
+        printers.PowerOn(printersPowered || !createFuse, sectorName);
     }
 
     public void AddPrinters(List<PowerInterface> printers)
     {
         if (this.printers == null) this.printers = new List<PowerInterface>();
         this.printers.AddRange(printers);
-        printers.ForEach(x => x.PowerOn(printersPowered || !createFuse));
+        printers.ForEach(x => x.PowerOn(printersPowered || !createFuse, sectorName));
     }
 
     public void AddRoom(Rooms tooAdd)

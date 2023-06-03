@@ -47,7 +47,7 @@ public class LiftController : InteractableBase
         AddAction(CallLift);
     }
 
-    public void CallLift(PlayerController player)
+    public void CallLift(PlayerController player, UseType type)
     {
         if(ElevatorOnThisFloor)
         {

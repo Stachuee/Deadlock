@@ -39,7 +39,7 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
         }
     }
 
-    public void Fix(PlayerController player)
+    public void Fix(PlayerController player, UseType type)
     {
         if (player.equipmentController.GetCurrentlyEquiped() == EquipmentType.RepairKit && player.equipmentController.GetCurrentlyEquipedAmmo() > 0)
         {

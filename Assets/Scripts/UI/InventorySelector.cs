@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
+public class InventorySelector : MonoBehaviour, IControllSubscriberAim
 {
     [SerializeField] List<GunMenuButton> slotButtons = new List<GunMenuButton>();
 
@@ -57,11 +57,11 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
         if (open || !active) return;
         inventoryPanel.SetActive(true);
         RefreshAmmo();
-        pC.AddMovmentSubscriber(this);
+        pC.AddAimSubscriber(this);
         open = true;
     }
 
-    public void ForwardCommandMovment(Vector2 controll)
+    public void ForwardCommandAim(Vector2 controll, Vector2 controllSmooth)
     {
         if (controll.magnitude < 0.2f)
         {
@@ -124,7 +124,7 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberMovment
             }
         }
         inventoryPanel.SetActive(false);
-        pC.RemoveMovmentSubscriber(this);
+        pC.RemoveAimSubscriber(this);
         open = false;
     }
 

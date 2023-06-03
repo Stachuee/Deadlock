@@ -27,7 +27,7 @@ public class PowerPlug : InteractableBase
         acceptedItems = new List<ItemSO>();
     }
 
-    public void PlugBattery(PlayerController player)
+    public void PlugBattery(PlayerController player, UseType type)
     {
         if (inDeposit == null)
         {

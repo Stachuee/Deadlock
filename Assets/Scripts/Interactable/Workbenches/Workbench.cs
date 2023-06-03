@@ -24,7 +24,7 @@ public abstract class Workbench : ScientistPoweredInteractable //, IControllSubs
         itemDeposits = transform.GetComponentsInChildren<Deposit>();
         AddAction(Craft);
     }
-    public abstract void Craft(PlayerController player);
+    public abstract void Craft(PlayerController player, UseType type);
 
     protected CraftingRecipesSO FindRecipie()
     {

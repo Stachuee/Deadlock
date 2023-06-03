@@ -15,7 +15,7 @@ public class CameraBreaker : InteractableBase
     }
 
 
-    public void Activate(PlayerController player)
+    public void Activate(PlayerController player, UseType type)
     {
         on = true;
         segment.UnlockSegment(on);

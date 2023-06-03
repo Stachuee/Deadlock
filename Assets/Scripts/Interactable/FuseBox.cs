@@ -26,10 +26,10 @@ public class FuseBox : InteractableBase
     }
 
 
-    void OpenBox(PlayerController player)
+    void OpenBox(PlayerController player, UseType type)
     {
         activePlayer = player;
-        player.uiController.fuseBox.OpenBox(type, this);
+        player.uiController.fuseBox.OpenBox(this.type, this);
         player.LockInAction(CloseBox);
     }
 

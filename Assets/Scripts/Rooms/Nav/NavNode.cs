@@ -7,6 +7,8 @@ public class NavNode : MonoBehaviour
 {
     [SerializeField]
     public NavNodeType navNodeType;
+    [SerializeField]
+    public NavNode connectedStairs;
 
     [SerializeField]
     List<NavNode> connectedNodes = new List<NavNode>();
@@ -18,6 +20,7 @@ public class NavNode : MonoBehaviour
 
     public NavNode nextNode;
     public float distanceToScientist;
+    public float obstaclesWeigths;
 
     public enum NavNodeType { Horizontal, Stairs}
 
@@ -51,4 +54,5 @@ public class NavNode : MonoBehaviour
     {
         return connectedNodes;
     }
+
 }

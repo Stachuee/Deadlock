@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IControllSubscriberMovment
+public interface IControllSubscriberAim
 {
-    public void ForwardCommandMovment(Vector2 controll);
+    public void ForwardCommandAim(Vector2 controll, Vector2 controllSmooth);
 }
 public interface IControllSubscriberUse
 {
@@ -19,4 +19,9 @@ public interface IControllSubscriberBack
 public interface IControllSubscriberShoot
 {
     public void ForwardCommandShoot(bool shooting);
+}
+
+public interface IControllSubscriberMove
+{
+    public void ForwardCommandMove(Vector2 controll, Vector2 controllSmooth);
 }

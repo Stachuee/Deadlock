@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ITakeControll
 {
-    public void TakeControll(PlayerController player);
+    public void TakeControll(PlayerController player, UseType type);
     public bool CanTakeControll();
     public void Leave();
 }

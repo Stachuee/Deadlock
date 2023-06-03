@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     Vector2 moveDirection = Vector2.zero;
     public Vector2 currentAimDirection { get; private set; }
+    public Vector2 currentMoveDirection { get; private set; }
     public Vector2 currentWeaponDirection { get; private set; }
     Vector2 desiredAimDirection = Vector2.zero;
     public bool keyboard;
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     [SerializeField]
     Camera cam;
     bool debugStart = true;
+    public bool useMovement;
 
     [Header("Inventory")]
 
@@ -149,11 +151,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (keyboard) 
         {
             currentAimDirection = cameraController.ViewAngle();
-            SendMovmentControll(currentAimDirection);
+            SendAimControll(currentAimDirection, currentAimDirection);
+            SendMoveControll(currentAimDirection, currentAimDirection);
         }
         else
         {
-            Vector2 vel = Vector2.zero;
+            Vector2 vel = Vector2.zero, moveVel = Vector2.zero;
             if(desiredAimDirection.magnitude > 0.05f)
             {
                 currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.03f);
@@ -166,7 +169,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             {
                 currentAimDirection = Vector2.SmoothDamp(currentAimDirection, desiredAimDirection, ref vel, 0.03f);
             }
-            SendMovmentControll(desiredAimDirection);
+            currentMoveDirection = Vector2.SmoothDamp(currentMoveDirection, moveDirection, ref vel, 0.03f);
+            SendAimControll(desiredAimDirection, currentAimDirection);
+            SendMoveControll(moveDirection, currentMoveDirection); 
         }
 
         if (dead)
@@ -349,7 +354,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             SendUseControll();
             if (closestInRange != null && !LockInAnimation)
             {
-                closestInRange.Use(this);
+                closestInRange.Use(this, UseType.Hand);
             }
         } // use one
     }
@@ -498,19 +503,35 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     #region ForwardControll
 
-    List<IControllSubscriberMovment> movmentSubscribers = new List<IControllSubscriberMovment>();
-    public void AddMovmentSubscriber(IControllSubscriberMovment subscriberMovment)
+    List<IControllSubscriberAim> aimSubscribers = new List<IControllSubscriberAim>();
+    public void AddAimSubscriber(IControllSubscriberAim subscriberMovment)
     {
-        movmentSubscribers.Add(subscriberMovment);
+        aimSubscribers.Add(subscriberMovment);
     }
-    public void RemoveMovmentSubscriber(IControllSubscriberMovment subscriberMovment)
+    public void RemoveAimSubscriber(IControllSubscriberAim subscriberMovment)
     {
-        movmentSubscribers.Remove(subscriberMovment);
+        aimSubscribers.Remove(subscriberMovment);
     }
-    void SendMovmentControll(Vector2 context)
+    void SendAimControll(Vector2 context, Vector2 smooth)
     {
-        movmentSubscribers.ForEach(x => x.ForwardCommandMovment(context));
+        aimSubscribers.ForEach(x => x.ForwardCommandAim(context, smooth));
     }
+
+
+    List<IControllSubscriberMove> moveSubscribers = new List<IControllSubscriberMove>();
+    public void AddMoveSubscriber(IControllSubscriberMove subscriberMovment)
+    {
+        moveSubscribers.Add(subscriberMovment);
+    }
+    public void RemoveMoveSubscriber(IControllSubscriberMove subscriberMovment)
+    {
+        moveSubscribers.Remove(subscriberMovment);
+    }
+    void SendMoveControll(Vector2 context, Vector2 smooth)
+    {
+        moveSubscribers.ForEach(x => x.ForwardCommandMove(context, smooth));
+    }
+
 
     List<IControllSubscriberUse> iControllSubscriberUse = new List<IControllSubscriberUse>();
     public void AddUseSubscriber(IControllSubscriberUse subscriberMovment)

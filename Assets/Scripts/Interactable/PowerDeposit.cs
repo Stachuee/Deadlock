@@ -31,7 +31,7 @@ public class PowerDeposit : InteractableBase
         acceptedItems = new List<ItemSO>();
     }
 
-    public void DepositBattery(PlayerController player)
+    public void DepositBattery(PlayerController player, UseType type)
     {
         if(inDeposit == null)
         {

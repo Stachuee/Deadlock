@@ -18,7 +18,7 @@ public class Deposit : InteractableBase
         AddAction(AddIngredient);
     }
 
-    void AddIngredient(PlayerController player)
+    void AddIngredient(PlayerController player, UseType type)
     {
         if (inDeposit == null)
         {

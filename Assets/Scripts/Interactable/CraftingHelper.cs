@@ -11,7 +11,7 @@ public class CraftingHelper : InteractableBase
         AddAction(Open);
     }
 
-    public void Open(PlayerController player)
+    public void Open(PlayerController player, UseType type)
     {
         activePlayer = player;
         player.LockInAction(CloseInterface);

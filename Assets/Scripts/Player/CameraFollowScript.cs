@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraFollowScript : MonoBehaviour
+public class CameraFollowScript : MonoBehaviour, IControllSubscriberMove, IControllSubscriberAim
 {
     Vector3 cameraShake;
     Transform camHolder;
@@ -29,6 +29,11 @@ public class CameraFollowScript : MonoBehaviour
 
     bool onPlayer;
 
+    public bool useMove;
+
+    Vector2 move;
+    Vector2 aim;
+
     private void Awake()
     {
         cam = transform.GetComponent<Camera>();
@@ -40,11 +45,24 @@ public class CameraFollowScript : MonoBehaviour
     {
         target = playerTransform;
         playerController = playerTransform.GetComponent<PlayerController>();
+        playerController.AddAimSubscriber(this);
+        playerController.AddMoveSubscriber(this);
     }
+
     void Update()
     {
         //camHolder.position = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
-        Vector3 desiredPos = target.position + (onPlayer ? playerOffset : cameraOffset) + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
+        Vector3 desiredPos;
+
+        if(useMove)
+        {
+            desiredPos = target.position + (onPlayer ? playerOffset : cameraOffset) + new Vector3(move.x * maxCameraTilt.x, move.y * maxCameraTilt.y);
+        }
+        else
+        {
+            desiredPos = target.position + (onPlayer ? playerOffset : cameraOffset)  + new Vector3(aim.x * maxCameraTilt.x, aim.y * maxCameraTilt.y);
+        }
+
         if(Vector2.Distance(transform.position, (Vector2)desiredPos) < 0.2f) camHolder.position = desiredPos;
         else camHolder.position = Vector3.SmoothDamp(camHolder.position, desiredPos, ref dampVel, camDumping);
         
@@ -121,5 +139,15 @@ public class CameraFollowScript : MonoBehaviour
             yield return null;
         }
         transform.localPosition = new Vector3(0, 0, 0);
+    }
+
+    public void ForwardCommandMove(Vector2 controll, Vector2 controllSmooth)
+    {
+        move = controllSmooth;
+    }
+
+    public void ForwardCommandAim(Vector2 controll, Vector2 controllSmooth)
+    {
+        aim = controllSmooth;
     }
 }

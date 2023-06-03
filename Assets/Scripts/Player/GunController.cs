@@ -45,25 +45,32 @@ public class GunController : MonoBehaviour
         }
 
 
-        currentWeaponIndex = 0;
-        weapons[currentWeaponIndex].EnableGun(true);
+
 
         gunTransform = weapons[currentWeaponIndex].GetGunTransform();
         barrel = weapons[currentWeaponIndex].GetBarrelTransform();
         gun = weapons[currentWeaponIndex].GetGunScript();
     }
 
-    private void Start()
+//    active = false;
+//            foreach (GunBase weapon in weapons)
+//            {
+//                weapon.EnableGun(false);
+//            }
+//return;
+
+
+private void Start()
     {
         UnlockWeapon(WeaponType.Pistol);
         if (playerController.isScientist)
         {
             active = false;
-            foreach (GunBase weapon in weapons)
-            {
-                weapon.EnableGun(false);
-            }
-            return;
+        }
+        else
+        {
+            currentWeaponIndex = 0;
+            weapons[currentWeaponIndex].EnableGun(true);
         }
 
     }

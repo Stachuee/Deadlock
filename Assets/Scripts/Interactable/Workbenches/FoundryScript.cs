@@ -33,7 +33,7 @@ public class FoundryScript : Workbench
         }
     }
 
-    public override void Craft(PlayerController player)
+    public override void Craft(PlayerController player, UseType type)
     {
         if (!powered || crafting) return;
         CraftingRecipesSO toCraft = FindRecipie();

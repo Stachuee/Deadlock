@@ -11,7 +11,7 @@ public class StatusMonitor : InteractableBase
         AddAction(OpenStatus);
     }
 
-    public void OpenStatus(PlayerController player)
+    public void OpenStatus(PlayerController player, UseType type)
     {
         activePlayer = player;
         player.LockInAction(CloseInterface);

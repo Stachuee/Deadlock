@@ -21,7 +21,7 @@ public class ItemLocker : InteractableBase
         AddAction(SearchDrawer);
     }
 
-    void SearchDrawer(PlayerController player)
+    void SearchDrawer(PlayerController player, UseType type)
     {
         player.LockInAction(StopSearching);
         StartCoroutine("StartSearching");

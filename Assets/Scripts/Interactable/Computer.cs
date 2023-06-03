@@ -15,7 +15,7 @@ public class Computer : InteractableBase
     }
 
 
-    void OpenComputer(PlayerController player)
+    void OpenComputer(PlayerController player, UseType type)
     {
         activePlayer = player;
         player.uiController.computer.OpenComputer();

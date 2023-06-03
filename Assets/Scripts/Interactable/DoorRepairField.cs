@@ -12,7 +12,7 @@ public class DoorRepairField : InteractableBase
         AddAction(RepairDoor);
     }
 
-    public void RepairDoor(PlayerController player)
+    public void RepairDoor(PlayerController player, UseType type)
     {
         if (player.equipmentController.GetCurrentlyEquiped() == EquipmentType.RepairKit && player.equipmentController.GetCurrentlyEquipedAmmo() > 0)
         {

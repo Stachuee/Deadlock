@@ -103,11 +103,16 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
-  remoteActivation: 0
+  remoteActivation: 1
   handActivation: 1
-  hideInComputer: 1
+  hideInComputer: 0
+  useElectricityType: 0
+  powered: 0
   connectedDoors: {fileID: 0}
   node: {fileID: 0}
+  openDoor: {fileID: 21300000, guid: 6f36f650b23e69741b6aa36f0d0c7de7, type: 3}
+  closedDoor: {fileID: 21300000, guid: da18e1eafca2e9846b1c045f230bb1dd, type: 3}
+  doorNavStrength: 100
 --- !u!61 &7695553992965360477
 BoxCollider2D:
   m_ObjectHideFlags: 0

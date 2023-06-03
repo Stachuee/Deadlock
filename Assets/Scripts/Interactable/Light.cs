@@ -18,7 +18,7 @@ public class Light : PoweredInteractable
         AddAction(TurnOnOffByComputer);
     }
 
-    public void TurnOnOffByComputer(PlayerController player)
+    public void TurnOnOffByComputer(PlayerController player, UseType type)
     {
         turnOn = !turnOn;
     }
@@ -33,7 +33,7 @@ public class Light : PoweredInteractable
         
     }
 
-    override public void PowerOn(bool on)
+    override public void PowerOn(bool on, string sectorName)
     {
         //if (!turnOn) return;
         if(on)

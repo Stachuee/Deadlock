@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum EquipmentType { Granade, Molotov, Stim, Medkit, Turret, RepairKit }
 
-public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
+public class EquipmentController : MonoBehaviour, IControllSubscriberAim
 {
     readonly float EQUIPMENT_CD = 1;
 
@@ -45,7 +45,7 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
             active = false;
             return;
         }
-        playerController.AddMovmentSubscriber(this);
+        playerController.AddAimSubscriber(this);
 
         equiped = EquipmentType.Granade;
 
@@ -138,7 +138,7 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberMovment
         playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);
     }
 
-    public void ForwardCommandMovment(Vector2 controll)
+    public void ForwardCommandAim(Vector2 controll, Vector2 controllSmooth)
     {
         aimDirection = controll;
     }

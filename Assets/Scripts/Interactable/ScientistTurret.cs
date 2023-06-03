@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GD.MinMaxSlider;
 
-public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubscriberMovment, IControllSubscriberShoot
+public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubscriberAim, IControllSubscriberShoot
 {
     readonly float TRAIL_LIFE_TIME = 0.05f;
 
@@ -63,7 +63,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         }
     }
 
-    public void ForwardCommandMovment(Vector2 controll)
+    public void ForwardCommandAim(Vector2 controll, Vector2 controllSmooth)
     {
         Vector2 diff = (controll).normalized;
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
@@ -175,17 +175,17 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     }
 
 
-    public void TakeControll(PlayerController player)
+    public void TakeControll(PlayerController player, UseType type)
     {
         if (automatic) return;
         user = player;
-        player.AddMovmentSubscriber(this);
+        player.AddAimSubscriber(this);
         player.AddShootSubscriber(this);
     }
 
     public void Leave()
     {
-        user.RemoveMovmentSubscriber(this);
+        user.RemoveAimSubscriber(this);
         user.RemoveShootSubscriber(this);
     }
 

@@ -7,8 +7,7 @@ public class Crawler : _EnemyBase
     [SerializeField]
     Transform target;
 
-    Queue<NavNode> path;
-    NavNode currentTarget;
+
 
     Rigidbody2D rb;
 
@@ -66,11 +65,6 @@ public class Crawler : _EnemyBase
     protected override void Start()
     {
         base.Start();
-        path = NavController.instance.GetPathToScientist(transform.position);
-        if(path.Count > 0)
-        {
-            currentTarget = path.Dequeue();
-        }
     }
 
     private void FixedUpdate()
@@ -88,22 +82,26 @@ public class Crawler : _EnemyBase
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
 
-
-            if (direction.magnitude < 1f && path.Count > 0)
+            if(Mathf.Abs(transform.position.x - currentTarget.transform.position.x) < 0.2f)
             {
-                if (currentTarget.navNodeType == NavNode.NavNodeType.Stairs)
+                
+                if (currentTarget.navNodeType == NavNode.NavNodeType.Horizontal)
                 {
-                    currentTarget = path.Dequeue();
-                    transform.position = currentTarget.transform.position;
-                    currentTarget = path.Dequeue();
+                    FindNextTarget();
                 }
-                else
+                else if(currentTarget.navNodeType == NavNode.NavNodeType.Stairs)
                 {
-                    currentTarget = path.Dequeue();
+                    FindNextTarget();
+                    if(currentTarget.navNodeType == NavNode.NavNodeType.Stairs)
+                    {
+                        transform.position = currentTarget.transform.position;
+                    }
                 }
             }
         }
     }
+
+
 
     protected override void Update()
     {
@@ -111,7 +109,11 @@ public class Crawler : _EnemyBase
         
         if(damaging != null && lastAttack + attackSpeed < Time.time )
         {
-            if (damaging.IsImmune()) damaging = null;
+            if (damaging.IsImmune())
+            {
+                damaging = null;
+                return;
+            }
             damaging.TakeDamage(damage);
             lastAttack = Time.time;
         }

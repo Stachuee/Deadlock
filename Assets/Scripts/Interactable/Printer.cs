@@ -45,7 +45,7 @@ public class Printer : PoweredInteractable, IGetHandInfo
         }
     }
 
-    public void Collect(PlayerController player)
+    public void Collect(PlayerController player, UseType type)
     {
         if(!broken)
         {

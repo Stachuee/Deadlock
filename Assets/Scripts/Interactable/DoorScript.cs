@@ -23,7 +23,7 @@ public class DoorScript : PoweredInteractable
         AddAction(UseDoor);
     }
 
-    public void UseDoor(PlayerController player)
+    public void UseDoor(PlayerController player, UseType type)
     {
         if (!powered || destroyed) return;
         opened = !opened;
@@ -31,7 +31,7 @@ public class DoorScript : PoweredInteractable
         openDoors.SetActive(!opened);
     }
 
-    override public void PowerOn(bool on)
+    override public void PowerOn(bool on, string sectorName)
     {
         powered = on;
         if(!on || destroyed)

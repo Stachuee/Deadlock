@@ -3339,7 +3339,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 6755937538980760030}
   m_HandleRect: {fileID: 0}
@@ -10196,6 +10196,7 @@ MonoBehaviour:
   segmentPrefab: {fileID: 8202600852254945548, guid: cdd177dbc2ed5cf47a396ba9f0abcaf9, type: 3}
   doorPrefab: {fileID: 3102179658457086393, guid: bc7d2a537a614de4ea69b3066104d048, type: 3}
   stairsPrefab: {fileID: 8970833965899177052, guid: f05e37ac4120cb14f9e3e421eed951c2, type: 3}
+  IconPrefab: {fileID: 8461170066999980177, guid: da80cd0bfabc006469a8a5f60ac5f040, type: 3}
   playerController: {fileID: 4552270140176820842}
   scale: 30
   scrollRect: {fileID: 646970418508756830}
@@ -11155,6 +11156,7 @@ MonoBehaviour:
   meleeRadius: 0.5
   invincibilityAfterHitDuration: 1
   cam: {fileID: 4552270140534223475}
+  useMovement: 0
   maxItemsHeld: 1
   UsePrompt: {fileID: 6822057430524224226}
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
@@ -11393,6 +11395,7 @@ MonoBehaviour:
   maxCameraTilt: {x: 1, y: 0.5}
   glassesMat: {fileID: 2100000, guid: 9e5af113a61287340b11cf78338d445c, type: 2}
   camDumping: 0.1
+  useMove: 0
 --- !u!1 &4552270140716814243
 GameObject:
   m_ObjectHideFlags: 0
@@ -21255,6 +21258,7 @@ MonoBehaviour:
   - {fileID: 3088087058712746046}
   - {fileID: 293032301034209075}
   - {fileID: 2300700266589179561}
+  - {fileID: 5764485955145981493}
   upgrades: []
 --- !u!1 &7890319328241816471
 GameObject:
@@ -26060,6 +26064,11 @@ PrefabInstance:
 --- !u!224 &5704207816206379642 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1034568262134497490, guid: d00f06af5991a3d44a3404cb2c299d00, type: 3}
+  m_PrefabInstance: {fileID: 4716091875941378728}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5764485955145981493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1048632810683970717, guid: d00f06af5991a3d44a3404cb2c299d00, type: 3}
   m_PrefabInstance: {fileID: 4716091875941378728}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4885647719819721116

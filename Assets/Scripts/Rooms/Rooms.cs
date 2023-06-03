@@ -25,7 +25,7 @@ public class Rooms : MonoBehaviour
     [SerializeField]
     public List<RoomEvent> roomEvents;
 
-    [SerializeField]
+
     public List<IInteractable> remoteAvtivation { get; private set; }
     public List<DoorMarker> doorMarkers { get; private set; }
     public List<StairsScript> stairs { get; private set; }
@@ -75,6 +75,7 @@ public class Rooms : MonoBehaviour
             mySegment.AddRoom(this);
 
             List<IInteractable> allInteractables = transform.GetComponentsInChildren<IInteractable>().ToList();
+
 
             allInteractables.ForEach(interactable =>
             {
@@ -146,6 +147,23 @@ public class Rooms : MonoBehaviour
             ComputerUI.DisplayWarningOnAllComputers(this, strength);
             lastWarning = Time.time;
             lastWarningStrength = strength;
+        }
+    }
+
+    public void AddToInteractable(IInteractable interactable)
+    {
+        if (interactable is PoweredInteractable)
+        {
+            PoweredInteractable powered = interactable as PoweredInteractable;
+            if (powered.GetSwitchType() == SwitchType.Doors) mySegment.AddDoors(powered);
+            else if (powered.GetSwitchType() == SwitchType.Printers) mySegment.AddPrinters(powered);
+            else if (powered.GetSwitchType() == SwitchType.Lights) mySegment.AddLight(powered);
+            else if (powered.GetSwitchType() == SwitchType.Security) mySegment.AddSecurity(powered);
+        }
+
+        if (interactable != null && !interactable.HideInComputer())
+        {
+            remoteAvtivation.Add(interactable);
         }
     }
 

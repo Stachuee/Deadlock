@@ -20,19 +20,19 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         transform.tag = "Interactable";
     }
 
-    public void AddAction(UnityAction<PlayerController> action)
+    public void AddAction(UnityAction<PlayerController, UseType> action)
     {
         onTrigger.AddListener(action);
     }
 
-    public void RemoveAction(UnityAction<PlayerController> action)
+    public void RemoveAction(UnityAction<PlayerController, UseType> action)
     {
         onTrigger.RemoveListener(action);
     }
 
-    public void Use(PlayerController player)
+    public void Use(PlayerController player, UseType useType)
     {
-        onTrigger.Invoke(player);
+        onTrigger.Invoke(player, useType);
     }
 
     public void ClearActions()

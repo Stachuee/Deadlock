@@ -41,7 +41,7 @@ public class CureMachine : ScientistPoweredInteractable
         });
     }
 
-    public void OpenInterface(PlayerController player)
+    public void OpenInterface(PlayerController player, UseType type)
     {
         ItemSO item = null;
         if((item = player.CheckIfHoldingAnyAndDeposit(itemsToUse)) != null)

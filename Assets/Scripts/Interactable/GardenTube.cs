@@ -27,7 +27,7 @@ public class GardenTube : PoweredInteractable
         }
     }
 
-    public void Collect(PlayerController player)
+    public void Collect(PlayerController player, UseType type)
     {
         if (growthTimerRemain < 0)
         {
