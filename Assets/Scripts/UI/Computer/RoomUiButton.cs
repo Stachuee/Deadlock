@@ -46,14 +46,13 @@ public class RoomUiButton : MonoBehaviour
         this.computer = computer;
 
 
-        //room.remoteAvtivation.ForEach(x =>
-        //{
-        //    GameObject temp = Instantiate(IconPrefab, transform);
-        //    RectTransform tempTransform = temp.GetComponent<RectTransform>();
-        //    tempTransform.anchoredPosition = iconOffset + new Vector2((RoomIcon.ICON_SIZE + RoomIcon.ICON_OFFSET) * count * -1, 0 );
-        //    temp.GetComponent<Image>().sprite = x.GetComputerIcon();
-        //    count++;
-        //});
+        room.remoteAvtivation.ForEach(x =>
+        {
+            GameObject temp = Instantiate(IconPrefab, transform);
+            RectTransform tempTransform = temp.GetComponent<RectTransform>();
+            tempTransform.anchoredPosition = (x.GetPosition() - room.Position) * ComputerUI.scale;
+            temp.GetComponent<Image>().sprite = x.GetComputerIcon();
+        });
     }
 
     public void Pressed()

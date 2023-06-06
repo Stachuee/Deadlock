@@ -51,6 +51,10 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberAim
 
         UnlockEquipment(EquipmentType.Granade);
         UnlockEquipment(EquipmentType.RepairKit);
+        UnlockEquipment(EquipmentType.Medkit);
+        UnlockEquipment(EquipmentType.Stim);
+        UnlockEquipment(EquipmentType.Turret);
+        UnlockEquipment(EquipmentType.Molotov);
 
         playerController.uiController.combatHUDController.UpdateEquipment(equiped);
         playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);

@@ -17,6 +17,7 @@ public class FuseBoxUIScript : MonoBehaviour
     [SerializeField] Transform fuseBoxUI;
 
     [SerializeField] Transform gaugeArrow;
+    [SerializeField] Transform overchargeGaugeArrow;
     FuseBox openFuseBox;
 
     [SerializeField]
@@ -25,6 +26,7 @@ public class FuseBoxUIScript : MonoBehaviour
     SwitchType openType;
 
     bool setUp;
+
 
     public void Setup()
     {
@@ -45,8 +47,10 @@ public class FuseBoxUIScript : MonoBehaviour
     {
         if(openFuseBox != null)
         {
-            float angle = (gaugeAngle.y - gaugeAngle.x) * Mathf.Min(openFuseBox.GetPowerConsumption(), 1.2f); // max overloaded arrow 
-            gaugeArrow.rotation = Quaternion.Euler(0, 0, gaugeAngle.x + angle); 
+            float angle = (gaugeAngle.y - gaugeAngle.x) * Mathf.Min(openFuseBox.GetPowerConsumption(), 1f); // max overloaded arrow 
+            gaugeArrow.rotation = Quaternion.Euler(0, 0, gaugeAngle.x + angle);
+            angle = (gaugeAngle.y - gaugeAngle.x) * ElectricityController.overcharge / ElectricityController.maxOvercharge;
+            overchargeGaugeArrow.rotation = Quaternion.Euler(0, 0, gaugeAngle.x + angle);
         }
     }
 

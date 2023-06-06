@@ -4,40 +4,51 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SpawnerController : MonoBehaviour
+public class SpawnerController : MonoBehaviour, ICureLevelIncrease
 {
+    readonly float SIDE_SPAWNERS_PACING_REDUCTION = 1/2;
+
     public static SpawnerController instance;
 
-    readonly float FIRST_SPAWN_DELAY = 0;
-    readonly int WAVE_STRENGTH_MAX_COUNT = 5;
-
-    List<Spawner> spawns = new List<Spawner>();
-
-
-    [SerializeField]
-    List<Wave> waves = new List<Wave>();
-    [SerializeField]
-    List<float> targetDifficulty;
-    [SerializeField] float avrgOfLastWaves;
-
+    [SerializeField] List<WaveSO> wavesActive = new List<WaveSO>();
+    [SerializeField] List<WaveSO> subWavesActive = new List<WaveSO>();
+    List<Spawner> spawners = new List<Spawner>();
+    List<Spawner> dormantSpawners = new List<Spawner>();
     Dictionary<int, ITakeDamage> damageMap = new Dictionary<int, ITakeDamage>();
 
-    float lastWavesStrength;
-    Queue<float> wavesStrength = new Queue<float>();
 
-    WaveSO currentWave;
+    #region oldSpawner
+    //readonly float FIRST_SPAWN_DELAY = 0;
+    //readonly int WAVE_STRENGTH_MAX_COUNT = 5;
 
-    [System.Serializable]
-    struct Wave
-    {
-        public List<WaveSO> waves;
-    }
+    //List<Spawner> spawns = new List<Spawner>();
 
-    [SerializeField]
-    bool toggleSpawns;
 
-    float nextWave;
-    bool active;
+    //[SerializeField]
+    //List<Wave> waves = new List<Wave>();
+    //[SerializeField]
+    //List<float> targetDifficulty;
+    //[SerializeField] float avrgOfLastWaves;
+
+    //Dictionary<int, ITakeDamage> damageMap = new Dictionary<int, ITakeDamage>();
+
+    //float lastWavesStrength;
+    //Queue<float> wavesStrength = new Queue<float>();
+
+    //WaveSO currentWave;
+
+    //[System.Serializable]
+    //struct Wave
+    //{
+    //    public List<WaveSO> waves;
+    //}
+
+    //[SerializeField]
+    //bool toggleSpawns;
+
+    //float nextWave;
+    //bool active;
+    #endregion
 
     private void Awake()
     {
@@ -45,73 +56,125 @@ public class SpawnerController : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void AddSpawner(Spawner spawnerToAdd)
+    private void Start()
     {
-        spawns.Add(spawnerToAdd);
+        ProgressStageController.instance.AddToNotify(this);
     }
 
 
-    private void Update()
+    public WaveSO SpawnWave()
     {
-        if (!toggleSpawns || !active) return;
-
-        if(Time.time >= nextWave)
+        List<WaveSO> possible = wavesActive.FindAll(wave => wave.GetWaveStrength() <= PacingController.pacingController.GetFreePacing());
+        if (possible.Count > 0)
         {
-            TriggerWave();
-            nextWave = Time.time + currentWave.GetNextWaveDelay();
+            WaveSO choosen = possible[UnityEngine.Random.Range(0, possible.Count)];
+            PacingController.pacingController.IncreasePacing(choosen.GetWaveStrength());
+            return choosen;
         }
+        return null;
     }
 
-    public void StartSpawning()
+    public WaveSO SpawnSideWave()
     {
-        active = true;
-        nextWave = Time.time + FIRST_SPAWN_DELAY;
-    }
-
-    public void TriggerWave()
-    {
-        int currentLevel = ProgressStageController.instance.GetCurrentLevel();
-        if (wavesStrength.Count > 0)
+        List<WaveSO> possible = subWavesActive.FindAll(wave => wave.GetWaveStrength() <= PacingController.pacingController.GetFreePacing() / SIDE_SPAWNERS_PACING_REDUCTION);
+        if (possible.Count > 0)
         {
-            avrgOfLastWaves = lastWavesStrength / wavesStrength.Count;
+            WaveSO choosen = possible[UnityEngine.Random.Range(0, possible.Count)];
+            PacingController.pacingController.IncreasePacing(choosen.GetWaveStrength() * SIDE_SPAWNERS_PACING_REDUCTION);
+            return choosen;
+        }
+        return null;
+    }
+
+    public void AddSpawner(Spawner toAdd)
+    {
+        if(toAdd is DormantSpawner)
+        {
+            dormantSpawners.Add(toAdd);
         }
         else
         {
-            avrgOfLastWaves = targetDifficulty[currentLevel];
-        }
-        
-        Wave currentWavePool = waves[currentLevel];
-        
-        if(0.5f * (targetDifficulty[currentLevel]/ avrgOfLastWaves) > UnityEngine.Random.Range(0f, 1f))
-        {
-            List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() > targetDifficulty[currentLevel]);
-            currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
-        }
-        else
-        {
-            List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() <= targetDifficulty[currentLevel]);
-            currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
-        }
-
-        lastWavesStrength += currentWave.GetWaveStrength();
-        wavesStrength.Enqueue(currentWave.GetWaveStrength());
-        if(wavesStrength.Count >= WAVE_STRENGTH_MAX_COUNT)
-        {
-            lastWavesStrength -= wavesStrength.Dequeue();
-        }
-
-
-        List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive && !x.spawning);
-
-        if(activeSpanwers.Count > 0)
-        {
-            activeSpanwers[UnityEngine.Random.Range(0, activeSpanwers.Count)].AddToSpawn(currentWave.GetEnemySpawn());
-        }
-        else
-        {
-            Debug.Log("Zero active spanwers");
+            spawners.Add(toAdd);
         }
     }
+
+    public void IncreaseLevel(int level)
+    {
+        wavesActive = GameController.currentDangerLevel.GetNewWaves();
+        subWavesActive = GameController.currentDangerLevel.GetNewSubWaves();
+    }
+
+    #region oldSpawner
+
+    //public void AddSpawner(Spawner spawnerToAdd)
+    //{
+    //    spawns.Add(spawnerToAdd);
+    //}
+
+
+    ////private void Update()
+    ////{
+    ////    if (!toggleSpawns || !active) return;
+
+    ////    if(Time.time >= nextWave)
+    ////    {
+    ////        TriggerWave();
+    ////        nextWave = Time.time + currentWave.GetNextWaveDelay();
+    ////    }
+    ////}
+
+    //public void StartSpawning()
+    //{
+    //    active = true;
+    //    nextWave = Time.time + FIRST_SPAWN_DELAY;
+    //}
+
+    //public void TriggerWave()
+    //{
+    //    int currentLevel = ProgressStageController.instance.GetCurrentLevel();
+    //    if (wavesStrength.Count > 0)
+    //    {
+    //        avrgOfLastWaves = lastWavesStrength / wavesStrength.Count;
+    //    }
+    //    else
+    //    {
+    //        avrgOfLastWaves = targetDifficulty[currentLevel];
+    //    }
+
+    //    Wave currentWavePool = waves[currentLevel];
+
+    //    if(0.5f * (targetDifficulty[currentLevel]/ avrgOfLastWaves) > UnityEngine.Random.Range(0f, 1f))
+    //    {
+    //        List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() > targetDifficulty[currentLevel]);
+    //        currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
+    //    }
+    //    else
+    //    {
+    //        List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() <= targetDifficulty[currentLevel]);
+    //        currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
+    //    }
+
+    //    lastWavesStrength += currentWave.GetWaveStrength();
+    //    wavesStrength.Enqueue(currentWave.GetWaveStrength());
+    //    if(wavesStrength.Count >= WAVE_STRENGTH_MAX_COUNT)
+    //    {
+    //        lastWavesStrength -= wavesStrength.Dequeue();
+    //    }
+
+
+    //    List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive && !x.spawning);
+
+    //    if(activeSpanwers.Count > 0)
+    //    {
+    //        activeSpanwers[UnityEngine.Random.Range(0, activeSpanwers.Count)].AddToSpawn(currentWave.GetEnemySpawn());
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Zero active spanwers");
+    //    }
+    //}
+
+    #endregion
 
     int maxId = 1024;
     int nextId;
@@ -141,4 +204,6 @@ public class SpawnerController : MonoBehaviour
     {
         return damageMap[int.Parse(key)];
     }
+
+
 }

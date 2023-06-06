@@ -5,24 +5,25 @@ using UnityEngine;
 
 public class Spawner : InteractableBase, ICureLevelIncrease
 {
+
+    protected readonly float PACING_LOCK = 5f;
     public bool isActive = false;
 
-    [SerializeField] int activateAt;
-    [SerializeField] int deactivateAt;
+    [SerializeField] bool activeFromStart;
 
-
-    [SerializeField]
     float spawnDelay;
     float lastSpawn;
 
     public bool spawning;
-    public float distanceToTravel;
+
 
     List<WaveSO.EnemySpawn> toSpawnList;
     int alreadySpawned;
     int step;
 
 
+    float spawnCooldown;
+    protected float nextWave;
 
     protected override void Awake()
     {
@@ -50,12 +51,26 @@ public class Spawner : InteractableBase, ICureLevelIncrease
             else if(step < toSpawnList.Count - 1)
             {
                 step++;
+                spawnDelay = toSpawnList[step].spawnDelay;
                 alreadySpawned = 0;
             }
             else
             {
                 spawning = false;
+                nextWave = Time.time + spawnCooldown;
             }
+        }
+        if(nextWave < Time.time)
+        {
+            GetNewWave();
+        }
+    }
+
+    public void IncreaseLevel(int level)
+    {
+        if(!isActive && level >= 0 && activeFromStart)
+        { 
+            isActive = true;
         }
     }
 
@@ -69,19 +84,22 @@ public class Spawner : InteractableBase, ICureLevelIncrease
         isActive = false;
     }
 
-    public void AddToSpawn(List<WaveSO.EnemySpawn> subWave)
+    public void AddToSpawn(List<WaveSO.EnemySpawn> subWave, float cooldownAfterSpawning)
     {
         toSpawnList = subWave;
         step = 0;
+        alreadySpawned = 0;
         spawning = true;
+        spawnDelay = subWave[step].spawnDelay;
+        spawnCooldown = cooldownAfterSpawning;
     }
 
-
-
-    public void IncreaseLevel(int level)
+    public virtual void GetNewWave()
     {
-        if(level == activateAt) ActivateSpanwer();
-        else if(level == deactivateAt) DeactivateSpawner();
+        WaveSO temp = SpawnerController.instance.SpawnWave();
+        if (temp != null) AddToSpawn(temp.GetEnemySpawn(), temp.GetNextWaveDelay());
+        else nextWave = Time.time + PACING_LOCK;
     }
+
 
 }

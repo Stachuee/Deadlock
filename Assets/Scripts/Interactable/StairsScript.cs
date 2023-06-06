@@ -149,6 +149,11 @@ public class StairsScript : PoweredInteractable, ITakeDamage
     }
 
 
+    public void Repair()
+    {
+        Heal(maxHp);
+    }
+
     public float Heal(float ammount)
     {
         hp = Mathf.Min(ammount + hp, maxHp);

@@ -134,6 +134,7 @@ MonoBehaviour:
   handActivation: 1
   hideInComputer: 1
   type: 2
+  useCells: 0
   powerStrength: 0
   currentPowerConsumption: 0
 --- !u!1 &2684830775808626475
@@ -154,7 +155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5491029633833316547
 Transform:
   m_ObjectHideFlags: 0

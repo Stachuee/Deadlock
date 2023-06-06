@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class PacingController : MonoBehaviour
+public class PacingController : MonoBehaviour, ICureLevelIncrease
 {
     public static PacingController pacingController;
 
     [SerializeField]
     float pacing;
-    [SerializeField]
-    float updateDelay;
+    [SerializeField] float pacingOverTimeIncrease;
+    [SerializeField] float pacingFalloff;
+    float pacingOverTime;
+    Vector2 targetPacing;
+
+    List<DormantSpawner> dormantSpawners;
+
+    [SerializeField] float pacingCheck;
+    float lastPaceCheck;
+
 
     float nextUpdate;
 
@@ -18,40 +27,63 @@ public class PacingController : MonoBehaviour
     {
         if (pacingController == null) pacingController = this;
         else Destroy(gameObject);
+
+        dormantSpawners = FindObjectsOfType<DormantSpawner>().ToList();
+    }
+
+    private void Start()
+    {
+        ProgressStageController.instance.AddToNotify(this);
     }
 
 
     private void Update()
     {
-        if (nextUpdate < Time.time)
+        pacing -= (pacingFalloff / 60) * Time.deltaTime;
+        pacing = Mathf.Max(pacing, 0);
+        pacingOverTime += pacingOverTimeIncrease * Time.deltaTime;
+
+        if (lastPaceCheck + pacingCheck < Time.time)
         {
-            UpdatePacing();
-            nextUpdate = Time.time + updateDelay;
+            TriggerEvent();
+            lastPaceCheck = Time.time;
         }
+
     }
 
-    void UpdatePacing()
+    public void IncreaseLevel(int level)
     {
+        Debug.Log(GameController.currentDangerLevel.GetTargetPacing());
+        targetPacing = GameController.currentDangerLevel.GetTargetPacing();
+        pacingFalloff = GameController.currentDangerLevel.GetPacingFallof();
+        pacing = Mathf.Max(pacing, targetPacing.x);
+        lastPaceCheck = Time.time;
+    }
 
-        if (pacing < 0.25f) // its too easy
+    public void TriggerEvent()
+    {
+        if (pacing < targetPacing.x + pacingOverTime)
         {
-            EventManager.eventManager.TriggerEvent(pacing);
+            // too easy
         }
-        else if (pacing < 0.4f) // slightly too easy
+        else if (pacing > targetPacing.y + pacingOverTime)
         {
-            EventManager.eventManager.TriggerEvent(pacing);
+            //too hard
         }
-        else if (pacing < 0.6f) // good balance
+        else
         {
-
-        }
-        else if (pacing < 0.75f) // slightly too hard
-        {
-            EventManager.eventManager.TriggerEvent(pacing);
-        }
-        else // too hard
-        {
-            EventManager.eventManager.TriggerEvent(pacing);
+            //good spot
         }
     }
+
+    public float GetFreePacing()
+    {
+        return targetPacing.y + pacingOverTime - pacing;
+    }
+
+    public void IncreasePacing(float ammount)
+    {
+        pacing += ammount;
+    }
+
 }

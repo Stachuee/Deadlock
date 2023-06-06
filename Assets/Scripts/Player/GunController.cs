@@ -63,6 +63,13 @@ public class GunController : MonoBehaviour
 private void Start()
     {
         UnlockWeapon(WeaponType.Pistol);
+        UnlockWeapon(WeaponType.RPG);
+        UnlockWeapon(WeaponType.Laser);
+        UnlockWeapon(WeaponType.ARiffle);
+        UnlockWeapon(WeaponType.Firegun);
+        UnlockWeapon(WeaponType.Harpoon);
+
+
         if (playerController.isScientist)
         {
             active = false;

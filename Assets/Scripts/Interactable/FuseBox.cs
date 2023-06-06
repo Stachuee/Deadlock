@@ -9,6 +9,8 @@ public class FuseBox : InteractableBase
 
     [SerializeField] SwitchType type;
 
+    [SerializeField] bool useCells;
+
     Dictionary<string, bool> segmentPowered = new Dictionary<string, bool>();
 
     [SerializeField] int powerStrength;
@@ -23,6 +25,10 @@ public class FuseBox : InteractableBase
     private void Start()
     {
         SegmentController.segmentController.mapSegments.ForEach(x => segmentPowered.Add(x.sectorName, x.GetPowerStatus(type)));
+        if (!useCells)
+        {
+            powerStrength = 2;
+        }
     }
 
 
@@ -41,10 +47,18 @@ public class FuseBox : InteractableBase
 
     public void UpdateFuse(string segment, bool value)
     {
-        if(segmentPowered[segment] != value)
+        if (segmentPowered[segment] != value)
         {
-            if (value) currentPowerConsumption++;
-            else currentPowerConsumption--;
+            if (value)
+            {
+                currentPowerConsumption++;
+                ElectricityController.fusesActive++;
+            }
+            else
+            {
+                currentPowerConsumption--;
+                ElectricityController.fusesActive--;
+            }
         }
         segmentPowered[segment] = value;
         SegmentController.segmentController.mapSegments.ForEach(x => x.TurnOnOff(type, GetFuseStatus(x.sectorName)));

@@ -17,7 +17,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
 
     [SerializeField] PlayerController playerController;
 
-    [SerializeField] int scale;
+    [SerializeField] public static int scale = 30;
 
     [SerializeField] ScrollRect scrollRect;
     [SerializeField] RectTransform contentPanel;
@@ -33,7 +33,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
     Rooms activeRoom;
     GameObject firstButton;
 
-    Vector2 startingDrawPos;
+    public static Vector2 startingDrawPos;
 
     bool isScientist;
     bool setUp;
@@ -152,18 +152,6 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
                     //temp.rotation = Quaternion.Euler(0.0f, 0.0f, Vector2.SignedAngle(stairs.GetPosition(), connected.GetPosition()));
                     //temp.sizeDelta = new Vector2(0.5f, dir.magnitude) * scale;
                 }
-            });
-        });
-
-        allRooms.ForEach(room =>
-        {
-            room.remoteAvtivation.ForEach(x =>
-            {
-                GameObject temp = Instantiate(IconPrefab, Vector3.zero, Quaternion.identity, content);
-                RectTransform tempTransform = temp.GetComponent<RectTransform>();
-                tempTransform.anchoredPosition = (x.GetPosition() - startingDrawPos) * scale;
-                tempTransform.sizeDelta = new Vector2(1, 1) * scale;
-                temp.GetComponent<Image>().sprite = x.GetComputerIcon();
             });
         });
         
