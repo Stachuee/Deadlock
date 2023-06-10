@@ -44,15 +44,54 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     [SerializeField] Marker markerType;
     RectTransform myMarker;
 
-    protected NavNode currentTarget;
+    protected ITakeDamage damaging;
 
+    
+
+    protected NavNode currentTargetNode;
+    protected Vector2 target;
+    protected bool followNode;
+
+    protected Rigidbody2D rb;
+
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (damaging == null && (collision.transform.tag == "Interactable" || collision.transform.tag == "Player"))
+        {
+            ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
+            if (temp != null && !temp.IsImmune())
+            {
+                damaging = temp;
+            }
+        }
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Interactable" || collision.transform.tag == "Player")
+        {
+            ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
+            if (temp == damaging)
+            {
+                damaging = null;
+            }
+        }
+    }
+
+
+    protected virtual void Awake()
+    {
+        rb = GetComponentInChildren<Rigidbody2D>();
+    }
+    
     protected virtual void Start()
     {
         hp = maxHp;
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
         if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
-        currentTarget = NavController.instance.FindClosestWaypoint(transform.position, true);
+        currentTargetNode = NavController.instance.FindClosestWaypoint(transform.position, true, true);
 
         StartCoroutine("UpdateMarker");
     }
@@ -73,7 +112,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             if (poisonStop < Time.time) poisoned = false;
             if (nextPoisonTick < Time.time) 
             {
-                TakeDamage(CombatController.POISON_DAMAGE_PER_TICK);
+                TakeDamage(CombatController.POISON_DAMAGE_PER_TICK, DamageSource.Enemy);
                 nextPoisonTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
@@ -86,7 +125,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             }
             if (nextFreezeTick < Time.time)
             {
-                TakeDamage(CombatController.FREEZE_DAMAGE_PER_TICK);
+                TakeDamage(CombatController.FREEZE_DAMAGE_PER_TICK, DamageSource.Enemy);
                 nextFreezeTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
@@ -99,13 +138,64 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             }
             if (nextFireTick < Time.time)
             {
-                TakeDamage(CombatController.FIRE_DAMAGE_PER_TICK);
+                TakeDamage(CombatController.FIRE_DAMAGE_PER_TICK, DamageSource.Enemy);
                 nextFireTick = Time.time + CombatController.BASE_EFFECT_TICK;
+            }
+        }
+
+
+        AttackNearby();
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        if (currentTargetNode != null && damaging == null)
+        {
+            Vector2 direction = new Vector2((currentTargetNode.transform.position - transform.position).x, 0);
+            rb.velocity = direction.normalized * speed + new Vector2(0, rb.velocity.y);
+            if (direction.x > currentTargetNode.transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+
+            if (Mathf.Abs(transform.position.x - currentTargetNode.transform.position.x) < 0.2f)
+            {
+
+                if (currentTargetNode.navNodeType == NavNode.NavNodeType.Horizontal)
+                {
+                    FindNextNodeTarget();
+                }
+                else if (currentTargetNode.navNodeType == NavNode.NavNodeType.Stairs)
+                {
+                    FindNextNodeTarget();
+                    if (currentTargetNode.navNodeType == NavNode.NavNodeType.Stairs)
+                    {
+                        transform.position = currentTargetNode.transform.position;
+                    }
+                }
             }
         }
     }
 
-    public virtual float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
+    public virtual void AttackNearby()
+    {
+        if (damaging != null && lastAttack + attackSpeed < Time.time)
+        {
+            if (damaging.IsImmune())
+            {
+                damaging = null;
+                return;
+            }
+            damaging.TakeDamage(damage, DamageSource.Enemy);
+            lastAttack = Time.time;
+        }
+    }
+
+    public virtual float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
     {
 
         float damageTaken = damage;
@@ -113,7 +203,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         switch (effects)
         {
             case DamageEffetcts.None:
-                damageTaken = (1 - (armor - armor_piercing)) * damage;
+                damageTaken = (1 - (armor)) * damage;
                 break;
             case DamageEffetcts.Disintegrating:
                 damageTaken = CombatController.DISINTEGRATING_FALLOFF.Evaluate(armor) * damage;
@@ -124,46 +214,6 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
         if (hp <= 0) Dead();
         return damageTaken;
-        //switch (type)
-        //{
-        //    case DamageType.Bullet:
-        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
-        //        break;
-        //    case DamageType.Poison:
-        //        //if (poisoned) break;
-        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
-        //        //StartCoroutine(PoisonDamage(3, damageTaken));
-        //        break;
-        //    case DamageType.Fire:
-        //        //if (onFire) break;
-        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
-        //        //StartCoroutine(FireDamage(3, damageTaken));
-        //        break;
-        //    case DamageType.Ice:
-        //        //if (frozen) break;
-        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
-        //        //StartCoroutine(Freeze(3, damageTaken));
-        //        break;
-        //    case DamageType.Mele:
-        //        damageTaken = (1 - resistances.GetResistance(type)) * damage;
-        //        break;
-        //    case DamageType.Disintegrating:
-        //        float dResistance = resistances.GetResistance(DamageType.Bullet);
-        //        damageTaken = CombatController.DISINTEGRATING_FALLOFF.Evaluate(dResistance) * damage;
-        //        //if (dResistance > 0.5f)
-        //        //{
-        //        //    damageTaken = damage * (1 - (dResistance - 0.5f));
-        //        //}
-        //        //else
-        //        //{
-        //        //    damageTaken = damage;
-        //        //}
-        //        break;
-        //    default:
-        //        Debug.LogError($"Invalid DamageType: {type} for Enemy");
-        //        break;
-        //}
-
     }
 
     public void ApplyStatus(Status toApply)
@@ -211,12 +261,19 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         Destroy(gameObject);
     }
 
-    protected void FindNextTarget()
+    public virtual float TakeTrueDamage(float damage)
+    {
+        hp -= damage;
+
+        if (hp <= 0) Dead();
+        return damage;
+    }
+    protected void FindNextNodeTarget()
     {
         float closestWithObs = Mathf.Infinity;
         NavNode closestObs = null;
 
-        currentTarget.GetConnectedNodes().ForEach(node =>
+        currentTargetNode.GetConnectedNodes().ForEach(node =>
         {
             if (node.distanceToScientist + node.obstaclesWeigths < closestWithObs)
             {
@@ -226,16 +283,16 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         });
 
 
-        if (closestWithObs < currentTarget.distanceToScientist + patience)
+        if (closestWithObs < currentTargetNode.distanceToScientist + patience)
         {
-            patience = Mathf.Clamp(patience - Mathf.Max(0, closestWithObs - currentTarget.distanceToScientist), 0, patience);
-            currentTarget = closestObs;
+            patience = Mathf.Clamp(patience - Mathf.Max(0, closestWithObs - currentTargetNode.distanceToScientist), 0, patience);
+            currentTargetNode = closestObs;
             return;
         }
 
         float closestWithoutObs = Mathf.Infinity;
         NavNode closestWoObs = null;
-        currentTarget.GetConnectedNodes().ForEach(node =>
+        currentTargetNode.GetConnectedNodes().ForEach(node =>
         {
             if (node.distanceToScientist < closestWithoutObs)
             {
@@ -244,7 +301,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             }
         });
 
-        currentTarget = closestWoObs;
+        currentTargetNode = closestWoObs;
     }
     public bool IsImmune()
     {
@@ -260,5 +317,9 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     {
         hp = Mathf.Min(ammount + hp, maxHp);
         return ammount;
+    }
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }

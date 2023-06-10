@@ -47,7 +47,7 @@ public class FuseBoxUIScript : MonoBehaviour
     {
         if(openFuseBox != null)
         {
-            float angle = (gaugeAngle.y - gaugeAngle.x) * Mathf.Min(openFuseBox.GetPowerConsumption(), 1f); // max overloaded arrow 
+            float angle = (gaugeAngle.y - gaugeAngle.x) * Mathf.Min(ElectricityController.fusesActive / (float)ElectricityController.maxFusesActive, 1.2f); // max overloaded arrow 
             gaugeArrow.rotation = Quaternion.Euler(0, 0, gaugeAngle.x + angle);
             angle = (gaugeAngle.y - gaugeAngle.x) * ElectricityController.overcharge / ElectricityController.maxOvercharge;
             overchargeGaugeArrow.rotation = Quaternion.Euler(0, 0, gaugeAngle.x + angle);
@@ -61,10 +61,7 @@ public class FuseBoxUIScript : MonoBehaviour
 
         openFuseBox = boxOpen;
 
-        fuses.ForEach(x =>
-        {
-            x.TurnFuse(boxOpen.GetFuseStatus(x.segmentName));
-        });
+        RefreshFuses();
         fuseBoxUI.gameObject.SetActive(true);
         playerController.uiController.myEventSystem.SetSelectedGameObject(fuses[0].gameObject);
     }
@@ -75,7 +72,16 @@ public class FuseBoxUIScript : MonoBehaviour
 
     public void SwitchFuse(string segmentName, bool on)
     {
-        openFuseBox.UpdateFuse(segmentName, on);
+        ElectricityController.UpdateFuse(segmentName, openFuseBox.GetSwitchType(), on);
+    }
+
+    public void RefreshFuses()
+    {
+        if (openFuseBox == null) return;
+        fuses.ForEach(x =>
+        {
+            x.TurnFuse(ElectricityController.GetFuseStatus(openFuseBox.GetSwitchType(), x.segmentName));
+        });
     }
 
     private void OnDrawGizmos()

@@ -118,7 +118,7 @@ public class StairsScript : PoweredInteractable, ITakeDamage
         connectedDoors.RefreshState();
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
+    public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
     {
         float damageAmmount = damage;
         hp -= damageAmmount;

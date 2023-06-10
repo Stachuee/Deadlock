@@ -398,7 +398,7 @@ MonoBehaviour:
       m_Calls: []
   remoteActivation: 1
   handActivation: 0
-  hideInComputer: 0
+  hideInComputer: 1
   useElectricityType: 0
   powered: 0
   first: {fileID: 0}

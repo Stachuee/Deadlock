@@ -45,14 +45,14 @@ public class HarpoonAmmo : MonoBehaviour
                 if(!isPrecise)
                 {
                     ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
-                    target.TakeDamage(damage);
+                    target.TakeDamage(damage, DamageSource.Player);
                     stuck = true;
                     transform.SetParent(hit.transform);
                 }
                 else if(!alreadyHit.ContainsKey(hit.transform.name))
                 {
                     ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
-                    target.TakeDamage(damage);
+                    target.TakeDamage(damage, DamageSource.Player);
                     alreadyHit.Add(hit.transform.name, true);
                 }
             }

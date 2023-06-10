@@ -74,7 +74,7 @@ public class Spawner : InteractableBase, ICureLevelIncrease
         }
     }
 
-    public void ActivateSpanwer()
+    public virtual void ActivateSpanwer()
     {
         isActive = true;
     }

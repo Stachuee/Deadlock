@@ -141,11 +141,11 @@ public class AutomaticRiffle : GunBase
                 {
                     if(fireMode == 0)
                     {
-                        hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet);
+                        hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet, DamageSource.Player);
                     }
                     else
                     {
-                        hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerDisintegratingBullet, DamageEffetcts.Disintegrating);
+                        hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerDisintegratingBullet, DamageSource.Player, DamageEffetcts.Disintegrating);
                     }
                     bulletImpactVFXFlesh.Play();
                 }

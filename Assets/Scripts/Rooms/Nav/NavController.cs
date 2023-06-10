@@ -106,7 +106,7 @@ public class NavController : MonoBehaviour
 
     [SerializeField]
     LayerMask navNodeLayerMask;
-    public NavNode FindClosestWaypoint(Vector2 target, bool toScientist = false)
+    public NavNode FindClosestWaypoint(Vector2 target, bool toScientist = false, bool ignoreWalls = false)
     {
         NavNode closest = null;
         float closestDist = Mathf.Infinity;
@@ -115,7 +115,7 @@ public class NavController : MonoBehaviour
             var dist = ((Vector2)waypoint.transform.position - target).magnitude + (toScientist ? waypoint.distanceToScientist : 0);
             if (dist < closestDist)
             {
-                if(!Physics2D.Linecast(waypoint.transform.position, target, ~navNodeLayerMask))
+                if(!Physics2D.Linecast(waypoint.transform.position, target, ~navNodeLayerMask) || ignoreWalls)
                 {
                     closest = waypoint;
                     closestDist = dist;

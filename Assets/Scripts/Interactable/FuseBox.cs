@@ -11,7 +11,6 @@ public class FuseBox : InteractableBase
 
     [SerializeField] bool useCells;
 
-    Dictionary<string, bool> segmentPowered = new Dictionary<string, bool>();
 
     [SerializeField] int powerStrength;
     [SerializeField] int currentPowerConsumption;
@@ -24,7 +23,6 @@ public class FuseBox : InteractableBase
 
     private void Start()
     {
-        SegmentController.segmentController.mapSegments.ForEach(x => segmentPowered.Add(x.sectorName, x.GetPowerStatus(type)));
         if (!useCells)
         {
             powerStrength = 2;
@@ -44,52 +42,52 @@ public class FuseBox : InteractableBase
         activePlayer.uiController.fuseBox.CloseBox();
         activePlayer.UnlockInAnimation();
     }
-
-    public void UpdateFuse(string segment, bool value)
+    
+    public SwitchType GetSwitchType()
     {
-        if (segmentPowered[segment] != value)
-        {
-            if (value)
-            {
-                currentPowerConsumption++;
-                ElectricityController.fusesActive++;
-            }
-            else
-            {
-                currentPowerConsumption--;
-                ElectricityController.fusesActive--;
-            }
-        }
-        segmentPowered[segment] = value;
-        SegmentController.segmentController.mapSegments.ForEach(x => x.TurnOnOff(type, GetFuseStatus(x.sectorName)));
+        return type;
     }
 
-    public bool GetFuseStatus(string segment)
-    {
-        return powerStrength >= currentPowerConsumption && segmentPowered[segment];
-    }
+    //public void UpdateFuse(string segment, bool value)
+    //{
+    //    if (segmentPowered[segment] != value)
+    //    {
+    //        if (value)
+    //        {
+    //            currentPowerConsumption++;
+    //            ElectricityController.fusesActive++;
+    //        }
+    //        else
+    //        {
+    //            currentPowerConsumption--;
+    //            ElectricityController.fusesActive--;
+    //        }
+    //    }
+    //    segmentPowered[segment] = value;
+    //    SegmentController.segmentController.mapSegments.ForEach(x => x.TurnOnOff(type, GetFuseStatus(x.sectorName)));
+    //}
 
-    public void PlugIn(int power)
-    {
-        powerStrength = power;
-        if (currentPowerConsumption > powerStrength)
-        {
-            SegmentController.segmentController.mapSegments.ForEach(seg =>
-            {
-                seg.TurnOnOff(type, false);
-            });
-        }
-        else
-        {
-            SegmentController.segmentController.mapSegments.ForEach(seg =>
-            {
-                seg.TurnOnOff(type, GetFuseStatus(seg.sectorName));
-                //Debug.Log(seg.name + " " + GetFuseStatus(seg.sectorName));
-            });
-        }
-    }
-    public float GetPowerConsumption()
-    {
-        return powerStrength > 0 ? (float) currentPowerConsumption / (float) powerStrength : 0;
-    }
+    //public void PlugIn(int power)
+    //{
+    //    powerStrength = power;
+    //    if (currentPowerConsumption > powerStrength)
+    //    {
+    //        SegmentController.segmentController.mapSegments.ForEach(seg =>
+    //        {
+    //            seg.TurnOnOff(type, false);
+    //        });
+    //    }
+    //    else
+    //    {
+    //        SegmentController.segmentController.mapSegments.ForEach(seg =>
+    //        {
+    //            seg.TurnOnOff(type, GetFuseStatus(seg.sectorName));
+    //            //Debug.Log(seg.name + " " + GetFuseStatus(seg.sectorName));
+    //        });
+    //    }
+    //}
+    //public float GetPowerConsumption()
+    //{
+    //    return powerStrength > 0 ? (float) currentPowerConsumption / (float) powerStrength : 0;
+    //}
 }

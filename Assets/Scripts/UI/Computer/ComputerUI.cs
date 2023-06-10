@@ -46,7 +46,6 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
         if(playerController.isScientist)
         {
             scientistComputer = this;
-            SegmentController.segmentController.SubscribeToUnlock(this);
         }
     }
 
@@ -229,6 +228,8 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
             });
         });
 
+        playerController.uiController.cameraHUD.Show(true, room.GetMySegment());
+
         playerController.AddMoveSubscriber(this);
         playerController.AddUseSubscriber(this);
         panel.SetActive(false);
@@ -280,6 +281,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
             playerController.RemoveMoveSubscriber(this);
             playerController.RemoveUseSubscriber(this);
             Highlighted = null;
+            playerController.uiController.cameraHUD.Show(false);
             return false;
         }
     }

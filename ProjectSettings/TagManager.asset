@@ -7,13 +7,6 @@ TagManager:
   - Interactable
   - Enemy
   - Breakable
-  - Pistol
-  - ARiffle
-  - Tower
-  - Medicine
-  - Granade
-  - Stimulator
-  - Molotov
   - SecondaryCamera
   layers:
   - Default

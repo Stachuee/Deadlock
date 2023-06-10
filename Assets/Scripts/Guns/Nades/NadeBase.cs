@@ -76,7 +76,7 @@ public abstract class NadeBase : MonoBehaviour
                 if (target != null)
                 {
                     target.TakeArmorDamage(armorAndResistDamage);
-                    target.TakeDamage(damage);
+                    target.TakeDamage(damage, DamageSource.Player);
                 }
             }
         }

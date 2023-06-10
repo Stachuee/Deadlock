@@ -28,11 +28,13 @@ public class UiController : MonoBehaviour
 
 
     [HideInInspector] public FuseBoxUIScript fuseBox;
+    [HideInInspector] public WorkshopFuse workshopFuse;
     [HideInInspector] public ComputerUI computer;
     [HideInInspector] public CureMachineUI cureMachine;
     [HideInInspector] public CraftingHelperScript craftingHelper;
     [HideInInspector] public CombatHUDController combatHUDController;
     [HideInInspector] public UpgradeGuide upgradeGuide;
+    [HideInInspector] public CameraHUDController cameraHUD;
 
     Camera cam;
 
@@ -69,6 +71,8 @@ public class UiController : MonoBehaviour
         craftingHelper = GetComponentInChildren<CraftingHelperScript>();
         combatHUDController = GetComponentInChildren<CombatHUDController>();
         upgradeGuide = GetComponentInChildren<UpgradeGuide>();
+        cameraHUD = GetComponentInChildren<CameraHUDController>();
+        workshopFuse = GetComponentInChildren<WorkshopFuse>();
     }
 
 

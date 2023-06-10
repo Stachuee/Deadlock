@@ -27,6 +27,7 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
 
     [SerializeField] bool createFuse;
 
+    bool locked;
 
     List<PowerInterface> doors;
     [SerializeField] bool doorsPowered;
@@ -36,19 +37,6 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
     [SerializeField] bool printersPowered;
     List<PowerInterface> lights;
     [SerializeField] bool lightsPowered;
-
-    
-
-
-    private void Awake()
-    {
-
-        //GetComponentsInChildren<Rooms>().ToList().ForEach(x =>
-        //{
-        //    roomsInSegment.Add(x);
-        //    x.SetMySegment(this);
-        //});
-    }
 
     private void Start()
     {
@@ -69,7 +57,7 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
 
     public void TurnOnOff(SwitchType switchType, bool on)
     {
-        //if (!createFuse) return;
+        if (locked) return;
         switch (switchType)
         {
             case SwitchType.Doors:
@@ -86,6 +74,23 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
                 break;
         }
 
+    }
+
+    public void OverloadSegment(bool overloaded)
+    {
+        if (overloaded)
+        {
+            TurnOnOff(SwitchType.Printers, false);
+            TurnOnOff(SwitchType.Doors, false);
+            TurnOnOff(SwitchType.Security, false);
+            TurnOnOffLights(!overloaded);
+            locked = true;
+        }
+        else
+        {
+            TurnOnOffLights(!overloaded);
+            locked = false;
+        }
     }
 
     public void TurnOnOffLights(bool on)

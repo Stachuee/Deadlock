@@ -30,6 +30,9 @@ public class PlayerInfo
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour, ITakeDamage
 {
+    public static PlayerController scientist;
+    public static PlayerController solider;
+
     [SerializeField][Header("Player info")]
     public PlayerInfo playerInfo;
 
@@ -112,11 +115,14 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     UnityAction callbackWhenUnlocking;
     bool lockedInAnimation;
 
-    public void SetUpPlayer(string controllScheme, int index, bool scientist, bool glassesMode)
+    public void SetUpPlayer(string controllScheme, int index, bool _scientist, bool glassesMode)
     {
         debugStart = false;
         keyboard = controllScheme == "Keyboard";
-        isScientist = scientist;
+        isScientist = _scientist;
+        if (isScientist) scientist = this;
+        else solider = this;
+
         GameController.gameController.AddPlayer(this);
         cameraController.SetSplitScreenPosition(index, glassesMode);
     }
@@ -387,7 +393,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
                 if(hits[i].transform.tag == "Enemy")
                 {
                     ITakeDamage hit = hits[i].GetComponent<ITakeDamage>();
-                    hit.TakeDamage(playerInfo.meleeDamage);
+                    hit.TakeDamage(playerInfo.meleeDamage, DamageSource.Turret);
                     hit.TakeArmorDamage(playerInfo.kickArmorShred);
                 }
             }
@@ -460,9 +466,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     #endregion
 
     #region interfaces
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
+    public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
     {
-        if (invincibilityEnd > Time.time) return 0;
+        if (invincibilityEnd > Time.time || dead) return 0;
         playerInfo.hp -= damage;
         invincibilityEnd = Time.time + invincibilityAfterHitDuration;
         if (playerInfo.hp <= 0)
@@ -497,6 +503,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         playerInfo.hp = Mathf.Min(ammount + playerInfo.hp, playerInfo.maxHp);
         return ammount;
+    }
+    public Transform GetTransform()
+    {
+        return transform;
     }
 
     #endregion

@@ -29,6 +29,7 @@ public class Fuse : MonoBehaviour
 
     public void TurnFuse(bool state)
     {
+        if (ElectricityController.Overloaded) return;
         on = state;
         if (on)
         {
@@ -42,6 +43,7 @@ public class Fuse : MonoBehaviour
 
     public void Use()
     {
+        if (ElectricityController.Overloaded) return;
         on = !on;
         fuseBox.SwitchFuse(segmentName, on);
         if (on)

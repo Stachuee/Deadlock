@@ -89,7 +89,7 @@ public class Pistol : GunBase
 
                 if (hit.transform.tag == "Enemy")
                 {
-                    hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet);
+                    hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet, DamageSource.Player);
                 }
             }
 

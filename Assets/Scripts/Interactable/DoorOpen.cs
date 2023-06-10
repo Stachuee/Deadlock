@@ -16,7 +16,7 @@ public class DoorOpen : MonoBehaviour, ITakeDamage
         return false;
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
+    public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
     {
         return parrent.TakeDamage(damage);
     }
@@ -38,5 +38,9 @@ public class DoorOpen : MonoBehaviour, ITakeDamage
     public float Heal(float ammount)
     {
         return parrent.Heal(ammount);
+    }
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }

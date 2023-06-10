@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWaveDelay: 4
   subWaves:
-  - count: 4
+  - count: 5
     enemy: {fileID: 11400000, guid: 2e82a583baf0a3540a90d71d6d1875bd, type: 2}
     spawnDelay: 1
   difficulty: 20

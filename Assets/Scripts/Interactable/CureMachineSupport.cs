@@ -49,7 +49,7 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
         }
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
+    public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
     {
         hp -= damage;
         if (!broken && hp <= 0)

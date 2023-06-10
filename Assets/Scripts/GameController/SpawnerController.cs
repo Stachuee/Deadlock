@@ -100,8 +100,14 @@ public class SpawnerController : MonoBehaviour, ICureLevelIncrease
 
     public void IncreaseLevel(int level)
     {
-        wavesActive = GameController.currentDangerLevel.GetNewWaves();
-        subWavesActive = GameController.currentDangerLevel.GetNewSubWaves();
+        wavesActive.AddRange(GameController.currentDangerLevel.GetNewWaves());
+        subWavesActive.AddRange(GameController.currentDangerLevel.GetNewSubWaves());
+    }
+
+    public void AwakeSpawner()
+    {
+        Spawner spawner = dormantSpawners.Find(x => !x.isActive);
+        if(spawner != null) spawner.ActivateSpanwer();
     }
 
     #region oldSpawner

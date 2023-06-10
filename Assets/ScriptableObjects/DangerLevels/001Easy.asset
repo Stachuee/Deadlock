@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 0
   dangerLevel: 1
-  targetPacing: {x: 20, y: 40}
+  targetPacing: 40
   pacingFalloffPerMinute: 40
   newWaves: []
   newSubWaves: []
@@ -23,4 +23,6 @@ MonoBehaviour:
     machinesRequired: 
     itemsNeeded: []
   lastLevel: 1
-  spawnNewNests: 0
+  spawnNewNests: 1
+  minNestSpawnCooldown: 1
+  newNestChance: 1

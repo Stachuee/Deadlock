@@ -24,7 +24,7 @@ public class AttackArea : MonoBehaviour
         if (collision.GetComponent<ITakeDamage>() != null && collision.CompareTag("Enemy"))
         {
             ITakeDamage enemy = collision.GetComponent<ITakeDamage>();
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage, DamageSource.Player);
         }
     }
 }

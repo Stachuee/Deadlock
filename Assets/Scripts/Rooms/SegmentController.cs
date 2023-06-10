@@ -18,11 +18,7 @@ public class SegmentController : MonoBehaviour
 
     public void UnlockSegment(MapSegment segment, bool unlocked)
     {
-        playersComputers.ForEach(p => p.UnlockSegment(segment, unlocked));
+        if(ComputerUI.scientistComputer != null)ComputerUI.scientistComputer.UnlockSegment(segment, unlocked);
     }
 
-    public void SubscribeToUnlock(ComputerUI computer)
-    {
-        playersComputers.Add(computer);
-    }
 }

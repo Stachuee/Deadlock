@@ -48,7 +48,7 @@ public class RPGRocket : MonoBehaviour
                     ITakeDamage target = collider.GetComponent<ITakeDamage>();
                     if (target != null)
                     {
-                        target.TakeDamage(damage);
+                        target.TakeDamage(damage, DamageSource.Player);
                         target.TakeArmorDamage(0.1f);
                     }
                 }
@@ -68,7 +68,7 @@ public class RPGRocket : MonoBehaviour
             ITakeDamage target = collider.GetComponent<ITakeDamage>();
             if (target != null)
             {
-                target.TakeDamage(damage);
+                target.TakeDamage(damage, DamageSource.Player);
                 target.TakeArmorDamage(0.1f);
             }
             Destroy(gameObject);

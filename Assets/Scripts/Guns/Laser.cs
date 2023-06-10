@@ -150,7 +150,7 @@ public class Laser : GunBase
 
                         if (lastHitITakeDamage != null)
                         {
-                            lastHitITakeDamage.TakeDamage(damage * Time.deltaTime);
+                            lastHitITakeDamage.TakeDamage(damage * Time.deltaTime, DamageSource.Player);
                             lastHitITakeDamage.TakeArmorDamage(armorAndResistShreadPerSecond * Time.deltaTime);
                             damage = Mathf.Clamp(damage + damageIncreasePerSecond * Time.deltaTime, damage, maxDamage);
                         }

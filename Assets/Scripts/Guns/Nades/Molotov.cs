@@ -18,7 +18,7 @@ public class Molotov : NadeBase, ITakeDamage
         Destroy(gameObject);
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
+    public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
     {
         FireExplode(transform.position);
         return 0;
@@ -46,5 +46,10 @@ public class Molotov : NadeBase, ITakeDamage
     public float Heal(float ammount)
     {
         return 0;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }

@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 0
   dangerLevel: 0
-  targetPacing: {x: 20, y: 40}
+  targetPacing: 40
   pacingFalloffPerMinute: 40
   newWaves:
   - {fileID: 11400000, guid: 35267fe90f523e74ab38d9c702eeebf0, type: 2}
+  - {fileID: 11400000, guid: a3191f48c28e24d48bc1135f8e5af7a1, type: 2}
   newSubWaves:
   - {fileID: 11400000, guid: 35267fe90f523e74ab38d9c702eeebf0, type: 2}
+  - {fileID: 11400000, guid: a3191f48c28e24d48bc1135f8e5af7a1, type: 2}
   requiredToNextLevel:
     timeToCompleate: 5
     machinesRequired: 00000000
@@ -27,3 +29,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 52cd99a977351a643838ec36d54059dd, type: 2}
   lastLevel: 0
   spawnNewNests: 0
+  minNestSpawnCooldown: 1
+  newNestChance: 1

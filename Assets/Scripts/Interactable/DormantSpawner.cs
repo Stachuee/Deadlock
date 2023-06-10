@@ -9,6 +9,8 @@ public class DormantSpawner : Spawner, ITakeDamage
     [SerializeField] float maxHp;
     float hp;
 
+    [SerializeField] float pacingToActivate;
+
     bool poisoned = false;
     float poisonStop;
     float nextPoisonTick;
@@ -51,7 +53,7 @@ public class DormantSpawner : Spawner, ITakeDamage
             if (poisonStop < Time.time) poisoned = false;
             if (nextPoisonTick < Time.time)
             {
-                TakeDamage(CombatController.POISON_DAMAGE_PER_TICK);
+                TakeDamage(CombatController.POISON_DAMAGE_PER_TICK, DamageSource.Enemy);
                 nextPoisonTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
@@ -63,7 +65,7 @@ public class DormantSpawner : Spawner, ITakeDamage
             }
             if (nextFreezeTick < Time.time)
             {
-                TakeDamage(CombatController.FREEZE_DAMAGE_PER_TICK);
+                TakeDamage(CombatController.FREEZE_DAMAGE_PER_TICK, DamageSource.Enemy);
                 nextFreezeTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
@@ -76,10 +78,18 @@ public class DormantSpawner : Spawner, ITakeDamage
             }
             if (nextFireTick < Time.time)
             {
-                TakeDamage(CombatController.FIRE_DAMAGE_PER_TICK);
+                TakeDamage(CombatController.FIRE_DAMAGE_PER_TICK, DamageSource.Enemy);
                 nextFireTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
+    }
+
+    public override void ActivateSpanwer()
+    {
+        base.ActivateSpanwer();
+        PacingController.pacingController.IncreasePacing(pacingToActivate);
+        hp = maxHp;
+        Active = true;
     }
 
     public override void GetNewWave()
@@ -89,11 +99,6 @@ public class DormantSpawner : Spawner, ITakeDamage
         else nextWave = Time.time + PACING_LOCK;
     }
 
-    public void Activate()
-    {
-        hp = maxHp;
-        Active = true;
-    }
 
     public void ApplyStatus(Status toApply)
     {
@@ -138,7 +143,7 @@ public class DormantSpawner : Spawner, ITakeDamage
 
     }
 
-    public float TakeDamage(float damage, DamageEffetcts effects = DamageEffetcts.None, float armor_piercing = 0)
+    public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
     {
         hp -= damage;
         return damage;

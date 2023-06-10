@@ -169,7 +169,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
 
             if (hit.transform.tag == "Enemy")
             {
-                hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet);
+                hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet, DamageSource.Turret);
             }
         }
     }

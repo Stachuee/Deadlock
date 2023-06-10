@@ -88,7 +88,7 @@ public class Rooms : MonoBehaviour
                     else if (powered.GetSwitchType() == SwitchType.Security) mySegment.AddSecurity(powered);
                 }
 
-                if (interactable != null && !interactable.HideInComputer())
+                if (interactable != null && !interactable.IsRemote())
                 {
                     remoteAvtivation.Add(interactable);
                 }
