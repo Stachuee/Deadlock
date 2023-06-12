@@ -99,6 +99,14 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     Dictionary<int, bool> upgrades = new Dictionary<int, bool>();
 
+    [Header("SFX")]
+    [SerializeField] AudioSource footstepSFX;
+    [SerializeField] AudioSource jumpSFX;
+    [SerializeField] AudioSource changeBulletSFX;
+    [SerializeField] AudioSource medicineSFX;
+    [SerializeField] AudioSource stimulatorSFX;
+    [SerializeField] AudioSource inventorySFX;
+
     public bool isScientist {get; private set;}
 
     public bool LockInAnimation
@@ -235,6 +243,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
                 isAttacking = false;
             }
         }
+
+        if(moveDirection != Vector2.zero && !footstepSFX.isPlaying)
+        {
+            footstepSFX.volume = Random.Range(0.8f, 1);
+            footstepSFX.pitch = Random.Range(0.8f, 1.1f);
+            footstepSFX.Play();
+        }
     }
 
 
@@ -264,11 +279,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void Heal(float hpRestore, float time)
     {
         StartCoroutine(Healing(hpRestore, time));
+        medicineSFX.Play();
     }
 
     public void Stimulate(float effectDuration)
     {
         StartCoroutine(SpeedIncrease(effectDuration));
+        stimulatorSFX.Play();
     }
 
     readonly float HEALING_TICK = 0.2f;
@@ -329,7 +346,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     #region InputRegion
     public void OnMove(InputAction.CallbackContext context)
-    {   
+    {
         moveDirection = context.ReadValue<Vector2>();
     }
 
@@ -369,6 +386,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         jumping = context.ReadValueAsButton();
         //myBody.AddForce(new Vector2(0, 200));
+        jumpSFX.Play();
     }
 
     public void OnShoot(InputAction.CallbackContext context)
@@ -410,6 +428,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         if (dead) return;
         gunController.ChangeBullet(context.performed);
+        changeBulletSFX.Play();
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -437,6 +456,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (context.ReadValueAsButton())
         {
             inventorySelector.OpenInventory();
+            inventorySFX.Play();
         }
         else
         {

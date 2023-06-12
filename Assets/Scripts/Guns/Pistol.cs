@@ -86,6 +86,7 @@ public class Pistol : GunBase
                 currentRecoilAngle += (Random.Range(0f, 1f) > 0.5f ? -1 : 1) * recoilAnglePerShot;
                 trailShown = true;
                 barrelFlash.SetActive(true);
+                shotAudio.Play();
 
                 if (hit.transform.tag == "Enemy")
                 {

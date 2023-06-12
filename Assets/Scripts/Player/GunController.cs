@@ -33,6 +33,8 @@ public class GunController : MonoBehaviour
 
     bool active = true;
 
+    [SerializeField] AudioSource reloadSound;
+
     private void Awake()
     {
         playerController = transform.GetComponent<PlayerController>();

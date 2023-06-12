@@ -27,6 +27,8 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberAim
     bool open;
     bool active = true;
 
+    [SerializeField] AudioSource hoverItemSFX;
+
 
     private void Awake()
     {
@@ -86,6 +88,7 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberAim
             if(previousSelectedItem != -1) slotButtons[previousSelectedItem].image.color = slotButtons[previousSelectedItem].NormalColor;
             previousSelectedItem = currentSelectedItem;
             slotButtons[currentSelectedItem].image.color = slotButtons[currentSelectedItem].HoverColor;
+            hoverItemSFX.Play();
         }
     }
 
