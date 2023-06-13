@@ -6,6 +6,13 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+
+public enum CurrentMenuPanel
+{
+    Main,
+    Settings,
+    ChoosingPlayer
+}
 public class MainMenuController : MonoBehaviour
 {
     public static MainMenuController Instance { get; private set; }
@@ -18,6 +25,10 @@ public class MainMenuController : MonoBehaviour
     Resolution[] resolutions;
     [SerializeField] Dropdown resolutionsDropdown;
 
+    CurrentMenuPanel currentPanel;
+
+
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -28,6 +39,8 @@ public class MainMenuController : MonoBehaviour
         eSystem = EventSystem.current;
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(FirstMenuButton);
+        currentPanel = CurrentMenuPanel.Main;
+        
 
         resolutions = Screen.resolutions;
 
@@ -54,6 +67,7 @@ public class MainMenuController : MonoBehaviour
 
     }
 
+
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
@@ -69,18 +83,48 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    private void Update()
+    {
+        SetLostSelectedGameObject();
+    }
+
+    public void SetLostSelectedGameObject()
+    {
+        if (eSystem.currentSelectedGameObject != null)
+            return;
+
+        switch (currentPanel)
+        {
+            case CurrentMenuPanel.Main:
+                eSystem.SetSelectedGameObject(FirstMenuButton);
+                break;
+            case CurrentMenuPanel.Settings:
+                eSystem.SetSelectedGameObject(FirstSettingsButton);
+                break;
+            case CurrentMenuPanel.ChoosingPlayer:
+                eSystem.SetSelectedGameObject(FirstChoosingButton);
+                break;
+            default:
+                eSystem.SetSelectedGameObject(FirstMenuButton);
+                break;
+        }
+    }
+
     public void OpenSettings()
     {
+        currentPanel = CurrentMenuPanel.Settings;
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(FirstSettingsButton);
     }
     public void CloseSettings()
     {
+        currentPanel = CurrentMenuPanel.Main;
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(SettingsButton);
     }
     public void OpenChoosing()
     {
+        currentPanel = CurrentMenuPanel.ChoosingPlayer;
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(FirstChoosingButton);
     }

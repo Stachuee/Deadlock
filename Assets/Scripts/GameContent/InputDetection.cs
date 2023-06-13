@@ -24,6 +24,11 @@ public class InputDetection : MonoBehaviour
 
     private bool chooseTime = false;
 
+
+    [SerializeField] private AutoScrollDropdown autoScrollDown;
+
+    private MainMenuController menuController;
+
     [System.Serializable]
     public struct NewDevice
     {
@@ -40,6 +45,7 @@ public class InputDetection : MonoBehaviour
     {
         if(Instance == null) Instance = this;
         else Destroy(gameObject);
+        menuController = GetComponent<MainMenuController>();
     }
 
     private void Start()
@@ -52,6 +58,7 @@ public class InputDetection : MonoBehaviour
         var playerInput = GetComponent<PlayerInput>();
         playerInput.actions["ChooseDevice"].performed += OnChooseDevice;
         playerInput.actions["UnchooseDevice"].performed += OnUnchooseDevice;
+        playerInput.actions["AnyKey"].performed += AnyKeyPerformed;
     }
 
     private void OnDisable()
@@ -59,6 +66,7 @@ public class InputDetection : MonoBehaviour
         var playerInput = GetComponent<PlayerInput>();
         playerInput.actions["ChooseDevice"].performed -= OnChooseDevice;
         playerInput.actions["UnchooseDevice"].performed -= OnUnchooseDevice;
+        playerInput.actions["AnyKey"].performed -= AnyKeyPerformed;
     }
 
     private void OnChooseDevice(InputAction.CallbackContext context)
@@ -178,7 +186,22 @@ public class InputDetection : MonoBehaviour
             }
         }
     }
-        public List<NewDevice> GetAllDevices()
+
+
+    private void AnyKeyPerformed(InputAction.CallbackContext context)
+    {
+        InputDevice device = context.control.device;
+        if (device is Keyboard)
+        {
+            autoScrollDown.enabled = false;
+        }
+        else if (device is Gamepad)
+        {
+            autoScrollDown.enabled = true;
+        }
+    }
+
+    public List<NewDevice> GetAllDevices()
     {
         return newDevices;
     }
