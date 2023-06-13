@@ -20,7 +20,7 @@ public class InputDetection : MonoBehaviour
     private int currentDeviceIndex;
     private bool isPickingDeviceForPlayer1 = true;
     private bool isPickingDeviceForPlayer2 = false;
-    private InputDevice deviceForPlayer1;
+   // private InputDevice deviceForPlayer1;
 
     private bool chooseTime = false;
 
@@ -141,7 +141,7 @@ public class InputDetection : MonoBehaviour
                     devices.Remove(device.deviceId);
                     if (keyboardPlayer1.activeSelf)
                     {
-                        deviceForPlayer1 = null;
+                        //deviceForPlayer1 = null;
                         keyboardPlayer1.SetActive(false);
                         isPickingDeviceForPlayer1 = true;
                     }
@@ -164,7 +164,7 @@ public class InputDetection : MonoBehaviour
                     newDevices.RemoveAt(i);
                     if (gamepadPlayer1.activeSelf)
                     {
-                        deviceForPlayer1 = null;
+                        //deviceForPlayer1 = null;
                         gamepadPlayer1.SetActive(false);
                         isPickingDeviceForPlayer1 = true;
                     }

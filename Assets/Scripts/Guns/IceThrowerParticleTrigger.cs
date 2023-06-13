@@ -15,7 +15,7 @@ public class IceThrowerParticleTrigger : MonoBehaviour
     {
         if (other.transform.tag == "Enemy")
         {
-            spawnerController.GetITakeDamageFormMap(other.transform.name).ApplyStatus(Status.Freeze);
+            spawnerController.GetITakeDamageFormMap(other.transform).ApplyStatus(Status.Freeze);
         }
     }
 }

@@ -181,9 +181,9 @@ public class StairsScript : PoweredInteractable, ITakeDamage
         return !Closed;
     }
 
-    public float GetArmor()
+    public bool IsArmored()
     {
-        throw new System.NotImplementedException();
+        return false;
     }
     public override ComputerInfoContainer GetInfo()
     {

@@ -298,7 +298,7 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
-  remoteActivation: 0
+  remoteActivation: 1
   handActivation: 1
   hideInComputer: 0
   useElectricityType: 2

@@ -47,6 +47,7 @@ public class Printer : PoweredInteractable, IGetHandInfo
 
     public void Collect(PlayerController player, UseType type)
     {
+        if (type == UseType.Computer) return;
         if(!broken)
         {
             if (readyToCollect)

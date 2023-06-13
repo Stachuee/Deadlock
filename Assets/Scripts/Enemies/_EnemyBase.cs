@@ -24,7 +24,10 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     [SerializeField] float patience;
 
     [SerializeField]
-    float armor;
+    bool armored;
+    [SerializeField]
+    float armorMaxHp;
+    float armorHp;
 
 
     [SerializeField]
@@ -40,6 +43,9 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     bool frozen = false;
     float freezeStop;
     float nextFreezeTick;
+
+    bool psiBoosted;
+    float psiBoosterTimer;
 
     [SerializeField] Marker markerType;
     RectTransform myMarker;
@@ -88,10 +94,13 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected virtual void Start()
     {
         hp = maxHp;
+        armorHp = armorMaxHp;
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
         if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
         currentTargetNode = NavController.instance.FindClosestWaypoint(transform.position, true, true);
+
+        SpawnerController.instance.AddEnemyToMap(this, transform);
 
         StartCoroutine("UpdateMarker");
     }
@@ -143,6 +152,14 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             }
         }
 
+        if(psiBoosted)
+        {
+            if(psiBoosterTimer <= Time.time)
+            {
+                psiBoosted = false;
+                speed -= CombatController.PSI_BOOST_SPEED_INCREASE;
+            }
+        }
 
         AttackNearby();
     }
@@ -203,10 +220,10 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         switch (effects)
         {
             case DamageEffetcts.None:
-                damageTaken = (1 - (armor)) * damage;
+                damageTaken = (armored ? CombatController.ARMOR_DAMAGE_REDUCTION : 1) * (psiBoosted ? CombatController.PSI_BOOST_DAMAGE_REDUCTION : 1) * damage;
                 break;
             case DamageEffetcts.Disintegrating:
-                damageTaken = CombatController.DISINTEGRATING_FALLOFF.Evaluate(armor) * damage;
+                damageTaken = (armored ? CombatController.DISINTEGRATING_FALLOFF : 1) * (psiBoosted ? CombatController.PSI_BOOST_DAMAGE_REDUCTION : 1) * damage;
                 break;
         }
 
@@ -245,7 +262,11 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
     public void TakeArmorDamage(float damage)
     {
-        armor = Mathf.Clamp01(armor - damage);
+        armorHp = armorHp - damage;
+        if (armorHp <= 0)
+        {
+            armored = false;
+        }
     }
 
     //private void OnParticleCollision(GameObject other)
@@ -308,9 +329,16 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         return false;
     }
 
-    public float GetArmor()
+    public bool IsArmored()
     {
-        return armor;
+        return armored;
+    }
+
+    public void PsiBoost(float duration)
+    {
+        psiBoosted = true;
+        psiBoosterTimer = Time.time + duration;
+        speed += CombatController.PSI_BOOST_SPEED_INCREASE;
     }
 
     public float Heal(float ammount)

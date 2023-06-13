@@ -20,9 +20,9 @@ public class SpitProjectal : MonoBehaviour, ITakeDamage
         
     }
 
-    public float GetArmor()
+    public bool IsArmored()
     {
-        return 0;
+        return false;
     }
 
     public Transform GetTransform()

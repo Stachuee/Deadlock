@@ -39,31 +39,35 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     private void Update()
     {
-        if (spawning && isActive && lastSpawn + spawnDelay < Time.time)
-        {
-            if (toSpawnList[step].count > alreadySpawned)
-            {
-                GameObject temp = Instantiate(toSpawnList[step].enemy.GetPrefab(), transform.position, Quaternion.identity);
-                SpawnerController.instance.AddEnemyToMap(temp.GetComponent<ITakeDamage>(), temp.transform);
-                lastSpawn = Time.time;
-                alreadySpawned++;
-            }
-            else if(step < toSpawnList.Count - 1)
-            {
-                step++;
-                spawnDelay = toSpawnList[step].spawnDelay;
-                alreadySpawned = 0;
-            }
-            else
-            {
-                spawning = false;
-                nextWave = Time.time + spawnCooldown;
-            }
-        }
-        if(nextWave < Time.time)
-        {
-            GetNewWave();
-        }
+        //if (spawning && isActive && lastSpawn + spawnDelay < Time.time)
+        //{
+        //    if (toSpawnList[step].count > alreadySpawned)
+        //    {
+        //        GameObject temp = Instantiate(toSpawnList[step].enemy.GetPrefab(), transform.position, Quaternion.identity);
+        //        lastSpawn = Time.time;
+        //        alreadySpawned++;
+        //    }
+        //    else if(step < toSpawnList.Count - 1)
+        //    {
+        //        step++;
+        //        spawnDelay = toSpawnList[step].spawnDelay;
+        //        alreadySpawned = 0;
+        //    }
+        //    else
+        //    {
+        //        spawning = false;
+        //        nextWave = Time.time + spawnCooldown;
+        //    }
+        //}
+        //if(nextWave < Time.time)
+        //{
+        //    GetNewWave();
+        //}
+    }
+
+    public void SpawnEnemy(GameObject enemy)
+    {
+        Instantiate(enemy, transform.position, Quaternion.identity);
     }
 
     public void IncreaseLevel(int level)
@@ -79,7 +83,7 @@ public class Spawner : InteractableBase, ICureLevelIncrease
         isActive = true;
     }
 
-    public void DeactivateSpawner()
+    public virtual void DeactivateSpawner()
     {
         isActive = false;
     }
@@ -96,9 +100,9 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     public virtual void GetNewWave()
     {
-        WaveSO temp = SpawnerController.instance.SpawnWave();
-        if (temp != null) AddToSpawn(temp.GetEnemySpawn(), temp.GetNextWaveDelay());
-        else nextWave = Time.time + PACING_LOCK;
+        //WaveSO temp = SpawnerController.instance.SpawnWave();
+        //if (temp != null) AddToSpawn(temp.GetEnemySpawn(), temp.GetNextWaveDelay());
+        //else nextWave = Time.time + PACING_LOCK;
     }
 
 

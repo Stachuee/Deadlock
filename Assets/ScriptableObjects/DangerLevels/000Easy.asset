@@ -23,10 +23,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 35267fe90f523e74ab38d9c702eeebf0, type: 2}
   - {fileID: 11400000, guid: a3191f48c28e24d48bc1135f8e5af7a1, type: 2}
   requiredToNextLevel:
-    timeToCompleate: 5
-    machinesRequired: 00000000
+    timeToCompleate: 60
+    machinesRequired: 
     itemsNeeded:
-    - {fileID: 11400000, guid: 52cd99a977351a643838ec36d54059dd, type: 2}
+    - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
+    - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
   lastLevel: 0
   spawnNewNests: 0
   minNestSpawnCooldown: 1

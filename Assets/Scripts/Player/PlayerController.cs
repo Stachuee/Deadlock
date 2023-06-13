@@ -489,9 +489,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         throw new System.NotImplementedException();
     }
-    public float GetArmor()
+    public bool IsArmored()
     {
-        return 0;
+        return false;
     }
 
     public bool IsImmune()

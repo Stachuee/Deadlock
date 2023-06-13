@@ -5010,11 +5010,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 400
   hp: 400
-  randomSpeed: {x: 0.2, y: 0.3}
+  randomSpeed: {x: 0.4, y: 0.5}
   damage: 20
   attackSpeed: 1
   patience: 10
-  armor: 0.7
+  armored: 0
+  armorMaxHp: 0
   onFireParticle: {fileID: 2776370017786825693}
   markerType: 0
   state: 0

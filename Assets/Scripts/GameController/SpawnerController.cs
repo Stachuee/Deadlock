@@ -14,8 +14,7 @@ public class SpawnerController : MonoBehaviour, ICureLevelIncrease
     [SerializeField] List<WaveSO> subWavesActive = new List<WaveSO>();
     List<Spawner> spawners = new List<Spawner>();
     List<Spawner> dormantSpawners = new List<Spawner>();
-    Dictionary<int, ITakeDamage> damageMap = new Dictionary<int, ITakeDamage>();
-
+    Dictionary<Transform, ITakeDamage> damageMap = new Dictionary<Transform, ITakeDamage>();
 
     #region oldSpawner
     //readonly float FIRST_SPAWN_DELAY = 0;
@@ -107,108 +106,105 @@ public class SpawnerController : MonoBehaviour, ICureLevelIncrease
     public void AwakeSpawner()
     {
         Spawner spawner = dormantSpawners.Find(x => !x.isActive);
-        if(spawner != null) spawner.ActivateSpanwer();
+        if (spawner != null)
+        {
+            spawner.ActivateSpanwer();
+
+        }
     }
 
-    #region oldSpawner
+        #region oldSpawner
 
-    //public void AddSpawner(Spawner spawnerToAdd)
-    //{
-    //    spawns.Add(spawnerToAdd);
-    //}
-
-
-    ////private void Update()
-    ////{
-    ////    if (!toggleSpawns || !active) return;
-
-    ////    if(Time.time >= nextWave)
-    ////    {
-    ////        TriggerWave();
-    ////        nextWave = Time.time + currentWave.GetNextWaveDelay();
-    ////    }
-    ////}
-
-    //public void StartSpawning()
-    //{
-    //    active = true;
-    //    nextWave = Time.time + FIRST_SPAWN_DELAY;
-    //}
-
-    //public void TriggerWave()
-    //{
-    //    int currentLevel = ProgressStageController.instance.GetCurrentLevel();
-    //    if (wavesStrength.Count > 0)
-    //    {
-    //        avrgOfLastWaves = lastWavesStrength / wavesStrength.Count;
-    //    }
-    //    else
-    //    {
-    //        avrgOfLastWaves = targetDifficulty[currentLevel];
-    //    }
-
-    //    Wave currentWavePool = waves[currentLevel];
-
-    //    if(0.5f * (targetDifficulty[currentLevel]/ avrgOfLastWaves) > UnityEngine.Random.Range(0f, 1f))
-    //    {
-    //        List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() > targetDifficulty[currentLevel]);
-    //        currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
-    //    }
-    //    else
-    //    {
-    //        List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() <= targetDifficulty[currentLevel]);
-    //        currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
-    //    }
-
-    //    lastWavesStrength += currentWave.GetWaveStrength();
-    //    wavesStrength.Enqueue(currentWave.GetWaveStrength());
-    //    if(wavesStrength.Count >= WAVE_STRENGTH_MAX_COUNT)
-    //    {
-    //        lastWavesStrength -= wavesStrength.Dequeue();
-    //    }
+        //public void AddSpawner(Spawner spawnerToAdd)
+        //{
+        //    spawns.Add(spawnerToAdd);
+        //}
 
 
-    //    List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive && !x.spawning);
+        ////private void Update()
+        ////{
+        ////    if (!toggleSpawns || !active) return;
 
-    //    if(activeSpanwers.Count > 0)
-    //    {
-    //        activeSpanwers[UnityEngine.Random.Range(0, activeSpanwers.Count)].AddToSpawn(currentWave.GetEnemySpawn());
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Zero active spanwers");
-    //    }
-    //}
+        ////    if(Time.time >= nextWave)
+        ////    {
+        ////        TriggerWave();
+        ////        nextWave = Time.time + currentWave.GetNextWaveDelay();
+        ////    }
+        ////}
 
-    #endregion
+        //public void StartSpawning()
+        //{
+        //    active = true;
+        //    nextWave = Time.time + FIRST_SPAWN_DELAY;
+        //}
 
-    int maxId = 1024;
-    int nextId;
+        //public void TriggerWave()
+        //{
+        //    int currentLevel = ProgressStageController.instance.GetCurrentLevel();
+        //    if (wavesStrength.Count > 0)
+        //    {
+        //        avrgOfLastWaves = lastWavesStrength / wavesStrength.Count;
+        //    }
+        //    else
+        //    {
+        //        avrgOfLastWaves = targetDifficulty[currentLevel];
+        //    }
+
+        //    Wave currentWavePool = waves[currentLevel];
+
+        //    if(0.5f * (targetDifficulty[currentLevel]/ avrgOfLastWaves) > UnityEngine.Random.Range(0f, 1f))
+        //    {
+        //        List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() > targetDifficulty[currentLevel]);
+        //        currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
+        //    }
+        //    else
+        //    {
+        //        List<WaveSO> avalible = currentWavePool.waves.FindAll(x => x.GetWaveStrength() <= targetDifficulty[currentLevel]);
+        //        currentWave = avalible[UnityEngine.Random.Range(0, avalible.Count)];
+        //    }
+
+        //    lastWavesStrength += currentWave.GetWaveStrength();
+        //    wavesStrength.Enqueue(currentWave.GetWaveStrength());
+        //    if(wavesStrength.Count >= WAVE_STRENGTH_MAX_COUNT)
+        //    {
+        //        lastWavesStrength -= wavesStrength.Dequeue();
+        //    }
+
+
+        //    List<Spawner> activeSpanwers = spawns.FindAll(x => x.isActive && !x.spawning);
+
+        //    if(activeSpanwers.Count > 0)
+        //    {
+        //        activeSpanwers[UnityEngine.Random.Range(0, activeSpanwers.Count)].AddToSpawn(currentWave.GetEnemySpawn());
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Zero active spanwers");
+        //    }
+        //}
+
+        #endregion
 
     public void AddEnemyToMap(ITakeDamage toAdd, Transform transformToAdd)
     {
-        nextId++;
-        if(nextId > maxId) nextId = 0;
-
-        transformToAdd.name = nextId.ToString();
-        damageMap.Add(nextId, toAdd);
+        damageMap.Add(transformToAdd, toAdd);
     }
 
     public void RemoveFromMap(Transform toRemove)
     {
         try
         {
-            damageMap.Remove(int.Parse(toRemove.name));
+            damageMap.Remove(toRemove);
         }
         catch (Exception e)
         {
-            Debug.LogError("Wrong unit name");
+            Debug.LogError("Wrong unit name" + e);
         }
     }
 
-    public ITakeDamage GetITakeDamageFormMap(string key)
+    public ITakeDamage GetITakeDamageFormMap(Transform get)
     {
-        return damageMap[int.Parse(key)];
+        return damageMap[get];
     }
 
 

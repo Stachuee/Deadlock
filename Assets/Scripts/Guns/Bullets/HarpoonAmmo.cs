@@ -24,10 +24,7 @@ public class HarpoonAmmo : MonoBehaviour
     {
         prevPos = transform.position;
         timeToDespawnRemain = timeToDespawn + Time.time;
-        if(isPrecise)
-        {
-            alreadyHit = new Dictionary<string, bool>();
-        }
+        alreadyHit = new Dictionary<string, bool>();
     }
 
     void Update()
@@ -42,18 +39,18 @@ public class HarpoonAmmo : MonoBehaviour
         {
             if(hit.transform.tag == "Enemy")
             {
-                if(!isPrecise)
+                ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
+
+                if (!alreadyHit.ContainsKey(hit.transform.name))
                 {
-                    ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
-                    target.TakeDamage(damage, DamageSource.Player);
-                    stuck = true;
-                    transform.SetParent(hit.transform);
-                }
-                else if(!alreadyHit.ContainsKey(hit.transform.name))
-                {
-                    ITakeDamage target = hit.transform.GetComponent<ITakeDamage>();
                     target.TakeDamage(damage, DamageSource.Player);
                     alreadyHit.Add(hit.transform.name, true);
+                }
+
+                if (!isPrecise && target.IsArmored())
+                {
+                    stuck = true;
+                    transform.SetParent(hit.transform);
                 }
             }
             else

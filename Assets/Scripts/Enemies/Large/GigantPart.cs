@@ -5,15 +5,13 @@ using UnityEngine;
 public class GigantPart : MonoBehaviour, ITakeDamage
 {
     [SerializeField] _EnemyBase parrent;
-    [SerializeField] float armor;
+    [SerializeField] bool armored;
+    [SerializeField] float armorHp;
+
+
     public void ApplyStatus(Status toApply)
     {
         
-    }
-
-    public float GetArmor()
-    {
-        return armor;
     }
 
     public Transform GetTransform()
@@ -30,10 +28,18 @@ public class GigantPart : MonoBehaviour, ITakeDamage
     {
         return false;
     }
+    public bool IsArmored()
+    {
+        return armored;
+    }
 
     public void TakeArmorDamage(float damage)
     {
-        armor = Mathf.Clamp01(armor - damage);
+        armorHp = armorHp - damage;
+        if(armorHp <= 0)
+        {
+            armored = false;
+        }
     }
 
     public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
@@ -43,10 +49,10 @@ public class GigantPart : MonoBehaviour, ITakeDamage
         switch (effects)
         {
             case DamageEffetcts.None:
-                damageTaken = (1 - (armor)) * damage;
+                damageTaken = (armored ? CombatController.ARMOR_DAMAGE_REDUCTION : 1) * damage;
                 break;
             case DamageEffetcts.Disintegrating:
-                damageTaken = CombatController.DISINTEGRATING_FALLOFF.Evaluate(armor) * damage;
+                damageTaken = (armored ? CombatController.DISINTEGRATING_FALLOFF : 1) * damage;
                 break;
         }
 

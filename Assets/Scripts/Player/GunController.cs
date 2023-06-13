@@ -29,7 +29,7 @@ public class GunController : MonoBehaviour
 
     GunBase gun;
 
-    ParticleSystem effectToDeactivate = null; // if some PS can stay in scene but are unnecessary, make it inactive after changing the gun 
+    //ParticleSystem effectToDeactivate = null; // if some PS can stay in scene but are unnecessary, make it inactive after changing the gun 
 
     bool active = true;
 

@@ -169,9 +169,9 @@ public class DoorsBetweenRooms : PoweredInteractable, ITakeDamage
         return !Closed;
     }
 
-    public float GetArmor()
+    public bool IsArmored()
     {
-        throw new System.NotImplementedException();
+        return false;
     }
 
 

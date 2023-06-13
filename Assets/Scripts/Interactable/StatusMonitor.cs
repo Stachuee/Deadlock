@@ -5,6 +5,7 @@ using UnityEngine;
 public class StatusMonitor : InteractableBase
 {
     PlayerController activePlayer;
+    [SerializeField] UpgradeGuide.UpgradePanel panelToOpen;
 
     void Start()
     {
@@ -15,12 +16,12 @@ public class StatusMonitor : InteractableBase
     {
         activePlayer = player;
         player.LockInAction(CloseInterface);
-        player.uiController.upgradeGuide.Open(true);
+        player.uiController.upgradeGuide.Open(true, panelToOpen);
     }
 
     public void CloseInterface()
     {
         activePlayer.UnlockInAnimation();
-        activePlayer.uiController.upgradeGuide.Open(false);
+        activePlayer.uiController.upgradeGuide.Open(false, panelToOpen);
     }
 }

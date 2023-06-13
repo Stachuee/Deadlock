@@ -24,7 +24,13 @@ public class DormantSpawner : Spawner, ITakeDamage
     [SerializeField]
     ParticleSystem onFireParticle;
 
+    [SerializeField] float newSpawnerShakeDuration;
+    [SerializeField] EffectManager.ScreenShakeRange newSpawnerShakeRange;
+    [SerializeField] EffectManager.ScreenShakeStrength newSpawnerShakeStrength;
+
     Animator animator;
+
+    Rooms parrent;
 
     bool Active
     {
@@ -43,6 +49,7 @@ public class DormantSpawner : Spawner, ITakeDamage
     protected override void Awake()
     {
         base.Awake();
+        parrent = GetComponentInParent<Rooms>();
         animator = GetComponent<Animator>();
     }
 
@@ -90,13 +97,16 @@ public class DormantSpawner : Spawner, ITakeDamage
         PacingController.pacingController.IncreasePacing(pacingToActivate);
         hp = maxHp;
         Active = true;
+        parrent.SendWarning(WarningStrength.Medium);
+        EffectManager.instance.ScreenShake(newSpawnerShakeDuration, newSpawnerShakeRange, newSpawnerShakeStrength, Vector2.zero);
+        SpawnerController.instance.AddEnemyToMap(this, transform);
     }
 
     public override void GetNewWave()
     {
-        WaveSO temp = SpawnerController.instance.SpawnSideWave();
-        if (temp != null) AddToSpawn(temp.GetEnemySpawn(), temp.GetNextWaveDelay());
-        else nextWave = Time.time + PACING_LOCK;
+        //WaveSO temp = SpawnerController.instance.SpawnSideWave();
+        //if (temp != null) AddToSpawn(temp.GetEnemySpawn(), temp.GetNextWaveDelay());
+        //else nextWave = Time.time + PACING_LOCK;
     }
 
 
@@ -123,9 +133,9 @@ public class DormantSpawner : Spawner, ITakeDamage
         }
     }
 
-    public float GetArmor()
+    public bool IsArmored()
     {
-        return 0;
+        return false;
     }
 
     public float Heal(float ammount)
@@ -143,9 +153,19 @@ public class DormantSpawner : Spawner, ITakeDamage
 
     }
 
+    public override void DeactivateSpawner()
+    {
+        base.DeactivateSpawner();
+        SpawnerController.instance.RemoveFromMap(transform);
+    }
+
     public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)
     {
         hp -= damage;
+        if(hp <= 0)
+        {
+            DeactivateSpawner();
+        }
         return damage;
     }
 }

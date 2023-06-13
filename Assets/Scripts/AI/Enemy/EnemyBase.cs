@@ -116,9 +116,9 @@ public abstract class EnemyBase : MonoBehaviour, IEnemy, ITakeDamage
     }
 
 
-    public float GetArmor()
+    public bool IsArmored()
     {
-        return 0;
+        return false;
     }
 
     public float Heal(float ammount)

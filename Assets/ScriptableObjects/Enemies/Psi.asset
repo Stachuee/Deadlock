@@ -10,8 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7157779000bb9354c919d2593fe3d70e, type: 3}
-  m_Name: MutatedScientist
+  m_Name: Psi
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 238913776322736951, guid: 14c0c37b2fdcd32469cb8f3340795dc4, type: 3}
-  weigth: 1
-  minWave: 1
+  enemyPrefab: {fileID: 1312338981573003027, guid: 1437c10f4a58d744f927518e1d8ea89d, type: 3}
