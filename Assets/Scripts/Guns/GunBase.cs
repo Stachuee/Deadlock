@@ -16,6 +16,7 @@ public abstract class GunBase : MonoBehaviour, IGun
     [SerializeField] protected GameObject barrelFlash;
 
     [SerializeField] protected AudioSource shotAudio;
+    [SerializeField] protected AudioSource reloadSFX;
 
     protected float currentRecoilAngle;
     [SerializeField] protected float recoilAnglePerShot;
@@ -98,6 +99,7 @@ public abstract class GunBase : MonoBehaviour, IGun
         if (!forceReload && (reloading || IsFullOnAmmo())) return; //
         reloading = true;
         reloadTimer = 0;
+        reloadSFX.Play();
     }
 
     public void StopReload()

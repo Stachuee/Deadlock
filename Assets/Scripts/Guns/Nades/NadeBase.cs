@@ -24,6 +24,8 @@ public abstract class NadeBase : MonoBehaviour
 
     [SerializeField] Rigidbody2D myBody;
 
+    [SerializeField] protected GameObject explosionSFX;
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!explodeOnContact && proximity)
@@ -66,6 +68,10 @@ public abstract class NadeBase : MonoBehaviour
         //Destroy(Instantiate(explosionVFX, (Vector2)transform.position, Quaternion.identity), 1);
         // Check for enemies within explosion range
         EffectManager.instance.ScreenShake(explosionDuration, explosionRange, explosionStrength, transform.position);
+
+        var sfx = Instantiate(explosionSFX);
+        Destroy(sfx, 1f);
+
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D collider in colliders)

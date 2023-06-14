@@ -6,8 +6,6 @@ public class Molotov : NadeBase, ITakeDamage
 {
     [SerializeField] float fireDuration;
 
-    [SerializeField] AudioSource explosionSFX;
-
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         FireExplode((Vector2)transform.position + collision.GetContact(0).normal * 0.5f);
@@ -15,7 +13,6 @@ public class Molotov : NadeBase, ITakeDamage
 
     public void FireExplode(Vector2 firePosition)
     {
-        explosionSFX.Play();
         Explode();
         Destroy(Instantiate(explosionVFX, firePosition, Quaternion.identity), fireDuration);
         Destroy(gameObject);

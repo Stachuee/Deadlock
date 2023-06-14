@@ -31,9 +31,9 @@ public class GunController : MonoBehaviour
 
     ParticleSystem effectToDeactivate = null; // if some PS can stay in scene but are unnecessary, make it inactive after changing the gun 
 
-    bool active = true;
+    [SerializeField] AudioSource changeGunSFX;
 
-    [SerializeField] AudioSource reloadSound;
+    bool active = true;
 
     private void Awake()
     {
@@ -161,6 +161,8 @@ private void Start()
         gun = weapons[currentWeaponIndex].GetGunScript();
 
         weapons[currentWeaponIndex].EnableGun(true);
+
+        changeGunSFX.Play();
 
         //if (effectToDeactivate != null)
         //{
