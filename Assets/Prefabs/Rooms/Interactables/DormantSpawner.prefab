@@ -129,13 +129,18 @@ MonoBehaviour:
   hideInComputer: 1
   isActive: 0
   activeFromStart: 0
+  targetPacing: 0
+  currentPacing: 0
+  pacingFalloff: 0
+  spawnDelay: 0
   spawning: 0
-  maxHp: 0
+  maxHp: 300
   pacingToActivate: 50
   onFireParticle: {fileID: 5001670585197231328}
   newSpawnerShakeDuration: 2
   newSpawnerShakeRange: 3
   newSpawnerShakeStrength: 1
+  markerType: 0
 --- !u!1 &6895933404888875361
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6895933404888875361}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.73, y: -0.9299998, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

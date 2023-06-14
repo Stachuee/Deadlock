@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Frog
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5033393567458476495, guid: 857e307b095614549b40a8b67083b1e9, type: 3}
+  weight: 4

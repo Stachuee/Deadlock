@@ -48,16 +48,13 @@ public class Printer : PoweredInteractable, IGetHandInfo
     public void Collect(PlayerController player, UseType type)
     {
         if (type == UseType.Computer) return;
-        if(!broken)
+        if (readyToCollect)
         {
-            if (readyToCollect)
-            {
-                Instantiate(prefabToPrint, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), 0 , 0), Quaternion.identity).GetComponentInChildren<Item>().Innit(toPrint);
-                readyToCollect = false;
-                productionRemain = baseProduction;
-            }
+            Instantiate(prefabToPrint, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), 0, 0), Quaternion.identity).GetComponentInChildren<Item>().Innit(toPrint);
+            readyToCollect = false;
+            productionRemain = baseProduction;
         }
-        else
+        if (broken)
         {
             ItemSO input = player.CheckIfHoldingAnyAndDeposit(toRepair);
             if(input != null)

@@ -5016,12 +5016,14 @@ MonoBehaviour:
   patience: 10
   armored: 0
   armorMaxHp: 0
+  dropChance: 0
+  itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   onFireParticle: {fileID: 2766289554939465730}
   markerType: 0
   state: 0
   huntingTimer: 3
   explosionRadius: 3
-  explosionDamage: 50
+  explosionDamage: 40
   explosionDuration: 0.1
   explosionRange: 1
   explosionStrength: 0

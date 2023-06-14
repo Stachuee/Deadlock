@@ -26,7 +26,10 @@ public class ProgressStageController : MonoBehaviour
     [SerializeField] bool machineItemsFilled;
 
 
+
     List<ICureLevelIncrease> toNotify = new List<ICureLevelIncrease>();
+
+    public static List<ItemSO> toDrop = new List<ItemSO>();
 
     bool started;
 
@@ -72,8 +75,19 @@ public class ProgressStageController : MonoBehaviour
             CureMachine.Instance.SetCurrentUssage(GameController.currentDangerLevel.GetProgressRequired().machinesRequired);
             CureMachine.Instance.SetCurrentItemUssage(GameController.currentDangerLevel.GetProgressRequired().itemsNeeded);
             progressRequired = GameController.currentDangerLevel.GetProgressRequired().timeToCompleate;
+
+            toDrop.AddRange(GameController.currentDangerLevel.GetNewItems());
             Notify();
         }
+    }
+
+    public ItemSO DropItem()
+    {
+        if(toDrop.Count > 0)
+        {
+            return toDrop[UnityEngine.Random.Range(0, toDrop.Count)];
+        }
+        return null;
     }
 
     public void MachineSupportReady(bool filled)

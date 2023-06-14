@@ -88,6 +88,8 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberAim
         {
             gB.Hide();
         }
+        weaponSlotButtons.ForEach(x => x.Hide());
+        equipmentSlotButtons.ForEach(x => x.Hide());
     }
 
     private void Start()
@@ -97,6 +99,7 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberAim
             active = false;
             return;
         }
+
         gunMenuItemsAmount = slotButtons.Count;
 
         equipmentMenuItemsAmount = equipmentSlotButtons.Count;
@@ -334,7 +337,7 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberAim
 
     public void ActivateSlot(WeaponType weapon)
     {
-
+        Debug.Log(weapon);
         weaponSlotButtons.Find(slot => slot.weaponType == weapon && slot.slotType == SlotType.Weapon).Show();     
     }
 

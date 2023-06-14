@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 4579708098554351928}
   - component: {fileID: 4579708098554351929}
   - component: {fileID: 4579708098554351933}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorsBetweenRooms
   m_TagString: Untagged
   m_Icon: {fileID: 0}

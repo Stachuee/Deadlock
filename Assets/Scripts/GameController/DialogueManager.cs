@@ -35,19 +35,19 @@ public class DialogueManager : MonoBehaviour
 
     public void PlayDialogue(Dialogue toPlay, bool cutPlaying)
     {
-        if (toPlay.GetToShow() == Dialogue.ShowTo.Scientist && !(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
-        {
-            dialogueLisnerScientist.ShowDialogue(toPlay);
-        }
-        else if (toPlay.GetToShow() == Dialogue.ShowTo.Solider && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
-        {
-            dialogueLisnerSolider.ShowDialogue(toPlay);
-        }
-        else if(!(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying) && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
-        {
-            dialogueLisnerScientist.ShowDialogue(toPlay);
-            dialogueLisnerSolider.ShowDialogue(toPlay);
-        }
+        //if (toPlay.GetToShow() == Dialogue.ShowTo.Scientist && !(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
+        //{
+        //    dialogueLisnerScientist.ShowDialogue(toPlay);
+        //}
+        //else if (toPlay.GetToShow() == Dialogue.ShowTo.Solider && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
+        //{
+        //    dialogueLisnerSolider.ShowDialogue(toPlay);
+        //}
+        //else if(!(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying) && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
+        //{
+        //    dialogueLisnerScientist.ShowDialogue(toPlay);
+        //    dialogueLisnerSolider.ShowDialogue(toPlay);
+        //}
     }
 
 

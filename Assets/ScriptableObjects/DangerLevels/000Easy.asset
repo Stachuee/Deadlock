@@ -14,14 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 0
   dangerLevel: 0
-  targetPacing: 40
+  targetPacing: 100
   pacingFalloffPerMinute: 40
-  newWaves:
-  - {fileID: 11400000, guid: 35267fe90f523e74ab38d9c702eeebf0, type: 2}
-  - {fileID: 11400000, guid: a3191f48c28e24d48bc1135f8e5af7a1, type: 2}
-  newSubWaves:
-  - {fileID: 11400000, guid: 35267fe90f523e74ab38d9c702eeebf0, type: 2}
-  - {fileID: 11400000, guid: a3191f48c28e24d48bc1135f8e5af7a1, type: 2}
+  targetPacingSide: 100
+  pacingFalloffPerMinuteSide: 20
+  waveDuration: 10
+  respiteDuration: 30
+  newEnemies:
+  - {fileID: 11400000, guid: 692b094a8e9fb17418f8ee134d09c937, type: 2}
+  - {fileID: 11400000, guid: fc3d33771602dc3438b18f2f126a7454, type: 2}
+  - {fileID: 11400000, guid: 70bed30c773f1524ab1477e65c90381c, type: 2}
+  newEnemiesSide: []
   requiredToNextLevel:
     timeToCompleate: 60
     machinesRequired: 
@@ -32,3 +35,4 @@ MonoBehaviour:
   spawnNewNests: 0
   minNestSpawnCooldown: 1
   newNestChance: 1
+  newItems: []

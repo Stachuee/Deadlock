@@ -24,6 +24,7 @@ public abstract class NadeBase : MonoBehaviour
 
     [SerializeField] Rigidbody2D myBody;
 
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!explodeOnContact && proximity)
@@ -80,6 +81,7 @@ public abstract class NadeBase : MonoBehaviour
                 }
             }
         }
+
         
         Destroy(gameObject);
     }

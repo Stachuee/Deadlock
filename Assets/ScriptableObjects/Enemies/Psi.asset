@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Psi
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1312338981573003027, guid: 1437c10f4a58d744f927518e1d8ea89d, type: 3}
+  weight: 5

@@ -9,16 +9,30 @@ public class DangerLevelSO : ScriptableObject
 {
     [SerializeField] Difficulty difficulty;
     [SerializeField] int dangerLevel;
+    
+    
     [SerializeField] float targetPacing;
     [SerializeField] float pacingFalloffPerMinute;
-    [SerializeField] List<WaveSO> newWaves;
-    [SerializeField] List<WaveSO> newSubWaves;
+
+    [SerializeField] float targetPacingSide;
+    [SerializeField] float pacingFalloffPerMinuteSide;
+
+
+
+
+    [SerializeField] float waveDuration;
+    [SerializeField] float respiteDuration;
+    [SerializeField] List<EnemySO> newEnemies;
+    [SerializeField] List<EnemySO> newEnemiesSide;
+
     [SerializeField] ProgressLevel requiredToNextLevel;
     [SerializeField] bool lastLevel;
 
     [SerializeField] bool spawnNewNests;
     [SerializeField] float minNestSpawnCooldown;
     [SerializeField, Range(0, 1)] float newNestChance;
+
+    [SerializeField] List<ItemSO> newItems;
 
     public int GetDangerLevel()
     {
@@ -40,19 +54,35 @@ public class DangerLevelSO : ScriptableObject
         return pacingFalloffPerMinute;
     }
 
+    public float GetTargetPacingSide()
+    {
+        return targetPacingSide;
+    }
+
+    public float GetPacingFallofSide()
+    {
+        return pacingFalloffPerMinuteSide;
+    }
+
     public ProgressLevel GetProgressRequired()
     {
         return requiredToNextLevel;
     }
 
-    public List<WaveSO> GetNewWaves()
+    public List<EnemySO> GetNewEnemies()
     {
-        return newWaves;
+        return newEnemies;
     }
 
-    public List<WaveSO> GetNewSubWaves()
+
+    public List<EnemySO> GetNewEnemiesSide()
     {
-        return newSubWaves;
+        return newEnemies;
+    }
+
+    public List<ItemSO> GetNewItems()
+    {
+        return newItems;
     }
 
     public bool IsLast()
@@ -71,5 +101,15 @@ public class DangerLevelSO : ScriptableObject
     public float GetNewNestChance()
     {
         return newNestChance;
+    }
+
+    public float GetWaveDuration()
+    {
+        return waveDuration;
+    }
+
+    public float GetRespiteDuration()
+    {
+        return respiteDuration;
     }
 }

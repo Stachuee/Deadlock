@@ -5024,8 +5024,10 @@ MonoBehaviour:
   patience: 10
   armored: 0
   armorMaxHp: 0
+  dropChance: 1
+  itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   onFireParticle: {fileID: 4698759961569092710}
-  markerType: 0
+  markerType: 2
   state: 0
   huntingTimer: 5
 --- !u!1 &7743376675037685702

@@ -67,9 +67,16 @@ public class WorkshopFuse : MonoBehaviour
     public void Open()
     {
         IsOn = ElectricityController.workshopPowered;
-        player.uiController.myEventSystem.SetSelectedGameObject(fuse.gameObject);
         open = true;
         fuseBoxUI.gameObject.SetActive(true);
+        player.uiController.myEventSystem.SetSelectedGameObject(null);
+        StartCoroutine("SetSelected");
+    }
+
+    IEnumerator SetSelected()
+    {
+        yield return new WaitForEndOfFrame();
+        player.uiController.myEventSystem.SetSelectedGameObject(fuse.gameObject);
     }
     public void Close()
     {

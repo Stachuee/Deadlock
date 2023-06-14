@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Spiter
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5812312203392957550, guid: be743ddb8f501a9499c88298c49c9161, type: 3}
+  weight: 7

@@ -32,6 +32,10 @@ public class DormantSpawner : Spawner, ITakeDamage
 
     Rooms parrent;
 
+    [SerializeField] Marker markerType;
+    RectTransform myMarker;
+
+
     bool Active
     {
         get 
@@ -94,12 +98,13 @@ public class DormantSpawner : Spawner, ITakeDamage
     public override void ActivateSpanwer()
     {
         base.ActivateSpanwer();
-        PacingController.pacingController.IncreasePacing(pacingToActivate);
+        //PacingController.pacingController.IncreasePacing(pacingToActivate);
         hp = maxHp;
         Active = true;
         parrent.SendWarning(WarningStrength.Medium);
         EffectManager.instance.ScreenShake(newSpawnerShakeDuration, newSpawnerShakeRange, newSpawnerShakeStrength, Vector2.zero);
         SpawnerController.instance.AddEnemyToMap(this, transform);
+        if (ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
     }
 
     public override void GetNewWave()
@@ -109,6 +114,24 @@ public class DormantSpawner : Spawner, ITakeDamage
         //else nextWave = Time.time + PACING_LOCK;
     }
 
+    protected override IEnumerator Spawn()
+    {
+        while (isActive)
+        {
+            if (currentPacing < targetPacing)
+            {
+                SpawnEnemy(SpawnerController.instance.GetEnemy(false));
+            }
+            yield return new WaitForSeconds(spawnDelay);
+        }
+    }
+
+    public override void IncreaseLevel(int level)
+    {
+        pacingFalloff = GameController.currentDangerLevel.GetPacingFallofSide();
+        targetPacing = GameController.currentDangerLevel.GetTargetPacingSide();
+        currentPacing = targetPacing;
+    }
 
     public void ApplyStatus(Status toApply)
     {
@@ -156,6 +179,7 @@ public class DormantSpawner : Spawner, ITakeDamage
     public override void DeactivateSpawner()
     {
         base.DeactivateSpawner();
+        if (ComputerUI.scientistComputer != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
         SpawnerController.instance.RemoveFromMap(transform);
     }
 

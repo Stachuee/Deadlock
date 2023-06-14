@@ -10,10 +10,11 @@ public class SpawnerController : MonoBehaviour, ICureLevelIncrease
 
     public static SpawnerController instance;
 
-    [SerializeField] List<WaveSO> wavesActive = new List<WaveSO>();
-    [SerializeField] List<WaveSO> subWavesActive = new List<WaveSO>();
+    public List<EnemySO> activeEnemies = new List<EnemySO>();
+    public List<EnemySO> activeEnemiesSide = new List<EnemySO>();
+
     List<Spawner> spawners = new List<Spawner>();
-    List<Spawner> dormantSpawners = new List<Spawner>();
+   //List<Spawner> dormantSpawners = new List<Spawner>();
     Dictionary<Transform, ITakeDamage> damageMap = new Dictionary<Transform, ITakeDamage>();
 
     #region oldSpawner
@@ -61,51 +62,51 @@ public class SpawnerController : MonoBehaviour, ICureLevelIncrease
     }
 
 
-    public WaveSO SpawnWave()
-    {
-        List<WaveSO> possible = wavesActive.FindAll(wave => wave.GetWaveStrength() <= PacingController.pacingController.GetFreePacing());
-        if (possible.Count > 0)
-        {
-            WaveSO choosen = possible[UnityEngine.Random.Range(0, possible.Count)];
-            PacingController.pacingController.IncreasePacing(choosen.GetWaveStrength());
-            return choosen;
-        }
-        return null;
-    }
+    //public WaveSO SpawnWave()
+    //{
+    //    List<WaveSO> possible = wavesActive.FindAll(wave => wave.GetWaveStrength() <= PacingController.pacingController.GetFreePacing());
+    //    if (possible.Count > 0)
+    //    {
+    //        WaveSO choosen = possible[UnityEngine.Random.Range(0, possible.Count)];
+    //        PacingController.pacingController.IncreasePacing(choosen.GetWaveStrength());
+    //        return choosen;
+    //    }
+    //    return null;
+    //}
 
-    public WaveSO SpawnSideWave()
+    //public WaveSO SpawnSideWave()
+    //{
+    //    List<WaveSO> possible = subWavesActive.FindAll(wave => wave.GetWaveStrength() <= PacingController.pacingController.GetFreePacing() / SIDE_SPAWNERS_PACING_REDUCTION);
+    //    if (possible.Count > 0)
+    //    {
+    //        WaveSO choosen = possible[UnityEngine.Random.Range(0, possible.Count)];
+    //        PacingController.pacingController.IncreasePacing(choosen.GetWaveStrength() * SIDE_SPAWNERS_PACING_REDUCTION);
+    //        return choosen;
+    //    }
+    //    return null;
+    //}
+
+    public EnemySO GetEnemy(bool main)
     {
-        List<WaveSO> possible = subWavesActive.FindAll(wave => wave.GetWaveStrength() <= PacingController.pacingController.GetFreePacing() / SIDE_SPAWNERS_PACING_REDUCTION);
-        if (possible.Count > 0)
-        {
-            WaveSO choosen = possible[UnityEngine.Random.Range(0, possible.Count)];
-            PacingController.pacingController.IncreasePacing(choosen.GetWaveStrength() * SIDE_SPAWNERS_PACING_REDUCTION);
-            return choosen;
-        }
-        return null;
+        if(main) return activeEnemies[UnityEngine.Random.Range(0, activeEnemies.Count)];
+        else return activeEnemiesSide[UnityEngine.Random.Range(0, activeEnemiesSide.Count)];
     }
 
     public void AddSpawner(Spawner toAdd)
     {
-        if(toAdd is DormantSpawner)
-        {
-            dormantSpawners.Add(toAdd);
-        }
-        else
-        {
-            spawners.Add(toAdd);
-        }
+        spawners.Add(toAdd);
     }
 
     public void IncreaseLevel(int level)
     {
-        wavesActive.AddRange(GameController.currentDangerLevel.GetNewWaves());
-        subWavesActive.AddRange(GameController.currentDangerLevel.GetNewSubWaves());
+        activeEnemies.AddRange(GameController.currentDangerLevel.GetNewEnemies());
+        //wavesActive.AddRange(GameController.currentDangerLevel.GetNewWaves());
+        //subWavesActive.AddRange(GameController.currentDangerLevel.GetNewSubWaves());
     }
 
     public void AwakeSpawner()
     {
-        Spawner spawner = dormantSpawners.Find(x => !x.isActive);
+        Spawner spawner = spawners.Find(x => !x.isActive);
         if (spawner != null)
         {
             spawner.ActivateSpanwer();

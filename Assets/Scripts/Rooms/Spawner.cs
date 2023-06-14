@@ -10,8 +10,15 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     public bool isActive = false;
 
     [SerializeField] bool activeFromStart;
+    
+    [SerializeField] protected float targetPacing;
+    [SerializeField] protected float currentPacing;
+    [SerializeField] protected float pacingFalloff;
 
-    float spawnDelay;
+    [SerializeField] protected float spawnDelay;
+
+
+
     float lastSpawn;
 
     public bool spawning;
@@ -35,10 +42,12 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     {
         SpawnerController.instance.AddSpawner(this);
         ProgressStageController.instance.AddToNotify(this);
+        StartCoroutine("Spawn");
     }
 
     private void Update()
     {
+        currentPacing -= (pacingFalloff / 60) * Time.deltaTime;
         //if (spawning && isActive && lastSpawn + spawnDelay < Time.time)
         //{
         //    if (toSpawnList[step].count > alreadySpawned)
@@ -65,17 +74,36 @@ public class Spawner : InteractableBase, ICureLevelIncrease
         //}
     }
 
-    public void SpawnEnemy(GameObject enemy)
+    protected virtual IEnumerator Spawn()
     {
-        Instantiate(enemy, transform.position, Quaternion.identity);
+        while(true)
+        {
+            if(isActive && PacingController.wave && currentPacing < targetPacing)
+            {
+                SpawnEnemy(SpawnerController.instance.GetEnemy(true));
+            }
+            yield return new WaitForSeconds(spawnDelay);
+        }
     }
 
-    public void IncreaseLevel(int level)
+    public void SpawnEnemy(EnemySO enemy)
+    {
+        if(enemy != null)
+        {
+            currentPacing += enemy.GetWeigth();
+            Instantiate(enemy.GetPrefab(), transform.position, Quaternion.identity);
+        }
+    }
+
+    public virtual void IncreaseLevel(int level)
     {
         if(!isActive && level >= 0 && activeFromStart)
         { 
             isActive = true;
         }
+        pacingFalloff = GameController.currentDangerLevel.GetPacingFallof();
+        targetPacing = GameController.currentDangerLevel.GetTargetPacing();
+        currentPacing = targetPacing;
     }
 
     public virtual void ActivateSpanwer()

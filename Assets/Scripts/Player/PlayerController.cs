@@ -194,11 +194,15 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         float closestDistance = Mathf.Infinity;
         IInteractable closest = null;
+        bool isItem = false;
+
         inRange.ForEach(x =>
         {
             float distance = Vector2.Distance(transform.position, x.GetPosition());
-            if (closestDistance > distance)
+            bool item = x is Item;
+            if ((closestDistance > distance && isItem == item) || (isItem == false && item))
             {
+                isItem = item;
                 closestDistance = distance;
                 closest = x;
             }

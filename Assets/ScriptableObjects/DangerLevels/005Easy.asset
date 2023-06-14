@@ -14,10 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 0
   dangerLevel: 1
-  targetPacing: 40
-  pacingFalloffPerMinute: 40
-  newWaves: []
-  newSubWaves: []
+  targetPacing: 100
+  pacingFalloffPerMinute: 150
+  targetPacingSide: 100
+  pacingFalloffPerMinuteSide: 60
+  waveDuration: 40
+  respiteDuration: 20
+  newEnemies:
+  - {fileID: 11400000, guid: 01db7bd9e6d42de4cb65e2db2a92738c, type: 2}
+  newEnemiesSide: []
   requiredToNextLevel:
     timeToCompleate: 60
     machinesRequired: 000000000100000002000000
@@ -29,3 +34,4 @@ MonoBehaviour:
   spawnNewNests: 1
   minNestSpawnCooldown: 10
   newNestChance: 0.8
+  newItems: []

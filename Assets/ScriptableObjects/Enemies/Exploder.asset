@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Exploder
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2604312502774475251, guid: c1827bd3cf6e2fa4f81ee18a9fd1b2d9, type: 3}
+  weight: 3

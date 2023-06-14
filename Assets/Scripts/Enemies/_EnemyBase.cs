@@ -28,7 +28,8 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     [SerializeField]
     float armorMaxHp;
     float armorHp;
-
+    [SerializeField, Range(0f,1f)] float dropChance;
+    [SerializeField] GameObject itemPrefab;
 
     [SerializeField]
     ParticleSystem onFireParticle;
@@ -98,7 +99,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
         if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
-        currentTargetNode = NavController.instance.FindClosestWaypoint(transform.position, true, true);
+        currentTargetNode = NavController.instance.FindClosestWaypoint(transform.position, true);
 
         SpawnerController.instance.AddEnemyToMap(this, transform);
 
@@ -278,7 +279,16 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     public virtual void Dead()
     {
         SpawnerController.instance.RemoveFromMap(transform);
-        ComputerUI.scientistComputer.DeleteMarker(myMarker);
+        if(ComputerUI.scientistComputer != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
+
+        if(Random.Range(0f, 1f) <= dropChance)
+        {
+            ItemSO toDrop = ProgressStageController.instance.DropItem();
+            if(toDrop != null)
+            {
+                Instantiate(itemPrefab, transform.position, Quaternion.identity).GetComponent<Item>().Innit(toDrop);
+            }
+        }
         Destroy(gameObject);
     }
 
@@ -294,33 +304,32 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         float closestWithObs = Mathf.Infinity;
         NavNode closestObs = null;
 
+
+        float closestWithoutObs = Mathf.Infinity;
+        NavNode closestWoObs = null;
+
         currentTargetNode.GetConnectedNodes().ForEach(node =>
         {
-            if (node.distanceToScientist + node.obstaclesWeigths < closestWithObs)
+            float dist = Vector2.Distance(transform.position, node.transform.position);
+            if (node.distanceToScientist + node.obstaclesWeigths + dist < closestWithObs)
             {
-                closestWithObs = node.distanceToScientist + node.obstaclesWeigths + Vector2.Distance(transform.position, node.transform.position);
+                closestWithObs = node.distanceToScientist + node.obstaclesWeigths + dist;
                 closestObs = node;
+            }
+            if (node.distanceToScientist + dist < closestWithoutObs)
+            {
+                closestWithoutObs = node.distanceToScientist + node.obstaclesWeigths + dist;
+                closestWoObs = node;
             }
         });
 
-
-        if (closestWithObs < currentTargetNode.distanceToScientist + patience)
+        if (closestWithObs - closestWithoutObs <= patience)
         {
             patience = Mathf.Clamp(patience - Mathf.Max(0, closestWithObs - currentTargetNode.distanceToScientist), 0, patience);
             currentTargetNode = closestObs;
             return;
         }
 
-        float closestWithoutObs = Mathf.Infinity;
-        NavNode closestWoObs = null;
-        currentTargetNode.GetConnectedNodes().ForEach(node =>
-        {
-            if (node.distanceToScientist < closestWithoutObs)
-            {
-                closestWithoutObs = node.distanceToScientist + node.obstaclesWeigths + Vector2.Distance(transform.position, node.transform.position);
-                closestWoObs = node;
-            }
-        });
 
         currentTargetNode = closestWoObs;
     }
@@ -349,5 +358,11 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     public Transform GetTransform()
     {
         return transform;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, currentTargetNode.transform.position);
     }
 }

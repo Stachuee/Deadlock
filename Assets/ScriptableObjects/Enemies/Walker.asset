@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Walker
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5348277707660939699, guid: 41dc584bed46bcb42b47eaefb29bd6ba, type: 3}
+  weight: 2

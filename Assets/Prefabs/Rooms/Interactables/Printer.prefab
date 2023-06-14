@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8218352025871541770}
   - component: {fileID: 7057619488944412986}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4431380919540637163}
   - component: {fileID: 7221573025670984882}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 8325686994582738560}
   - component: {fileID: 8325686994582738561}
   - component: {fileID: 8325686994582738562}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Printer
   m_TagString: Interactable
   m_Icon: {fileID: 0}
