@@ -72,7 +72,7 @@ public class RPG : GunBase
             {
                 return; // not enough time has passed since last shot
             }
-
+            shotAudio.Play();
             NadeBase temp = Instantiate(fireMode == 0 ? granade : proximityGranade, barrel.position, Quaternion.Euler(0, 0, currentBarrelAngle)).GetComponent<NadeBase>();
             temp.Lunch(aimVectorWithRecoil.normalized * lunchStrength);
 

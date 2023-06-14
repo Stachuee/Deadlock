@@ -106,6 +106,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     [SerializeField] AudioSource medicineSFX;
     [SerializeField] AudioSource stimulatorSFX;
     [SerializeField] AudioSource inventorySFX;
+    [SerializeField] AudioSource throwSFX;
+    [SerializeField] AudioSource pickupSFX;
 
     public bool isScientist {get; private set;}
 
@@ -247,7 +249,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if(moveDirection != Vector2.zero && !footstepSFX.isPlaying)
         {
             footstepSFX.volume = Random.Range(0.8f, 1);
-            footstepSFX.pitch = Random.Range(0.8f, 1.1f);
+            footstepSFX.pitch = Random.Range(0.9f, 1.01f);
             footstepSFX.Play();
         }
     }
@@ -264,6 +266,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         heldItems.RemoveAt(heldItems.Count - 1);
 
         itemDropped.GetComponentInParent<Rigidbody2D>().AddForce(currentAimDirection.normalized * playerInfo.throwStrength);
+
+        throwSFX.Play();
     }
 
     public bool PickUp(ItemSO item)
@@ -271,6 +275,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (heldItems.Count >= maxItemsHeld) return false;
         else
         {
+            pickupSFX.Play();
             heldItems.Add(item);
             return true;
         }
@@ -441,7 +446,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnThrow(InputAction.CallbackContext context)
     {
         if (dead) return;
-        if (context.performed) equipmentController.UseEquipment();
+        if (context.performed)
+        {
+            throwSFX.Play();
+            equipmentController.UseEquipment();
+        }
     }
     public void OnReload(InputAction.CallbackContext context)
     {

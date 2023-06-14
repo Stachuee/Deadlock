@@ -164,3 +164,4 @@ MonoBehaviour:
   explosionStrength: 0
   explosionVFX: {fileID: 3325947601491101937, guid: 619a3936d905d0f4a93f1ba1d94ce79e, type: 3}
   myBody: {fileID: 2188663914131798639}
+  explosionSFX: {fileID: 3883800986763310905, guid: d670eb7a5d869214b8ed1ffa7c4e0a0e, type: 3}

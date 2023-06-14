@@ -58,6 +58,9 @@ public class DoorsBetweenRooms : PoweredInteractable, ITakeDamage
     float hp;
     bool destroyed;
 
+    [SerializeField] AudioSource closeDoorsSFX;
+    [SerializeField] AudioSource doorsDamageSFX;
+
     private void Start()
     {
         animator = transform.GetComponent<Animator>();
@@ -82,6 +85,7 @@ public class DoorsBetweenRooms : PoweredInteractable, ITakeDamage
     {
         if((firstPowerOn || secondPowerOn) && type == UseType.Computer && !destroyed)
         {
+            closeDoorsSFX.Play();
             wantedState = !Closed;
             RefreshState();
         }
@@ -126,6 +130,7 @@ public class DoorsBetweenRooms : PoweredInteractable, ITakeDamage
     {
         float damageAmmount = damage;
         hp -= damageAmmount;
+        doorsDamageSFX.Play();
         //parrent.SendWarning(WarningStrength.Medium);
         if (hp <= 0)
         {

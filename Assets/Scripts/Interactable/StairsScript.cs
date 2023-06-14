@@ -11,6 +11,7 @@ public class StairsScript : PoweredInteractable, ITakeDamage
     NavNode node;
 
     [SerializeField] AudioSource doorsClosingSFX;
+    [SerializeField] AudioSource doorsDamageSFX;
 
 
     bool Closed
@@ -99,6 +100,7 @@ public class StairsScript : PoweredInteractable, ITakeDamage
         {
             Closed = false;
             //animator.SetBool("Open", true);
+            Debug.Log("Stairs closed");
             doorsClosingSFX.Play();
         }
     }
@@ -125,6 +127,7 @@ public class StairsScript : PoweredInteractable, ITakeDamage
     {
         float damageAmmount = damage;
         hp -= damageAmmount;
+        doorsDamageSFX.Play();
         //parrent.SendWarning(WarningStrength.Medium);
         if (hp <= 0)
         {

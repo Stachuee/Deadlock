@@ -17,6 +17,8 @@ public class Chute : InteractableBase
 
     public static Chute scientistChute;
 
+    [SerializeField] AudioSource sendItemSFX;
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,6 +42,7 @@ public class Chute : InteractableBase
         {
             connectedChute.DropItems(temp);
         }
+        sendItemSFX.Play();
         player.RefreshPrompt();
     }
     

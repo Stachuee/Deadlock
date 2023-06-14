@@ -28,6 +28,8 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberAim
 
     bool active = true;
 
+    [SerializeField] AudioSource changeEquipmentSFX;
+
     private void Awake()
     {
         for(int i = 0; i < System.Enum.GetValues(typeof(EquipmentType)).Length; i++)
@@ -69,6 +71,8 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberAim
     public void ChangeEquipment(EquipmentType type)
     {
         if (!active) return;
+
+        changeEquipmentSFX.Play();
         equiped = type;
         playerController.uiController.combatHUDController.UpdateEquipment(type);
         playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[type]);

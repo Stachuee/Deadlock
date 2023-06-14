@@ -40,6 +40,8 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
 
     public static ComputerUI scientistComputer;
 
+    [SerializeField] AudioSource alarmSFX;
+
 
     private void Start()
     {
@@ -375,6 +377,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
     {
         if (!isScientist) return;
         if (!setUp) Setup();
+        alarmSFX.Play();
         roomsUI.Find(x => x.room == room).UpdateEvent(true, strength);
     }
 

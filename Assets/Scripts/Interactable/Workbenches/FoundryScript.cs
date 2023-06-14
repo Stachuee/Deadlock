@@ -17,6 +17,8 @@ public class FoundryScript : Workbench
     float craftProgress;
     bool crafting;
 
+    [SerializeField] AudioSource craftedSFX;
+
     private void Update()
     {
         if(crafting && craftProgress > 1)
@@ -48,6 +50,7 @@ public class FoundryScript : Workbench
             craftProgress = 0;
             crafting = true;
         }
+        craftedSFX.Play();
     }
 
 

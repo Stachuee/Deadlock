@@ -23,6 +23,9 @@ public class FireGun : GunBase
     [SerializeField] float currentIceAmmo;
 
 
+    [SerializeField] AudioSource iceSFX;
+
+
     GunController gunController;
 
 
@@ -73,6 +76,9 @@ public class FireGun : GunBase
                 Reload();
                 fireVFX.Stop();
                 iceVFX.Stop();
+
+                shotAudio.Stop();
+                iceSFX.Stop();
                 return;
             }
             else return;
@@ -90,11 +96,13 @@ public class FireGun : GunBase
             {
                 if(fireMode == 0)
                 {
+                    shotAudio.Play();
                     fireVFX.Play();
                     startedShooting = true;
                 }
                 else if(fireMode == 1)
                 {
+                    iceSFX.Play();
                     iceVFX.Play();
                     startedShooting = true;
                 }
@@ -104,6 +112,8 @@ public class FireGun : GunBase
         {   
             if(startedShooting)
             {
+                shotAudio.Stop();
+                iceSFX.Stop();
                 fireVFX.Stop();
                 iceVFX.Stop();
                 startedShooting = false;
@@ -117,6 +127,8 @@ public class FireGun : GunBase
         base.ChangeBulletType(input);
         if (input )
         {
+            shotAudio.Stop();
+            iceSFX.Stop();
             fireVFX.Stop();
             iceVFX.Stop();
             startedShooting = false;

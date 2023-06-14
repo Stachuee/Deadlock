@@ -6,6 +6,8 @@ public class StatusMonitor : InteractableBase
 {
     PlayerController activePlayer;
 
+    [SerializeField] AudioSource openCraftingSFX;
+
     void Start()
     {
         AddAction(OpenStatus);
@@ -13,6 +15,7 @@ public class StatusMonitor : InteractableBase
 
     public void OpenStatus(PlayerController player, UseType type)
     {
+        openCraftingSFX.Play();
         activePlayer = player;
         player.LockInAction(CloseInterface);
         player.uiController.upgradeGuide.Open(true);

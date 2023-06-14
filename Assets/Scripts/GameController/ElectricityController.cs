@@ -24,7 +24,7 @@ public class ElectricityController : MonoBehaviour
     [SerializeField] int _maxFusesActive;
     [SerializeField] float[] overchargePerAdditionaFuse = {1, 1.25f, 1.5f, 1.75f, 2f};
 
-    
+    [SerializeField] AudioSource electricityOffSFX;
 
     private void Awake()
     {
@@ -68,7 +68,7 @@ public class ElectricityController : MonoBehaviour
         if(value)
         {
             overloadEnd = Time.time + overloadDuration;
-
+            electricityOffSFX.Play();
 
             SegmentController.segmentController.mapSegments.ForEach(segment =>
             {
