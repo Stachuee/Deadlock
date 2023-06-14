@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-
+using System.Linq;
 
 public enum CurrentMenuPanel
 {
@@ -40,9 +40,11 @@ public class MainMenuController : MonoBehaviour
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(FirstMenuButton);
         currentPanel = CurrentMenuPanel.Main;
-        
 
-        resolutions = Screen.resolutions;
+
+        resolutions = Screen.resolutions
+            .Where(resolution => resolution.refreshRate == 60)
+            .ToArray();
 
         resolutionsDropdown.ClearOptions();
 
@@ -85,14 +87,12 @@ public class MainMenuController : MonoBehaviour
 
     private void Update()
     {
-        SetLostSelectedGameObject();
+        if (eSystem.currentSelectedGameObject == null)
+            StartCoroutine("SetSelected");
     }
 
     public void SetLostSelectedGameObject()
     {
-        if (eSystem.currentSelectedGameObject != null)
-            return;
-
         switch (currentPanel)
         {
             case CurrentMenuPanel.Main:
@@ -127,5 +127,12 @@ public class MainMenuController : MonoBehaviour
         currentPanel = CurrentMenuPanel.ChoosingPlayer;
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(FirstChoosingButton);
+    }
+
+
+    IEnumerator SetSelected()
+    {
+        yield return new WaitForEndOfFrame();
+        SetLostSelectedGameObject();
     }
 }
