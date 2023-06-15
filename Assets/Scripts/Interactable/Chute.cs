@@ -35,7 +35,7 @@ public class Chute : InteractableBase
 
     void DumpItems(PlayerController player, UseType type)
     {
-        if (oneWayOutput) return;
+        if (oneWayOutput || type == UseType.Computer) return;
         for (ItemSO temp = player.DepositIngredient(); temp != null; temp = player.DepositIngredient())
         {
             connectedChute.DropItems(temp);

@@ -344,13 +344,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             if (dead) return;
             if (lockedInAnimation)
             {
-                callbackWhenUnlocking.Invoke();
-                //callbackWhenUnlocking = null;
-                //LockInAnimation = false;
+
             }
             else
             {
-                SendbackControll();
                 DropHolding();
             }
         }
@@ -433,6 +430,26 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (dead) return;
         if (context.performed) gunController.Reload();
     }
+
+    public void OnMenuBack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (dead) return;
+            if (lockedInAnimation)
+            {
+                callbackWhenUnlocking.Invoke();
+                //callbackWhenUnlocking = null;
+                //LockInAnimation = false;
+            }
+            else
+            {
+                SendbackControll();
+            }
+        }
+    }
+
+
 
     public void OnOpenInventory(InputAction.CallbackContext context)
     {

@@ -57,6 +57,12 @@ public class DormantSpawner : Spawner, ITakeDamage
         animator = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        //ActivateSpanwer();
+        transform.tag = "Enemy";
+    }
+
     protected virtual void Update()
     {
         if (poisoned)
@@ -104,7 +110,11 @@ public class DormantSpawner : Spawner, ITakeDamage
         parrent.SendWarning(WarningStrength.Medium);
         EffectManager.instance.ScreenShake(newSpawnerShakeDuration, newSpawnerShakeRange, newSpawnerShakeStrength, Vector2.zero);
         SpawnerController.instance.AddEnemyToMap(this, transform);
-        if (ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
+        if (ComputerUI.scientistComputer != null)
+        {
+            myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
+            ComputerUI.scientistComputer.UpdateMarker(transform.position, myMarker);
+        }
     }
 
     public override void GetNewWave()
@@ -181,6 +191,7 @@ public class DormantSpawner : Spawner, ITakeDamage
         base.DeactivateSpawner();
         if (ComputerUI.scientistComputer != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
         SpawnerController.instance.RemoveFromMap(transform);
+        Active = false;
     }
 
     public float TakeDamage(float damage, DamageSource source, DamageEffetcts effects = DamageEffetcts.None)

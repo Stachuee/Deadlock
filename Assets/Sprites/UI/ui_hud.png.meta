@@ -1,0 +1,776 @@
+fileFormatVersion: 2
+guid: 5bdba22f57a9eb1489638acb82b1dc8e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ui_hud_0
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 4492
+        width: 2713
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58ef0b6e8122d1a48a49011d438f7cf9
+      internalID: -259039107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_21
+      rect:
+        serializedVersion: 2
+        x: 3664
+        y: 7461
+        width: 5272
+        height: 406
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eb3c8cd37b2f1043b61ab292c3cfb50
+      internalID: 2144608798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_22
+      rect:
+        serializedVersion: 2
+        x: 4365
+        y: 7375
+        width: 3931
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 798acb093285448479d18924662a9269
+      internalID: -2047148011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_86
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 4717
+        width: 2713
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef4061a0872d8a44b3b47bde4e2a944
+      internalID: 1387189100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_122
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 3886
+        width: 2713
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ae9f713179837b4ba7dfc0ac09cb36a
+      internalID: 694290483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_145
+      rect:
+        serializedVersion: 2
+        x: 10930
+        y: 3357
+        width: 922
+        height: 498
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ffbbcd998e90304bb25d0f00682484c
+      internalID: 72348787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_162
+      rect:
+        serializedVersion: 2
+        x: 10930
+        y: 2520
+        width: 922
+        height: 492
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d78487cda7bd6194cb540bbd641e7e64
+      internalID: -445627143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemHighlight
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 2305
+        width: 1083
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1ecef27fb1300b41a502a6e9b71f9ec
+      internalID: -1845523648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_212
+      rect:
+        serializedVersion: 2
+        x: 5805
+        y: 2108
+        width: 1199
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 114ccbeda377d574fbe710d28bae12ea
+      internalID: -1111485812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_213
+      rect:
+        serializedVersion: 2
+        x: 5805
+        y: 1708
+        width: 1230
+        height: 276
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30ab479c935872b459746406813ab939
+      internalID: -1757556241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_full
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 1431
+        width: 2836
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2778a04b37d8dda45b0a05dc290a9de6
+      internalID: -237045630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_217
+      rect:
+        serializedVersion: 2
+        x: 5805
+        y: 1357
+        width: 1230
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6e747edff5479c479ebdb1a801c9fbb
+      internalID: -541487534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_empty
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 1055
+        width: 3144
+        height: 265
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ede46e78933ecf4592f32f2f7c2583f
+      internalID: 1696367242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Equipment
+      rect:
+        serializedVersion: 2
+        x: 10271
+        y: 262
+        width: 757
+        height: 873
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b441b1541838b04d8e4b9ebb098d9f9
+      internalID: 901301883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gun
+      rect:
+        serializedVersion: 2
+        x: 11699
+        y: 262
+        width: 756
+        height: 861
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f47f606c7abdaa47908db0c972dde68
+      internalID: 1366936927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AmmoType
+      rect:
+        serializedVersion: 2
+        x: 11133
+        y: 292
+        width: 480
+        height: 566
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8231c2414b331ca4d88769caed7bcc27
+      internalID: -1550401197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_hud_257
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 360
+        width: 3143
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f4773426930ed04f91b230a8b36df2d
+      internalID: 1155171536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ui_hud_117: -1665840965
+      ui_hud_47: 1210813467
+      ui_hud_81: -43932964
+      ui_hud_28: 1878296949
+      ui_hud_49: -30705786
+      ui_hud_229: -1753130661
+      ui_hud_39: -363072828
+      ui_hud_258: -1477023525
+      ui_hud_22: -2047148011
+      ui_hud_167: 911895367
+      ui_hud_46: 997808387
+      ui_hud_137: 2058790583
+      ui_hud_26: 1373289625
+      ui_hud_149: -547974036
+      ui_hud_224: -1699906344
+      ui_hud_0: -259039107
+      ui_hud_7: -1250340021
+      ui_hud_104: -1688239520
+      ui_hud_266: 1394740752
+      ui_hud_173: -378117652
+      ui_hud_68: 99003859
+      ui_hud_160: 20946790
+      ui_hud_44: 1035027734
+      ui_hud_9: 15434065
+      ui_hud_67: 1286941441
+      ui_hud_124: -1203278042
+      ui_hud_43: 1634372576
+      ui_hud_24: 440212909
+      ui_hud_106: 474824391
+      ui_hud_100: 1248130901
+      ui_hud_18: -1406733711
+      ui_hud_150: 351479862
+      ui_hud_184: 329369302
+      ui_hud_268: 1528267144
+      ui_hud_13: 323523534
+      ui_hud_254: 1057636135
+      ui_hud_279: -111236576
+      ui_hud_197: 1648711605
+      ui_hud_17: 218415129
+      ui_hud_259: 698035682
+      ui_hud_40: -1612486220
+      ui_hud_179: 541921380
+      ui_hud_66: -600750019
+      ui_hud_195: 153095511
+      ui_hud_233: -244331082
+      ui_hud_93: -953846008
+      ui_hud_15: 1567986623
+      ui_hud_80: -1240945189
+      ui_hud_189: -39572454
+      ui_hud_121: -873594769
+      ui_hud_79: -809442920
+      ui_hud_31: 722279098
+      ui_hud_91: 916868642
+      AmmoType: -1550401197
+      ui_hud_98: 319804336
+      ui_hud_118: 660990050
+      ui_hud_42: -1542975841
+      ui_hud_119: -1155412588
+      ui_hud_58: 116835376
+      ui_hud_140: -1804340038
+      ui_hud_155: 2078917020
+      Equipment: 901301883
+      ui_hud_186: -379278524
+      ui_hud_240: -1383212776
+      ui_hud_122: 694290483
+      ui_hud_97: 58318437
+      ui_hud_205: 1561409238
+      ui_hud_223: -978992704
+      ui_hud_209: -470074495
+      ui_hud_111: 702558885
+      ui_hud_257: 1155171536
+      ui_hud_202: 682550505
+      hp_full: -237045630
+      ui_hud_260: -1289264282
+      ui_hud_60: -70068495
+      ui_hud_199: -1441094795
+      ui_hud_21: 2144608798
+      ui_hud_172: 1184361883
+      ui_hud_126: -1789270111
+      ui_hud_88: 430955774
+      ui_hud_71: -460375239
+      ui_hud_125: 1259196930
+      ui_hud_193: -442563437
+      ui_hud_16: -428250218
+      ui_hud_92: 673813230
+      ui_hud_84: -1483465688
+      ui_hud_19: 1526321959
+      ui_hud_204: -660532055
+      ui_hud_144: -501580940
+      ui_hud_158: 203611675
+      ui_hud_70: 497650916
+      ui_hud_65: -476495601
+      ui_hud_206: 1838867460
+      ui_hud_59: 159590951
+      ui_hud_90: 1531680753
+      ui_hud_201: 310846236
+      ui_hud_99: 1148952052
+      ui_hud_249: -515020538
+      ui_hud_263: 1978956897
+      ui_hud_95: -1740604008
+      ui_hud_23: -258293355
+      ui_hud_264: 1195902536
+      ui_hud_147: -799765457
+      ui_hud_29: -982387492
+      ui_hud_127: -1519567771
+      ui_hud_230: 526749158
+      ui_hud_134: -935630506
+      ui_hud_168: -1526219300
+      ui_hud_228: -217520682
+      ui_hud_48: 1988671851
+      ui_hud_175: 997101306
+      ui_hud_271: 518766180
+      ui_hud_50: 2052495292
+      ui_hud_247: 2058808052
+      ui_hud_171: -234245368
+      ui_hud_215: -1853116825
+      ui_hud_25: 770743353
+      ui_hud_187: -11709216
+      ui_hud_222: 306570470
+      ui_hud_54: 1037545968
+      ui_hud_234: -843322935
+      ui_hud_267: 1573922236
+      ui_hud_113: -998217878
+      ui_hud_218: 724952078
+      ui_hud_10: -192141577
+      ui_hud_75: -1477464515
+      ui_hud_176: -313214486
+      ui_hud_151: 1906485246
+      ui_hud_198: 252250740
+      ui_hud_253: 1921468299
+      ui_hud_128: 858064101
+      ui_hud_101: 457672127
+      ui_hud_246: 1137997220
+      ui_hud_178: -429371233
+      ui_hud_33: 1906707834
+      ui_hud_232: 1535097769
+      ItemHighlight: -1845523648
+      ui_hud_188: -889813962
+      ui_hud_238: 484357613
+      ui_hud_170: -979553883
+      ui_hud_235: 550743006
+      ui_hud_2: 1406754842
+      ui_hud_241: 1885689427
+      ui_hud_57: -1375921117
+      ui_hud_152: 1572414395
+      ui_hud_4: 208142010
+      ui_hud_109: -1303428631
+      ui_hud_74: -1272815296
+      ui_hud_129: 95648284
+      ui_hud_217: -541487534
+      ui_hud_114: 1655979899
+      ui_hud_116: -933049501
+      ui_hud_123: 957844730
+      ui_hud_157: 718126184
+      ui_hud_192: -1913355901
+      ui_hud_200: -820885054
+      ui_hud_8: 1473597574
+      ui_hud_5: -228872342
+      ui_hud_256: 1336454327
+      ui_hud_83: 1279349057
+      ui_hud_255: 1765666288
+      ui_hud_89: 1324881495
+      ui_hud_208: -4691787
+      ui_hud_194: -184024412
+      ui_hud_153: -1480001942
+      ui_hud_12: 624901930
+      ui_hud_182: -1434291001
+      ui_hud_251: -1362517324
+      ui_hud_226: -1488803320
+      ui_hud_216: -1102161462
+      ui_hud_120: -1547904066
+      ui_hud_281: 372985623
+      ui_hud_105: -516704431
+      ui_hud_41: -256745678
+      ui_hud_141: 1086017091
+      ui_hud_164: -28740560
+      ui_hud_270: -993041274
+      ui_hud_94: -235838118
+      ui_hud_220: 1942103305
+      ui_hud_61: -2086229315
+      ui_hud_213: -1757556241
+      ui_hud_162: -445627143
+      ui_hud_30: -848442597
+      ui_hud_239: -596209386
+      ui_hud_69: -398850238
+      ui_hud_130: -552547072
+      ui_hud_131: -707932757
+      ui_hud_183: 1033629194
+      ui_hud_78: 549536779
+      ui_hud_102: 1267271943
+      ui_hud_27: -754401826
+      ui_hud_231: 1874639566
+      ui_hud_272: 2041131379
+      ui_hud_62: 57324110
+      ui_hud_212: -1111485812
+      ui_hud_14: -1448810027
+      ui_hud_32: -449379327
+      ui_hud_20: -1339666683
+      ui_hud_237: -1771319026
+      ui_hud_34: -1088601641
+      ui_hud_112: -2057303432
+      ui_hud_274: -1729635216
+      ui_hud_86: 1387189100
+      ui_hud_278: -2119535889
+      ui_hud_108: -820303109
+      ui_hud_6: -1759559475
+      ui_hud_143: 1718805020
+      ui_hud_163: 396534579
+      ui_hud_148: 399795499
+      ui_hud_36: 1582739244
+      Gun: 1366936927
+      ui_hud_139: 194188921
+      ui_hud_273: 1409741469
+      ui_hud_269: 121978215
+      ui_hud_56: -1763035677
+      ui_hud_196: -1576316929
+      ui_hud_133: -513986838
+      ui_hud_51: 1926740695
+      ui_hud_55: -1017798134
+      ui_hud_180: 1377781077
+      ui_hud_103: 2056566532
+      ui_hud_96: 219897296
+      ui_hud_135: 1378832190
+      ui_hud_73: 1051642398
+      ui_hud_132: 575470695
+      ui_hud_277: -55600953
+      ui_hud_276: 2132693439
+      ui_hud_262: -1260075774
+      ui_hud_136: 1290289207
+      ui_hud_154: -1823452437
+      ui_hud_166: -40425587
+      ui_hud_52: -1559129988
+      ui_hud_110: -1858735205
+      ui_hud_210: -2144960836
+      ui_hud_145: 72348787
+      ui_hud_165: 734685347
+      ui_hud_37: -1779527378
+      ui_hud_64: 996830940
+      ui_hud_138: 732477057
+      ui_hud_76: -1984860522
+      ui_hud_177: -1374780816
+      ui_hud_221: 1767934009
+      ui_hud_146: 1592883685
+      ui_hud_282: 1223496651
+      ui_hud_181: 2016613570
+      ui_hud_236: 946983987
+      ui_hud_1: 1870106211
+      ui_hud_53: -820211076
+      ui_hud_242: 625838707
+      ui_hud_243: -1116171735
+      ui_hud_265: -420755698
+      ui_hud_35: 1723018773
+      ui_hud_107: -579277141
+      ui_hud_159: -1703190289
+      ui_hud_82: -1827867758
+      ui_hud_280: 140270391
+      ui_hud_87: -1949481877
+      ui_hud_169: 2007933461
+      ui_hud_161: -742136503
+      ui_hud_191: 1501450680
+      ui_hud_185: 1285171591
+      ui_hud_252: -1082031623
+      ui_hud_38: 503888304
+      ui_hud_11: -1123222974
+      ui_hud_85: -791223491
+      ui_hud_275: 1277281271
+      ui_hud_115: 1467673569
+      ui_hud_225: 1806352297
+      ui_hud_156: -471825070
+      ui_hud_190: 459344644
+      ui_hud_261: 299744790
+      ui_hud_207: 341194333
+      ui_hud_72: -234582974
+      ui_hud_3: -79881436
+      ui_hud_142: -698422369
+      ui_hud_45: -523806039
+      ui_hud_63: 137471450
+      ui_hud_248: -798104292
+      ui_hud_283: 458290500
+      ui_hud_77: 828496621
+      hp_empty: 1696367242
+      ui_hud_211: 2106087888
+      ui_hud_219: 774562762
+      ui_hud_203: 403442971
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

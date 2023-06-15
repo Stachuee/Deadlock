@@ -46,7 +46,14 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
         if(playerController.isScientist)
         {
             scientistComputer = this;
+            StartCoroutine("BootCompurer");
         }
+    }
+
+    IEnumerator BootCompurer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (!setUp) Setup();
     }
 
     public void Setup()
@@ -188,8 +195,10 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
                 }
                 else
                 {
+                    Debug.Log(marker);
                     marker = Instantiate(playerMarkerPrefab, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
                     marker.anchoredPosition = ((Vector2)player.transform.position - startingDrawPos) * scale;
+                    Debug.Log(marker);
                 }
             }
             else

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 201
   itemName: Harpoons
-  defaultSprite: {fileID: 21300000, guid: a300325b4881a1a4d9fb2998d3ee253a, type: 3}
-  icon: {fileID: 21300000, guid: a300325b4881a1a4d9fb2998d3ee253a, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 6d5996ca2e5a7024fa444a053736af56, type: 3}
+  icon: {fileID: 21300000, guid: 6d5996ca2e5a7024fa444a053736af56, type: 3}
   itemDesc: I TURNED MYSELF INTO A PICKLE. IM A PICKLE RICK.
   unlocks:
   - {fileID: 11400000, guid: ea5e375a95c810f4aa5a510fdb44940c, type: 2}

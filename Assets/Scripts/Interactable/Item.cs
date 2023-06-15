@@ -29,6 +29,7 @@ public class Item : InteractableBase, IGetHandInfo
         if(item is ScienceItem)
         {
             if (ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(Marker.Science);
+            ComputerUI.scientistComputer.UpdateMarker(transform.position, myMarker);
         }
     }
 

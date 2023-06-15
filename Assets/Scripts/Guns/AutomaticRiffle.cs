@@ -181,7 +181,7 @@ public class AutomaticRiffle : GunBase
 
     public override string GetBothAmmoString()
     {
-        return currentAmmo + maxAmmo + " " + currentDisintegratingAmmo + maxDisintegratingAmmo;
+        return (currentAmmo + maxAmmo).ToString() + " " + (currentDisintegratingAmmo + maxDisintegratingAmmo).ToString();
     }
 
     public override void RefillAmmo()

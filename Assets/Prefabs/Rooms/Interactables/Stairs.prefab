@@ -238,7 +238,7 @@ MonoBehaviour:
       m_Calls: []
   remoteActivation: 1
   handActivation: 1
-  hideInComputer: 0
+  hideInComputer: 1
   useElectricityType: 0
   powered: 0
   connectedDoors: {fileID: 0}

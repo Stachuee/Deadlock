@@ -120,7 +120,7 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberAim
         CurrentMenu = Menu.Main;
         currentSelectedItem = -1;
         previousSelectedItem = -1;
-        //RefreshAmmo();
+        RefreshAmmo();
         pC.AddAimSubscriber(this);
         open = true;
     }
