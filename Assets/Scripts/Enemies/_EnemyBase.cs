@@ -157,6 +157,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         {
             if(psiBoosterTimer <= Time.time)
             {
+                Debug.Log("psiEnd");
                 psiBoosted = false;
                 speed -= CombatController.PSI_BOOST_SPEED_INCREASE;
             }

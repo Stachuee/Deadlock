@@ -35,4 +35,5 @@ MonoBehaviour:
   spawnNewNests: 1
   minNestSpawnCooldown: 25
   newNestChance: 0.8
-  newItems: []
+  newItems:
+  - {fileID: 0}

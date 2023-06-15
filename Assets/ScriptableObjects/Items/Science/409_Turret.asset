@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f94800d59c45d0248a2ba65a53f8fa77, type: 3}
-  m_Name: 203_Flamethrower
+  m_Name: 409_Turret
   m_EditorClassIdentifier: 
-  id: 201
-  itemName: Harpoons
+  id: 409
+  itemName: Turret
   defaultSprite: {fileID: 21300000, guid: 6d5996ca2e5a7024fa444a053736af56, type: 3}
   icon: {fileID: 21300000, guid: 6d5996ca2e5a7024fa444a053736af56, type: 3}
-  itemDesc: I TURNED MYSELF INTO A PICKLE. IM A PICKLE RICK.
+  itemDesc: 
   unlocks:
-  - {fileID: 11400000, guid: 3f890110922fd0d48b6ea916ec23ab59, type: 2}
-  - {fileID: 11400000, guid: 22fc30d2a87d7134186cb45102daebf9, type: 2}
+  - {fileID: 11400000, guid: 0faaca485af63154e8b817aa3287efac, type: 2}

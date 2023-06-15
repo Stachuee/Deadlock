@@ -35,6 +35,8 @@ public class UpgradeGuide : MonoBehaviour
     [SerializeField] GameObject heroPanel;
     [SerializeField] Button firstSelectedHero;
 
+    [SerializeField] Transform infoPanel;
+
     private void Awake()
     {
         upgrades = new List<UpgradeGuideButton>();
@@ -120,6 +122,8 @@ public class UpgradeGuide : MonoBehaviour
             recipie[index].gameObject.SetActive(true);
             index++;
         });
+
+        infoPanel.gameObject.SetActive(true);
     }
 
     public void DeselectRecipie()
@@ -132,6 +136,7 @@ public class UpgradeGuide : MonoBehaviour
         {
             recipie[i].gameObject.SetActive(false);
         }
+        infoPanel.gameObject.SetActive(false);
     }
 
     public void UnlockRecipie(CraftingRecipesSO recipe)

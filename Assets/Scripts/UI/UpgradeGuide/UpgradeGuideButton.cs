@@ -21,7 +21,7 @@ public class UpgradeGuideButton : MonoBehaviour, ISelectHandler, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-       guide.SelectRecipe(unlocked ? upgradeRecipe : unknownRecipe);
+        guide.SelectRecipe(unlocked ? upgradeRecipe : unknownRecipe);
     }
     public void OnPointerExit(PointerEventData eventData)
     {

@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f94800d59c45d0248a2ba65a53f8fa77, type: 3}
-  m_Name: 200_ARAmmo
+  m_Name: 404_Laser
   m_EditorClassIdentifier: 
-  id: 200
-  itemName: ARiffle basic ammo
+  id: 404
+  itemName: Harpoons
   defaultSprite: {fileID: 21300000, guid: 6d5996ca2e5a7024fa444a053736af56, type: 3}
   icon: {fileID: 21300000, guid: 6d5996ca2e5a7024fa444a053736af56, type: 3}
   itemDesc: I TURNED MYSELF INTO A PICKLE. IM A PICKLE RICK.
   unlocks:
-  - {fileID: 11400000, guid: c04b4ce301a3c2446b5666da73fe0983, type: 2}
+  - {fileID: 11400000, guid: ea5e375a95c810f4aa5a510fdb44940c, type: 2}
+  - {fileID: 11400000, guid: 79553b227b5abf8498976f2255e7d228, type: 2}
