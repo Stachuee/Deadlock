@@ -158,6 +158,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     private void Update() 
     {
+
         if (!LockInAnimation && !dead) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, new Vector2(moveDirection.x * playerInfo.speed, myBody.velocity.y), ref m_Velocity, m_MovementSmoothing);
         else
         {
