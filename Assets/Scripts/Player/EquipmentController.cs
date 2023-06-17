@@ -29,6 +29,7 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberAim
     bool active = true;
 
     [SerializeField] AudioSource changeEquipmentSFX;
+    [SerializeField] AudioSource throwEquipmentSFX;
 
     private void Awake()
     {
@@ -83,6 +84,7 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberAim
     {
         if (!active || equipmentCdRemain > Time.time) return;
         GameObject temp;
+        throwEquipmentSFX.Play();
 
         switch (equiped)
         {

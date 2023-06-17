@@ -40,6 +40,8 @@ public class Laser : GunBase
     [SerializeField] GameObject laserEnd;
     ParticleSystem laserEndParticle;
 
+    [SerializeField] AudioSource laserSFX;
+
     bool LaserActive
     {
         set
@@ -128,6 +130,10 @@ public class Laser : GunBase
                 LaserActive = true;
 
                 RaycastHit2D hit;
+                if (!laserSFX.isPlaying)
+                {
+                    laserSFX.Play();
+                }
 
                 if (hit = Physics2D.Raycast(firePoint.position, transform.right, Mathf.Infinity, ~laserLayerMask))
                 {
@@ -170,6 +176,7 @@ public class Laser : GunBase
 
             else
             {
+                laserSFX.Stop();
                 lastTargetHit = null;
                 damage = baseDamage;
                 LaserActive = false;

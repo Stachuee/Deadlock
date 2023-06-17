@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     [SerializeField] AudioSource stimulatorSFX;
     [SerializeField] AudioSource inventorySFX;
     [SerializeField] AudioSource throwSFX;
+    
     [SerializeField] AudioSource pickupSFX;
 
     public bool isScientist {get; private set;}
@@ -434,7 +435,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         if (dead) return;
         gunController.ChangeBullet(context.performed);
-        changeBulletSFX.Play();
+        //changeBulletSFX.Play();
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -449,7 +450,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (dead) return;
         if (context.performed)
         {
-            throwSFX.Play();
             equipmentController.UseEquipment();
         }
     }

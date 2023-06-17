@@ -166,3 +166,4 @@ MonoBehaviour:
   myBody: {fileID: 2188663914131798639}
   explosionSFX: {fileID: 5389062582046464971, guid: ba825842bc890724796d0e860cdb9d79, type: 3}
   fireDuration: 5
+  fireSFX: {fileID: 5389062582046464971, guid: 03815d7848dd0dd47bc11569f39b2fd6, type: 3}
