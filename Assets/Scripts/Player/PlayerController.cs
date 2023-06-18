@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -110,6 +111,17 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     
     [SerializeField] AudioSource pickupSFX;
 
+    [Header("Appearance")]
+    [SerializeField] GameObject playerSpriteObject;
+    Animator playerAnimator;
+    SpriteRenderer playerSpriteRenderer;
+
+    [SerializeField] AnimatorController soldierAnimations;
+    [SerializeField] AnimatorController scientistAnimations;
+
+    [SerializeField] Sprite soldierSprite;
+    [SerializeField] Sprite scientistSprite;
+
     public bool isScientist {get; private set;}
 
     public bool LockInAnimation
@@ -144,6 +156,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         myinput = transform.GetComponent<PlayerInput>();
         gunController = transform.GetComponent<GunController>();
         equipmentController = transform.GetComponent<EquipmentController>();
+
+        playerAnimator = playerSpriteObject.GetComponent<Animator>();
+        playerSpriteRenderer = playerSpriteObject.GetComponent<SpriteRenderer>();
         //playerInfo = new PlayerInfo() { hp = 100, maxHp = 100, speed = 5, throwStrength = 150};
     }
 
@@ -155,6 +170,17 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             GameController.gameController.AddPlayer(this);
         }
         EffectManager.instance.AddCameraToEffects(this);
+
+        if (scientist)
+        {
+            playerAnimator.runtimeAnimatorController = scientistAnimations;
+            playerSpriteRenderer.sprite = scientistSprite;
+        }
+        else
+        {
+            playerAnimator.runtimeAnimatorController = soldierAnimations;
+            playerSpriteRenderer.sprite = soldierSprite;
+        }
     }
 
     private void Update() 
@@ -250,10 +276,18 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         if(moveDirection != Vector2.zero && !footstepSFX.isPlaying)
         {
+            playerAnimator.SetBool("isRunning", true);
             footstepSFX.volume = Random.Range(0.8f, 1);
             footstepSFX.pitch = Random.Range(0.9f, 1.01f);
             footstepSFX.Play();
-        }
+        }else if(moveDirection == Vector2.zero)
+            playerAnimator.SetBool("isRunning", false);
+
+
+        if (moveDirection.x > 0)
+            playerSpriteRenderer.flipX = false;
+        else if (moveDirection.x < 0)
+            playerSpriteRenderer.flipX = true;
     }
 
 
