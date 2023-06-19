@@ -5010,11 +5010,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 400
   hp: 400
-  randomSpeed: {x: 0.2, y: 0.3}
+  randomSpeed: {x: 0.4, y: 0.5}
   damage: 20
   attackSpeed: 1
   patience: 10
-  armor: 0.7
+  armored: 0
+  armorMaxHp: 0
+  dropChance: 0.1
+  itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   onFireParticle: {fileID: 2776370017786825693}
   markerType: 0
   state: 0

@@ -13,6 +13,8 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     [SerializeField] int damagePerBullet;
     bool automatic = true;
 
+    bool controlling = false;
+
     [SerializeField]
     SpriteRenderer turretSprite;
     [SerializeField]
@@ -42,6 +44,11 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     bool trailShown;
 
 
+
+
+    float rot_z;
+    Vector2 direction;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (automatic && collision.tag == "Enemy")
@@ -65,8 +72,9 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
 
     public void ForwardCommandAim(Vector2 controll, Vector2 controllSmooth)
     {
-        Vector2 diff = (controll).normalized;
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        if (!powered) return;
+        Vector2 diff = (controllSmooth).normalized;
+        rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         if (rot_z < minMaxTurretAngle.x || rot_z > minMaxTurretAngle.y) rot_z = prevRotz; // works only if minmax is <-180, 180>
         if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
         else turretSprite.flipY = false;
@@ -83,11 +91,15 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     protected override void Awake()
     {
         base.Awake();
-        if (!automatic) AddAction(TakeControll);
-        else
-        {
-            StartCoroutine("GetClosestCoroutine");
-        }
+        AddAction(TakeControll);
+        StartCoroutine("GetClosestCoroutine");
+
+
+        //if (!automatic) AddAction(TakeControll);
+        //else
+        //{
+        //    StartCoroutine("GetClosestCoroutine");
+        //}
     }
     private void Update()
     {
@@ -97,11 +109,11 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
             trailShown = false;
         }
 
-        if (!automatic)
+        if (controlling)
         {
             if (firing && nextShot < Time.time)
             {
-                Instantiate(bulletPrefab, barrelTransform.position, Quaternion.Euler(0, 0, turretAngle));
+                ManualShoot();
                 nextShot = Time.time + shootDelay;
             }
         }
@@ -110,7 +122,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
             if(powered && target != null)
             {
                 Vector2 directionToTarget = (target.position - transform.position).normalized;
-                float rot_z = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+                rot_z = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
                 if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
                 else turretSprite.flipY = false;
                 gunBarrel.rotation = Quaternion.RotateTowards(gunBarrel.rotation, Quaternion.Euler(0,0, rot_z), 180 * Time.deltaTime);
@@ -130,7 +142,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
 
         while (true)
         {
-            if(powered) GetClosest();
+            if(powered && !controlling) GetClosest();
             yield return new WaitForSeconds(1);
         }
     }
@@ -156,6 +168,26 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         }
     }
 
+    private void ManualShoot()
+    {
+        RaycastHit2D hit;
+        if (hit = Physics2D.Raycast(gunBarrel.transform.position, new Vector2(Mathf.Cos(rot_z * Mathf.Deg2Rad), Mathf.Sin(rot_z * Mathf.Deg2Rad)), 100, enemyLayer))
+        {
+            Debug.Log(hit.transform.name);
+            gunTrail.SetPosition(0, gunBarrel.position);
+            gunTrail.SetPosition(1, hit.point);
+            trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
+            gunTrail.transform.gameObject.SetActive(true);
+            trailShown = true;
+
+            if (hit.transform.tag == "Enemy")
+            {
+                hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet, DamageSource.Turret);
+            }
+        }
+
+    }
+
     private void Shoot()
     {
         RaycastHit2D hit;
@@ -171,20 +203,23 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
             {
                 hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet, DamageSource.Turret);
             }
+
         }
     }
 
 
     public void TakeControll(PlayerController player, UseType type)
     {
-        if (automatic) return;
+        //if (automatic) return;
         user = player;
+        controlling = true;
         player.AddAimSubscriber(this);
         player.AddShootSubscriber(this);
     }
 
     public void Leave()
     {
+        controlling = false;
         user.RemoveAimSubscriber(this);
         user.RemoveShootSubscriber(this);
     }
@@ -206,6 +241,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
 
     public bool CanTakeControll()
     {
-        return !automatic;
+        return true;
+        //return !automatic;
     }
 }

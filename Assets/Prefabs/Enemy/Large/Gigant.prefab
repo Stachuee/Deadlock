@@ -4874,7 +4874,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parrent: {fileID: 7743376674294833806}
-  armor: 0.8
+  armored: 0
+  armorHp: 0
 --- !u!1 &7743376674294833795
 GameObject:
   m_ObjectHideFlags: 0
@@ -5017,13 +5018,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 800
   hp: 800
-  randomSpeed: {x: 0.2, y: 0.3}
+  randomSpeed: {x: 0.4, y: 0.5}
   damage: 40
   attackSpeed: 2
   patience: 10
-  armor: 0.8
+  armored: 0
+  armorMaxHp: 0
+  dropChance: 1
+  itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   onFireParticle: {fileID: 4698759961569092710}
-  markerType: 0
+  markerType: 2
   state: 0
   huntingTimer: 5
 --- !u!1 &7743376675037685702
@@ -5088,7 +5092,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parrent: {fileID: 7743376674294833806}
-  armor: 0
+  armored: 0
+  armorHp: 0
 --- !u!1 &8362839475120865572
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,6 +39,7 @@ public class NavNode : MonoBehaviour
     public void AddConnectedNode(NavNode node)
     {
         connectedNodes.Add(node);
+        connectedNodes = connectedNodes.Distinct().ToList();
     }
     public void AddConnectedNode(List<NavNode> node)
     {

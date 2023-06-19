@@ -9,7 +9,7 @@ public class Item : InteractableBase, IGetHandInfo
     ItemSO itemSO;
 
     SpriteRenderer myRenderer;
-
+    private RectTransform myMarker;
 
     protected override void Awake()
     {
@@ -26,6 +26,11 @@ public class Item : InteractableBase, IGetHandInfo
     {
         itemSO = item;
         item.Drop(player, this);
+        if(item is ScienceItem)
+        {
+            if (ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(Marker.Science);
+            ComputerUI.scientistComputer.UpdateMarker(transform.position, myMarker);
+        }
     }
 
     void PickUpMatherial(PlayerController player, UseType type)
@@ -37,11 +42,13 @@ public class Item : InteractableBase, IGetHandInfo
         {
             if (player.PickUp(itemSO))
             {
+                if (ComputerUI.scientistComputer != null && myMarker != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
                 Destroy(transform.parent.gameObject);
             }
         }
         else if(destroy)
         {
+            if (ComputerUI.scientistComputer != null && myMarker != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
             Destroy(transform.parent.gameObject);
         }
     }

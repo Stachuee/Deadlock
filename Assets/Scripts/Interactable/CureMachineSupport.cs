@@ -41,6 +41,7 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
 
     public void Fix(PlayerController player, UseType type)
     {
+        if (type == UseType.Computer) return;
         if (player.equipmentController.GetCurrentlyEquiped() == EquipmentType.RepairKit && player.equipmentController.GetCurrentlyEquipedAmmo() > 0)
         {
             player.equipmentController.UseCurretnlyEquiped();
@@ -80,9 +81,9 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
     
     }
 
-    public float GetArmor()
+    public bool IsArmored()
     {
-        return 0;
+        return false;
     }
     public float Heal(float ammount)
     {

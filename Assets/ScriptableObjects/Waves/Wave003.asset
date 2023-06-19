@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWaveDelay: 2
   subWaves:
-  - count: 5
-    enemy: {fileID: 11400000, guid: 2e82a583baf0a3540a90d71d6d1875bd, type: 2}
+  - count: 3
+    enemy: {fileID: 11400000, guid: 692b094a8e9fb17418f8ee134d09c937, type: 2}
     spawnDelay: 1
-  difficulty: 100
+  - count: 1
+    enemy: {fileID: 11400000, guid: fc3d33771602dc3438b18f2f126a7454, type: 2}
+    spawnDelay: 1
+  - count: 1
+    enemy: {fileID: 11400000, guid: 70bed30c773f1524ab1477e65c90381c, type: 2}
+    spawnDelay: 1
+  difficulty: 10

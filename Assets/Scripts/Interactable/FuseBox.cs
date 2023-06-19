@@ -12,7 +12,7 @@ public class FuseBox : InteractableBase
     [SerializeField] bool useCells;
 
 
-    [SerializeField] int powerStrength;
+    //[SerializeField] int powerStrength;
     [SerializeField] int currentPowerConsumption;
 
     protected override void Awake()
@@ -21,13 +21,13 @@ public class FuseBox : InteractableBase
         AddAction(OpenBox);
     }
 
-    private void Start()
-    {
-        if (!useCells)
-        {
-            powerStrength = 2;
-        }
-    }
+    //private void Start()
+    //{
+    //    if (!useCells)
+    //    {
+    //        //powerStrength = 2;
+    //    }
+    //}
 
 
     void OpenBox(PlayerController player, UseType type)

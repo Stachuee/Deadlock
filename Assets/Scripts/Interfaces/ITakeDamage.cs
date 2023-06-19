@@ -12,6 +12,6 @@ public interface ITakeDamage
     public void ApplyStatus(Status toApply);
     public void TakeArmorDamage(float damage);
     public bool IsImmune();
-    public float GetArmor();
+    public bool IsArmored();
     public Transform GetTransform();
 }

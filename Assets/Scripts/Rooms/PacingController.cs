@@ -7,12 +7,19 @@ public class PacingController : MonoBehaviour, ICureLevelIncrease
 {
     public static PacingController pacingController;
 
+
     [SerializeField]
     float pacing;
     [SerializeField] float pacingOverTimeIncrease;
     [SerializeField] float pacingFalloff;
     float pacingOverTime;
     float targetPacing;
+
+    float waveDuration;
+    float waveCurrentDuration;
+
+    float respiteDuration;
+    float respiteCurrentDuration;
 
     List<DormantSpawner> dormantSpawners;
 
@@ -28,6 +35,8 @@ public class PacingController : MonoBehaviour, ICureLevelIncrease
     float nextUpdate;
 
     bool active;
+
+    public static bool wave;
 
     private void Awake()
     {
@@ -57,6 +66,25 @@ public class PacingController : MonoBehaviour, ICureLevelIncrease
             lastPaceCheck = Time.time;
         }
 
+
+        if (wave)
+        {
+            waveCurrentDuration += Time.deltaTime;
+            if(waveCurrentDuration >= waveDuration)
+            {
+                wave = false;
+                waveCurrentDuration = 0;
+            }
+        }
+        else
+        {
+            respiteCurrentDuration += Time.deltaTime;
+            if(respiteCurrentDuration >= respiteDuration)
+            {
+                wave = true;
+                respiteCurrentDuration = 0;
+            }
+        }
     }
 
     public void IncreaseLevel(int level)
@@ -67,21 +95,27 @@ public class PacingController : MonoBehaviour, ICureLevelIncrease
         createNests = GameController.currentDangerLevel.GetSpwanNewNest();
         newNestChance = GameController.currentDangerLevel.GetNewNestChance();
 
+        waveDuration = GameController.currentDangerLevel.GetWaveDuration();
+        respiteCurrentDuration = GameController.currentDangerLevel.GetRespiteDuration();
+
         pacing = Mathf.Max(pacing, targetPacing);
         lastPaceCheck = Time.time;
         active = true;
+        wave = true;
     }
 
     public void TriggerEvent()
     {
+        if (createNests && Time.time - lastNestSpawn > minNestSpawnCooldown && Random.Range(0f, 1f) < newNestChance)
+        {
+            SpawnerController.instance.AwakeSpawner();
+            lastNestSpawn = Time.time;
+        }
+
         if (pacing < targetPacing + pacingOverTime)
         {
             Debug.Log("normal");
-            if (createNests && Time.time - lastNestSpawn > minNestSpawnCooldown && Random.Range(0f, 1f) < newNestChance)
-            {
-                SpawnerController.instance.AwakeSpawner();
-                lastNestSpawn = Time.time;
-            }
+            //SpawnerController.instance.SpawnEnemy();
         }
         else
         {

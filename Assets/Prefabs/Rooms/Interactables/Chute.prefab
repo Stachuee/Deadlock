@@ -126,11 +126,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 
-  computerIcon: {fileID: 0}
+  computerIcon: {fileID: 21300000, guid: 495263f6b4aacb64b8693a30f55b6d88, type: 3}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
-  remoteActivation: 0
+  remoteActivation: 1
   handActivation: 1
   hideInComputer: 0
   connectedChute: {fileID: 0}

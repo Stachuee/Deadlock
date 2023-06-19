@@ -24,8 +24,12 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     [SerializeField] float patience;
 
     [SerializeField]
-    float armor;
-
+    bool armored;
+    [SerializeField]
+    float armorMaxHp;
+    float armorHp;
+    [SerializeField, Range(0f,1f)] float dropChance;
+    [SerializeField] GameObject itemPrefab;
 
     [SerializeField]
     ParticleSystem onFireParticle;
@@ -40,6 +44,9 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     bool frozen = false;
     float freezeStop;
     float nextFreezeTick;
+
+    bool psiBoosted;
+    float psiBoosterTimer;
 
     [SerializeField] Marker markerType;
     RectTransform myMarker;
@@ -88,10 +95,13 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected virtual void Start()
     {
         hp = maxHp;
+        armorHp = armorMaxHp;
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
         if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
-        currentTargetNode = NavController.instance.FindClosestWaypoint(transform.position, true, true);
+        currentTargetNode = NavController.instance.FindClosestWaypoint(transform.position, true);
+
+        SpawnerController.instance.AddEnemyToMap(this, transform);
 
         StartCoroutine("UpdateMarker");
     }
@@ -143,6 +153,15 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
             }
         }
 
+        if(psiBoosted)
+        {
+            if(psiBoosterTimer <= Time.time)
+            {
+                Debug.Log("psiEnd");
+                psiBoosted = false;
+                speed -= CombatController.PSI_BOOST_SPEED_INCREASE;
+            }
+        }
 
         AttackNearby();
     }
@@ -203,10 +222,10 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         switch (effects)
         {
             case DamageEffetcts.None:
-                damageTaken = (1 - (armor)) * damage;
+                damageTaken = (armored ? CombatController.ARMOR_DAMAGE_REDUCTION : 1) * (psiBoosted ? CombatController.PSI_BOOST_DAMAGE_REDUCTION : 1) * damage;
                 break;
             case DamageEffetcts.Disintegrating:
-                damageTaken = CombatController.DISINTEGRATING_FALLOFF.Evaluate(armor) * damage;
+                damageTaken = (armored ? CombatController.DISINTEGRATING_FALLOFF : 1) * (psiBoosted ? CombatController.PSI_BOOST_DAMAGE_REDUCTION : 1) * damage;
                 break;
         }
 
@@ -245,7 +264,11 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
     public void TakeArmorDamage(float damage)
     {
-        armor = Mathf.Clamp01(armor - damage);
+        armorHp = armorHp - damage;
+        if (armorHp <= 0)
+        {
+            armored = false;
+        }
     }
 
     //private void OnParticleCollision(GameObject other)
@@ -257,7 +280,16 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     public virtual void Dead()
     {
         SpawnerController.instance.RemoveFromMap(transform);
-        ComputerUI.scientistComputer.DeleteMarker(myMarker);
+        if(ComputerUI.scientistComputer != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
+
+        if(Random.Range(0f, 1f) <= dropChance)
+        {
+            ItemSO toDrop = ProgressStageController.instance.DropItem();
+            if(toDrop != null)
+            {
+                Instantiate(itemPrefab, transform.position, Quaternion.identity).GetComponent<Item>().Innit(toDrop);
+            }
+        }
         Destroy(gameObject);
     }
 
@@ -273,33 +305,32 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         float closestWithObs = Mathf.Infinity;
         NavNode closestObs = null;
 
+
+        float closestWithoutObs = Mathf.Infinity;
+        NavNode closestWoObs = null;
+
         currentTargetNode.GetConnectedNodes().ForEach(node =>
         {
-            if (node.distanceToScientist + node.obstaclesWeigths < closestWithObs)
+            float dist = Vector2.Distance(transform.position, node.transform.position);
+            if (node.distanceToScientist + node.obstaclesWeigths + dist < closestWithObs)
             {
-                closestWithObs = node.distanceToScientist + node.obstaclesWeigths + Vector2.Distance(transform.position, node.transform.position);
+                closestWithObs = node.distanceToScientist + node.obstaclesWeigths + dist;
                 closestObs = node;
+            }
+            if (node.distanceToScientist + dist < closestWithoutObs)
+            {
+                closestWithoutObs = node.distanceToScientist + node.obstaclesWeigths + dist;
+                closestWoObs = node;
             }
         });
 
-
-        if (closestWithObs < currentTargetNode.distanceToScientist + patience)
+        if (closestWithObs - closestWithoutObs <= patience)
         {
             patience = Mathf.Clamp(patience - Mathf.Max(0, closestWithObs - currentTargetNode.distanceToScientist), 0, patience);
             currentTargetNode = closestObs;
             return;
         }
 
-        float closestWithoutObs = Mathf.Infinity;
-        NavNode closestWoObs = null;
-        currentTargetNode.GetConnectedNodes().ForEach(node =>
-        {
-            if (node.distanceToScientist < closestWithoutObs)
-            {
-                closestWithoutObs = node.distanceToScientist + node.obstaclesWeigths + Vector2.Distance(transform.position, node.transform.position);
-                closestWoObs = node;
-            }
-        });
 
         currentTargetNode = closestWoObs;
     }
@@ -308,9 +339,16 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         return false;
     }
 
-    public float GetArmor()
+    public bool IsArmored()
     {
-        return armor;
+        return armored;
+    }
+
+    public void PsiBoost(float duration)
+    {
+        psiBoosted = true;
+        psiBoosterTimer = Time.time + duration;
+        speed += CombatController.PSI_BOOST_SPEED_INCREASE;
     }
 
     public float Heal(float ammount)
@@ -321,5 +359,11 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     public Transform GetTransform()
     {
         return transform;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, currentTargetNode.transform.position);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum WarningStrength {Weak, Medium, Strong };
-public enum Marker {Normal, Elite }
+public enum Marker {Normal, Science, Elite, Spawner }
 public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubscriberUse
 {
     [SerializeField] Transform content;
@@ -48,7 +48,14 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
         if(playerController.isScientist)
         {
             scientistComputer = this;
+            StartCoroutine("BootCompurer");
         }
+    }
+
+    IEnumerator BootCompurer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (!setUp) Setup();
     }
 
     public void Setup()
@@ -172,7 +179,9 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
     [SerializeField] GameObject playerMarkerPrefab;
 
     [SerializeField] GameObject normalMarker;
+    [SerializeField] GameObject scienceMarker;
     [SerializeField] GameObject eliteMarker;
+    [SerializeField] GameObject spawnerMarker;
 
 
     private void Update()
@@ -188,8 +197,10 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
                 }
                 else
                 {
+                    Debug.Log(marker);
                     marker = Instantiate(playerMarkerPrefab, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
                     marker.anchoredPosition = ((Vector2)player.transform.position - startingDrawPos) * scale;
+                    Debug.Log(marker);
                 }
             }
             else
@@ -392,8 +403,12 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
         {
             case Marker.Normal:
                 return Instantiate(normalMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+            case Marker.Science:
+                return Instantiate(scienceMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
             case Marker.Elite:
                 return Instantiate(eliteMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+            case Marker.Spawner:
+                return Instantiate(scienceMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
         }
         return null;
     }

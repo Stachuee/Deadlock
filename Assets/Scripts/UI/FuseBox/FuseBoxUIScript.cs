@@ -63,8 +63,19 @@ public class FuseBoxUIScript : MonoBehaviour
 
         RefreshFuses();
         fuseBoxUI.gameObject.SetActive(true);
+        playerController.uiController.myEventSystem.SetSelectedGameObject(null);
+        StartCoroutine("SetSelected");
+    }
+
+
+
+
+    IEnumerator SetSelected()
+    {
+        yield return new WaitForEndOfFrame();
         playerController.uiController.myEventSystem.SetSelectedGameObject(fuses[0].gameObject);
     }
+
     public void CloseBox()
     {
         fuseBoxUI.gameObject.SetActive(false);

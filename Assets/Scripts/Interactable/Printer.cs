@@ -22,13 +22,21 @@ public class Printer : PoweredInteractable, IGetHandInfo
     [SerializeField] Vector2 startBarPos;
     [SerializeField] Vector2 endBarPos;
     
-    
-    
+    Animator animator;
+
+    [SerializeField] SpriteRenderer display;
+    [SerializeField] GameObject donePrint;
+    [SerializeField] ParticleSystem particles;
+
     protected override void Awake()
     {
         base.Awake();
         AddAction(Collect);
         productionRemain = baseProduction;
+        animator = GetComponent<Animator>();
+        display.sprite = toPrint.GetIconSprite();
+        donePrint.GetComponent<SpriteRenderer>().sprite = toPrint.GetDefaultSprite();
+        donePrint.SetActive(false);
     }
 
 
@@ -40,6 +48,9 @@ public class Printer : PoweredInteractable, IGetHandInfo
             if(productionRemain < 0)
             {
                 readyToCollect = true;
+                animator.SetBool("Done", true);
+                donePrint.SetActive(true);
+                particles.Play();
             }
             craftingBar.transform.localPosition = Vector2.Lerp(startBarPos, endBarPos, 1 - (productionRemain / baseProduction));
         }
@@ -47,16 +58,16 @@ public class Printer : PoweredInteractable, IGetHandInfo
 
     public void Collect(PlayerController player, UseType type)
     {
-        if(!broken)
+        if (type == UseType.Computer) return;
+        if (readyToCollect)
         {
-            if (readyToCollect)
-            {
-                Instantiate(prefabToPrint, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), 0 , 0), Quaternion.identity).GetComponentInChildren<Item>().Innit(toPrint);
-                readyToCollect = false;
-                productionRemain = baseProduction;
-            }
+            Instantiate(prefabToPrint, transform.position + new Vector3(Random.Range(-0.1f, 0.1f), 0, 0), Quaternion.identity).GetComponentInChildren<Item>().Innit(toPrint);
+            readyToCollect = false;
+            productionRemain = baseProduction;
+            animator.SetBool("Done", false);
+            donePrint.SetActive(false);
         }
-        else
+        if (broken)
         {
             ItemSO input = player.CheckIfHoldingAnyAndDeposit(toRepair);
             if(input != null)
@@ -81,5 +92,10 @@ public class Printer : PoweredInteractable, IGetHandInfo
     public override bool IsUsable(PlayerController player)
     {
         return readyToCollect || (broken && player.CheckIfHoldingAny(toRepair));
+    }
+    public override void PowerOn(bool on, string sectorName)
+    {
+        base.PowerOn(on, sectorName);
+        animator.SetBool("Printing", on);
     }
 }

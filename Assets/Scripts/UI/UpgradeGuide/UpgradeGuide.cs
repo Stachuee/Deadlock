@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class UpgradeGuide : MonoBehaviour
 {
+    public enum UpgradePanel {Hero, Weapons }
     [SerializeField] PlayerController playerController;
 
     [SerializeField] Image itemIcon;
@@ -15,12 +16,11 @@ public class UpgradeGuide : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] recipieText;
     [SerializeField] TextMeshProUGUI itemDesc;
 
-    [SerializeField] Button firstSelected;
-
     [SerializeField] GameObject upgradeGuide;
 
     [SerializeField] Slider hpSlider;
 
+    [SerializeField] GameObject guide;
 
     bool connected = false;
 
@@ -30,12 +30,17 @@ public class UpgradeGuide : MonoBehaviour
     [SerializeField] List<UpgradeGuideButton> upgrades;
 
 
+    [SerializeField] GameObject weaponPanel;
+    [SerializeField] Button firstSelectedWeapon;
+    [SerializeField] GameObject heroPanel;
+    [SerializeField] Button firstSelectedHero;
+
+    [SerializeField] Transform infoPanel;
+
     private void Awake()
     {
         upgrades = new List<UpgradeGuideButton>();
         upgrades = transform.GetComponentsInChildren<UpgradeGuideButton>().ToList();
-
-        firstSelected.gameObject.SetActive(true);
 
         guns.ForEach(gun =>
         {
@@ -67,11 +72,29 @@ public class UpgradeGuide : MonoBehaviour
         
     }
 
-    public void Open(bool on)
+    public void Open(bool on, UpgradePanel panel)
     {
-        if (on) upgradeGuide.SetActive(true);
-        else upgradeGuide.SetActive(false);
-        playerController.uiController.myEventSystem.SetSelectedGameObject(firstSelected.gameObject);
+        if (on)
+        {
+            if (panel == UpgradePanel.Weapons)
+            {
+                weaponPanel.SetActive(true);
+                heroPanel.SetActive(false);
+                playerController.uiController.myEventSystem.SetSelectedGameObject(firstSelectedWeapon.gameObject);
+            }
+            else if (panel == UpgradePanel.Hero)
+            {
+                heroPanel.SetActive(true);
+                weaponPanel.SetActive(false);
+                playerController.uiController.myEventSystem.SetSelectedGameObject(firstSelectedHero.gameObject);
+            }
+        }
+        else
+        {
+            weaponPanel.SetActive(false);
+            heroPanel.SetActive(false);
+        }
+        guide.SetActive(on);
     }
 
 
@@ -99,6 +122,8 @@ public class UpgradeGuide : MonoBehaviour
             recipie[index].gameObject.SetActive(true);
             index++;
         });
+
+        infoPanel.gameObject.SetActive(true);
     }
 
     public void DeselectRecipie()
@@ -111,6 +136,7 @@ public class UpgradeGuide : MonoBehaviour
         {
             recipie[i].gameObject.SetActive(false);
         }
+        infoPanel.gameObject.SetActive(false);
     }
 
     public void UnlockRecipie(CraftingRecipesSO recipe)

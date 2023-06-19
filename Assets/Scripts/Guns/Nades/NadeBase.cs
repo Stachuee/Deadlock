@@ -86,6 +86,7 @@ public abstract class NadeBase : MonoBehaviour
                 }
             }
         }
+
         
         Destroy(gameObject);
     }

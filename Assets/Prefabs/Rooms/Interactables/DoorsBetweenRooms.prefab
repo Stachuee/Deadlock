@@ -75,7 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -207,7 +208,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -279,7 +281,7 @@ GameObject:
   - component: {fileID: 4579708098554351933}
   - component: {fileID: -565572050803302380}
   - component: {fileID: 5143206927553742048}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorsBetweenRooms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,7 +444,8 @@ AudioSource:
   m_GameObject: {fileID: 4579708098554351930}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4148901304874009386, guid: bbdca84b43978a042ad32bcc44e747db, type: 2}
+  OutputAudioMixerGroup: {fileID: -4148901304874009386, guid: bbdca84b43978a042ad32bcc44e747db,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 6bf78d1011e63d446805ca1b34db13d0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
@@ -538,7 +541,8 @@ AudioSource:
   m_GameObject: {fileID: 4579708098554351930}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4148901304874009386, guid: bbdca84b43978a042ad32bcc44e747db, type: 2}
+  OutputAudioMixerGroup: {fileID: -4148901304874009386, guid: bbdca84b43978a042ad32bcc44e747db,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 6ba1634df490d864392a7c3be6e2685b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

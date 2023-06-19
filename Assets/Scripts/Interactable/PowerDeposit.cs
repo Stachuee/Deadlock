@@ -6,21 +6,21 @@ using UnityEngine.Events;
 public class PowerDeposit : InteractableBase
 {
 
-    List<ItemSO> acceptedItems;
+    //List<ItemSO> acceptedItems;
 
-    [SerializeField]
-    ItemSO inDeposit;
-    [SerializeField]
-    GameObject itemPrefab;
-    [SerializeField]
-    SpriteRenderer powerCellRenderer;
+    //[SerializeField]
+    //ItemSO inDeposit;
+    //[SerializeField]
+    //GameObject itemPrefab;
+    //[SerializeField]
+    //SpriteRenderer powerCellRenderer;
 
-    [SerializeField] Sprite empty;
-    [SerializeField] Sprite full;
+    //[SerializeField] Sprite empty;
+    //[SerializeField] Sprite full;
 
-    FuseBox fuseBox;
+    //FuseBox fuseBox;
 
-    bool firstTime = true;
+    //bool firstTime = true;
 
     //protected override void Awake()
     //{

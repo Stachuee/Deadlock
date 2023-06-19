@@ -7,13 +7,16 @@ public class EnemySO : ScriptableObject
 {
     [SerializeField]
     GameObject enemyPrefab;
-    [SerializeField]
-    int weigth;
-    [SerializeField]
-    int minWave;
+    [SerializeField] float weight;
 
     public GameObject GetPrefab()
     {
         return enemyPrefab;
     }
+
+    public float GetWeigth()
+    {
+        return weight;
+    }
+
 }

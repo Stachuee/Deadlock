@@ -41,7 +41,7 @@ public class CureMachineUI : MonoBehaviour
         for (int i = 0; i < MAX_ITEMS_REQUIRED; i++)
         {
             GameObject temp = Instantiate(itemRequiredPrefab);
-            temp.transform.parent = itemNeededContainder;
+            temp.transform.SetParent(itemNeededContainder);
             temp.transform.localScale = Vector3.one;
             temp.SetActive(false);
             items.Add(temp.GetComponent<Image>());

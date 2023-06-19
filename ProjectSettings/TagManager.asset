@@ -8,6 +8,11 @@ TagManager:
   - Enemy
   - Breakable
   - SecondaryCamera
+  - Pistol
+  - ARiffle
+  - Stimulator
+  - Medicine
+  - Tower
   layers:
   - Default
   - TransparentFX
@@ -21,7 +26,7 @@ TagManager:
   - Enemy
   - Spawner
   - Nades
-  - 
+  - Doors
   - 
   - 
   - 

@@ -232,11 +232,15 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         float closestDistance = Mathf.Infinity;
         IInteractable closest = null;
+        bool isItem = false;
+
         inRange.ForEach(x =>
         {
             float distance = Vector2.Distance(transform.position, x.GetPosition());
-            if (closestDistance > distance)
+            bool item = x is Item;
+            if ((closestDistance > distance && isItem == item) || (isItem == false && item))
             {
+                isItem = item;
                 closestDistance = distance;
                 closest = x;
             }
@@ -398,13 +402,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             if (dead) return;
             if (lockedInAnimation)
             {
-                callbackWhenUnlocking.Invoke();
-                //callbackWhenUnlocking = null;
-                //LockInAnimation = false;
+
             }
             else
             {
-                SendbackControll();
                 DropHolding();
             }
         }
@@ -493,6 +494,26 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (context.performed) gunController.Reload();
     }
 
+    public void OnMenuBack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (dead) return;
+            if (lockedInAnimation)
+            {
+                callbackWhenUnlocking.Invoke();
+                //callbackWhenUnlocking = null;
+                //LockInAnimation = false;
+            }
+            else
+            {
+                SendbackControll();
+            }
+        }
+    }
+
+
+
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
         //if (!context.started) return;
@@ -553,9 +574,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         throw new System.NotImplementedException();
     }
-    public float GetArmor()
+    public bool IsArmored()
     {
-        return 0;
+        return false;
     }
 
     public bool IsImmune()

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ee6b6edf5830044bd6d05c61900d96, type: 3}
+  m_Name: 002Easy
+  m_EditorClassIdentifier: 
+  difficulty: 0
+  dangerLevel: 1
+  targetPacing: 100
+  pacingFalloffPerMinute: 70
+  targetPacingSide: 100
+  pacingFalloffPerMinuteSide: 30
+  waveDuration: 40
+  respiteDuration: 20
+  newEnemies:
+  - {fileID: 11400000, guid: 4c3daa25bab9ea54390d312511745c39, type: 2}
+  newEnemiesSide:
+  - {fileID: 11400000, guid: 70bed30c773f1524ab1477e65c90381c, type: 2}
+  requiredToNextLevel:
+    timeToCompleate: 60
+    machinesRequired: 00000000
+    itemsNeeded:
+    - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
+    - {fileID: 11400000, guid: 62405db5c2496354ab3f4297dae8ab63, type: 2}
+    - {fileID: 11400000, guid: a4df8dd56b779cd43a81912f9c6852f3, type: 2}
+  lastLevel: 0
+  spawnNewNests: 1
+  minNestSpawnCooldown: 25
+  newNestChance: 0.8
+  newItems:
+  - {fileID: 0}

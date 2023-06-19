@@ -6,7 +6,7 @@ public class FireGun : GunBase
 {
     readonly int MAX_AMMO = 100;
 
-    [SerializeField] float fireRate = 0.1f;
+    //[SerializeField] float fireRate = 0.1f;
     [SerializeField] float usagePerSecond;
 
     [SerializeField] Transform particleHandle;

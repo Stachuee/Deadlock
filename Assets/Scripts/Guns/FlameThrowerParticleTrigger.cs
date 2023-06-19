@@ -16,7 +16,7 @@ public class FlameThrowerParticleTrigger : MonoBehaviour
     {
         if (other.transform.tag == "Enemy")
         {
-            spawnerController.GetITakeDamageFormMap(other.transform.name).ApplyStatus(Status.Fire);
+            spawnerController.GetITakeDamageFormMap(other.transform).ApplyStatus(Status.Fire);
         }
     }
 }

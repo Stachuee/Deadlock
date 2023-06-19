@@ -14,7 +14,7 @@ public abstract class ActiveEnemy : _EnemyBase
     protected override void Update()
     {
         base.Update();
-        if (state == EnemyState.Hunting && PlayerController.solider.IsImmune())
+        if (state == EnemyState.Hunting && PlayerController.solider.IsImmune() || huntingTimeEnd < Time.time)
         {
             state = EnemyState.Passive;
             return;

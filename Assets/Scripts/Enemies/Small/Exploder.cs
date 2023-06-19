@@ -16,6 +16,8 @@ public class Exploder : ActiveEnemy
     [SerializeField] float explodeTime;
     float explodeTimer;
 
+    bool exploded;
+
     bool primed;
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -77,12 +79,14 @@ public class Exploder : ActiveEnemy
 
     void Explode()
     {
+        if (exploded) return;
+        exploded = true;
         EffectManager.instance.ScreenShake(explosionDuration, explosionRange, explosionStrength, transform.position);
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D collider in colliders)
         {
-            if (collider.CompareTag("Enemy") || collider.CompareTag("Player"))
+            if (collider.CompareTag("Enemy") && collider.transform != transform || collider.CompareTag("Player"))
             {
                 ITakeDamage target = collider.GetComponent<ITakeDamage>();
                 if (target != null)
