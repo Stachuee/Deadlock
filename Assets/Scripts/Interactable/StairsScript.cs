@@ -45,6 +45,11 @@ public class StairsScript : PoweredInteractable, ITakeDamage
     [SerializeField] Sprite openDoor;
     [SerializeField] Sprite closedDoor;
 
+    [SerializeField] Sprite fixedDoor;
+    [SerializeField] Sprite brokenDoor;
+
+
+    [SerializeField] SpriteRenderer panel;
     SpriteRenderer staris;
 
     [SerializeField]
@@ -78,6 +83,7 @@ public class StairsScript : PoweredInteractable, ITakeDamage
             CloseDoors();
             connectedDoors.SetDoorState(wantToBeClosed);
             RefreshState();
+            NavController.instance.UpdateWeigths();
         }
     }
     public void CloseDoors()
@@ -96,14 +102,20 @@ public class StairsScript : PoweredInteractable, ITakeDamage
         if ((wantToBeClosed || connectedDoors.wantToBeClosed) && (powered || connectedDoors.powered) && !destroyed)
         {
             Closed = wantToBeClosed;
-            //animator.SetBool("Open", !Closed);
         }
         else
         {
             Closed = false;
-            //animator.SetBool("Open", true);
-            Debug.Log("Stairs closed");
             doorsClosingSFX.Play();
+        }
+
+        if(destroyed)
+        {
+            panel.sprite = brokenDoor;
+        }
+        else
+        {
+            panel.sprite = fixedDoor;
         }
     }
 

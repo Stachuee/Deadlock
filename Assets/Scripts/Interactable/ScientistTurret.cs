@@ -109,31 +109,35 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
             trailShown = false;
         }
 
-        if (controlling)
+        if(powered)
         {
-            if (firing && nextShot < Time.time)
+            if (controlling)
             {
-                ManualShoot();
-                nextShot = Time.time + shootDelay;
-            }
-        }
-        else
-        {
-            if(powered && target != null)
-            {
-                Vector2 directionToTarget = (target.position - transform.position).normalized;
-                rot_z = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-                if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
-                else turretSprite.flipY = false;
-                gunBarrel.rotation = Quaternion.RotateTowards(gunBarrel.rotation, Quaternion.Euler(0,0, rot_z), 180 * Time.deltaTime);
-
-                if (nextShot < Time.time)
+                if (firing && nextShot < Time.time)
                 {
-                    Shoot();
+                    ManualShoot();
                     nextShot = Time.time + shootDelay;
                 }
             }
+            else
+            {
+                if (target != null)
+                {
+                    Vector2 directionToTarget = (target.position - transform.position).normalized;
+                    rot_z = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+                    if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
+                    else turretSprite.flipY = false;
+                    gunBarrel.rotation = Quaternion.RotateTowards(gunBarrel.rotation, Quaternion.Euler(0, 0, rot_z), 180 * Time.deltaTime);
+
+                    if (nextShot < Time.time)
+                    {
+                        Shoot();
+                        nextShot = Time.time + shootDelay;
+                    }
+                }
+            }
         }
+        
     }
 
     IEnumerator GetClosestCoroutine()

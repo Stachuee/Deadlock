@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 5c5ff08eb0fdbee49843118ff7c83d73, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3f2375fbca02a846baf9d36e61857e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.60833335, y: 0.92833334}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -135,7 +135,6 @@ MonoBehaviour:
   hideInComputer: 1
   type: 2
   useCells: 0
-  powerStrength: 0
   currentPowerConsumption: 0
 --- !u!1 &2684830775808626475
 GameObject:
@@ -269,8 +268,3 @@ MonoBehaviour:
   remoteActivation: 0
   handActivation: 1
   hideInComputer: 1
-  inDeposit: {fileID: 0}
-  itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
-  powerCellRenderer: {fileID: 4704451681376447412}
-  empty: {fileID: 21300000, guid: 0c7aad8a2e0be5e4cad3e5c5f5275bf4, type: 3}
-  full: {fileID: 21300000, guid: db60469285a0bdb48b018dddf7170d54, type: 3}

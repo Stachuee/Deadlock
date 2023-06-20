@@ -11,6 +11,8 @@ public abstract class ActiveEnemy : _EnemyBase
 
     Vector2 huntingTarget;
 
+    bool exitedStairs;
+
     protected override void Update()
     {
         base.Update();
@@ -96,9 +98,14 @@ public abstract class ActiveEnemy : _EnemyBase
             else if (currentTargetNode.navNodeType == NavNode.NavNodeType.Stairs)
             {
                 FindNextNodeTarget();
-                if (currentTargetNode.navNodeType == NavNode.NavNodeType.Stairs)
+                if (!exitedStairs && currentTargetNode.navNodeType == NavNode.NavNodeType.Stairs)
                 {
                     transform.position = currentTargetNode.transform.position;
+                    exitedStairs = true;
+                }
+                else
+                {
+                    exitedStairs = false;
                 }
             }
         }

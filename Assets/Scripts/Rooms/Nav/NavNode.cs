@@ -20,6 +20,7 @@ public class NavNode : MonoBehaviour
 
     public NavNode nextNode;
     public float distanceToScientist;
+    public float distanceToScientistWithObsticles;
     public float obstaclesWeigths;
 
     public enum NavNodeType { Horizontal, Stairs}

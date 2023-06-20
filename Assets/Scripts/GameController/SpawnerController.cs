@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour, ICureLevelIncrease
 {
-    readonly float SIDE_SPAWNERS_PACING_REDUCTION = 1/2;
 
     public static SpawnerController instance;
 

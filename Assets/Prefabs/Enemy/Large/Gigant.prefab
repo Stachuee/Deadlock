@@ -5021,7 +5021,7 @@ MonoBehaviour:
   randomSpeed: {x: 0.4, y: 0.5}
   damage: 40
   attackSpeed: 2
-  patience: 10
+  patience: 2
   armored: 0
   armorMaxHp: 0
   dropChance: 1

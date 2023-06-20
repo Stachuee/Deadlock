@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4dba0223011def7479462f435a52f99c
+guid: ab24f0e96127bd24a9cbe13ffef18274
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 2500
+  spritePixelsToUnits: 600
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -115,91 +115,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: drukarka_0
-      rect:
-        serializedVersion: 2
-        x: 2077
-        y: 846
-        width: 3260
-        height: 7218
-      alignment: 9
-      pivot: {x: 0.4947977, y: 0.44361073}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 11fa7854da14b2144aaf165334b20410
-      internalID: 616578247
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drukarka_1
-      rect:
-        serializedVersion: 2
-        x: 7275
-        y: 842
-        width: 3974
-        height: 7222
-      alignment: 9
-      pivot: {x: 0.4060873, y: 0.44370928}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 474eeff6bbd7e9043a1a8f54d818eb23
-      internalID: -1773680195
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drukarka_2
-      rect:
-        serializedVersion: 2
-        x: 6857
-        y: 366
-        width: 1993
-        height: 185
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5324702de69756f47bc0cf0ffe36ca8c
-      internalID: -162575749
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: drukarka_4
-      rect:
-        serializedVersion: 2
-        x: 6851
-        y: 77
-        width: 2018
-        height: 221
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1776a34015d6fdf43b33824e6844773b
-      internalID: -1664550267
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -210,12 +126,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      drukarka_4: -1664550267
-      drukarka_0: 616578247
-      drukarka_2: -162575749
-      drukarka_3: -926584177
-      drukarka_1: -1773680195
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

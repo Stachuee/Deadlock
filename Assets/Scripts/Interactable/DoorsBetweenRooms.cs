@@ -58,6 +58,12 @@ public class DoorsBetweenRooms : PoweredInteractable, ITakeDamage
     float hp;
     bool destroyed;
 
+    [SerializeField] Sprite fixedDoor;
+    [SerializeField] Sprite brokenDoor;
+
+
+    [SerializeField] List<SpriteRenderer> panels;
+
     [SerializeField] AudioSource closeDoorsSFX;
     [SerializeField] AudioSource doorsDamageSFX;
 
@@ -88,6 +94,7 @@ public class DoorsBetweenRooms : PoweredInteractable, ITakeDamage
             closeDoorsSFX.Play();
             wantedState = !Closed;
             RefreshState();
+            NavController.instance.UpdateWeigths();
         }
     }
 
@@ -118,6 +125,8 @@ public class DoorsBetweenRooms : PoweredInteractable, ITakeDamage
             Closed = false;
             animator.SetBool("Open", true);
         }
+
+        panels.ForEach(panel => panel.sprite = destroyed ? brokenDoor : fixedDoor);
     }
 
     public override ComputerInfoContainer GetInfo()

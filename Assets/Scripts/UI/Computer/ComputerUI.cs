@@ -197,10 +197,8 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
                 }
                 else
                 {
-                    Debug.Log(marker);
                     marker = Instantiate(playerMarkerPrefab, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
                     marker.anchoredPosition = ((Vector2)player.transform.position - startingDrawPos) * scale;
-                    Debug.Log(marker);
                 }
             }
             else

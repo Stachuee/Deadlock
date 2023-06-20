@@ -28,6 +28,7 @@ public class NavController : MonoBehaviour
     {
         if(instance == null) instance = this;
         else Destroy(gameObject);
+        InvokeRepeating("UpdateWeigths", 1, 1);
     }
 
     public Queue<NavNode> GetPathTo(Vector2 from, Vector2 to)
@@ -140,34 +141,71 @@ public class NavController : MonoBehaviour
 
     }
 
+
+
     public void UpdateWeigths()
     {
         List<NavNode> closedList = new List<NavNode>();
         List<NavNode> openList = new List<NavNode>();
 
-        targetNode.distanceToScientist = 0;
-        openList.Add(targetNode);
+        NavNode target = targetNode;
+
+        target.distanceToScientist = 0;
+        openList.Add(target);
 
         while (openList.Count > 0)
         {
-            targetNode = openList[0];
+            target = openList[0];
             openList.RemoveAt(0);
-            closedList.Add(targetNode);
+            closedList.Add(target);
 
-            float distance = targetNode.distanceToScientist;
+            float distanceObs = target.distanceToScientistWithObsticles;
 
-            targetNode.GetConnectedNodes().ForEach(n =>
+            target.GetConnectedNodes().ForEach(n =>
             {
                 if(!(openList.Contains(n) || closedList.Contains(n)))
                 {
-                    n.distanceToScientist = distance + Vector2.Distance(targetNode.transform.position, n.transform.position) + n.obstaclesWeigths;
-                    n.nextNode = targetNode;
+                    float dist = Vector2.Distance(target.transform.position, n.transform.position);
+                    n.distanceToScientistWithObsticles = distanceObs + dist + n.obstaclesWeigths;
+                    openList.Add(n);
+                }
+            });
+            openList.Sort((first, second) => first.distanceToScientistWithObsticles.CompareTo(second.distanceToScientistWithObsticles));
+        }
+    }
+
+    public void UpdateStaticWeigths()
+    {
+        List<NavNode> closedList = new List<NavNode>();
+        List<NavNode> openList = new List<NavNode>();
+
+        NavNode target = targetNode;
+
+        target.distanceToScientist = 0;
+        openList.Add(target);
+
+        while (openList.Count > 0)
+        {
+            target = openList[0];
+            openList.RemoveAt(0);
+            closedList.Add(target);
+
+            float distanceWithout = target.distanceToScientist;
+
+            target.GetConnectedNodes().ForEach(n =>
+            {
+                if (!(openList.Contains(n) || closedList.Contains(n)))
+                {
+                    float dist = Vector2.Distance(target.transform.position, n.transform.position);
+                    n.distanceToScientist = distanceWithout + dist;
+                    n.nextNode = target;
                     openList.Add(n);
                 }
             });
             openList.Sort((first, second) => first.distanceToScientist.CompareTo(second.distanceToScientist));
         }
     }
+
 
     struct DoorNav
     {
@@ -294,7 +332,7 @@ public class NavController : MonoBehaviour
 
 
 
-        UpdateWeigths();
+        UpdateStaticWeigths();
     }
 
     #endif

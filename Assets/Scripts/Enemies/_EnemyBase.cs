@@ -21,7 +21,8 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected float attackSpeed;
     protected float lastAttack;
 
-    [SerializeField] float patience;
+    [SerializeField] int patience;
+    [SerializeField] float currentDistance;
 
     [SerializeField]
     bool armored;
@@ -96,10 +97,15 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     {
         hp = maxHp;
         armorHp = armorMaxHp;
+
+        patience += Random.Range(-1, 2);
+        currentDistance = -1;
+
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
         if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
         currentTargetNode = NavController.instance.FindClosestWaypoint(transform.position, true);
+        currentDistance = currentTargetNode.distanceToScientist;
 
         SpawnerController.instance.AddEnemyToMap(this, transform);
 
@@ -312,26 +318,34 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         currentTargetNode.GetConnectedNodes().ForEach(node =>
         {
             float dist = Vector2.Distance(transform.position, node.transform.position);
-            if (node.distanceToScientist + node.obstaclesWeigths + dist < closestWithObs)
+            if (node.distanceToScientistWithObsticles + dist < closestWithObs)
             {
-                closestWithObs = node.distanceToScientist + node.obstaclesWeigths + dist;
+                closestWithObs = node.distanceToScientistWithObsticles + dist;
                 closestObs = node;
             }
             if (node.distanceToScientist + dist < closestWithoutObs)
             {
-                closestWithoutObs = node.distanceToScientist + node.obstaclesWeigths + dist;
+                closestWithoutObs = node.distanceToScientist + dist;
                 closestWoObs = node;
             }
+            Debug.Log(closestWithObs + " " + closestWithoutObs);
         });
 
-        if (closestWithObs - closestWithoutObs <= patience)
+        if((patience > 0 || closestObs == closestWoObs))
         {
-            patience = Mathf.Clamp(patience - Mathf.Max(0, closestWithObs - currentTargetNode.distanceToScientist), 0, patience);
+            if(currentDistance < closestObs.distanceToScientistWithObsticles && closestObs != closestWoObs) patience--;
+            currentDistance = closestObs.distanceToScientistWithObsticles;
             currentTargetNode = closestObs;
             return;
-        }
+        }  
 
-
+        //if (closestObs != closestWoObs && closestWithObs - closestWithoutObs <= patience)
+        //{
+        //    patience = Mathf.Clamp(patience - Mathf.Max(0, closestWithObs - currentTargetNode.distanceToScientist), 0, patience);
+        //    currentTargetNode = closestObs;
+        //    return;
+        //}
+        currentDistance = closestWoObs.distanceToScientist;
         currentTargetNode = closestWoObs;
     }
     public bool IsImmune()

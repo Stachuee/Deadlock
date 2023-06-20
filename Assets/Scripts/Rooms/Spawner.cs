@@ -17,19 +17,6 @@ public class Spawner : InteractableBase, ICureLevelIncrease
 
     [SerializeField] protected float spawnDelay;
 
-
-
-    float lastSpawn;
-
-    public bool spawning;
-
-
-    List<WaveSO.EnemySpawn> toSpawnList;
-    int alreadySpawned;
-    int step;
-
-
-    float spawnCooldown;
     protected float nextWave;
 
     protected override void Awake()
@@ -116,15 +103,6 @@ public class Spawner : InteractableBase, ICureLevelIncrease
         isActive = false;
     }
 
-    public void AddToSpawn(List<WaveSO.EnemySpawn> subWave, float cooldownAfterSpawning)
-    {
-        toSpawnList = subWave;
-        step = 0;
-        alreadySpawned = 0;
-        spawning = true;
-        spawnDelay = subWave[step].spawnDelay;
-        spawnCooldown = cooldownAfterSpawning;
-    }
 
     public virtual void GetNewWave()
     {
