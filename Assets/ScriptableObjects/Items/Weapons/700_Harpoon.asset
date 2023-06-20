@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 700
   itemName: Harpoon
-  defaultSprite: {fileID: 21300000, guid: e4c711cc0884d9649805c54d855606a8, type: 3}
-  icon: {fileID: 21300000, guid: e4c711cc0884d9649805c54d855606a8, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 5c8dcf9efc2ae2f43a53b649bc9545ef, type: 3}
+  icon: {fileID: 21300000, guid: 5c8dcf9efc2ae2f43a53b649bc9545ef, type: 3}
   itemDesc: Harpoon
   weaponType: 5
   unlocks: {fileID: 11400000, guid: cfc2829202aacaa449132a6dd3dfbc0a, type: 2}

@@ -15,3 +15,8 @@ public interface ITakeDamage
     public bool IsArmored();
     public Transform GetTransform();
 }
+
+public interface ITakeDamageInteractable : ITakeDamage
+{
+    public bool AlwaysAttack();
+}
