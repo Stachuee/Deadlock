@@ -75,8 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
-    type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -208,8 +207,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
-    type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -346,7 +344,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 214e334ae5092f34aaa2b1c2445ff8bd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13b191951eec1d945bb23e14432b8d95, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -370,18 +368,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008742332, y: 0}
+  m_Offset: {x: 0.0019025803, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 3}
+    oldSize: {x: 0.14923076, y: 3.0353847}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4929695, y: 2.975668}
+  m_Size: {x: 0.26042175, y: 2.975668}
   m_EdgeRadius: 0
 --- !u!114 &4579708098554351929
 MonoBehaviour:
@@ -395,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 415764ad252829a419e9b80f4d230723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Door
   computerIcon: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
@@ -444,8 +442,7 @@ AudioSource:
   m_GameObject: {fileID: 4579708098554351930}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4148901304874009386, guid: bbdca84b43978a042ad32bcc44e747db,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: -4148901304874009386, guid: bbdca84b43978a042ad32bcc44e747db, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6bf78d1011e63d446805ca1b34db13d0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
@@ -541,8 +538,7 @@ AudioSource:
   m_GameObject: {fileID: 4579708098554351930}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4148901304874009386, guid: bbdca84b43978a042ad32bcc44e747db,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: -4148901304874009386, guid: bbdca84b43978a042ad32bcc44e747db, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6ba1634df490d864392a7c3be6e2685b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

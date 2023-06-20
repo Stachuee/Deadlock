@@ -89,9 +89,18 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberAim
         foreach (GunMenuButton gB in slotButtons)
         {
             gB.Hide();
+            gB.image.color = gB.NormalColor;
         }
-        weaponSlotButtons.ForEach(x => x.Hide());
-        equipmentSlotButtons.ForEach(x => x.Hide());
+        weaponSlotButtons.ForEach(x =>
+        {
+            x.Hide();
+            x.image.color = x.NormalColor;
+        });
+        equipmentSlotButtons.ForEach(x =>
+        {
+            x.Hide();
+            x.image.color = x.NormalColor;
+        });
     }
 
     private void Start()

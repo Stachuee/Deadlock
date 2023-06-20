@@ -56,14 +56,14 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
 
     public virtual void Highlight()
     {
-        SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
-        myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 0.5f);
+        //SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
+        //myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 0.5f);
     }
 
     public virtual void UnHighlight()
     {
-        SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
-        myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 1f);
+        //SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
+        //myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 1f);
     }
 
     public virtual ComputerInfoContainer GetInfo()

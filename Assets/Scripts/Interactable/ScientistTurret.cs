@@ -171,10 +171,10 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     private void ManualShoot()
     {
         RaycastHit2D hit;
-        if (hit = Physics2D.Raycast(gunBarrel.transform.position, new Vector2(Mathf.Cos(rot_z * Mathf.Deg2Rad), Mathf.Sin(rot_z * Mathf.Deg2Rad)), 100, enemyLayer))
+        if (hit = Physics2D.Raycast(barrelTransform.position, new Vector2(Mathf.Cos(rot_z * Mathf.Deg2Rad), Mathf.Sin(rot_z * Mathf.Deg2Rad)), 100, enemyLayer))
         {
             Debug.Log(hit.transform.name);
-            gunTrail.SetPosition(0, gunBarrel.position);
+            gunTrail.SetPosition(0, barrelTransform.position);
             gunTrail.SetPosition(1, hit.point);
             trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
             gunTrail.transform.gameObject.SetActive(true);
@@ -191,9 +191,9 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     private void Shoot()
     {
         RaycastHit2D hit;
-        if (hit = Physics2D.Raycast(gunBarrel.transform.position, target.position - gunBarrel.position, 100, enemyLayer))
+        if (hit = Physics2D.Raycast(barrelTransform.position, target.position - gunBarrel.position, 100, enemyLayer))
         {
-            gunTrail.SetPosition(0, gunBarrel.position);
+            gunTrail.SetPosition(0, barrelTransform.position);
             gunTrail.SetPosition(1, hit.point);
             trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
             gunTrail.transform.gameObject.SetActive(true);

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UpgradeGuide : MonoBehaviour
 {
-    public enum UpgradePanel {Hero, Weapons }
+    public enum UpgradePanel {Hero, Weapons, Equipment }
     [SerializeField] PlayerController playerController;
 
     [SerializeField] Image itemIcon;
@@ -34,6 +34,8 @@ public class UpgradeGuide : MonoBehaviour
     [SerializeField] Button firstSelectedWeapon;
     [SerializeField] GameObject heroPanel;
     [SerializeField] Button firstSelectedHero;
+    [SerializeField] GameObject equipmentPanel;
+    [SerializeField] Button firstSelectedEquipment;
 
     [SerializeField] Transform infoPanel;
 
@@ -80,13 +82,22 @@ public class UpgradeGuide : MonoBehaviour
             {
                 weaponPanel.SetActive(true);
                 heroPanel.SetActive(false);
+                equipmentPanel.SetActive(false);
                 playerController.uiController.myEventSystem.SetSelectedGameObject(firstSelectedWeapon.gameObject);
             }
             else if (panel == UpgradePanel.Hero)
             {
                 heroPanel.SetActive(true);
                 weaponPanel.SetActive(false);
+                equipmentPanel.SetActive(false);
                 playerController.uiController.myEventSystem.SetSelectedGameObject(firstSelectedHero.gameObject);
+            }
+            else if(panel == UpgradePanel.Equipment)
+            {
+                heroPanel.SetActive(false);
+                weaponPanel.SetActive(false);
+                equipmentPanel.SetActive(true);
+                playerController.uiController.myEventSystem.SetSelectedGameObject(firstSelectedEquipment.gameObject);
             }
         }
         else

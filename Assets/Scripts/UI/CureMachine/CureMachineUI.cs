@@ -9,10 +9,10 @@ public class CureMachineUI : MonoBehaviour
 
     [SerializeField] GameObject cureMachine;
     [SerializeField] bool active;
-    [SerializeField] Slider progressSlider;
+    [SerializeField] Image progressSlider;
     [SerializeField] GameObject noPower;
 
-    [SerializeField] List<Slider> supports;
+    [SerializeField] List<Image> supports;
     [SerializeField] List<GameObject> supportsRequired;
 
     [SerializeField] Transform itemNeededContainder;
@@ -52,10 +52,10 @@ public class CureMachineUI : MonoBehaviour
     {
         if(active)
         {
-            progressSlider.value = ProgressStageController.instance.GetCurrentProgress();
+            progressSlider.fillAmount = ProgressStageController.instance.GetCurrentProgress();
             for(int i = 0; i < supports.Count; i++)
             {
-                supports[i].value = cureMachineScript.GetSupport(i);
+                supports[i].fillAmount = cureMachineScript.GetSupport(i);
             }
 
             if(lastProgressIndex != cureController.GetCurrentLevel())

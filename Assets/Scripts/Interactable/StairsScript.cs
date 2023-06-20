@@ -54,6 +54,8 @@ public class StairsScript : PoweredInteractable, ITakeDamage
     float maxHp;
     [SerializeField]
     float hp;
+
+    
     bool destroyed;
 
 

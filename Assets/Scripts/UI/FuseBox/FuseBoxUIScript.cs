@@ -36,9 +36,9 @@ public class FuseBoxUIScript : MonoBehaviour
         float fuzeOffset = fuseHeight / (segmenCount - 1);
         for (int i = 0; i < segmenCount; i++)
         {
-            Fuse temp = Instantiate(fusePrefab, (Vector2)transform.position + offset + new Vector2(0, fuseHeight / 2) - new Vector2(0, fuzeOffset * i), Quaternion.identity, fuseBoxUI).GetComponent<Fuse>();
-            temp.SetFuse(segments[i].sectorName, this);
-            fuses.Add(temp);
+            //Fuse temp = Instantiate(fusePrefab, (Vector2)transform.position + offset + new Vector2(0, fuseHeight / 2) - new Vector2(0, fuzeOffset * i), Quaternion.identity, fuseBoxUI).GetComponent<Fuse>();
+            fuses[i].SetFuse(segments[i].sectorName, this);
+            //fuses.Add(temp);
         }
         setUp = true;
     }

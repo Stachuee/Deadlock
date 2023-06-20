@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa21e2f6be6c7540b5a721ebf161b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: 3D Printer
   computerIcon: {fileID: 21300000, guid: 883b2528742dc344bbd6ee388f744aa0, type: 3}
   onTrigger:
     m_PersistentCalls:

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Fuse : MonoBehaviour
+public class Fuse : MonoBehaviour, IPointerEnterHandler
 {
 
     bool on;
@@ -13,13 +14,20 @@ public class Fuse : MonoBehaviour
 
     FuseBoxUIScript fuseBox;
     [SerializeField] Image button;
-
     public string segmentName;
+
+    UiController uiController;
 
     //private void Awake()
     //{
     //    button = transform.GetComponent<Image>();
     //}
+
+
+    private void Start()
+    {
+        uiController = GetComponentInParent<UiController>();
+    }
 
     public void SetFuse(string segmentName, FuseBoxUIScript fuseBox)
     {
@@ -55,5 +63,13 @@ public class Fuse : MonoBehaviour
             button.sprite = offSprite;
         }
 
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(uiController.myEventSystem.currentSelectedGameObject != gameObject)
+        {
+            uiController.myEventSystem.SetSelectedGameObject(null);
+        }
     }
 }

@@ -196,7 +196,7 @@ MonoBehaviour:
   - {x: -4.6969, y: 0.00080400705, z: 0}
   m_ShapePathHash: 1050694757
   m_Mesh: {fileID: 0}
-  m_InstanceId: 53148
+  m_InstanceId: 72878
 --- !u!1 &1983567303784746072
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
   roomSize: {x: 5, y: 3}
   startingRoom: 1
   roomEvents: []
-  position: {x: 0, y: 0}
+  position: {x: 0, y: 5.75}
 --- !u!1 &7253420935606603764
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +312,7 @@ MonoBehaviour:
   - {x: 5.04996, y: -3.125748, z: 0}
   m_ShapePathHash: 118548827
   m_Mesh: {fileID: 0}
-  m_InstanceId: 53142
+  m_InstanceId: 72872
 --- !u!1 &7643467030653077922
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
   - {x: -4.6960654, y: -0.17183912, z: 0}
   m_ShapePathHash: -1456809845
   m_Mesh: {fileID: 0}
-  m_InstanceId: 53156
+  m_InstanceId: 72886
 --- !u!1001 &1046679515157979428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -387,9 +387,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: BunkerDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 7901947605281037708, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6813c44d423d28f409b525a23e760e0a, type: 3}
+    - target: {fileID: 7901947605281037709, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901947605281037709, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4953221
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901947605281037709, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.000000029802322
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901947605281037709, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.24766105
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901947605281037709, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.498
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901947605281037709, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.013
+      objectReference: {fileID: 0}
     - target: {fileID: 7901947605281037711, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901947605281037711, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901947605281037711, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7901947605281037711, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -397,7 +433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7901947605281037711, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.67
+      value: -0.71
       objectReference: {fileID: 0}
     - target: {fileID: 7901947605281037711, guid: 6eb2096f8434f6d42b58de81a052645f, type: 3}
       propertyPath: m_LocalPosition.z

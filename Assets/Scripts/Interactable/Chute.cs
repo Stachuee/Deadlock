@@ -19,6 +19,11 @@ public class Chute : InteractableBase
 
     [SerializeField] AudioSource sendItemSFX;
 
+    [SerializeField] Sprite open;
+    [SerializeField] Sprite closed;
+
+    SpriteRenderer myRenderer;
+
     protected override void Awake()
     {
         base.Awake();
@@ -28,6 +33,7 @@ public class Chute : InteractableBase
             else Debug.LogError("Two scientist chutes");
         }
         AddAction(DumpItems);
+        myRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -61,5 +67,15 @@ public class Chute : InteractableBase
     {
         Gizmos.color = Color.green;
         if(connectedChute != null)Gizmos.DrawLine(transform.position, connectedChute.transform.position);
+    }
+
+    public override void Highlight()
+    {
+        myRenderer.sprite = open;
+    }
+
+    public override void UnHighlight()
+    {
+        myRenderer.sprite = closed;
     }
 }
