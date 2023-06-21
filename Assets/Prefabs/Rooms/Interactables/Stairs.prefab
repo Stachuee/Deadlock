@@ -210,7 +210,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -6
-  m_Sprite: {fileID: 21300000, guid: 6f36f650b23e69741b6aa36f0d0c7de7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: edc3671377c2f4b41bb12422e06386fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -247,8 +247,8 @@ MonoBehaviour:
   node: {fileID: 0}
   doorsClosingSFX: {fileID: 4693767204665656719}
   doorsDamageSFX: {fileID: 8645281937426424253}
-  openDoor: {fileID: 21300000, guid: 6f36f650b23e69741b6aa36f0d0c7de7, type: 3}
-  closedDoor: {fileID: 21300000, guid: da18e1eafca2e9846b1c045f230bb1dd, type: 3}
+  openDoor: {fileID: 21300000, guid: edc3671377c2f4b41bb12422e06386fc, type: 3}
+  closedDoor: {fileID: 21300000, guid: 1130a33ac29f954478ee4587e0015cd4, type: 3}
   fixedDoor: {fileID: 21300000, guid: 13a590fdaf23abe43b99f2f6dc7158a3, type: 3}
   brokenDoor: {fileID: 21300000, guid: ab24f0e96127bd24a9cbe13ffef18274, type: 3}
   panel: {fileID: 1760518418110304855}
@@ -272,7 +272,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 2.7236364, y: 3.66}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

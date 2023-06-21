@@ -198,7 +198,7 @@ MonoBehaviour:
   - {x: -6.396368, y: 0.44200897, z: 0}
   m_ShapePathHash: -354591685
   m_Mesh: {fileID: 0}
-  m_InstanceId: 184548
+  m_InstanceId: 335412
 --- !u!1 &5607365666210991003
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,10 +247,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55e6d05362d9c428632bed75fa6d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSize: {x: 5, y: 3}
+  roomSize: {x: 6, y: 3}
   startingRoom: 0
   roomEvents: []
-  position: {x: 38.25, y: 12.75}
+  mySprite: {fileID: 0}
+  position: {x: 38.25, y: 4.25}
 --- !u!1001 &4411920622181657725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -276,7 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6444604580531731430, guid: edee7a1f54322a848a9f46a12223f4da, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.59
+      value: 2.95
       objectReference: {fileID: 0}
     - target: {fileID: 6444604580531731430, guid: edee7a1f54322a848a9f46a12223f4da, type: 3}
       propertyPath: m_LocalPosition.z

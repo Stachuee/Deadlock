@@ -24,7 +24,7 @@ public class Rooms : MonoBehaviour
     public bool startingRoom;
     [SerializeField]
     public List<RoomEvent> roomEvents;
-
+    [HideInInspector] public Sprite mySprite;
 
     public List<IInteractable> remoteAvtivation { get; private set; }
     public List<DoorMarker> doorMarkers { get; private set; }
@@ -74,26 +74,9 @@ public class Rooms : MonoBehaviour
 
             mySegment.AddRoom(this);
 
-            List<IInteractable> allInteractables = transform.GetComponentsInChildren<IInteractable>().ToList();
+            mySprite = GetComponentInChildren<SpriteRenderer>().sprite;
 
 
-            allInteractables.ForEach(interactable =>
-            {
-                if(interactable is PoweredInteractable)
-                {
-                    PoweredInteractable powered = interactable as PoweredInteractable;
-                    if (powered.GetSwitchType() == SwitchType.Doors) mySegment.AddDoors(powered);
-                    else if (powered.GetSwitchType() == SwitchType.Printers) mySegment.AddPrinters(powered);
-                    else if (powered.GetSwitchType() == SwitchType.Lights) mySegment.AddLight(powered);
-                    else if (powered.GetSwitchType() == SwitchType.Security) mySegment.AddSecurity(powered);
-                }
-
-                if (interactable != null && interactable.IsRemote())
-                {
-                    remoteAvtivation.Add(interactable);
-                }
-            });
-            
 
             ////roomGUID = System.Guid.NewGuid().ToString();
             //foreach (Transform child in transform)
@@ -116,6 +99,26 @@ public class Rooms : MonoBehaviour
             FacilityController facilityController = FindObjectOfType<FacilityController>();
             if (facilityController != null) facilityController.ReimportRooms();
             else Debug.LogError("No facility controller");
+        }
+        else
+        {
+            List<IInteractable> allInteractables = transform.GetComponentsInChildren<IInteractable>().ToList();
+            allInteractables.ForEach(interactable =>
+            {
+                if (interactable is PoweredInteractable)
+                {
+                    PoweredInteractable powered = interactable as PoweredInteractable;
+                    if (powered.GetSwitchType() == SwitchType.Doors) mySegment.AddDoors(powered);
+                    else if (powered.GetSwitchType() == SwitchType.Printers) mySegment.AddPrinters(powered);
+                    else if (powered.GetSwitchType() == SwitchType.Lights) mySegment.AddLight(powered);
+                    else if (powered.GetSwitchType() == SwitchType.Security) mySegment.AddSecurity(powered);
+                }
+
+                if (interactable != null && interactable.IsRemote())
+                {
+                    remoteAvtivation.Add(interactable);
+                }
+            });
         }
     }
 

@@ -45,15 +45,16 @@ public class RoomUiButton : MonoBehaviour
         this.segment = room.GetMySegment();
         this.computer = computer;
 
+        myImage.sprite = room.mySprite;
 
         room.remoteAvtivation.ForEach(x =>
         {
             if(!x.HideInComputer())
             {
-                GameObject temp = Instantiate(IconPrefab, transform);
+                Debug.Log(x.GetTransform().name);
+                GameObject temp = Instantiate(x.GetComputerIcon(), transform);
                 RectTransform tempTransform = temp.GetComponent<RectTransform>();
                 tempTransform.anchoredPosition = (x.GetPosition() - room.Position) * ComputerUI.scale;
-                temp.GetComponent<Image>().sprite = x.GetComputerIcon();
             }
         });
     }

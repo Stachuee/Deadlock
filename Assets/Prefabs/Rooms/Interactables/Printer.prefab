@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 3D Printer
-  computerIcon: {fileID: 21300000, guid: 883b2528742dc344bbd6ee388f744aa0, type: 3}
+  computerIcon: {fileID: 616578247, guid: 4dba0223011def7479462f435a52f99c, type: 3}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []

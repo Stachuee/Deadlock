@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public abstract class InteractableBase : MonoBehaviour, IInteractable
 {
     [SerializeField] protected string displayName;
-    [SerializeField] protected Sprite computerIcon;
+    [SerializeField] protected GameObject computerIcon;
     [SerializeField] PlayerActionEvent onTrigger = new PlayerActionEvent();
     [SerializeField] protected bool remoteActivation;
     [SerializeField] protected bool handActivation = true;
@@ -81,7 +81,7 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         return transform;
     }
 
-    public Sprite GetComputerIcon()
+    public GameObject GetComputerIcon()
     {
         return computerIcon;
     }

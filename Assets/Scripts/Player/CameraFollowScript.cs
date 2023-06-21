@@ -49,7 +49,7 @@ public class CameraFollowScript : MonoBehaviour, IControllSubscriberMove, IContr
         playerController.AddMoveSubscriber(this);
     }
 
-    void Update()
+    void LateUpdate()
     {
         //camHolder.position = target.position + offset + new Vector3(playerController.currentAimDirection.x * maxCameraTilt.x, playerController.currentAimDirection.y * maxCameraTilt.y);
         Vector3 desiredPos;

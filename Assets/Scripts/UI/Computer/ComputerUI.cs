@@ -73,15 +73,15 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
         Vector2Int size = new Vector2Int(0,0); // x, y
 
 
-        SegmentController.segmentController.mapSegments.ForEach(segment =>
-        {
-            RectTransform temp = Instantiate(segmentPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
+        //SegmentController.segmentController.mapSegments.ForEach(segment =>
+        //{
+        //    RectTransform temp = Instantiate(segmentPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
 
-            temp.anchoredPosition = ((Vector2)segment.transform.position - startingDrawPos) * scale;
-            temp.sizeDelta = new Vector2(segment.size.x, segment.size.y) * scale * 2;
+        //    temp.anchoredPosition = ((Vector2)segment.transform.position - startingDrawPos) * scale;
+        //    temp.sizeDelta = new Vector2(segment.size.x, segment.size.y) * scale * 2;
 
-            temp.GetComponent<Image>().color = segment.segmentColor;
-        });
+        //    temp.GetComponent<Image>().color = segment.segmentColor;
+        //});
 
         allRooms.ForEach(room =>
         {
@@ -91,7 +91,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
                 {
                     RectTransform temp = Instantiate(doorPrefab, Vector3.zero, Quaternion.identity, content).GetComponent<RectTransform>();
                     temp.anchoredPosition = ((Vector2)x.transform.position - startingDrawPos) * scale;
-                    temp.sizeDelta = new Vector2(room.roomSize.x, x.GetDoorSize()) * scale * new Vector2(0.2f, 1);
+                    temp.sizeDelta = new Vector2(room.roomSize.x, x.GetDoorSize()) * scale * new Vector2(0.3f, 1);
                 }
             });
         });

@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -100
-  m_Sprite: {fileID: 21300000, guid: b62a458d2543fad44a9db8cb77785174, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33e5871b3db583a45a9fd980b88f1763, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 12.8, y: 7.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -133,8 +133,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 6.4325523, y: -3.193711}
-  - {x: -6.1219835, y: -3.179453}
+  - {x: 6.38529, y: -3.2773292}
+  - {x: -6.209237, y: -3.2921553}
   - {x: -6.155452, y: 3.3522208}
   - {x: 4.900404, y: 3.3354871}
   - {x: 6.4064603, y: 3.330058}
@@ -173,7 +173,7 @@ MonoBehaviour:
   - {x: 6.3575287, y: -3.5851803, z: 0}
   m_ShapePathHash: -1229376555
   m_Mesh: {fileID: 0}
-  m_InstanceId: 190756
+  m_InstanceId: 371244
 --- !u!1 &1983567303784746072
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +229,8 @@ MonoBehaviour:
   roomSize: {x: 6, y: 3}
   startingRoom: 0
   roomEvents: []
-  position: {x: -12.75, y: -8.92}
+  mySprite: {fileID: 0}
+  position: {x: -12.75, y: -2.8500004}
 --- !u!1001 &770179888841021327
 PrefabInstance:
   m_ObjectHideFlags: 0

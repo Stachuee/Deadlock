@@ -164,6 +164,11 @@ public abstract class GunBase : MonoBehaviour, IGun
         if(owner != null)
         laser.gameObject.SetActive(useLaser);
         targetFireMode = fireMode;
+
+        rot_z = Mathf.Atan2(owner.currentAimDirection.y, owner.currentAimDirection.x) * Mathf.Rad2Deg;
+        if (rot_z > 90 || rot_z < -90) gunSprite.flipY = true;
+        else gunSprite.flipY = false;
+        gunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z);
     }
 
     protected virtual void OnDisable()

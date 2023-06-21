@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 
-  computerIcon: {fileID: 21300000, guid: 495263f6b4aacb64b8693a30f55b6d88, type: 3}
+  computerIcon: {fileID: 8016540860462339263, guid: 6f6e5c005758ca245bad7226dc3d2dbf, type: 3}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []

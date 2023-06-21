@@ -4880,9 +4880,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2604312502774475259}
   - component: {fileID: 2604312502774475258}
-  - component: {fileID: 5057752186517356648}
   - component: {fileID: 4180136649946775295}
   - component: {fileID: 2937753037109699738}
+  - component: {fileID: 6049013938191047656}
   m_Layer: 9
   m_Name: Exploder
   m_TagString: Enemy
@@ -4959,32 +4959,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5057752186517356648
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2604312502774475251}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0047650337, y: -0.05242911}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.300994, y: 4.455}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.022711, y: 1.5856996}
-  m_EdgeRadius: 0
 --- !u!50 &4180136649946775295
 Rigidbody2D:
   serializedVersion: 4
@@ -5040,3 +5014,19 @@ MonoBehaviour:
   explosionStrength: 0
   explosionVFX: {fileID: 3325947601491101937, guid: 619a3936d905d0f4a93f1ba1d94ce79e, type: 3}
   explodeTime: 3
+--- !u!70 &6049013938191047656
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604312502774475251}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 3.6503592, y: 1.6329533}
+  m_Direction: 1
