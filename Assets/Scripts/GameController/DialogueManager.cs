@@ -1,3 +1,4 @@
+using GD.MinMaxSlider;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,12 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField]
     List<Dialogue> newItemDialogues;
+    [SerializeField]
+    List<Dialogue> quipDialogues;
+    [SerializeField]
+    Dialogue startingDialogue;
+
+    [SerializeField, MinMaxSlider(0, 360)] Vector2 minMaxQuipTimer; 
 
     Dialogue currentDialouge;
 
@@ -21,6 +28,22 @@ public class DialogueManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    public void StartQuips()
+    {
+        PlayDialogue(startingDialogue, true);
+        StartCoroutine("NewQuip");
+    }
+
+
+    public IEnumerator NewQuip()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(Random.Range(minMaxQuipTimer.x, minMaxQuipTimer.y));
+            TriggerDialogue(Dialogue.Trigger.Random, false);
+        }
+    }
+
     public void TriggerDialogue(Dialogue.Trigger trigger, bool cutPlaying = false)
     {
         switch(trigger)
@@ -29,6 +52,11 @@ public class DialogueManager : MonoBehaviour
                 break;
             case Dialogue.Trigger.OnNewItemPickup:
                 PlayDialogue(newItemDialogues[Random.Range(0, newItemDialogues.Count)], cutPlaying);
+                break;
+            case Dialogue.Trigger.Random:
+                Dialogue chosen = quipDialogues[Random.Range(0, quipDialogues.Count)];
+                quipDialogues.Remove(chosen);
+                PlayDialogue(chosen, cutPlaying);
                 break;
         }
     }

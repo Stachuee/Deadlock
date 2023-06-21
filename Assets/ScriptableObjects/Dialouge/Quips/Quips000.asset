@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe86c2cdff61c54683295fe30bb20ff, type: 3}
+  m_Name: Quips000
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: Oh, we have to fight monsters again.
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  - text: Oh, how romantic. Fighting monsters, a laboratory full of traps... Can
+      it get any more exciting?
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 5
+  - text: It's a great action movie script.
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  - text: More like a "B Horror" movie.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 2
+  - text: Why do you always have to be so cynical?
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  - text: Someone has to have common sense in this crazy train.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 3
+  nextDialogue: {fileID: 0}
+  toShow: 0
+  trigger: 3

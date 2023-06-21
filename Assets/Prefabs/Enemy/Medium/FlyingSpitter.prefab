@@ -4949,7 +4949,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4070967a7a28d3441a07e76c227ac3f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f2e12750bc70d84185e0006bec718d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5015,6 +5015,7 @@ MonoBehaviour:
   damage: 10
   attackSpeed: 0.2
   patience: 2
+  currentDistance: 0
   armored: 0
   armorMaxHp: 0
   dropChance: 0.2

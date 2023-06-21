@@ -30,7 +30,8 @@ public class FoundryScript : Workbench
         }
         else if(crafting)
         {
-            craftProgress += ((1 * powerLevel / 2) / (toCraft.GetBaseCraftTime())) * Time.deltaTime;
+            craftProgress += ((1 * (float)powerLevel / 2) / (toCraft.GetBaseCraftTime())) * Time.deltaTime;
+
             craftingBar.transform.localPosition = Vector2.Lerp(startBarPos, endBarPos, craftProgress);
         }
     }
@@ -46,6 +47,7 @@ public class FoundryScript : Workbench
             {
                 itemDeposits[i].RemoveIngredient(true);
             }
+            Debug.Log(toCraft);
             this.toCraft = toCraft;
             craftProgress = 0;
             crafting = true;

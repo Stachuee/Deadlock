@@ -57,6 +57,7 @@ public class ProgressStageController : MonoBehaviour
         NextLevel();
         //SpawnerController.instance.StartSpawning();
         MapSegment.scientistSegment.ScientistSegmentUnlock();
+        DialogueManager.instance.StartQuips();
     }
 
     private void NextLevel()

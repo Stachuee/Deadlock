@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe86c2cdff61c54683295fe30bb20ff, type: 3}
+  m_Name: StartDialogue
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: This is incredible. I can't believe you did this.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 3
+  - text: 'Like I said, I''m a scientist. I can work wonders with technology. '
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  - text: It feels so real. And these weapons...I'm going to be unstoppable.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 3
+  - text: I'm glad you like it. I put a lot of work into this.
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  - text: Thank you, Karma. I couldn't have done this without you.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 3
+  - text: Anytime, Gwen. We make a pretty good team, don't we?
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  - text: Yeah, we do.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 2
+  nextDialogue: {fileID: 0}
+  toShow: 0
+  trigger: 0

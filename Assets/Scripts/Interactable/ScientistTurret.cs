@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GD.MinMaxSlider;
 
-public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubscriberAim, IControllSubscriberShoot
+public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubscriberMove, IControllSubscriberShoot
 {
     readonly float TRAIL_LIFE_TIME = 0.05f;
 
@@ -26,6 +26,8 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     GameObject bulletPrefab;
     [SerializeField]
     float shootDelay;
+    [SerializeField]
+    float controllingShootDelay;
     float nextShot;
 
     float turretAngle;
@@ -68,6 +70,14 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
                 GetClosest();
             }
         }
+    }
+
+    private void Start()
+    {
+        //rot_z = gunBarrel.rotation.eulerAngles.z;
+        //if (rot_z < minMaxTurretAngle.x || rot_z > minMaxTurretAngle.y) rot_z = prevRotz;
+        //if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
+        //gunBarrel.rotation = Quaternion.Euler(0, 0, rot_z);
     }
 
     public void ForwardCommandAim(Vector2 controll, Vector2 controllSmooth)
@@ -116,7 +126,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
                 if (firing && nextShot < Time.time)
                 {
                     ManualShoot();
-                    nextShot = Time.time + shootDelay;
+                    nextShot = Time.time + controllingShootDelay;
                 }
             }
             else
@@ -217,14 +227,15 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         //if (automatic) return;
         user = player;
         controlling = true;
-        player.AddAimSubscriber(this);
+        player.AddMoveSubscriber(this);
         player.AddShootSubscriber(this);
     }
 
     public void Leave()
     {
         controlling = false;
-        user.RemoveAimSubscriber(this);
+        //user.RemoveAimSubscriber(this);
+        user.RemoveMoveSubscriber(this);
         user.RemoveShootSubscriber(this);
     }
 
@@ -247,5 +258,18 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     {
         return true;
         //return !automatic;
+    }
+
+    public void ForwardCommandMove(Vector2 controll, Vector2 controllSmooth)
+    {
+        if (!powered) return;
+        Vector2 diff = (controllSmooth).normalized;
+        rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        if (rot_z < minMaxTurretAngle.x || rot_z > minMaxTurretAngle.y) rot_z = prevRotz; // works only if minmax is <-180, 180>
+        if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
+        else turretSprite.flipY = false;
+        gunBarrel.rotation = Quaternion.Euler(0, 0, rot_z);
+        turretAngle = rot_z;
+        prevRotz = rot_z;
     }
 }

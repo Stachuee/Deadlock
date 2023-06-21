@@ -349,7 +349,6 @@ public class InventorySelector : MonoBehaviour, IControllSubscriberAim
 
     public void ActivateSlot(WeaponType weapon)
     {
-        Debug.Log(weapon);
         weaponSlotButtons.Find(slot => slot.weaponType == weapon && slot.slotType == SlotType.Weapon).Show();     
     }
 

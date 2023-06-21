@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe86c2cdff61c54683295fe30bb20ff, type: 3}
+  m_Name: Quips001
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: Oh, this monster looks like it could eat us for breakfast.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 3
+  - text: I see your optimism is higher than our chances of survival.
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  - text: Why do you always have to correct me?
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 2
+  - text: 'Because someone has to keep our intellectual standards at an appropriate
+      level. '
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 4
+  - text: Well, it's a tough job, but someone has to do it.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 3
+  nextDialogue: {fileID: 0}
+  toShow: 0
+  trigger: 3

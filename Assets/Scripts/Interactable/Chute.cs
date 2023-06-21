@@ -47,8 +47,8 @@ public class Chute : InteractableBase
         for (ItemSO temp = player.DepositIngredient(); temp != null; temp = player.DepositIngredient())
         {
             connectedChute.DropItems(temp);
+            sendItemSFX.Play();
         }
-        sendItemSFX.Play();
         player.RefreshPrompt();
     }
     

@@ -55,6 +55,13 @@ public class PowerPlug : InteractableBase
         }
     }
 
+    public void Refresh()
+    {
+        toManage.ForEach(powered => powered.PowerOn(ElectricityController.workshopPowered ? 1 : 0));
+
+    }
+
+
     void CloseBox()
     {
         activePlayer.uiController.workshopFuse.Close();

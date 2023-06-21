@@ -328,7 +328,6 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
                 closestWithoutObs = node.distanceToScientist + dist;
                 closestWoObs = node;
             }
-            Debug.Log(closestWithObs + " " + closestWithoutObs);
         });
 
         if((patience > 0 || closestObs == closestWoObs))

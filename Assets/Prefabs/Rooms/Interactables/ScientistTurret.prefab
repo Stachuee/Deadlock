@@ -254,12 +254,13 @@ MonoBehaviour:
   useElectricityType: 1
   powered: 0
   minMaxTurretAngle: {x: -180, y: -80}
-  damagePerBullet: 7
+  damagePerBullet: 10
   turretSprite: {fileID: 1205753906326125290}
   gunBarrel: {fileID: 1205753906326125291}
   barrelTransform: {fileID: 1205753905961889385}
   bulletPrefab: {fileID: 2611703158886120060, guid: 9b8d21ebbc1054a40892d0b6d14eaf91, type: 3}
-  shootDelay: 0.5
+  shootDelay: 1
+  controllingShootDelay: 0.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 7681

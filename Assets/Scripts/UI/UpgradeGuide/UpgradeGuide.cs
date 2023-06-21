@@ -41,8 +41,8 @@ public class UpgradeGuide : MonoBehaviour
 
     private void Awake()
     {
-        upgrades = new List<UpgradeGuideButton>();
-        upgrades = transform.GetComponentsInChildren<UpgradeGuideButton>().ToList();
+        //upgrades = new List<UpgradeGuideButton>();
+        //upgrades = transform.GetComponentsInChildren<UpgradeGuideButton>().ToList();
 
         guns.ForEach(gun =>
         {

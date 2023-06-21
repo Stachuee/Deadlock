@@ -81,6 +81,7 @@ public class ElectricityController : MonoBehaviour
 
             PlayerController.scientist.uiController.fuseBox.RefreshFuses();
             PlayerController.scientist.uiController.workshopFuse.RefreshFuse();
+            PowerPlug.Instance.Refresh();
         }
         Overloaded = value;
         SegmentController.segmentController.mapSegments.ForEach(segment =>

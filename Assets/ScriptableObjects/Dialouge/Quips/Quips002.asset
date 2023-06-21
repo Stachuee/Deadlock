@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe86c2cdff61c54683295fe30bb20ff, type: 3}
+  m_Name: Quips002
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: Oh, what I wouldn't give for some good food.
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  - text: Yes, because our biggest challenge is surviving without access to haute
+      cuisine.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 4
+  - text: Yes, because our biggest challenge is surviving without access to haute
+      cuisine.
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 4
+  - text: I know it's a matter of life and death for you.
+    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
+    timeOnScreen: 3
+  - text: You're always so sarcastic when you're hungry.
+    speaker: {fileID: 11400000, guid: 2829d5ae69249b542a7de7975ef551f6, type: 2}
+    timeOnScreen: 3
+  nextDialogue: {fileID: 0}
+  toShow: 0
+  trigger: 3
