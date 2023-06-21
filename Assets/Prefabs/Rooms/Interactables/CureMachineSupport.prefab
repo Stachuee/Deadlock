@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5689389311222473379}
   - component: {fileID: 5689389311222473390}
   - component: {fileID: 7973963811689158790}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CureMachineSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}

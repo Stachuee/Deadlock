@@ -15,6 +15,7 @@ public class Light : PoweredInteractable
     {
         base.Awake();
         myLight = transform.GetComponent<Light2D>();
+        PowerOn(false, "");
         AddAction(TurnOnOffByComputer);
     }
 
@@ -36,6 +37,7 @@ public class Light : PoweredInteractable
     override public void PowerOn(bool on, string sectorName)
     {
         //if (!turnOn) return;
+        Debug.Log(on);
         if(on)
         {
             myLight.enabled = true ^ inverted;

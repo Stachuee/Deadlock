@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55e6d05362d9c428632bed75fa6d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSize: {x: 5, y: 3}
+  roomSize: {x: 6, y: 3}
   startingRoom: 0
   roomEvents: []
   position: {x: -12.75, y: -2.25}
@@ -278,7 +278,7 @@ MonoBehaviour:
   - {x: 6.4098043, y: -3.6356893, z: 0}
   m_ShapePathHash: 1444726865
   m_Mesh: {fileID: 0}
-  m_InstanceId: 201906
+  m_InstanceId: 128364
 --- !u!1 &9200668378087306056
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
   - {x: -6.0813313, y: 0.0366956, z: 0}
   m_ShapePathHash: -1460375904
   m_Mesh: {fileID: 0}
-  m_InstanceId: 201898
+  m_InstanceId: 128356
 --- !u!1001 &661677018336483524
 PrefabInstance:
   m_ObjectHideFlags: 0

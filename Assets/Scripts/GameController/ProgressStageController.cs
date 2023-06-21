@@ -31,6 +31,8 @@ public class ProgressStageController : MonoBehaviour
 
     public static List<ItemSO> toDrop = new List<ItemSO>();
 
+    public List<ProgressLevel> progressLevels;
+
     bool started;
 
 

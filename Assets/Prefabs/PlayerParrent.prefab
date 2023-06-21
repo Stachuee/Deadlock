@@ -605,7 +605,7 @@ MonoBehaviour:
   laser: {fileID: 6802861311568860718}
   laserLayerMask:
     serializedVersion: 2
-    m_Bits: 2496
+    m_Bits: 3520
   barrelFlash: {fileID: 7130625560813785241}
   shotAudio: {fileID: 5631916016020348736}
   reloadSFX: {fileID: 5025774827258698031}
@@ -619,7 +619,7 @@ MonoBehaviour:
   gunTrail: {fileID: 121886403502987961}
   toIgnore:
     serializedVersion: 2
-    m_Bits: 2496
+    m_Bits: 3520
 --- !u!82 &5631916016020348736
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1339,7 +1339,7 @@ MonoBehaviour:
   laser: {fileID: 6802861311568860718}
   laserLayerMask:
     serializedVersion: 2
-    m_Bits: 2496
+    m_Bits: 3520
   barrelFlash: {fileID: 7130625560813785241}
   shotAudio: {fileID: 8145996000405568179}
   reloadSFX: {fileID: 7862803067694528939}
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   gunTrail: {fileID: 121886403502987961}
   toIgnore:
     serializedVersion: 2
-    m_Bits: 2496
+    m_Bits: 3520
   bulletImpact: {fileID: 4906477403588214418}
   bulletImpactVFXWall: {fileID: 8586312251531960917}
   bulletImpactVFXFlesh: {fileID: 6501286607673758040}
@@ -4126,7 +4126,7 @@ MonoBehaviour:
   laser: {fileID: 6802861311568860718}
   laserLayerMask:
     serializedVersion: 2
-    m_Bits: 2496
+    m_Bits: 3520
   barrelFlash: {fileID: 7130625560813785241}
   shotAudio: {fileID: 0}
   reloadSFX: {fileID: 214875184959339473}
@@ -4137,7 +4137,7 @@ MonoBehaviour:
   reloadTime: 2
   laserHealingLayerMask:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 1472
   firePoint: {fileID: 4314484209983252137}
   lineRenderer: {fileID: 2964405965255687634}
   damage: 25
@@ -12285,7 +12285,6 @@ GameObject:
   - component: {fileID: 4552270140176820842}
   - component: {fileID: 8066930870368267875}
   - component: {fileID: 3730679216946032009}
-  - component: {fileID: 4552270140176820847}
   - component: {fileID: 4552270140176820846}
   - component: {fileID: 476945106666560370}
   - component: {fileID: 1147107980440345464}
@@ -12297,6 +12296,7 @@ GameObject:
   - component: {fileID: 5330016869906800304}
   - component: {fileID: 2167413232397879873}
   - component: {fileID: 2609666725975124745}
+  - component: {fileID: 5323007610541968648}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -12635,7 +12635,7 @@ MonoBehaviour:
   playerInfo:
     hp: 100
     maxHp: 100
-    speed: 5
+    speed: 10
     throwStrength: 200
     kickArmorShred: 0
     kickCooldown: 0
@@ -12669,8 +12669,6 @@ MonoBehaviour:
   throwSFX: {fileID: 5330016869906800304}
   pickupSFX: {fileID: 4115803945505991303}
   playerSpriteObject: {fileID: 4559901809658873632}
-  soldierAnimations: {fileID: 9100000, guid: 6e2b9f537c1938d4c8e946919e88c38e, type: 2}
-  scientistAnimations: {fileID: 9100000, guid: 6e2b9f537c1938d4c8e946919e88c38e, type: 2}
   soldierSprite: {fileID: -824162166, guid: af360dfa64a878041a5d788bc0e6bd9f, type: 3}
   scientistSprite: {fileID: -824162166, guid: af360dfa64a878041a5d788bc0e6bd9f, type: 3}
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
@@ -12726,32 +12724,6 @@ MonoBehaviour:
   stim: {fileID: -203843098171783256, guid: b97bf384e5fa4ae47a2ead3dded33677, type: 3}
   changeEquipmentSFX: {fileID: 2167413232397879873}
   throwEquipmentSFX: {fileID: 2609666725975124745}
---- !u!61 &4552270140176820847
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4552270140176820845}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.6, y: 1}
-  m_EdgeRadius: 0
 --- !u!50 &4552270140176820846
 Rigidbody2D:
   serializedVersion: 4
@@ -12769,7 +12741,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 71dc607c3a0a72740a867f4d925aa8f7, type: 2}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -13733,6 +13705,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!70 &5323007610541968648
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4552270140176820845}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.2872666}
+  m_Size: {x: 0.5, y: 1.5745332}
+  m_Direction: 0
 --- !u!1 &4552270140534223472
 GameObject:
   m_ObjectHideFlags: 0
@@ -13842,8 +13830,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 1
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 2
   m_AntialiasingQuality: 1
   m_StopNaN: 0
   m_Dithering: 0
@@ -23085,7 +23073,7 @@ MonoBehaviour:
   laser: {fileID: 6802861311568860718}
   laserLayerMask:
     serializedVersion: 2
-    m_Bits: 2496
+    m_Bits: 3520
   barrelFlash: {fileID: 7130625560813785241}
   shotAudio: {fileID: 0}
   reloadSFX: {fileID: 1678296811217670740}

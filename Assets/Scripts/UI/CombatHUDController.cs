@@ -37,6 +37,11 @@ public class CombatHUDController : MonoBehaviour
 
         gunController = playerController.gunController;
     }
+    private void LateUpdate()
+    {
+        if (!active) return;
+        reload.transform.position = (Vector2)playerController.transform.position + reloadOffset;
+    }
 
     private void Update()
     {
@@ -47,7 +52,7 @@ public class CombatHUDController : MonoBehaviour
         bulletTypeSprite.sprite = gunController.GetCurrentGun().GetAmmoIcon();
         bulletsAmount.text = (gunController.GetCurrentGun().GetAmmoAmount());
 
-        reload.transform.position = (Vector2)playerController.transform.position + reloadOffset;
+
     }
 
     public void UpdateReload(float progress)

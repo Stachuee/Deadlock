@@ -146,14 +146,14 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
     {
         if(lights == null) lights = new List<PowerInterface>();
         this.lights.Add(light);
-        light.PowerOn(lightsPowered || !createFuse, sectorName);
+        //light.PowerOn(lightsPowered || !createFuse, sectorName); // temp fix
     }
 
     public void AddLight(List<PowerInterface> light)
     {
         if (lights == null) lights = new List<PowerInterface>();
         this.lights.AddRange(light);
-        lights.ForEach(x => x.PowerOn(lightsPowered || !createFuse, sectorName));
+        //lights.ForEach(x => x.PowerOn(lightsPowered || !createFuse, sectorName)); // temp fix
     }
 
     public void AddDoors(PowerInterface doors)

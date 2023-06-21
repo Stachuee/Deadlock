@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -116,9 +115,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     Animator playerAnimator;
     SpriteRenderer playerSpriteRenderer;
 
-    [SerializeField] AnimatorController soldierAnimations;
-    [SerializeField] AnimatorController scientistAnimations;
-
     [SerializeField] Sprite soldierSprite;
     [SerializeField] Sprite scientistSprite;
 
@@ -173,12 +169,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         if (scientist)
         {
-            playerAnimator.runtimeAnimatorController = scientistAnimations;
+            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("scientist/scientist_animator");
             playerSpriteRenderer.sprite = scientistSprite;
         }
         else
         {
-            playerAnimator.runtimeAnimatorController = soldierAnimations;
+            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("scientist/scientist_animator");
             playerSpriteRenderer.sprite = soldierSprite;
         }
     }
@@ -278,7 +274,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             }
         }
 
-        if(moveDirection != Vector2.zero && !footstepSFX.isPlaying)
+        if(moveDirection != Vector2.zero && !footstepSFX.isPlaying && !dead && !lockedInAnimation)
         {
             playerAnimator.SetBool("isRunning", true);
             footstepSFX.volume = Random.Range(0.8f, 1);
