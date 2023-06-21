@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 102
   itemName: Harpoons
-  defaultSprite: {fileID: 21300000, guid: a633443022605a040aeb247f36a48587, type: 3}
-  icon: {fileID: 21300000, guid: a633443022605a040aeb247f36a48587, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 5c8dcf9efc2ae2f43a53b649bc9545ef, type: 3}
+  icon: {fileID: 21300000, guid: 5c8dcf9efc2ae2f43a53b649bc9545ef, type: 3}
   itemDesc: This ammo penetrates foes, but can get stuck on more armored ones.
   ammoCount: 20
   weapon: 5

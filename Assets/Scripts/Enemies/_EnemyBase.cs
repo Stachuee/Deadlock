@@ -68,9 +68,23 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         if (damaging == null && (collision.transform.tag == "Interactable" || collision.transform.tag == "Player"))
         {
             ITakeDamage temp = collision.transform.GetComponent<ITakeDamage>();
-            if (temp != null && !temp.IsImmune())
+            if ( temp != null && !temp.IsImmune())
             {
-                damaging = temp;
+                if(temp is ITakeDamageInteractable)
+                {
+                    if((temp as ITakeDamageInteractable).AlwaysAttack())
+                    {
+                        damaging = temp;
+                    }
+                    else if(Mathf.Abs(currentTargetNode.transform.position.x - transform.position.x) < 1.5f) // workaround on attacking doors
+                    {
+                        damaging = temp;
+                    }
+                }
+                else
+                {
+                    damaging = temp;
+                }
             }
         }
     }

@@ -311,7 +311,7 @@ public class NavController : MonoBehaviour
             NavNode myNode = door.GetComponentInChildren<NavNode>();
             if(myNode != null)
             {
-                DoorMarker connected = doors.Find(toFind => Vector2.Distance(door.transform.position, toFind.transform.position) < 0.1f && door != toFind);
+                DoorMarker connected = doors.Find(toFind => Vector2.Distance(door.transform.position, toFind.transform.position) < 0.3f && door != toFind);
                 NavNode redundant = connected.GetComponentInChildren<NavNode>();
 
                 Instantiate(doorsBetweenRooms, door.transform.position, Quaternion.identity, spawnDoorsUnder).GetComponent<DoorsBetweenRooms>().SetParrents(door.GetComponentInParent<Rooms>(),

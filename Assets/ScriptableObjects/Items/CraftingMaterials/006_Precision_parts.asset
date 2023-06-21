@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 6
   itemName: Precision parts
-  defaultSprite: {fileID: 21300000, guid: 7b169e62c28b97c46834efb6571c3b6b, type: 3}
-  icon: {fileID: 21300000, guid: 7b169e62c28b97c46834efb6571c3b6b, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 5c8dcf9efc2ae2f43a53b649bc9545ef, type: 3}
+  icon: {fileID: 21300000, guid: 5c8dcf9efc2ae2f43a53b649bc9545ef, type: 3}
   itemDesc: 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StairsScript : PoweredInteractable, ITakeDamage
+public class StairsScript : PoweredInteractable, ITakeDamageInteractable
 {
 
     [SerializeField]
@@ -210,4 +210,8 @@ public class StairsScript : PoweredInteractable, ITakeDamage
         return new ComputerInfoContainer() { hp = hp, maxHp = maxHp, showHp = true, name = displayName, showCharge = true, charged = powered };
     }
 
+    public bool AlwaysAttack()
+    {
+        return false;
+    }
 }

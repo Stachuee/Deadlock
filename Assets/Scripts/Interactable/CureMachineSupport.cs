@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum CureMachineSupportType {Water, Heat, Samples }
 
-public class CureMachineSupport : PoweredInteractable, ITakeDamage
+public class CureMachineSupport : PoweredInteractable, ITakeDamageInteractable
 {
     [SerializeField] float maxHp;
     [SerializeField] float hp;
@@ -94,5 +94,10 @@ public class CureMachineSupport : PoweredInteractable, ITakeDamage
             anim.SetBool("Broken", false);
         }
         return ammount;
+    }
+
+    public bool AlwaysAttack()
+    {
+        return true;
     }
 }
