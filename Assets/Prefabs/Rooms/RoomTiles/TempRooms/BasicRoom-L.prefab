@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -100
-  m_Sprite: {fileID: 21300000, guid: 89a71b65b1ebd604c9295f18e3629249, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 253d2421be5d49f4fbe2a8c6022f3890, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,12 +134,12 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -6.4050674, y: 3.1223717}
-  - {x: -5.8407907, y: 3.1119637}
-  - {x: -4.768777, y: 3.1226451}
-  - {x: 5.965684, y: 3.1330535}
-  - {x: 5.976796, y: -0.0946846}
-  - {x: 5.962959, y: -3.207572}
+  - {x: -6.3972645, y: 0.44586372}
+  - {x: -6.1919374, y: 0.4354539}
+  - {x: -6.181163, y: 3.3567417}
+  - {x: 6.1841745, y: 3.3515441}
+  - {x: 6.1874833, y: 0.43083954}
+  - {x: 6.1510415, y: -3.3014555}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -160,8 +160,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -6.433792, y: -3.1922643}
-  - {x: 5.946846, y: -3.178738}
+  - {x: -6.394953, y: -3.2854803}
+  - {x: 6.403107, y: -3.293038}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -186,17 +186,19 @@ MonoBehaviour:
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
-  - {x: -6.4853477, y: 3.5917215, z: 0}
+  - {x: -6.3989124, y: 3.5951767, z: 0}
   - {x: 6.415825, y: 3.5839548, z: 0}
   - {x: 6.4115295, y: -3.6193044, z: 0}
   - {x: -6.3985367, y: -3.6090913, z: 0}
-  - {x: -6.421856, y: -3.1600547, z: 0}
-  - {x: 6.003624, y: -3.198897, z: 0}
-  - {x: 6.0299835, y: 3.2470016, z: 0}
-  - {x: -6.410038, y: 3.2455692, z: 0}
-  m_ShapePathHash: -403190975
+  - {x: -6.399172, y: -3.2870846, z: 0}
+  - {x: 6.1522236, y: -3.2924595, z: 0}
+  - {x: 6.195798, y: 3.3561974, z: 0}
+  - {x: -6.1853065, y: 3.356205, z: 0}
+  - {x: -6.1958427, y: 0.44893074, z: 0}
+  - {x: -6.396368, y: 0.44200897, z: 0}
+  m_ShapePathHash: -354591685
   m_Mesh: {fileID: 0}
-  m_InstanceId: 66590
+  m_InstanceId: 184548
 --- !u!1 &5607365666210991003
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +250,7 @@ MonoBehaviour:
   roomSize: {x: 5, y: 3}
   startingRoom: 0
   roomEvents: []
-  position: {x: 47.75, y: 5.75}
+  position: {x: 38.25, y: 12.75}
 --- !u!1001 &4411920622181657725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -328,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -6.37
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.y

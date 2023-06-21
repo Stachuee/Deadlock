@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -100
-  m_Sprite: {fileID: 21300000, guid: 89a71b65b1ebd604c9295f18e3629249, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f99a4f0fc87493141b88249b63e6c5b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -160,8 +160,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -6.429303, y: -3.157326}
-  - {x: 6.463335, y: -3.191357}
+  - {x: -6.396728, y: -3.2943623}
+  - {x: 6.3966594, y: -3.2988684}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -192,7 +192,7 @@ MonoBehaviour:
   - {x: -6.3661194, y: 3.1961143, z: 0}
   m_ShapePathHash: 1189014516
   m_Mesh: {fileID: 0}
-  m_InstanceId: 58282
+  m_InstanceId: 202030
 --- !u!1 &1983567303784746072
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
   roomSize: {x: 5, y: 3}
   startingRoom: 1
   roomEvents: []
-  position: {x: 0, y: -1.75}
+  position: {x: 0, y: -2.25}
 --- !u!1 &7253420935606603764
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   - {x: 6.394187, y: -3.585167, z: 0}
   m_ShapePathHash: -1459521495
   m_Mesh: {fileID: 0}
-  m_InstanceId: 58276
+  m_InstanceId: 202026
 --- !u!1001 &1046679515157979428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -555,7 +555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 6.4
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -617,7 +617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -6.388
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.y

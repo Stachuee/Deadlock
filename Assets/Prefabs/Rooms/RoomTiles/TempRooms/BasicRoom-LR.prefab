@@ -52,13 +52,13 @@ MonoBehaviour:
   m_SelfShadows: 1
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
-  - {x: -6.4069376, y: -3.628909, z: 0}
-  - {x: -6.382678, y: -3.0874062, z: 0}
-  - {x: 6.452721, y: -3.0888858, z: 0}
+  - {x: -6.3632336, y: -3.6179829, z: 0}
+  - {x: -6.382677, y: -3.3387146, z: 0}
+  - {x: 6.4254055, y: -3.3292656, z: 0}
   - {x: 6.4269824, y: -3.6276531, z: 0}
-  m_ShapePathHash: -1630604663
+  m_ShapePathHash: -545134138
   m_Mesh: {fileID: 0}
-  m_InstanceId: 65542
+  m_InstanceId: 183328
 --- !u!1 &5135539266931263279
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -100
-  m_Sprite: {fileID: 21300000, guid: 01616904f0164154b97644f0176e27a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59f820cb791f4b041ad88e6ee032f9b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -193,12 +193,12 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -6.3910503, y: 3.185113}
-  - {x: -5.5540266, y: 3.185113}
-  - {x: -5.0631685, y: 3.1864898}
-  - {x: 4.8699923, y: 3.184384}
-  - {x: 5.8464446, y: 3.1837401}
-  - {x: 6.4188538, y: 3.185186}
+  - {x: -6.4019356, y: 0.4310217}
+  - {x: -6.1863413, y: 0.43035984}
+  - {x: -6.1841993, y: 3.3707683}
+  - {x: 6.180421, y: 3.358424}
+  - {x: 6.2006373, y: 0.42729902}
+  - {x: 6.398609, y: 0.42740583}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -219,8 +219,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -6.441885, y: -3.0268128}
-  - {x: 6.409482, y: -3.0268133}
+  - {x: -6.3956337, y: -3.2877991}
+  - {x: 6.399741, y: -3.2846963}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -246,12 +246,16 @@ MonoBehaviour:
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
   - {x: -6.3988495, y: 3.5958662, z: 0}
-  - {x: 6.4261894, y: 3.5963736, z: 0}
-  - {x: 6.40814, y: 3.1984072, z: 0}
-  - {x: -6.446602, y: 3.2090397, z: 0}
-  m_ShapePathHash: -386914039
+  - {x: 6.399317, y: 3.598442, z: 0}
+  - {x: 6.39946, y: 0.43063164, z: 0}
+  - {x: 6.2007523, y: 0.42845917, z: 0}
+  - {x: 6.181019, y: 3.3665276, z: 0}
+  - {x: -6.173996, y: 3.3702736, z: 0}
+  - {x: -6.187605, y: 0.43608475, z: 0}
+  - {x: -6.400898, y: 0.4384613, z: 0}
+  m_ShapePathHash: 959812629
   m_Mesh: {fileID: 0}
-  m_InstanceId: 65526
+  m_InstanceId: 183316
 --- !u!1 &5607365666210991003
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +309,7 @@ MonoBehaviour:
   roomSize: {x: 5, y: 3}
   startingRoom: 0
   roomEvents: []
-  position: {x: -13, y: 7.75}
+  position: {x: -25.5, y: 20}
 --- !u!1001 &4427782690672155647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -319,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -6.38
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -381,7 +385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 6.38
       objectReference: {fileID: 0}
     - target: {fileID: 2242799215085749355, guid: 6013d5348c1bea54898ae5bb48d8a4e9, type: 3}
       propertyPath: m_LocalPosition.y
