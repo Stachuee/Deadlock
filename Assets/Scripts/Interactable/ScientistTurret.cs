@@ -45,6 +45,8 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     float trailDisapearTimer;
     bool trailShown;
 
+    [SerializeField] AudioSource shotSFX;
+
 
 
 
@@ -187,6 +189,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         RaycastHit2D hit;
         if (hit = Physics2D.Raycast(barrelTransform.position, new Vector2(Mathf.Cos(rot_z * Mathf.Deg2Rad), Mathf.Sin(rot_z * Mathf.Deg2Rad)), 100, enemyLayer))
         {
+            shotSFX.Play();
             Debug.Log(hit.transform.name);
             gunTrail.SetPosition(0, barrelTransform.position);
             gunTrail.SetPosition(1, hit.point);
@@ -208,6 +211,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         if (hit = Physics2D.Raycast(barrelTransform.position, target.position - gunBarrel.position, 100, enemyLayer))
         {
             gunTrail.SetPosition(0, barrelTransform.position);
+            shotSFX.Play();
             gunTrail.SetPosition(1, hit.point);
             trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
             gunTrail.transform.gameObject.SetActive(true);

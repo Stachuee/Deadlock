@@ -28,6 +28,8 @@ public class Printer : PoweredInteractable, IGetHandInfo
     [SerializeField] GameObject donePrint;
     [SerializeField] ParticleSystem particles;
 
+    [SerializeField] AudioSource printedSFX;
+ 
     protected override void Awake()
     {
         base.Awake();
@@ -51,6 +53,7 @@ public class Printer : PoweredInteractable, IGetHandInfo
                 animator.SetBool("Done", true);
                 donePrint.SetActive(true);
                 particles.Play();
+                printedSFX.Play();
             }
             craftingBar.transform.localPosition = Vector2.Lerp(startBarPos, endBarPos, 1 - (productionRemain / baseProduction));
         }
