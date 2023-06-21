@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         }
         else
         {
-            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("scientist/scientist_animator");
+            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("soldier/soldier_animator");
             playerSpriteRenderer.sprite = soldierSprite;
         }
     }
@@ -424,7 +424,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         jumping = context.ReadValueAsButton();
         //myBody.AddForce(new Vector2(0, 200));
-        jumpSFX.Play();
+        //jumpSFX.Play();
     }
 
     public void OnShoot(InputAction.CallbackContext context)

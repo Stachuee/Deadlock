@@ -4883,6 +4883,7 @@ GameObject:
   - component: {fileID: 5812312203392957548}
   - component: {fileID: 5812312203392957549}
   - component: {fileID: 8752612074931551665}
+  - component: {fileID: 395210510793220574}
   m_Layer: 9
   m_Name: FlyingSpitter
   m_TagString: Enemy
@@ -4899,7 +4900,7 @@ Transform:
   m_GameObject: {fileID: 5812312203392957550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.38, y: 4.47, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5812312202363441828}
@@ -5030,6 +5031,26 @@ MonoBehaviour:
   lineOfSightMask:
     serializedVersion: 2
     m_Bits: 384
+--- !u!95 &395210510793220574
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812312203392957550}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0ec1c1ce3baaa5409237c0ac6fa5af4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7020146825821971254
 GameObject:
   m_ObjectHideFlags: 0

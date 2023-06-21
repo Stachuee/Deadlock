@@ -12,6 +12,12 @@ public class FlyingSpitter : ActiveEnemy
     [SerializeField] Transform mouth;
     [SerializeField] LayerMask lineOfSightMask;
 
+    Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     protected override void Update()
     {
         base.Update();
@@ -22,6 +28,7 @@ public class FlyingSpitter : ActiveEnemy
             RaycastHit2D lineOfSight = Physics2D.Raycast(mouth.position, direction, Mathf.Infinity, ~lineOfSightMask);
             if (lineOfSight)
             {
+                animator.SetTrigger("attack");
                 GameObject temp = Instantiate(spitProjectal, mouth.position, Quaternion.identity);
                 //temp.GetComponent<Rigidbody2D>().AddForce(direction)
                 //temp.transform.right = direction;
