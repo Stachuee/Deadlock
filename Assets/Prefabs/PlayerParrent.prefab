@@ -30190,6 +30190,14 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1221183865947119676, guid: 61d639bb8d24b0f40a11e762490040e9, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1221183865947119676, guid: 61d639bb8d24b0f40a11e762490040e9, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1221183865947119677, guid: 61d639bb8d24b0f40a11e762490040e9, type: 3}
       propertyPath: m_SortingOrder
       value: 5
