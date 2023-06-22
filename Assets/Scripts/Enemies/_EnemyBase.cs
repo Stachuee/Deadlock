@@ -62,6 +62,9 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
     protected Rigidbody2D rb;
 
+    protected Animator animator;
+    protected SpriteRenderer spriteRenderer;
+
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
@@ -105,6 +108,8 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected virtual void Awake()
     {
         rb = GetComponentInChildren<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     
     protected virtual void Start()
@@ -229,6 +234,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
                 damaging = null;
                 return;
             }
+            animator.SetTrigger("attack");
             damaging.TakeDamage(damage, DamageSource.Enemy);
             lastAttack = Time.time;
         }

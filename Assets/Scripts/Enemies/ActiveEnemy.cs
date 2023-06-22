@@ -81,11 +81,11 @@ public abstract class ActiveEnemy : _EnemyBase
         rb.velocity = direction.normalized * speed + new Vector2(0, rb.velocity.y);
         if (direction.x > currentTargetNode.transform.position.x)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            spriteRenderer.flipX = true;
         }
         else
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            spriteRenderer.flipX = false;
         }
 
         if (Mathf.Abs(transform.position.x - currentTargetNode.transform.position.x) < 0.2f)

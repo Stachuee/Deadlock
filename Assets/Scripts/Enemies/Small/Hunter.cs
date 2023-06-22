@@ -15,6 +15,7 @@ public class Hunter : ActiveEnemy
         if(rb.velocity.y < 0.1f)
         {
             inAir = false;
+            animator.SetTrigger("endFlying");
         }
         else
         {
