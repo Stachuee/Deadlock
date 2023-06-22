@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour, DangerLevelIncrease
 {
     public static DialogueManager instance;
 
@@ -11,6 +11,8 @@ public class DialogueManager : MonoBehaviour
     List<Dialogue> newItemDialogues;
     [SerializeField]
     List<Dialogue> quipDialogues;
+    [SerializeField]
+    List<Dialogue> dangerLevelIncrease;
     [SerializeField]
     Dialogue startingDialogue;
 
@@ -28,9 +30,15 @@ public class DialogueManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        PacingController.pacingController.AddToNotify(this);
+        PlayDialogue(startingDialogue, true);
+    }
+
     public void StartQuips()
     {
-        PlayDialogue(startingDialogue, true);
+        
         StartCoroutine("NewQuip");
     }
 
@@ -54,6 +62,7 @@ public class DialogueManager : MonoBehaviour
                 PlayDialogue(newItemDialogues[Random.Range(0, newItemDialogues.Count)], cutPlaying);
                 break;
             case Dialogue.Trigger.Random:
+                if (quipDialogues.Count == 0) break;
                 Dialogue chosen = quipDialogues[Random.Range(0, quipDialogues.Count)];
                 quipDialogues.Remove(chosen);
                 PlayDialogue(chosen, cutPlaying);
@@ -63,19 +72,19 @@ public class DialogueManager : MonoBehaviour
 
     public void PlayDialogue(Dialogue toPlay, bool cutPlaying)
     {
-        //if (toPlay.GetToShow() == Dialogue.ShowTo.Scientist && !(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
-        //{
-        //    dialogueLisnerScientist.ShowDialogue(toPlay);
-        //}
-        //else if (toPlay.GetToShow() == Dialogue.ShowTo.Solider && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
-        //{
-        //    dialogueLisnerSolider.ShowDialogue(toPlay);
-        //}
-        //else if(!(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying) && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
-        //{
-        //    dialogueLisnerScientist.ShowDialogue(toPlay);
-        //    dialogueLisnerSolider.ShowDialogue(toPlay);
-        //}
+        if (toPlay.GetToShow() == Dialogue.ShowTo.Scientist && !(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
+        {
+            dialogueLisnerScientist.ShowDialogue(toPlay);
+        }
+        else if (toPlay.GetToShow() == Dialogue.ShowTo.Solider && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
+        {
+            dialogueLisnerSolider.ShowDialogue(toPlay);
+        }
+        else if (!(dialogueLisnerScientist.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying) && !(dialogueLisnerSolider.GetStatus() == DialogueUI.DialogueStatus.Playing && !cutPlaying))
+        {
+            dialogueLisnerScientist.ShowDialogue(toPlay);
+            dialogueLisnerSolider.ShowDialogue(toPlay);
+        }
     }
 
 
@@ -92,4 +101,8 @@ public class DialogueManager : MonoBehaviour
         
     }
 
+    public void IncreaseLevel(int level)
+    {
+        PlayDialogue(dangerLevelIncrease[level], false);
+    }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PacingController : MonoBehaviour, ICureLevelIncrease
+public class PacingController : MonoBehaviour
 {
     public static PacingController pacingController;
 
-
+    public float hpModifier;
     [SerializeField]
     float pacing;
     [SerializeField] float pacingOverTimeIncrease;
@@ -38,19 +38,26 @@ public class PacingController : MonoBehaviour, ICureLevelIncrease
 
     public static bool wave;
 
+
+
+    [SerializeField]
+    List<DangerLevelSO> dangerLevels;
+    List<DangerLevelIncrease> toNotify = new List<DangerLevelIncrease>();
+    [SerializeField] int dangerLevel;
+    public static DangerLevelSO currentDangerLevel;
+    public float dangerLevelTime;
+
+
     private void Awake()
     {
         if (pacingController == null) pacingController = this;
         else Destroy(gameObject);
+        dangerLevel = -1;
 
         dormantSpawners = FindObjectsOfType<DormantSpawner>().ToList();
     }
 
-    private void Start()
-    {
-        ProgressStageController.instance.AddToNotify(this);
-    }
-
+    
 
     private void Update()
     {
@@ -85,23 +92,40 @@ public class PacingController : MonoBehaviour, ICureLevelIncrease
                 respiteCurrentDuration = 0;
             }
         }
+
+        if(currentDangerLevel != null && dangerLevelTime > currentDangerLevel.GetDangerZoneTimer())
+        {
+            IncreaseLevel();
+        }
+
+        dangerLevelTime += Time.deltaTime;
     }
 
-    public void IncreaseLevel(int level)
+    public void StartGame()
     {
-        targetPacing = GameController.currentDangerLevel.GetTargetPacing();
-        pacingFalloff = GameController.currentDangerLevel.GetPacingFallof();
-        minNestSpawnCooldown = GameController.currentDangerLevel.GetMinNestSpawnCooldown();
-        createNests = GameController.currentDangerLevel.GetSpwanNewNest();
-        newNestChance = GameController.currentDangerLevel.GetNewNestChance();
+        IncreaseLevel();
+    }
 
-        waveDuration = GameController.currentDangerLevel.GetWaveDuration();
-        respiteCurrentDuration = GameController.currentDangerLevel.GetRespiteDuration();
+    public void IncreaseLevel()
+    {
+        EffectManager.instance.ScreenShake(3, EffectManager.ScreenShakeRange.Global, EffectManager.ScreenShakeStrength.Weak, Vector2.zero);
+        if(currentDangerLevel != null) dangerLevelTime -= currentDangerLevel.GetDangerZoneTimer();
+        dangerLevel++;
+        currentDangerLevel = dangerLevels.Find(x => x.GetDangerLevel() == dangerLevel && x.GetDifficulty() == GameController.difficulty);
+        targetPacing = currentDangerLevel.GetTargetPacing();
+        pacingFalloff = currentDangerLevel.GetPacingFallof();
+        minNestSpawnCooldown = currentDangerLevel.GetMinNestSpawnCooldown();
+        createNests = currentDangerLevel.GetSpwanNewNest();
+        newNestChance = currentDangerLevel.GetNewNestChance();
+        hpModifier = currentDangerLevel.GetHpModifier();
+        waveDuration = currentDangerLevel.GetWaveDuration();
+        respiteCurrentDuration = currentDangerLevel.GetRespiteDuration();
 
         pacing = Mathf.Max(pacing, targetPacing);
         lastPaceCheck = Time.time;
         active = true;
         wave = true;
+        Notify();
     }
 
     public void TriggerEvent()
@@ -131,6 +155,20 @@ public class PacingController : MonoBehaviour, ICureLevelIncrease
     public void IncreasePacing(float ammount)
     {
         pacing += ammount;
+    }
+
+
+    public void AddToNotify(DangerLevelIncrease target)
+    {
+        toNotify.Add(target);
+    }
+
+    public void Notify()
+    {
+        toNotify.ForEach(x =>
+        {
+            x.IncreaseLevel(dangerLevel);
+        });
     }
 
 }

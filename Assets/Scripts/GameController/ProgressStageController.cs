@@ -9,6 +9,8 @@ public struct ProgressLevel
     public float timeToCompleate;
     public List<CureMachineSupportType> machinesRequired;
     public List<ItemSO> itemsNeeded;
+    public float speedupUponCompleate;
+    public bool isLast;
 }
 
 
@@ -18,6 +20,7 @@ public class ProgressStageController : MonoBehaviour
 
    
     [SerializeField] int progressLevel;
+
     [SerializeField] float currentProgress;
     [SerializeField] float progressRequired;
 
@@ -25,9 +28,6 @@ public class ProgressStageController : MonoBehaviour
     [SerializeField] bool machineSupportFilled;
     [SerializeField] bool machineItemsFilled;
 
-
-
-    List<ICureLevelIncrease> toNotify = new List<ICureLevelIncrease>();
 
     public static List<ItemSO> toDrop = new List<ItemSO>();
 
@@ -54,8 +54,8 @@ public class ProgressStageController : MonoBehaviour
     public void StartGame()
     {
         if (started) return;
-        EffectManager.instance.ScreenShake(3, EffectManager.ScreenShakeRange.Global, EffectManager.ScreenShakeStrength.Weak, Vector2.zero);
         started = true;
+        PacingController.pacingController.StartGame();
         NextLevel();
         //SpawnerController.instance.StartSpawning();
         MapSegment.scientistSegment.ScientistSegmentUnlock();
@@ -64,23 +64,23 @@ public class ProgressStageController : MonoBehaviour
 
     private void NextLevel()
     {
-        if (GameController.currentDangerLevel != null && GameController.currentDangerLevel.IsLast())
+        if (progressLevel >= 0 && progressLevels[progressLevel].isLast)
         {
             Debug.Log("Win");
         }
         else
         {
             progressLevel++;
-            currentProgress = 0;
-            GameController.gameController.IncreaseLevel(progressLevel);
-            machineSupportFilled = GameController.currentDangerLevel.GetProgressRequired().machinesRequired.Count == 0;
-            machineItemsFilled = GameController.currentDangerLevel.GetProgressRequired().itemsNeeded.Count == 0;
-            CureMachine.Instance.SetCurrentUssage(new List<CureMachineSupportType>(GameController.currentDangerLevel.GetProgressRequired().machinesRequired));
-            CureMachine.Instance.SetCurrentItemUssage(new List<ItemSO>(GameController.currentDangerLevel.GetProgressRequired().itemsNeeded));
-            progressRequired = GameController.currentDangerLevel.GetProgressRequired().timeToCompleate;
+            PacingController.pacingController.dangerLevelTime += progressLevels[progressLevel].speedupUponCompleate;
 
-            toDrop.AddRange(GameController.currentDangerLevel.GetNewItems());
-            Notify();
+            currentProgress = 0;
+            machineSupportFilled = progressLevels[progressLevel].machinesRequired.Count == 0;
+            machineItemsFilled = progressLevels[progressLevel].itemsNeeded.Count == 0;
+            CureMachine.Instance.SetCurrentUssage(new List<CureMachineSupportType>(progressLevels[progressLevel].machinesRequired));
+            CureMachine.Instance.SetCurrentItemUssage(new List<ItemSO>(progressLevels[progressLevel].itemsNeeded));
+            progressRequired = progressLevels[progressLevel].timeToCompleate;
+
+            toDrop.AddRange(PacingController.currentDangerLevel.GetNewItems());
         }
     }
 
@@ -119,16 +119,5 @@ public class ProgressStageController : MonoBehaviour
         return progressLevel;
     }
 
-    public void AddToNotify(ICureLevelIncrease target)
-    {
-        toNotify.Add(target);
-    }
 
-    public void Notify()
-    {
-        toNotify.ForEach(x =>
-        {
-            x.IncreaseLevel(progressLevel);
-        });
-    }
 }

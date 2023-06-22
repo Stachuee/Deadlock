@@ -49,6 +49,7 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitForSeconds(playing.GetDialouge()[step].timeOnScreen);
             step++;
         }
+        playing = null;
         parrent.gameObject.SetActive(false);
     }
 }

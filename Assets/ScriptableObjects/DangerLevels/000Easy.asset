@@ -25,13 +25,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fc3d33771602dc3438b18f2f126a7454, type: 2}
   - {fileID: 11400000, guid: 70bed30c773f1524ab1477e65c90381c, type: 2}
   newEnemiesSide: []
-  requiredToNextLevel:
-    timeToCompleate: 60
-    machinesRequired: 
-    itemsNeeded:
-    - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
-    - {fileID: 11400000, guid: f763bcfc2a037564e9f32b6a0bbfcb58, type: 2}
-  lastLevel: 0
+  dangerZoneTimer: 120
+  hpModifier: 1
   spawnNewNests: 0
   minNestSpawnCooldown: 1
   newNestChance: 1

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SealedDoor : MonoBehaviour, ICureLevelIncrease
+public class SealedDoor : MonoBehaviour, DangerLevelIncrease
 {
     [SerializeField] int unlockAtCureLevel;
 
@@ -10,7 +10,7 @@ public class SealedDoor : MonoBehaviour, ICureLevelIncrease
 
     private void Start()
     {
-        ProgressStageController.instance.AddToNotify(this);
+        PacingController.pacingController.AddToNotify(this);
         mySpawner = transform.GetComponentInChildren<Spawner>();
     }
 

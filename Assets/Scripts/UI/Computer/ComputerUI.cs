@@ -368,7 +368,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
                 if(controllingObject.CanTakeControll())
                 {
                     controlling = true;
-                    playerController.cameraController.ChangeTarget(Highlighted.GetTransform());
+                    //playerController.cameraController.ChangeTarget(Highlighted.GetTransform());
                     Highlighted = null;
                 }
             }

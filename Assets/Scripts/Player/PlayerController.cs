@@ -513,7 +513,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
         //if (!context.started) return;
-        if (dead) return;
+        //if (dead) return;
         if (context.ReadValueAsButton())
         {
             inventorySelector.OpenInventory();

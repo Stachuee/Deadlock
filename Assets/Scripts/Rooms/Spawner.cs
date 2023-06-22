@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : InteractableBase, ICureLevelIncrease
+public class Spawner : InteractableBase, DangerLevelIncrease
 {
 
     protected readonly float PACING_LOCK = 5f;
@@ -28,7 +28,7 @@ public class Spawner : InteractableBase, ICureLevelIncrease
     private void Start()
     {
         SpawnerController.instance.AddSpawner(this);
-        ProgressStageController.instance.AddToNotify(this);
+        PacingController.pacingController.AddToNotify(this);
         StartCoroutine("Spawn");
     }
 
@@ -88,8 +88,8 @@ public class Spawner : InteractableBase, ICureLevelIncrease
         { 
             isActive = true;
         }
-        pacingFalloff = GameController.currentDangerLevel.GetPacingFallof();
-        targetPacing = GameController.currentDangerLevel.GetTargetPacing();
+        pacingFalloff = PacingController.currentDangerLevel.GetPacingFallof();
+        targetPacing = PacingController.currentDangerLevel.GetTargetPacing();
         currentPacing = targetPacing;
     }
 

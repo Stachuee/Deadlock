@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe86c2cdff61c54683295fe30bb20ff, type: 3}
+  m_Name: Danger004
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: Error, error, error. No ...ion, ple... r....
+    speaker: {fileID: 11400000, guid: 4266c27e712dde047a203cc56cf0fccf, type: 2}
+    timeOnScreen: 3
+  nextDialogue: {fileID: 0}
+  toShow: 1
+  trigger: 4

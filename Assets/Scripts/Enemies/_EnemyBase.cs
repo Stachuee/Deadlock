@@ -109,7 +109,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     
     protected virtual void Start()
     {
-        hp = maxHp;
+        hp = maxHp * PacingController.pacingController.hpModifier;
         armorHp = armorMaxHp;
 
         patience += Random.Range(-1, 2);
