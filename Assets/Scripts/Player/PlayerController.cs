@@ -170,12 +170,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (scientist)
         {
             playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("scientist/scientist_animator");
-            playerSpriteRenderer.sprite = scientistSprite;
+            //playerSpriteRenderer.sprite = scientistSprite;
         }
         else
         {
-            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("scientist/scientist_animator");
-            playerSpriteRenderer.sprite = soldierSprite;
+            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("soldier/Soldier");
+            //playerSpriteRenderer.sprite = soldierSprite;
         }
     }
 
@@ -284,10 +284,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             playerAnimator.SetBool("isRunning", false);
 
 
-        if (moveDirection.x > 0)
-            playerSpriteRenderer.flipX = false;
-        else if (moveDirection.x < 0)
-            playerSpriteRenderer.flipX = true;
+        if (currentAimDirection.x > 0)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        //playerSpriteRenderer.flipX = false;
+        else if (currentAimDirection.x < 0)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        //playerSpriteRenderer.flipX = true;
     }
 
 

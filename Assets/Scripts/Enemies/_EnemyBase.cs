@@ -373,6 +373,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
     public void PsiBoost(float duration)
     {
+        if (psiBoosted) return;
         psiBoosted = true;
         psiBoosterTimer = Time.time + duration;
         speed += CombatController.PSI_BOOST_SPEED_INCREASE;
