@@ -1,0 +1,827 @@
+fileFormatVersion: 2
+guid: 372fb05ba3605c04cab2cebb7bec3c36
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1470
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eedc35ae251ede24b8c4ee0ba7a3a39b
+      internalID: -2082052855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_1"
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 1470
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9b56ae7b34927d46b5278b14592a5cc
+      internalID: 389229938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_2"
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 1470
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bd10f5713837604698fd628f15133aa
+      internalID: -1676149759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_3"
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 1470
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13522528041ca0a4693743c534dca6d6
+      internalID: -1349854336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_4"
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 1470
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9893adee4616d7d4d901aeff7dbd88b9
+      internalID: 1496193047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_5"
+      rect:
+        serializedVersion: 2
+        x: 2110
+        y: 1470
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 800cd5bcbd8804d498fa2daa53d799fb
+      internalID: 2116051379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_6"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1176
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5e4bea3699364e45a75cf641ead94de
+      internalID: 572002108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_7"
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 1176
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3762ef6bc4f2193499a17eccca575fb5
+      internalID: -445997278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_8"
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 1176
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d87fb65847b63a4c85d5f2903966e4b
+      internalID: -1382374188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_9"
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 1176
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 503818800d6ffee4e995bbd4b388011a
+      internalID: 1370682716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_10"
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 1176
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e7ce8669225ad746a3a5ddb408c4758
+      internalID: -269005850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_11"
+      rect:
+        serializedVersion: 2
+        x: 2110
+        y: 1176
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33eeeea6061a5b3428ff1fbdc9722c56
+      internalID: -888282263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_12"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 882
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db8a68e10a7db09428f0cf418f43994f
+      internalID: -2050177469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_13"
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 882
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30a2b3777d7700046a56d9968ca72919
+      internalID: 729972694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_14"
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 882
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd65d24223c05ff48a23c91f8541b89d
+      internalID: 1766189582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_15"
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 882
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31000288a6ce74545a932c61e5b238ad
+      internalID: -1450297870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_16"
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 882
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 749ae2b083bb9624cbcb1233d9125776
+      internalID: -262164830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_17"
+      rect:
+        serializedVersion: 2
+        x: 2110
+        y: 882
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f91ffd6b4a11a8f40a5cfd8033276225
+      internalID: -1263838116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_18"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 588
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a5ed8b340584ea4386a43766b8eda3e
+      internalID: 970421032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_19"
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 588
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d72ef8232d1d17f46b7f62a698b6658d
+      internalID: -2068563604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_20"
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 588
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c33e52b9f3e851428cd78293bde1e28
+      internalID: -113744267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_21"
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 588
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b229cbb983ffdb447bd9f23b224f21a8
+      internalID: 228198862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_22"
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 588
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a91368fbc67be14684536123913aa44
+      internalID: 54478317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_23"
+      rect:
+        serializedVersion: 2
+        x: 2110
+        y: 588
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ce53904e2932648b0155eb3752f24b
+      internalID: -974619345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_24"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 294
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b64ddf6ead6e2349b0129917fa06764
+      internalID: 59098750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_25"
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 294
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a5e147c3a1661148885848793842f82
+      internalID: 299728019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_26"
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 294
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74a2686ce03d6cd4aa7c94a26347bcd3
+      internalID: 2040885065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_27"
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 294
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cd43314596b5294eb1452ccd6ddd33f
+      internalID: 2146925795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_28"
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 294
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d547d4a5793103845953ef928e416a6a
+      internalID: -971647985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_29"
+      rect:
+        serializedVersion: 2
+        x: 2110
+        y: 294
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 376f574baf7d6d4498efb9982115a744
+      internalID: 577855442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_30"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83219d8d3e352a344a3cd39316c6780c
+      internalID: 1690819838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_31"
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 0
+        width: 422
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7566e3b2e3aebe14ca860c9453f9df8b
+      internalID: -1610334356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_18": 970421032
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_27": 2146925795
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_6": 572002108
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_0": -2082052855
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_15": -1450297870
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_19": -2068563604
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_17": -1263838116
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_12": -2050177469
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_1": 389229938
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_24": 59098750
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_4": 1496193047
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_8": -1382374188
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_5": 2116051379
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_14": 1766189582
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_7": -445997278
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_25": 299728019
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_10": -269005850
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_31": -1610334356
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_2": -1676149759
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_11": -888282263
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_26": 2040885065
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_9": 1370682716
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_21": 228198862
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_16": -262164830
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_22": 54478317
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_23": -974619345
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_3": -1349854336
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_28": -971647985
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_30": 1690819838
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_29": 577855442
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_13": 729972694
+      "Frog (16 klatka jest maksymalna wysoko\u015Bcia) Long jump_20": -113744267
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

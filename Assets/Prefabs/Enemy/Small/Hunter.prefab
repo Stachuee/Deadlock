@@ -4825,6 +4825,7 @@ GameObject:
   - component: {fileID: 5033393567458476492}
   - component: {fileID: 249360340255838316}
   - component: {fileID: 5033393567458476494}
+  - component: {fileID: 1592331728063431374}
   m_Layer: 9
   m_Name: Hunter
   m_TagString: Enemy
@@ -4967,6 +4968,26 @@ MonoBehaviour:
   huntingTimer: 5
   jumpCooldown: 2
   jumpStrength: 800
+--- !u!95 &1592331728063431374
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5033393567458476495}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8c8648b86fe76c6448313f05e5791e8e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8261324025242770812
 GameObject:
   m_ObjectHideFlags: 0
