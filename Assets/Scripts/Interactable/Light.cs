@@ -37,7 +37,7 @@ public class Light : PoweredInteractable
     override public void PowerOn(bool on, string sectorName)
     {
         //if (!turnOn) return;
-        Debug.Log(on);
+
         if(on)
         {
             myLight.enabled = true ^ inverted;

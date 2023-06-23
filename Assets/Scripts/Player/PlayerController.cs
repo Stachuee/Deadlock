@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public Vector2 currentMoveDirection { get; private set; }
     public Vector2 currentWeaponDirection { get; private set; }
     Vector2 desiredAimDirection = Vector2.zero;
-    public bool keyboard;
+    public bool keyboard { get; private set; }
 
     bool jumping;
 
@@ -92,8 +92,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     int maxItemsHeld = 1;
     List<ItemSO> heldItems = new List<ItemSO>();
 
-    [SerializeField]
-    GameObject UsePrompt;
 
     [Header("Upgrades")]
 
@@ -169,7 +167,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         if (scientist)
         {
-            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("scientist/scientist_animator");
+            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("soldier/Soldier");//"scientist/scientist_animator");
             //playerSpriteRenderer.sprite = scientistSprite;
         }
         else
@@ -254,11 +252,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             {
                 closest.Highlight();
                 uiController.ToHighlight = closest;
-                UsePrompt.SetActive(closest.IsUsable(this));
+                uiController.combatHUDController.ShowUse(closest.IsUsable(this));
             }
             if(closest == null || !closest.IsProximity())
             {
-                UsePrompt.SetActive(false);
+                uiController.combatHUDController.ShowUse(false);
             }
         }
         closestInRange = closest;
@@ -748,7 +746,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void RefreshPrompt()
     {
-        if (closestInRange != null) UsePrompt.SetActive(closestInRange.IsUsable(this));
+        if (closestInRange != null) uiController.combatHUDController.ShowUse(closestInRange.IsUsable(this));
     }
 
 

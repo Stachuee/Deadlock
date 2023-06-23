@@ -5008,7 +5008,7 @@ MonoBehaviour:
   state: 0
   huntingTimer: 3
   explosionRadius: 3
-  explosionDamage: 40
+  explosionDamage: 15
   explosionDuration: 0.1
   explosionRange: 1
   explosionStrength: 0

@@ -102,7 +102,6 @@ public class DangerLevelSO : ScriptableObject
     {
         return hpModifier;
     }
-
     public bool GetSpwanNewNest()
     {
         return spawnNewNests;

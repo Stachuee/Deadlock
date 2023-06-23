@@ -90,6 +90,12 @@ public class MapSegment : MonoBehaviour, DangerLevelIncrease
         {
             TurnOnOffLights(!overloaded);
             locked = false;
+            if (scientistSeg)
+            {
+                TurnOnOff(SwitchType.Printers, true);
+                TurnOnOff(SwitchType.Doors, true);
+                TurnOnOff(SwitchType.Security, true );
+            }
         }
     }
 

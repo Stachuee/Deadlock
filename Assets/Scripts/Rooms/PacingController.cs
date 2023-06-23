@@ -38,7 +38,7 @@ public class PacingController : MonoBehaviour
 
     public static bool wave;
 
-
+    public List<ItemSO> toDrop = new List<ItemSO>();
 
     [SerializeField]
     List<DangerLevelSO> dangerLevels;
@@ -111,7 +111,7 @@ public class PacingController : MonoBehaviour
         EffectManager.instance.ScreenShake(3, EffectManager.ScreenShakeRange.Global, EffectManager.ScreenShakeStrength.Weak, Vector2.zero);
         if(currentDangerLevel != null) dangerLevelTime -= currentDangerLevel.GetDangerZoneTimer();
         dangerLevel++;
-        currentDangerLevel = dangerLevels.Find(x => x.GetDangerLevel() == dangerLevel && x.GetDifficulty() == GameController.difficulty);
+        currentDangerLevel = dangerLevels[dangerLevel];//.Find(x => x.GetDangerLevel() == dangerLevel && x.GetDifficulty() == GameController.difficulty);
         targetPacing = currentDangerLevel.GetTargetPacing();
         pacingFalloff = currentDangerLevel.GetPacingFallof();
         minNestSpawnCooldown = currentDangerLevel.GetMinNestSpawnCooldown();
@@ -120,6 +120,8 @@ public class PacingController : MonoBehaviour
         hpModifier = currentDangerLevel.GetHpModifier();
         waveDuration = currentDangerLevel.GetWaveDuration();
         respiteCurrentDuration = currentDangerLevel.GetRespiteDuration();
+
+        toDrop.AddRange(currentDangerLevel.GetNewItems());
 
         pacing = Mathf.Max(pacing, targetPacing);
         lastPaceCheck = Time.time;
@@ -138,12 +140,12 @@ public class PacingController : MonoBehaviour
 
         if (pacing < targetPacing + pacingOverTime)
         {
-            Debug.Log("normal");
+            //Debug.Log("normal");
             //SpawnerController.instance.SpawnEnemy();
         }
         else
         {
-            Debug.Log("hard");
+            //Debug.Log("hard");
         }
     }
 
@@ -157,7 +159,14 @@ public class PacingController : MonoBehaviour
         pacing += ammount;
     }
 
-
+    public ItemSO DropItem()
+    {
+        if (toDrop.Count > 0)
+        {
+            return toDrop[UnityEngine.Random.Range(0, toDrop.Count)];
+        }
+        return null;
+    }
     public void AddToNotify(DangerLevelIncrease target)
     {
         toNotify.Add(target);

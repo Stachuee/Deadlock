@@ -275,4 +275,10 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         turretAngle = rot_z;
         prevRotz = rot_z;
     }
+
+    public override void PowerOn(bool on, string sectorName)
+    {
+        base.PowerOn(on, sectorName);
+        Debug.LogError(on);
+    }
 }
