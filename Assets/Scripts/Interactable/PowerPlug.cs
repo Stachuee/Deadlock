@@ -97,6 +97,6 @@ public class PowerPlug : InteractableBase
 
     public override bool IsUsable(PlayerController player)
     {
-        return inDeposit != null || player.CheckIfHoldingAny<PowerCoreItem>();
+        return true; //inDeposit != null || player.CheckIfHoldingAny<PowerCoreItem>();
     }
 }

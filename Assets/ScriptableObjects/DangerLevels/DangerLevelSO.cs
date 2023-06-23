@@ -25,8 +25,11 @@ public class DangerLevelSO : ScriptableObject
     [SerializeField] List<EnemySO> newEnemies;
     [SerializeField] List<EnemySO> newEnemiesSide;
 
-    [SerializeField] ProgressLevel requiredToNextLevel;
-    [SerializeField] bool lastLevel;
+    //[SerializeField] ProgressLevel requiredToNextLevel;
+    //[SerializeField] bool lastLevel;
+
+    [SerializeField] float dangerZoneTimer;
+    [SerializeField] float hpModifier;
 
     [SerializeField] bool spawnNewNests;
     [SerializeField] float minNestSpawnCooldown;
@@ -64,10 +67,10 @@ public class DangerLevelSO : ScriptableObject
         return pacingFalloffPerMinuteSide;
     }
 
-    public ProgressLevel GetProgressRequired()
-    {
-        return requiredToNextLevel;
-    }
+    //public ProgressLevel GetProgressRequired()
+    //{
+    //    return requiredToNextLevel;
+    //}
 
     public List<EnemySO> GetNewEnemies()
     {
@@ -85,11 +88,20 @@ public class DangerLevelSO : ScriptableObject
         return newItems;
     }
 
-    public bool IsLast()
+    public float GetDangerZoneTimer()
     {
-        return lastLevel;
+        return dangerZoneTimer;
     }
 
+    //public bool IsLast()
+    //{
+    //    return lastLevel;
+    //}
+
+    public float GetHpModifier()
+    {
+        return hpModifier;
+    }
     public bool GetSpwanNewNest()
     {
         return spawnNewNests;

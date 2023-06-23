@@ -138,8 +138,8 @@ public class DormantSpawner : Spawner, ITakeDamage
 
     public override void IncreaseLevel(int level)
     {
-        pacingFalloff = GameController.currentDangerLevel.GetPacingFallofSide();
-        targetPacing = GameController.currentDangerLevel.GetTargetPacingSide();
+        pacingFalloff = PacingController.currentDangerLevel.GetPacingFallofSide();
+        targetPacing = PacingController.currentDangerLevel.GetTargetPacingSide();
         currentPacing = targetPacing;
     }
 

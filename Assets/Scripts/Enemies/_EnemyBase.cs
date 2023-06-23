@@ -114,7 +114,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     
     protected virtual void Start()
     {
-        hp = maxHp;
+        hp = maxHp * PacingController.pacingController.hpModifier;
         armorHp = armorMaxHp;
 
         patience += Random.Range(-1, 2);
@@ -182,7 +182,6 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         {
             if(psiBoosterTimer <= Time.time)
             {
-                Debug.Log("psiEnd");
                 psiBoosted = false;
                 speed -= CombatController.PSI_BOOST_SPEED_INCREASE;
             }
@@ -307,11 +306,12 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     {
         SpawnerController.instance.RemoveFromMap(transform);
         if(ComputerUI.scientistComputer != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
-
+        Debug.Log(dropChance);
         if(Random.Range(0f, 1f) <= dropChance)
         {
-            ItemSO toDrop = ProgressStageController.instance.DropItem();
-            if(toDrop != null)
+            ItemSO toDrop = PacingController.pacingController.DropItem();
+            Debug.Log("dropped " + toDrop);
+            if (toDrop != null)
             {
                 Instantiate(itemPrefab, transform.position, Quaternion.identity).GetComponent<Item>().Innit(toDrop);
             }
@@ -379,6 +379,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
     public void PsiBoost(float duration)
     {
+        if (psiBoosted) return;
         psiBoosted = true;
         psiBoosterTimer = Time.time + duration;
         speed += CombatController.PSI_BOOST_SPEED_INCREASE;

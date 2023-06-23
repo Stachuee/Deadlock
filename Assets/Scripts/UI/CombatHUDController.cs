@@ -23,8 +23,14 @@ public class CombatHUDController : MonoBehaviour
     bool active = true;
 
     [SerializeField] Vector2 reloadOffset;
+    [SerializeField] Vector2 useOffset;
     [SerializeField] Transform reload;
     [SerializeField] Image reloadImage;
+
+    [SerializeField] Transform useSpriteParrent;
+    [SerializeField] GameObject useSpritePad;
+    [SerializeField] GameObject useSpriteKeyboard;
+
 
     private void Start()
     {
@@ -39,6 +45,7 @@ public class CombatHUDController : MonoBehaviour
     }
     private void LateUpdate()
     {
+        useSpriteParrent.position = (Vector2)playerController.transform.position + useOffset;
         if (!active) return;
         reload.transform.position = (Vector2)playerController.transform.position + reloadOffset;
     }
@@ -77,5 +84,17 @@ public class CombatHUDController : MonoBehaviour
     public void UpdateEquipmentCount(int count)
     {
         equipmentCount.text = count.ToString();
+    }
+
+    public void ShowUse(bool state)
+    {
+        if(playerController.keyboard)
+        {
+            useSpriteKeyboard.SetActive(state); 
+        }
+        else
+        {
+            useSpritePad.SetActive(state);
+        }
     }
 }

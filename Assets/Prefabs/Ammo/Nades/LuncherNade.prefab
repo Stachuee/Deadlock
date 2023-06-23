@@ -157,7 +157,7 @@ MonoBehaviour:
   proximity: 0
   fuse: 3
   explosionRadius: 4
-  damage: 100
+  damage: 35
   armorAndResistDamage: 0.2
   explosionDuration: 0.1
   explosionRange: 1

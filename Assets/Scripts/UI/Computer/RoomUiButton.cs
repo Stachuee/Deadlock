@@ -51,7 +51,6 @@ public class RoomUiButton : MonoBehaviour
         {
             if(!x.HideInComputer())
             {
-                Debug.Log(x.GetTransform().name);
                 GameObject temp = Instantiate(x.GetComputerIcon(), transform);
                 RectTransform tempTransform = temp.GetComponent<RectTransform>();
                 tempTransform.anchoredPosition = (x.GetPosition() - room.Position) * ComputerUI.scale;

@@ -190,7 +190,6 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         if (hit = Physics2D.Raycast(barrelTransform.position, new Vector2(Mathf.Cos(rot_z * Mathf.Deg2Rad), Mathf.Sin(rot_z * Mathf.Deg2Rad)), 100, enemyLayer))
         {
             shotSFX.Play();
-            Debug.Log(hit.transform.name);
             gunTrail.SetPosition(0, barrelTransform.position);
             gunTrail.SetPosition(1, hit.point);
             trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
@@ -275,5 +274,11 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         gunBarrel.rotation = Quaternion.Euler(0, 0, rot_z);
         turretAngle = rot_z;
         prevRotz = rot_z;
+    }
+
+    public override void PowerOn(bool on, string sectorName)
+    {
+        base.PowerOn(on, sectorName);
+        Debug.LogError(on);
     }
 }

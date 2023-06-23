@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "ScriptableObjects/Dialouge/Dialouge", order = 0)]
 public class Dialogue : ScriptableObject
 {
-    public enum Trigger { None, Kill, OnNewItemPickup, Random}
+    public enum Trigger { None, Kill, OnNewItemPickup, Random, DangerLevel}
     public enum ShowTo {All, Scientist, Solider }
 
     [System.Serializable]

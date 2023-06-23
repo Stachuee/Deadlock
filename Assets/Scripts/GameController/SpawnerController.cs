@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SpawnerController : MonoBehaviour, ICureLevelIncrease
+public class SpawnerController : MonoBehaviour, DangerLevelIncrease
 {
 
     public static SpawnerController instance;
@@ -57,7 +57,7 @@ public class SpawnerController : MonoBehaviour, ICureLevelIncrease
 
     private void Start()
     {
-        ProgressStageController.instance.AddToNotify(this);
+        PacingController.pacingController.AddToNotify(this);
     }
 
 
@@ -98,7 +98,7 @@ public class SpawnerController : MonoBehaviour, ICureLevelIncrease
 
     public void IncreaseLevel(int level)
     {
-        activeEnemies.AddRange(GameController.currentDangerLevel.GetNewEnemies());
+        activeEnemies.AddRange(PacingController.currentDangerLevel.GetNewEnemies());
         //wavesActive.AddRange(GameController.currentDangerLevel.GetNewWaves());
         //subWavesActive.AddRange(GameController.currentDangerLevel.GetNewSubWaves());
     }

@@ -51,4 +51,8 @@ public class Deposit : InteractableBase
         return inDeposit;
     }
 
+    public override bool IsUsable(PlayerController player)
+    {
+        return player.CheckIfHoldingAny() || inDeposit;
+    }
 }

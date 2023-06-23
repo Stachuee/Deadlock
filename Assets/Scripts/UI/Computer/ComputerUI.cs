@@ -368,7 +368,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
                 if(controllingObject.CanTakeControll())
                 {
                     controlling = true;
-                    playerController.cameraController.ChangeTarget(Highlighted.GetTransform());
+                    //playerController.cameraController.ChangeTarget(Highlighted.GetTransform());
                     Highlighted = null;
                 }
             }
@@ -394,13 +394,20 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
     {
         if (scientistComputer != null) scientistComputer.DisplayWarning(room, strength);
     }
+    
+    int currentMarker= 0;
 
     public RectTransform CreateMarker(Marker marker)
     {
+        currentMarker++;
+        if(currentMarker >= 1000) currentMarker = 0;
+
         switch (marker)
         {
             case Marker.Normal:
-                return Instantiate(normalMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+                GameObject temp = Instantiate(normalMarker, Vector2.zero, Quaternion.identity, contentPanel);
+                temp.transform.name = currentMarker.ToString();
+                return temp.GetComponent<RectTransform>();
             case Marker.Science:
                 return Instantiate(scienceMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
             case Marker.Elite:

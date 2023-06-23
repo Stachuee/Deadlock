@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MapSegment : MonoBehaviour, ICureLevelIncrease
+public class MapSegment : MonoBehaviour, DangerLevelIncrease
 {
     public static MapSegment scientistSegment;
 
@@ -51,7 +51,7 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
 
         if (scientistSeg) scientistSegment = this;
 
-        ProgressStageController.instance.AddToNotify(this);
+        PacingController.pacingController.AddToNotify(this);
     }
 
 
@@ -90,6 +90,12 @@ public class MapSegment : MonoBehaviour, ICureLevelIncrease
         {
             TurnOnOffLights(!overloaded);
             locked = false;
+            if (scientistSeg)
+            {
+                TurnOnOff(SwitchType.Printers, true);
+                TurnOnOff(SwitchType.Doors, true);
+                TurnOnOff(SwitchType.Security, true );
+            }
         }
     }
 
