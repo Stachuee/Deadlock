@@ -118,6 +118,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public bool isScientist {get; private set;}
 
+    [SerializeField] GameObject pausePanel;
+
     public bool LockInAnimation
     {
         get
@@ -506,6 +508,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
                 SendbackControll();
             }
         }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        pausePanel.SetActive(true);
     }
 
 
