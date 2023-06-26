@@ -100,6 +100,8 @@ public class PauseMenuController : MonoBehaviour
 
     public void BackToMenu()
     {
+        Time.timeScale = 1;
+        PlayerController.isGamePaused = false;
         SceneManager.LoadScene(0);
     }
 
