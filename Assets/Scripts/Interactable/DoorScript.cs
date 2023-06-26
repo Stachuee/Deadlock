@@ -51,14 +51,6 @@ public class DoorScript : PoweredInteractable
         hp = maxHp;
     }
 
-    public override void Highlight()
-    {
-        
-    }
-    public override void UnHighlight()
-    {
-
-    }
 
     public float TakeDamage(float damage)
     {

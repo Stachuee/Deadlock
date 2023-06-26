@@ -15,6 +15,7 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
     [SerializeField] protected bool handActivation = true;
     [SerializeField] protected bool hideInComputer;
 
+    [SerializeField] protected GameObject outline;
     protected virtual void Awake()
     {
         transform.tag = "Interactable";
@@ -54,16 +55,20 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         return hideInComputer;
     }
 
-    public virtual void Highlight()
+    public virtual void Highlight(UseType useType)
     {
-        //SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
-        //myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 0.5f);
+        if (useType == UseType.Hand)
+        {
+            outline.SetActive(true);
+        }
     }
 
-    public virtual void UnHighlight()
+    public virtual void UnHighlight(UseType useType)
     {
-        //SpriteRenderer myRendererTempHighlight = transform.GetComponent<SpriteRenderer>();
-        //myRendererTempHighlight.color = new Color(myRendererTempHighlight.color.r, myRendererTempHighlight.color.g, myRendererTempHighlight.color.b, 1f);
+        if (useType == UseType.Hand)
+        {
+            outline.SetActive(false);
+        }
     }
 
     public virtual ComputerInfoContainer GetInfo()
@@ -90,4 +95,5 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
     {
         return true;
     }
+
 }

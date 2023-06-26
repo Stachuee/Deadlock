@@ -28,6 +28,10 @@ public class Pistol : GunBase
     bool trailShown;
 
 
+    [SerializeField] Transform bulletImpact;
+    [SerializeField] ParticleSystem bulletImpactVFXWall;
+    [SerializeField] ParticleSystem bulletImpactVFXFlesh;
+
     protected override void Start()
     {
         base.Start();
@@ -81,6 +85,10 @@ public class Pistol : GunBase
             {
                 gunTrail.SetPosition(0, barrel.position);
                 gunTrail.SetPosition(1, hit.point);
+
+                bulletImpact.position = hit.point;
+                bulletImpact.rotation = Quaternion.Euler(0, 0, rot_z - 180);
+
                 trailDisapearTimer = Time.time + TRAIL_LIFE_TIME;
                 gunTrail.transform.gameObject.SetActive(true);
                 currentRecoilAngle += (Random.Range(0f, 1f) > 0.5f ? -1 : 1) * recoilAnglePerShot;
@@ -91,6 +99,11 @@ public class Pistol : GunBase
                 if (hit.transform.tag == "Enemy")
                 {
                     hit.transform.GetComponent<ITakeDamage>().TakeDamage(damagePerBullet, DamageSource.Player);
+                    bulletImpactVFXFlesh.Play();
+                }
+                else
+                {
+                    bulletImpactVFXWall.Play();
                 }
             }
 

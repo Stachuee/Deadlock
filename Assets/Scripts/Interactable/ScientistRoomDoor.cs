@@ -78,4 +78,13 @@ public class ScientistRoomDoor : InteractableBase, ITakeDamage
         doorHp = Mathf.Min(ammount + doorHp, doorMaxHp);
         return ammount;
     }
+
+    public override void Highlight(UseType useType)
+    {
+
+    }
+    public override void UnHighlight(UseType useType)
+    {
+
+    }
 }

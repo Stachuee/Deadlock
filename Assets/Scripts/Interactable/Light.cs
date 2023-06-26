@@ -23,17 +23,6 @@ public class Light : PoweredInteractable
     {
         turnOn = !turnOn;
     }
-
-    public override void Highlight()
-    {
-        
-    }
-
-    public override void UnHighlight()
-    {
-        
-    }
-
     override public void PowerOn(bool on, string sectorName)
     {
         //if (!turnOn) return;

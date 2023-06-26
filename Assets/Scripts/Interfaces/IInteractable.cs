@@ -19,8 +19,8 @@ public interface IInteractable
     public GameObject GetComputerIcon();
     public bool IsProximity();
     public bool IsUsable(PlayerController player);
-    public void Highlight();
-    public void UnHighlight();
+    public void Highlight(UseType useType);
+    public void UnHighlight(UseType useType);
     public bool HideInComputer();
     public ComputerInfoContainer GetInfo();
     

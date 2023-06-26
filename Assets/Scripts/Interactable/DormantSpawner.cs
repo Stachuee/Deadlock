@@ -34,7 +34,7 @@ public class DormantSpawner : Spawner, ITakeDamage
 
     [SerializeField] Marker markerType;
     RectTransform myMarker;
-
+    GameObject myMarkerObject;
 
     bool Active
     {
@@ -59,7 +59,8 @@ public class DormantSpawner : Spawner, ITakeDamage
 
     private void Start()
     {
-        //ActivateSpanwer();
+        SpawnerController.instance.AddSpawner(this);
+        PacingController.pacingController.AddToNotify(this);
         transform.tag = "Enemy";
     }
 
@@ -99,20 +100,26 @@ public class DormantSpawner : Spawner, ITakeDamage
                 nextFireTick = Time.time + CombatController.BASE_EFFECT_TICK;
             }
         }
+        if(isActive)
+        {
+            currentPacing -= (pacingFalloff / 60) * Time.deltaTime;
+        }
     }
 
     public override void ActivateSpanwer()
     {
         base.ActivateSpanwer();
+        StartCoroutine("Spawn");
         //PacingController.pacingController.IncreasePacing(pacingToActivate);
         hp = maxHp;
         Active = true;
+        currentPacing = targetPacing;
         parrent.SendWarning(WarningStrength.Medium);
         EffectManager.instance.ScreenShake(newSpawnerShakeDuration, newSpawnerShakeRange, newSpawnerShakeStrength, Vector2.zero);
         SpawnerController.instance.AddEnemyToMap(this, transform);
         if (ComputerUI.scientistComputer != null)
         {
-            myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
+            myMarker = ComputerUI.scientistComputer.CreateMarker(markerType, out myMarkerObject);
             ComputerUI.scientistComputer.UpdateMarker(transform.position, myMarker);
         }
     }
@@ -189,7 +196,7 @@ public class DormantSpawner : Spawner, ITakeDamage
     public override void DeactivateSpawner()
     {
         base.DeactivateSpawner();
-        if (ComputerUI.scientistComputer != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
+        if (ComputerUI.scientistComputer != null) if (ComputerUI.scientistComputer != null) Destroy(myMarkerObject);
         SpawnerController.instance.RemoveFromMap(transform);
         Active = false;
     }

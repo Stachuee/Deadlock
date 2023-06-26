@@ -7,10 +7,13 @@ using UnityEngine.UI;
 public class HighlightController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI nameText;
-    [SerializeField] Slider hpSlider;
+    [SerializeField] Image hpSlider;
     [SerializeField] Image powered;
-    [SerializeField] Slider progress;
+    [SerializeField] Image progress;
     IInteractable toMonitor;
+
+    [SerializeField] Sprite powerOn;
+    [SerializeField] Sprite powerOff;
 
     private void Update()
     {
@@ -30,15 +33,15 @@ public class HighlightController : MonoBehaviour
         nameText.text = info.name;
         if (info.showHp)
         {
-            hpSlider.value = info.hp / info.maxHp;
+            hpSlider.fillAmount = info.hp / info.maxHp;
         }
         if (info.showCharge)
         {
-            powered.color = info.charged ? Color.white : Color.yellow;
+            powered.sprite = info.charged ? powerOn : powerOff;
         }
         if(info.showProgress)
         {
-            progress.value = info.progress;   
+            progress.fillAmount = info.progress;   
         }
         hpSlider.gameObject.SetActive(info.showHp);
         powered.gameObject.SetActive(info.showCharge);

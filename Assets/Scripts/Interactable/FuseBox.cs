@@ -14,7 +14,6 @@ public class FuseBox : InteractableBase
 
     //[SerializeField] int powerStrength;
     [SerializeField] int currentPowerConsumption;
-
     protected override void Awake()
     {
         base.Awake();
@@ -47,6 +46,8 @@ public class FuseBox : InteractableBase
     {
         return type;
     }
+
+
 
     //public void UpdateFuse(string segment, bool value)
     //{

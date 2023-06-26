@@ -21,8 +21,6 @@ public class PowerPlug : InteractableBase
     [SerializeField]
     List<ScientistPoweredInteractable> toManage;
 
-    bool firstTime = true;
-
     PlayerController activePlayer;
 
     protected override void Awake()
@@ -48,11 +46,7 @@ public class PowerPlug : InteractableBase
     {
         ElectricityController.SetWorkshopFuse(state);
         toManage.ForEach(powered => powered.PowerOn(state ? 1 : 0));
-        if(firstTime)
-        {
-            firstTime = false;
-            ProgressStageController.instance.StartGame();
-        }
+        ProgressStageController.instance.StartGame();
     }
 
     public void Refresh()

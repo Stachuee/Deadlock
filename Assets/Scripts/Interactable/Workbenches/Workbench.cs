@@ -13,10 +13,14 @@ public abstract class Workbench : ScientistPoweredInteractable //, IControllSubs
     [SerializeField]
     protected GameObject itemPrefab;
 
+    [SerializeField] SpriteRenderer toCraft;
+
     protected Deposit[] itemDeposits;
 
     protected PlayerController usingPlayer;
     protected int chosenIndex;
+
+    bool validCrafting;
 
     protected override void Awake()
     {
@@ -24,6 +28,12 @@ public abstract class Workbench : ScientistPoweredInteractable //, IControllSubs
         itemDeposits = transform.GetComponentsInChildren<Deposit>();
         AddAction(Craft);
     }
+
+    private void Start()
+    {
+        PowerOn(1);    
+    }
+
     public abstract void Craft(PlayerController player, UseType type);
 
     protected CraftingRecipesSO FindRecipie()
@@ -41,29 +51,24 @@ public abstract class Workbench : ScientistPoweredInteractable //, IControllSubs
         return toCraft;
     }
 
-    //public void SwapRecipe(bool right)
-    //{
-    //    if (right)
-    //    {
-    //        if (chosenIndex + 1 >= recipesAvalible.Length) chosenIndex = 0;
-    //        else chosenIndex++;
-    //    }
-    //    else
-    //    {
-    //        if (chosenIndex - 1 < 0) chosenIndex = recipesAvalible.Length - 1;
-    //        else chosenIndex--;
-    //    }
-    //}
+    public void ChangedIngredient()
+    {
+        CraftingRecipesSO temp = FindRecipie();
+        if (temp != null)
+        {
+            toCraft.sprite = temp.GetCraftedItem().GetIconSprite();
+            toCraft.enabled = true;
+            validCrafting = true;
+        }
+        else
+        {
+            validCrafting = false;
+            toCraft.enabled = false;
+        }
+    }
 
-
-    //public void ForwardCommandMovment(Vector2 context)
-    //{
-    //    if(nextSwap < Time.time && Mathf.Abs(context.x) > 0.3f)
-    //    {
-    //        nextSwap = Time.time + swapCooldown;
-    //        if (context.x > 0) SwapRecipe(true);    
-    //        else SwapRecipe(false);
-    //    }
-    //}
-
+    public override bool IsUsable(PlayerController player)
+    {
+        return validCrafting;
+    }
 }

@@ -10,6 +10,7 @@ public class Item : InteractableBase, IGetHandInfo
 
     SpriteRenderer myRenderer;
     private RectTransform myMarker;
+    GameObject myMarkerObject;
 
     protected override void Awake()
     {
@@ -28,7 +29,7 @@ public class Item : InteractableBase, IGetHandInfo
         item.Drop(player, this);
         if(item is ScienceItem)
         {
-            if (ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(Marker.Science);
+            if (ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(Marker.Science, out myMarkerObject);
             ComputerUI.scientistComputer.UpdateMarker(transform.position, myMarker);
         }
     }
@@ -42,13 +43,13 @@ public class Item : InteractableBase, IGetHandInfo
         {
             if (player.PickUp(itemSO))
             {
-                if (ComputerUI.scientistComputer != null && myMarker != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
+                if (ComputerUI.scientistComputer != null && myMarker != null) Destroy(myMarkerObject);
                 Destroy(transform.parent.gameObject);
             }
         }
         else if(destroy)
         {
-            if (ComputerUI.scientistComputer != null && myMarker != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
+            if (ComputerUI.scientistComputer != null && myMarker != null) Destroy(myMarkerObject);
             Destroy(transform.parent.gameObject);
         }
     }

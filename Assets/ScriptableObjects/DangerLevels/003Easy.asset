@@ -27,7 +27,7 @@ MonoBehaviour:
   dangerZoneTimer: 180
   hpModifier: 1.2
   spawnNewNests: 1
-  minNestSpawnCooldown: 20
+  minNestSpawnCooldown: 80
   newNestChance: 0.8
   newItems:
   - {fileID: 11400000, guid: 88f4d3802c5c7c548a455d6b243c6e83, type: 2}

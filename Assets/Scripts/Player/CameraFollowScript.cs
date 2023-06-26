@@ -114,6 +114,11 @@ public class CameraFollowScript : MonoBehaviour, IControllSubscriberMove, IContr
         return new Vector2(cam.rect.center.x * Screen.width, cam.rect.center.y * Screen.height);
     }
 
+    public Vector2 MouseWorldPoint()
+    {
+        return cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+    }
+
     public Vector2 ViewAngle()
     {
         Vector2 returnValue;

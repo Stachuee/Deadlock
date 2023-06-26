@@ -9,6 +9,7 @@ public class StatusMonitor : InteractableBase
 
     [SerializeField] AudioSource openCraftingSFX;
 
+
     void Start()
     {
         AddAction(OpenStatus);

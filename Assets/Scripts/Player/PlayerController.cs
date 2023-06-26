@@ -12,6 +12,7 @@ public class PlayerInfo
     public float maxHp;
 
     public float speed;
+    public float speedbackward;
     public float throwStrength;
 
     public float kickArmorShred;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public UiController uiController;
     public CameraFollowScript cameraController;
     public InventorySelector inventorySelector;
+    public AnimationEvents animationEvent;
 
     [Header("Mele")]
     [SerializeField] float meleeDelay = 0.2f;
@@ -109,12 +111,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     [SerializeField] AudioSource pickupSFX;
 
     [Header("Appearance")]
-    [SerializeField] GameObject playerSpriteObject;
     Animator playerAnimator;
-    SpriteRenderer playerSpriteRenderer;
 
-    [SerializeField] Sprite soldierSprite;
-    [SerializeField] Sprite scientistSprite;
+    [SerializeField] GameObject scientistSprite;
+    [SerializeField] GameObject soliderSprite;
+
+    [SerializeField] GameObject backpack;
 
     public bool isScientist {get; private set;}
 
@@ -142,6 +144,19 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         GameController.gameController.AddPlayer(this);
         cameraController.SetSplitScreenPosition(index, glassesMode);
+
+        if (isScientist)
+        {
+            scientistSprite.SetActive(true);
+            soliderSprite.SetActive(false);
+            playerAnimator = scientistSprite.GetComponent<Animator>();
+        }
+        else
+        {
+            scientistSprite.SetActive(false);
+            soliderSprite.SetActive(true);
+            playerAnimator = soliderSprite.GetComponent<Animator>();
+        }
     }
 
     private void Awake()
@@ -151,8 +166,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         gunController = transform.GetComponent<GunController>();
         equipmentController = transform.GetComponent<EquipmentController>();
 
-        playerAnimator = playerSpriteObject.GetComponent<Animator>();
-        playerSpriteRenderer = playerSpriteObject.GetComponent<SpriteRenderer>();
         //playerInfo = new PlayerInfo() { hp = 100, maxHp = 100, speed = 5, throwStrength = 150};
     }
 
@@ -165,22 +178,15 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         }
         EffectManager.instance.AddCameraToEffects(this);
 
-        if (scientist)
-        {
-            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("soldier/Soldier");//"scientist/scientist_animator");
-            //playerSpriteRenderer.sprite = scientistSprite;
-        }
-        else
-        {
-            playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("soldier/soldier_animator");
-            //playerSpriteRenderer.sprite = soldierSprite;
-        }
+
     }
 
     private void Update() 
     {
 
-        if (!LockInAnimation && !dead) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, new Vector2(moveDirection.x * playerInfo.speed, myBody.velocity.y), ref m_Velocity, m_MovementSmoothing);
+        if (!LockInAnimation && !dead) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, 
+            new Vector2(moveDirection.x * (isScientist ? playerInfo.speed : (moveDirection.x * currentAimDirection.x < 0 ? playerInfo.speedbackward : playerInfo.speed)), myBody.velocity.y), 
+            ref m_Velocity, m_MovementSmoothing);
         else
         {
             myBody.velocity = new Vector2(0, myBody.velocity.y);
@@ -218,6 +224,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             {
                 dead = false;
                 invincibilityEnd = Time.time + invincibilityAfterHitDuration;
+                playerAnimator.SetBool("Dead", false);
             }
             else playerInfo.hp = Mathf.Min(playerInfo.maxHp, playerInfo.hp + (playerInfo.healthRecivedAfterRevive / playerInfo.deathTimer) * Time.deltaTime);
             return;
@@ -245,12 +252,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         {
             if (closestInRange != null && closestInRange.IsProximity())
             {
-                closestInRange.UnHighlight();
+                closestInRange.UnHighlight(UseType.Hand);
                 uiController.ToHighlight = null;
             }
             if (closest != null && closest.IsProximity())
             {
-                closest.Highlight();
+                closest.Highlight(UseType.Hand);
                 uiController.ToHighlight = closest;
                 uiController.combatHUDController.ShowUse(closest.IsUsable(this));
             }
@@ -278,16 +285,32 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             footstepSFX.volume = Random.Range(0.8f, 1);
             footstepSFX.pitch = Random.Range(0.9f, 1.01f);
             footstepSFX.Play();
+            if(moveDirection.x * currentAimDirection.x > 0)
+            {
+                playerAnimator.SetBool("runningBackwards", false);
+            }
+            else
+            {
+                playerAnimator.SetBool("runningBackwards", true);
+            }
         }else if(moveDirection == Vector2.zero)
             playerAnimator.SetBool("isRunning", false);
 
+        if(isScientist)
+        {
+            if (moveDirection.x > 0)
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            else if (moveDirection.x < 0)
+                transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
+        else
+        {
+            if (currentAimDirection.x > 0)
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            else if (currentAimDirection.x < 0)
+                transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
 
-        if (currentAimDirection.x > 0)
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        //playerSpriteRenderer.flipX = false;
-        else if (currentAimDirection.x < 0)
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        //playerSpriteRenderer.flipX = true;
     }
 
 
@@ -303,6 +326,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         itemDropped.GetComponentInParent<Rigidbody2D>().AddForce(currentAimDirection.normalized * playerInfo.throwStrength);
 
+        backpack.SetActive(false);
+
         throwSFX.Play();
     }
 
@@ -313,6 +338,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         {
             pickupSFX.Play();
             heldItems.Add(item);
+            backpack.SetActive(true);
             return true;
         }
     }
@@ -374,6 +400,12 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public bool GetIsHealing()
     {
         return isHealing;
+    }
+
+    public void SetTrigger(bool value, string name)
+    {
+        if (value) playerAnimator.SetTrigger(name);
+        else playerAnimator.ResetTrigger(name);
     }
 
     public Vector2 GetMovementDirection()
@@ -558,6 +590,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             playerInfo.hp = 0;
             dead = true;
             gunController.ShootGun(false);
+            playerAnimator.SetBool("Dead", true);
         }
         return damage;
     }
@@ -683,6 +716,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         {
             ItemSO temp = heldItems[heldItems.Count - 1];
             heldItems.Remove(temp);
+            backpack.SetActive(false);
             return temp;
         }
         else return null;
@@ -696,6 +730,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             if(toReturn == null && heldItems.Contains(x))
             {
                 toReturn = x;
+                backpack.SetActive(false);
             }
         });
         heldItems.Remove(toReturn);
@@ -709,6 +744,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (heldItems.Contains(itemAccepted))
         {
             toReturn = itemAccepted;
+            backpack.SetActive(false);
         }
         heldItems.Remove(toReturn);
         return toReturn;
@@ -729,7 +765,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         ItemSO toReturn = null;
         heldItems.ForEach(x =>
         {
-            if(x is T) toReturn = x;
+            if (x is T)
+            {
+                toReturn = x;
+                backpack.SetActive(false);
+            }
         });
         heldItems.Remove(toReturn);
         return toReturn;

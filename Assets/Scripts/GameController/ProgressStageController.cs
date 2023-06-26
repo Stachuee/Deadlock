@@ -31,6 +31,8 @@ public class ProgressStageController : MonoBehaviour
     public List<ProgressLevel> progressLevels;
 
     bool started;
+    bool last;
+    bool charging;
 
 
     private void Awake()
@@ -45,6 +47,11 @@ public class ProgressStageController : MonoBehaviour
         {
             currentProgress += Time.deltaTime;
             if (GetCurrentProgress() >= 1) NextLevel();
+            if(GetCurrentLevel() >= 0.75f && last && !charging)
+            {
+                charging = true;
+                CureMachine.Instance.Charging();
+            }
         }
     }
 
@@ -63,7 +70,7 @@ public class ProgressStageController : MonoBehaviour
     {
         if (progressLevel >= 0 && progressLevels[progressLevel].isLast)
         {
-            Debug.Log("Win");
+            CureMachine.Instance.End();
         }
         else
         {
@@ -76,7 +83,7 @@ public class ProgressStageController : MonoBehaviour
             CureMachine.Instance.SetCurrentUssage(new List<CureMachineSupportType>(progressLevels[progressLevel].machinesRequired));
             CureMachine.Instance.SetCurrentItemUssage(new List<ItemSO>(progressLevels[progressLevel].itemsNeeded));
             progressRequired = progressLevels[progressLevel].timeToCompleate;
-
+            last = progressLevels[progressLevel].isLast;
         }
     }
 

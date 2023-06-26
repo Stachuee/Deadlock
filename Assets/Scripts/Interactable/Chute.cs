@@ -63,19 +63,23 @@ public class Chute : InteractableBase
         return !oneWayOutput && player.CheckIfHoldingAny();
     }
 
+    public override void Highlight(UseType useType)
+    {
+        base.Highlight(useType);
+        if (useType == UseType.Hand) myRenderer.sprite = open;
+    }
+
+    public override void UnHighlight(UseType useType)
+    {
+        base.UnHighlight(useType);
+        if (useType == UseType.Hand) myRenderer.sprite = closed;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         if(connectedChute != null)Gizmos.DrawLine(transform.position, connectedChute.transform.position);
     }
 
-    public override void Highlight()
-    {
-        myRenderer.sprite = open;
-    }
 
-    public override void UnHighlight()
-    {
-        myRenderer.sprite = closed;
-    }
 }

@@ -49,9 +49,11 @@ public abstract class GunBase : MonoBehaviour, IGun
     protected int fireMode;
     int targetFireMode;
 
+    [SerializeField] Transform mirror;
+
     protected virtual void Start()
     {
-        owner = transform.GetComponentInParent<PlayerController>();
+        
     }
 
     protected virtual void Update()
@@ -65,15 +67,27 @@ public abstract class GunBase : MonoBehaviour, IGun
         if (useLaser)
         {
             laser.SetPosition(0, barrel.position);
-            laser.SetPosition(1, Physics2D.Raycast(barrel.position, aimVectorWithRecoil, 100, ~laserLayerMask).point);
+            RaycastHit2D hit = Physics2D.Raycast(barrel.position, aimVectorWithRecoil, 100, ~laserLayerMask);
+            if (hit) laser.SetPosition(1, hit.point);
+            else laser.SetPosition(1, barrel.position);
         }
 
         barrelFlash.transform.position = barrel.position + (barrel.position - transform.position).normalized * 0.5f;
 
         rot_z = Mathf.Atan2(aimVectorWithRecoil.y, aimVectorWithRecoil.x) * Mathf.Rad2Deg;
-        if (rot_z > 90 || rot_z < -90) gunSprite.flipY = true;
-        else gunSprite.flipY = false;
+        
+        
         gunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z);
+        if (rot_z > 90 || rot_z < -90)
+        {
+            mirror.localRotation = Quaternion.Euler(180, 0, 0);
+            gunSprite.flipY = true;
+        }
+        else
+        {
+            mirror.localRotation = Quaternion.Euler(0, 0, 0);
+            gunSprite.flipY = false;
+        }
 
 
         if (reloading)
@@ -161,7 +175,11 @@ public abstract class GunBase : MonoBehaviour, IGun
     public abstract Sprite GetAmmoIcon();
     private void OnEnable()
     {
-        if(owner != null)
+        if(owner == null)
+        {
+            owner = transform.GetComponentInParent<PlayerController>();
+        }
+
         laser.gameObject.SetActive(useLaser);
         targetFireMode = fireMode;
 

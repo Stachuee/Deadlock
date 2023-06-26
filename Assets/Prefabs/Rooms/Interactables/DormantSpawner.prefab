@@ -133,8 +133,7 @@ MonoBehaviour:
   targetPacing: 0
   currentPacing: 0
   pacingFalloff: 0
-  spawnDelay: 0
-  spawning: 0
+  spawnDelay: 1
   maxHp: 300
   pacingToActivate: 50
   onFireParticle: {fileID: 5001670585197231328}

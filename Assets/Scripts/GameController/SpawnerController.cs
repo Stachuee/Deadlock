@@ -99,6 +99,7 @@ public class SpawnerController : MonoBehaviour, DangerLevelIncrease
     public void IncreaseLevel(int level)
     {
         activeEnemies.AddRange(PacingController.currentDangerLevel.GetNewEnemies());
+        activeEnemiesSide.AddRange(PacingController.currentDangerLevel.GetNewEnemiesSide());
         //wavesActive.AddRange(GameController.currentDangerLevel.GetNewWaves());
         //subWavesActive.AddRange(GameController.currentDangerLevel.GetNewSubWaves());
     }
@@ -106,6 +107,7 @@ public class SpawnerController : MonoBehaviour, DangerLevelIncrease
     public void AwakeSpawner()
     {
         Spawner spawner = spawners.Find(x => !x.isActive);
+        Debug.Log(spawners.Count);
         if (spawner != null)
         {
             spawner.ActivateSpanwer();

@@ -14,6 +14,17 @@ public class CureMachine : ScientistPoweredInteractable
 
     [SerializeField] float supportUsageRate;
 
+    [SerializeField] GameObject wave;
+    [SerializeField] ParticleSystem charge;
+
+    bool charging;
+
+    [SerializeField] AnimationCurve sizeChange;
+    [SerializeField] float maxSize;
+    [SerializeField] float explosionTime;
+    float explosionStart;
+    bool exploded;
+
     protected override void Awake()
     {
         base.Awake();
@@ -39,6 +50,18 @@ public class CureMachine : ScientistPoweredInteractable
             if (newValue <= 0 && x != newValue) CheckSupport();
             x = newValue;
         });
+        if (exploded)
+        {
+            if(Time.time < explosionStart + explosionTime)
+            {
+                wave.transform.localScale = Vector3.one * (sizeChange.Evaluate((explosionStart - Time.time) / explosionTime) * maxSize);
+            }
+            else
+            {
+                wave.SetActive(false);
+            }
+        }
+
     }
 
     public void OpenInterface(PlayerController player, UseType type)
@@ -118,6 +141,30 @@ public class CureMachine : ScientistPoweredInteractable
     public override void PowerOn(int power)
     {
         base.PowerOn(power);
+        if(power > 0 && charging)
+        {
+            charge.Play();
+        }
+        else
+        {
+            charge.Stop();
+        }
         ProgressStageController.instance.MachineRunning(powered);
     }
+
+    public void End()
+    {
+        Debug.Log("end");
+        wave.SetActive(true);
+        exploded = true;
+        explosionStart = Time.time;
+        charge.Stop();
+    }
+
+    public void Charging()
+    {
+        charging = true;
+        if(powered) charge.Play();
+    }
+
 }

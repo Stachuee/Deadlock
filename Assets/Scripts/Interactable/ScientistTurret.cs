@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GD.MinMaxSlider;
+using UnityEngine.InputSystem;
 
 public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubscriberMove, IControllSubscriberShoot
 {
@@ -93,6 +94,7 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         gunBarrel.rotation = Quaternion.Euler(0,0, rot_z);
         turretAngle = rot_z;
         prevRotz = rot_z;
+
     }
 
     public void ForwardCommandShoot(bool isShooting)
@@ -187,7 +189,8 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     private void ManualShoot()
     {
         RaycastHit2D hit;
-        if (hit = Physics2D.Raycast(barrelTransform.position, new Vector2(Mathf.Cos(rot_z * Mathf.Deg2Rad), Mathf.Sin(rot_z * Mathf.Deg2Rad)), 100, enemyLayer))
+
+        if (hit = Physics2D.Raycast(barrelTransform.position, new Vector2(Mathf.Cos(rot_z * Mathf.Deg2Rad), Mathf.Sin(rot_z * Mathf.Deg2Rad)) , 100, enemyLayer)) // new Vector2(Mathf.Cos(rot_z * Mathf.Deg2Rad), Mathf.Sin(rot_z * Mathf.Deg2Rad))
         {
             shotSFX.Play();
             gunTrail.SetPosition(0, barrelTransform.position);
@@ -266,7 +269,9 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
     public void ForwardCommandMove(Vector2 controll, Vector2 controllSmooth)
     {
         if (!powered) return;
-        Vector2 diff = (controllSmooth).normalized;
+        Vector2 diff;
+        if (user.keyboard) diff = user.cameraController.MouseWorldPoint() - (Vector2)barrelTransform.position;
+        else diff = controll.normalized;
         rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         if (rot_z < minMaxTurretAngle.x || rot_z > minMaxTurretAngle.y) rot_z = prevRotz; // works only if minmax is <-180, 180>
         if (rot_z > 90 || rot_z < -90) turretSprite.flipY = true;
@@ -274,11 +279,11 @@ public class ScientistTurret : PoweredInteractable, ITakeControll, IControllSubs
         gunBarrel.rotation = Quaternion.Euler(0, 0, rot_z);
         turretAngle = rot_z;
         prevRotz = rot_z;
+
     }
 
     public override void PowerOn(bool on, string sectorName)
     {
         base.PowerOn(on, sectorName);
-        Debug.LogError(on);
     }
 }

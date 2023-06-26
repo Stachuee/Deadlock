@@ -8,12 +8,6 @@ public class ItemInfo : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI itemName;
-    [SerializeField]
-    Image itemSprite;
-    [SerializeField]
-    Image itemType;
-    [SerializeField]
-    Image itemSubtype;
 
     public void SetupInfo(HandInfoContainer infoContainer)
     {
@@ -24,7 +18,6 @@ public class ItemInfo : MonoBehaviour
         }
 
         itemName.text = infoContainer.name;
-        itemSprite.sprite = infoContainer.sprite;
         gameObject.SetActive(true);
     }
 

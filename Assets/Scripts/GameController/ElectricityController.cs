@@ -26,6 +26,7 @@ public class ElectricityController : MonoBehaviour
 
     [SerializeField] AudioSource electricityOffSFX;
 
+
     private void Awake()
     {
         if (Instance == null) Instance = this;

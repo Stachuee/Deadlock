@@ -222,7 +222,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui_hud_145
+      name: noPower
       rect:
         serializedVersion: 2
         x: 10930
@@ -243,7 +243,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui_hud_162
+      name: power
       rect:
         serializedVersion: 2
         x: 10930
@@ -504,6 +504,7 @@ TextureImporter:
       ui_hud_104: -1688239520
       ui_hud_266: 1394740752
       ui_hud_173: -378117652
+      noPower: 72348787
       ui_hud_68: 99003859
       ui_hud_160: 20946790
       ui_hud_44: 1035027734
@@ -542,10 +543,10 @@ TextureImporter:
       ui_hud_118: 660990050
       ui_hud_42: -1542975841
       ui_hud_119: -1155412588
-      ui_hud_58: 116835376
+      Equipment: 901301883
       ui_hud_140: -1804340038
       ui_hud_155: 2078917020
-      Equipment: 901301883
+      ui_hud_58: 116835376
       ui_hud_186: -379278524
       ui_hud_240: -1383212776
       ui_hud_122: 694290483
@@ -620,7 +621,7 @@ TextureImporter:
       ui_hud_178: -429371233
       ui_hud_33: 1906707834
       ui_hud_232: 1535097769
-      ItemHighlight: -1845523648
+      ui_hud_200: -820885054
       ui_hud_188: -889813962
       ui_hud_238: 484357613
       ui_hud_170: -979553883
@@ -639,12 +640,13 @@ TextureImporter:
       ui_hud_123: 957844730
       ui_hud_157: 718126184
       ui_hud_192: -1913355901
-      ui_hud_200: -820885054
+      ItemHighlight: -1845523648
       ui_hud_8: 1473597574
       ui_hud_5: -228872342
       ui_hud_256: 1336454327
       ui_hud_83: 1279349057
       ui_hud_255: 1765666288
+      power: -445627143
       ui_hud_89: 1324881495
       ui_hud_208: -4691787
       ui_hud_194: -184024412
@@ -665,7 +667,7 @@ TextureImporter:
       ui_hud_220: 1942103305
       ui_hud_61: -2086229315
       ui_hud_213: -1757556241
-      ui_hud_162: -445627143
+      ui_hud_274: -1729635216
       ui_hud_30: -848442597
       ui_hud_239: -596209386
       ui_hud_69: -398850238
@@ -685,9 +687,8 @@ TextureImporter:
       ui_hud_237: -1771319026
       ui_hud_34: -1088601641
       ui_hud_112: -2057303432
-      ui_hud_274: -1729635216
-      ui_hud_86: 1387189100
       ui_hud_278: -2119535889
+      ui_hud_86: 1387189100
       ui_hud_108: -820303109
       ui_hud_6: -1759559475
       ui_hud_143: 1718805020
@@ -718,7 +719,7 @@ TextureImporter:
       ui_hud_52: -1559129988
       ui_hud_110: -1858735205
       ui_hud_210: -2144960836
-      ui_hud_145: 72348787
+      ui_hud_282: 1223496651
       ui_hud_165: 734685347
       ui_hud_37: -1779527378
       ui_hud_64: 996830940
@@ -727,7 +728,6 @@ TextureImporter:
       ui_hud_177: -1374780816
       ui_hud_221: 1767934009
       ui_hud_146: 1592883685
-      ui_hud_282: 1223496651
       ui_hud_181: 2016613570
       ui_hud_236: 946983987
       ui_hud_1: 1870106211

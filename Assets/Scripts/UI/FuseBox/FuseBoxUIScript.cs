@@ -1,6 +1,7 @@
 using GD.MinMaxSlider;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class FuseBoxUIScript : MonoBehaviour
@@ -27,6 +28,7 @@ public class FuseBoxUIScript : MonoBehaviour
 
     bool setUp;
 
+    [SerializeField] TextMeshProUGUI type;
 
     public void Setup()
     {
@@ -59,6 +61,19 @@ public class FuseBoxUIScript : MonoBehaviour
         if (!setUp) Setup();
         this.openType = openType;
 
+        switch(openType)
+        {
+            case SwitchType.Doors:
+                type.text = "Doors";
+                break;
+            case SwitchType.Security:
+                type.text = "Turrets";
+                break;
+            case SwitchType.Printers:
+                type.text = "Printers and pumps";
+                break;
+        }
+
         openFuseBox = boxOpen;
 
         RefreshFuses();
@@ -83,6 +98,7 @@ public class FuseBoxUIScript : MonoBehaviour
 
     public void SwitchFuse(string segmentName, bool on)
     {
+        ProgressStageController.instance.StartGame();
         ElectricityController.UpdateFuse(segmentName, openFuseBox.GetSwitchType(), on);
     }
 

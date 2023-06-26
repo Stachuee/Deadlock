@@ -58,7 +58,7 @@ MonoBehaviour:
   - {x: 6.4269824, y: -3.6276531, z: 0}
   m_ShapePathHash: -545134138
   m_Mesh: {fileID: 0}
-  m_InstanceId: 335344
+  m_InstanceId: 306498
 --- !u!1 &5135539266931263279
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 677822391378362069}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
   - {x: -6.400898, y: 0.4384613, z: 0}
   m_ShapePathHash: 959812629
   m_Mesh: {fileID: 0}
-  m_InstanceId: 335332
+  m_InstanceId: 306486
 --- !u!1 &5607365666210991003
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +310,7 @@ MonoBehaviour:
   startingRoom: 0
   roomEvents: []
   mySprite: {fileID: 0}
-  position: {x: 0, y: 18.75}
+  position: {x: 0, y: 0}
 --- !u!1001 &4427782690672155647
 PrefabInstance:
   m_ObjectHideFlags: 0

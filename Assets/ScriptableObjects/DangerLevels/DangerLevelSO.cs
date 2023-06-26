@@ -80,7 +80,7 @@ public class DangerLevelSO : ScriptableObject
 
     public List<EnemySO> GetNewEnemiesSide()
     {
-        return newEnemies;
+        return newEnemiesSide;
     }
 
     public List<ItemSO> GetNewItems()

@@ -23,6 +23,8 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
     [SerializeField] RectTransform contentPanel;
 
     [SerializeField] GameObject highlightCursorPrefab;
+    [SerializeField] GameObject highlightPrefab;
+
     GameObject highlightCursor;
 
     List<RoomUiButton> roomsUI = new List<RoomUiButton>();
@@ -49,6 +51,12 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
         {
             scientistComputer = this;
             StartCoroutine("BootCompurer");
+            isScientist = true;
+
+            if(!playerController.keyboard)
+            {
+                scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
+            }
         }
     }
 
@@ -68,7 +76,18 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
 
         List<Rooms> allRooms = new List<Rooms>(FacilityController.facilityController.allRooms);
 
-        startingDrawPos = starting.transform.position;
+        Vector2 width = new Vector2(Mathf.Infinity, Mathf.NegativeInfinity), height = new Vector2(Mathf.Infinity, Mathf.NegativeInfinity);
+
+        allRooms.ForEach(x =>
+        {
+            if(width.x > x.transform.position.x) width.x = x.transform.position.x;
+            if(width.y < x.transform.position.x) width.y = x.transform.position.x;
+
+            if (height.x > x.transform.position.y) height.x = x.transform.position.y;
+            if (height.y < x.transform.position.y) height.y = x.transform.position.y;
+        });
+
+        startingDrawPos = new Vector2((width.x + width.y) / 2, (height.x + height.y) / 2); //starting.transform.position;
 
         Vector2Int size = new Vector2Int(0,0); // x, y
 
@@ -223,6 +242,7 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
     {
         public IInteractable interactable;
         public float angle;
+        public GameObject highlight;
     }
     List<AngleToInteractable> angleToInteractables;
 
@@ -232,10 +252,12 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
         activeRoom = room;
         angleToInteractables = new List<AngleToInteractable>();
 
-        room.remoteAvtivation.ForEach(x => {
-            angleToInteractables.Add(new AngleToInteractable() { 
+        room.remoteAvtivation.ForEach(x => 
+        {
+            angleToInteractables.Add(new AngleToInteractable() {
                 interactable = x,
-                angle = Vector2.SignedAngle(Vector2.one, (x.GetTransform().position - room.transform.position))
+                angle = Vector2.SignedAngle(Vector2.one, (x.GetTransform().position - room.transform.position)),
+                //highlight = Instantiate(highlightPrefab, x.GetTransform().position, Quaternion.identity, transform)
             });
         });
 
@@ -293,6 +315,12 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
             playerController.RemoveUseSubscriber(this);
             Highlighted = null;
             playerController.uiController.cameraHUD.Show(false);
+
+            //angleToInteractables.ForEach(x =>
+            //{
+            //    Destroy(x.highlight);
+            //});
+
             return false;
         }
     }
@@ -307,12 +335,12 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
         {
             if(highlighted != null)
             {
-                highlighted.UnHighlight();
+                highlighted.UnHighlight(UseType.Computer);
             }
 
             if(value != null)
             {
-                value.Highlight();
+                value.Highlight(UseType.Computer);
                 if (highlightCursor == null) highlightCursor = Instantiate(highlightCursorPrefab, value.GetTransform().position, Quaternion.identity, transform);
                 else
                 {
@@ -384,8 +412,10 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
 
     public void DisplayWarning(Rooms room, WarningStrength strength)
     {
+        Debug.Log(isScientist);
         if (!isScientist) return;
         if (!setUp) Setup();
+
         alarmSFX.Play();
         roomsUI.Find(x => x.room == room).UpdateEvent(true, strength);
     }
@@ -397,35 +427,43 @@ public class ComputerUI : MonoBehaviour, IControllSubscriberMove, IControllSubsc
     
     int currentMarker= 0;
 
-    public RectTransform CreateMarker(Marker marker)
+    public RectTransform CreateMarker(Marker marker, out GameObject gmObject)
     {
         currentMarker++;
         if(currentMarker >= 1000) currentMarker = 0;
 
+        GameObject temp = null;
+        gmObject = null;
+
         switch (marker)
         {
             case Marker.Normal:
-                GameObject temp = Instantiate(normalMarker, Vector2.zero, Quaternion.identity, contentPanel);
+                temp = Instantiate(normalMarker, Vector2.zero, Quaternion.identity, contentPanel);
                 temp.transform.name = currentMarker.ToString();
-                return temp.GetComponent<RectTransform>();
+                gmObject = temp;
+                break;
             case Marker.Science:
-                return Instantiate(scienceMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+                temp = Instantiate(scienceMarker, Vector2.zero, Quaternion.identity, contentPanel);
+                temp.transform.name = currentMarker.ToString();
+                gmObject = temp;
+                break;
             case Marker.Elite:
-                return Instantiate(eliteMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+                temp = Instantiate(eliteMarker, Vector2.zero, Quaternion.identity, contentPanel);
+                temp.transform.name = currentMarker.ToString();
+                gmObject = temp;
+                break;
             case Marker.Spawner:
-                return Instantiate(scienceMarker, Vector2.zero, Quaternion.identity, contentPanel).GetComponent<RectTransform>();
+                temp = Instantiate(spawnerMarker, Vector2.zero, Quaternion.identity, contentPanel);
+                temp.transform.name = currentMarker.ToString();
+                gmObject = temp;
+                break;
         }
-        return null;
+        return temp.GetComponent<RectTransform>();
     }
 
     public void UpdateMarker(Vector2 position, RectTransform marker)
     {
         marker.anchoredPosition = (position - startingDrawPos) * scale;
-    }
-
-    public void DeleteMarker(RectTransform marker)
-    {
-        Destroy(marker.gameObject);
     }
 
 

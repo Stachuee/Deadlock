@@ -27,7 +27,7 @@ public class MainMenuController : MonoBehaviour
 
     CurrentMenuPanel currentPanel;
 
-
+    [SerializeField] GameObject kicaczPanel;
 
     private void Awake()
     {
@@ -82,7 +82,8 @@ public class MainMenuController : MonoBehaviour
         if (newDevices.Count != 2) return;
         InputInfoHolder.Instance.SaveDevices(newDevices);
         InputInfoHolder.Instance.SetGlasses(useGlasses.isOn);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadSceneAsync(1);
+        kicaczPanel.SetActive(true);
     }
 
     private void Update()

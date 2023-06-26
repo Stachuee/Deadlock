@@ -60,6 +60,7 @@ public class StairsScript : PoweredInteractable, ITakeDamageInteractable
     [SerializeField]
     float hp;
 
+    [SerializeField] GameObject highlight;
     
     bool destroyed;
 
@@ -184,6 +185,22 @@ public class StairsScript : PoweredInteractable, ITakeDamageInteractable
             RefreshState();
         }
         return ammount;
+    }
+
+    public override void Highlight(UseType useType)
+    {
+        if(useType == UseType.Hand)
+        {
+            highlight.SetActive(true);
+        }
+    }
+
+    public override void UnHighlight(UseType useType)
+    {
+        if (useType == UseType.Hand)
+        {
+            highlight.SetActive(false);
+        }
     }
 
     public void ApplyStatus(Status toApply)

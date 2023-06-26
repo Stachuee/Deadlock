@@ -27,10 +27,10 @@ public class PacingController : MonoBehaviour
     float lastPaceCheck;
 
     bool createNests;
-    float minNestSpawnCooldown;
+    [SerializeField] float minNestSpawnCooldown;
     float newNestChance;
 
-    float lastNestSpawn;
+    [SerializeField] float lastNestSpawn;
 
     float nextUpdate;
 
@@ -136,16 +136,6 @@ public class PacingController : MonoBehaviour
         {
             SpawnerController.instance.AwakeSpawner();
             lastNestSpawn = Time.time;
-        }
-
-        if (pacing < targetPacing + pacingOverTime)
-        {
-            //Debug.Log("normal");
-            //SpawnerController.instance.SpawnEnemy();
-        }
-        else
-        {
-            //Debug.Log("hard");
         }
     }
 

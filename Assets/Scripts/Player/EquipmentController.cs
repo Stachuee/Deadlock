@@ -31,6 +31,8 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberAim
     [SerializeField] AudioSource changeEquipmentSFX;
     [SerializeField] AudioSource throwEquipmentSFX;
 
+    [SerializeField] Transform hand;
+
     private void Awake()
     {
         for(int i = 0; i < System.Enum.GetValues(typeof(EquipmentType)).Length; i++)
@@ -83,29 +85,30 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberAim
     public void UseEquipment()
     {
         if (!active || equipmentCdRemain > Time.time) return;
-        GameObject temp;
         throwEquipmentSFX.Play();
 
         switch (equiped)
         {
             case EquipmentType.Granade:
                 if (backpack[EquipmentType.Granade] <= 0) return;
-                temp = Instantiate(equipment[(int)equiped], transform.position, Quaternion.identity);
                 backpack[EquipmentType.Granade]--;
-                temp.GetComponent<NadeBase>().Lunch(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
+                PlayThrowAnim();
+                queue = EquipmentType.Granade;
                 break;
 
             case EquipmentType.Molotov:
                 if (backpack[EquipmentType.Molotov] <= 0) return;
-                temp = Instantiate(equipment[(int)equiped], transform.position, Quaternion.identity);
+
                 backpack[EquipmentType.Molotov]--;
-                temp.GetComponent<NadeBase>().Lunch(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
+                PlayThrowAnim();
+                queue = EquipmentType.Molotov;
                 break;
 
             case EquipmentType.Turret:
                 if (backpack[EquipmentType.Turret] <= 0) return;
                 backpack[EquipmentType.Turret]--;
-                Instantiate(equipment[(int)equiped], (Vector2)transform.position + playerController.currentAimDirection.normalized * 1, Quaternion.identity).GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * playerController.playerInfo.throwStrength);
+                PlayThrowAnim();
+                queue = EquipmentType.Turret;
                 break;
 
             case EquipmentType.Medkit:
@@ -124,6 +127,29 @@ public class EquipmentController : MonoBehaviour, IControllSubscriberAim
         }
         equipmentCdRemain = EQUIPMENT_CD + Time.time;
         playerController.uiController.combatHUDController.UpdateEquipmentCount(backpack[equiped]);
+    }
+
+    EquipmentType queue;
+
+    void PlayThrowAnim()
+    {
+        playerController.SetTrigger(true, "Throwing");
+    }
+
+    public void FinishThrowing()
+    {
+        switch(queue)
+        {
+            case EquipmentType.Granade:
+                Instantiate(equipment[(int)equiped], hand.position, Quaternion.identity).GetComponent<NadeBase>().Lunch(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
+                break;
+            case EquipmentType.Molotov:
+                Instantiate(equipment[(int)equiped], hand.position, Quaternion.identity).GetComponent<NadeBase>().Lunch(playerController.currentAimDirection.normalized * playerController.playerInfo.throwStrength);
+                break;
+            case EquipmentType.Turret:
+                Instantiate(equipment[(int)equiped], (Vector2)hand.position , Quaternion.identity).GetComponent<Rigidbody2D>().AddForce(aimDirection.normalized * playerController.playerInfo.throwStrength); //+ playerController.currentAimDirection.normalized * 1
+                break;
+        }
     }
 
     public string GetEquipmentAmmo(EquipmentType type)

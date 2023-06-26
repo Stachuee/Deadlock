@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -100
-  m_Sprite: {fileID: 21300000, guid: ad0f191f2981e074a956620c1f1c641e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cdc2762ce61024a41929ce01bf91a099, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8864710730872429098}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,7 +133,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -6.202718, y: -0.033996105}
+  - {x: -6.407373, y: 0.4403839}
+  - {x: -6.183406, y: 0.44057798}
   - {x: -6.194625, y: 3.3657503}
   - {x: 6.16608, y: 3.3665624}
   - {x: 6.1849313, y: 0.45778394}
@@ -219,7 +220,8 @@ MonoBehaviour:
   roomSize: {x: 6, y: 3}
   startingRoom: 0
   roomEvents: []
-  position: {x: -12.75, y: -2.25}
+  mySprite: {fileID: 0}
+  position: {x: 12.75, y: 4.25}
 --- !u!1 &4280092251742586851
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +280,7 @@ MonoBehaviour:
   - {x: 6.4098043, y: -3.6356893, z: 0}
   m_ShapePathHash: 1444726865
   m_Mesh: {fileID: 0}
-  m_InstanceId: 128364
+  m_InstanceId: 380766
 --- !u!1 &9200668378087306056
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,15 +333,17 @@ MonoBehaviour:
   m_SelfShadows: 1
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
-  - {x: -6.440773, y: 0.02076304, z: 0}
+  - {x: -6.4077992, y: 0.43528366, z: 0}
   - {x: -6.377821, y: 3.6282706, z: 0}
   - {x: 6.419138, y: 3.6201158, z: 0}
-  - {x: 6.388207, y: 3.29372, z: 0}
+  - {x: 6.404457, y: 0.4428587, z: 0}
+  - {x: 6.1957717, y: 0.4419775, z: 0}
+  - {x: 6.1580663, y: 3.3578386, z: 0}
   - {x: -6.0596943, y: 3.301875, z: 0}
-  - {x: -6.0813313, y: 0.0366956, z: 0}
-  m_ShapePathHash: -1460375904
+  - {x: -6.189672, y: 0.43708467, z: 0}
+  m_ShapePathHash: 362458433
   m_Mesh: {fileID: 0}
-  m_InstanceId: 128356
+  m_InstanceId: 380758
 --- !u!1001 &661677018336483524
 PrefabInstance:
   m_ObjectHideFlags: 0

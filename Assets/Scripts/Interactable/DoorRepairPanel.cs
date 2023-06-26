@@ -6,8 +6,6 @@ public class DoorRepairPanel : InteractableBase, ITakeDamage
 {
     StairsScript stairs;
     DoorsBetweenRooms door;
-
-
     private void Start()
     {
         AddAction(RepairDoor);
@@ -60,4 +58,5 @@ public class DoorRepairPanel : InteractableBase, ITakeDamage
     {
         return false;
     }
+
 }

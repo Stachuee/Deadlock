@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6863008055604853014}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   - {x: 6.3575287, y: -3.5851803, z: 0}
   m_ShapePathHash: -1229376555
   m_Mesh: {fileID: 0}
-  m_InstanceId: 371244
+  m_InstanceId: 307048
 --- !u!1 &1983567303784746072
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +230,7 @@ MonoBehaviour:
   startingRoom: 0
   roomEvents: []
   mySprite: {fileID: 0}
-  position: {x: -12.75, y: -2.8500004}
+  position: {x: 0, y: 0}
 --- !u!1001 &770179888841021327
 PrefabInstance:
   m_ObjectHideFlags: 0

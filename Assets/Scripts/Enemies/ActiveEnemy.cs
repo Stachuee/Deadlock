@@ -11,7 +11,7 @@ public abstract class ActiveEnemy : _EnemyBase
 
     Vector2 huntingTarget;
 
-    bool exitedStairs;
+    protected bool exitedStairs;
 
     protected override void Update()
     {

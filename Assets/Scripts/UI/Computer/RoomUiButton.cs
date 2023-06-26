@@ -16,6 +16,8 @@ public class RoomUiButton : MonoBehaviour
     [SerializeField]
     Vector2 iconOffset;
 
+    [SerializeField] GameObject warning;
+
     bool Active
     {
         get
@@ -74,25 +76,27 @@ public class RoomUiButton : MonoBehaviour
 
     public void UpdateEvent(bool highlight, WarningStrength strength)
     {
+        Debug.Log(warning);
         if(highlight)
         {
-            switch (strength)
-            {
-                case WarningStrength.Weak:
-                    myImage.color = Color.yellow;
-                    break;
-                    case WarningStrength.Medium:
-                    myImage.color = new Color(255, 165, 0);
-                    break;
-                case WarningStrength.Strong:
-                    myImage.color = Color.red;
-                    break;
-            }
-            
+            warning.SetActive(true);
+            //switch (strength)
+            //{
+            //    case WarningStrength.Weak:
+            //        myImage.color = Color.yellow;
+            //        break;
+            //        case WarningStrength.Medium:
+            //        myImage.color = new Color(255, 165, 0);
+            //        break;
+            //    case WarningStrength.Strong:
+            //        myImage.color = Color.red;
+            //        break;
+            //}
+
         }
         else
         {
-            myImage.color = Color.white;
+            warning.SetActive(false);
         }
     }
 }

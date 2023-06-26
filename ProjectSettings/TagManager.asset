@@ -8,11 +8,7 @@ TagManager:
   - Enemy
   - Breakable
   - SecondaryCamera
-  - Pistol
-  - ARiffle
-  - Stimulator
-  - Medicine
-  - Tower
+  - Floor
   layers:
   - Default
   - TransparentFX

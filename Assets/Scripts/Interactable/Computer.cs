@@ -10,6 +10,7 @@ public class Computer : InteractableBase
 
     [SerializeField] AudioSource computerOnSFX;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -32,4 +33,5 @@ public class Computer : InteractableBase
             activePlayer.UnlockInAnimation();
         }
     }
+
 }

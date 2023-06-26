@@ -9,12 +9,14 @@ public class Deposit : InteractableBase
     [SerializeField]
     GameObject itemPrefab;
 
+    Workbench workBench;
     SpriteRenderer myRenderer;
 
     protected override void Awake()
     {
         base.Awake();
         myRenderer = transform.GetComponent<SpriteRenderer>();
+        workBench = transform.GetComponentInParent<Workbench>();
         AddAction(AddIngredient);
     }
 
@@ -33,6 +35,7 @@ public class Deposit : InteractableBase
         {
             RemoveIngredient();
         }
+        workBench.ChangedIngredient();
     }
 
     public void RemoveIngredient(bool usedInCrafting = false)

@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 6863008055604853014}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,12 +134,12 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -6.429305, y: 3.2159338}
-  - {x: -5.991087, y: 3.2159338}
-  - {x: -4.9701557, y: 3.225388}
-  - {x: 4.527752, y: 3.2253878}
-  - {x: 5.957056, y: 3.215934}
-  - {x: 6.429304, y: 3.2159338}
+  - {x: -6.402055, y: 0.43640232}
+  - {x: -6.1727557, y: 0.43640232}
+  - {x: -6.160086, y: 3.3343897}
+  - {x: 6.180104, y: 3.3336208}
+  - {x: 6.187952, y: 0.4451778}
+  - {x: 6.414873, y: 0.44517708}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -188,11 +188,15 @@ MonoBehaviour:
   m_ShapePath:
   - {x: -6.3846416, y: 3.5911605, z: 0}
   - {x: 6.4314394, y: 3.5932965, z: 0}
-  - {x: 6.409407, y: 3.2755208, z: 0}
-  - {x: -6.3661194, y: 3.1961143, z: 0}
-  m_ShapePathHash: 1189014516
+  - {x: 6.4018664, y: 0.45548248, z: 0}
+  - {x: 6.2002435, y: 0.44649792, z: 0}
+  - {x: 6.200243, y: 3.3343983, z: 0}
+  - {x: -6.1506214, y: 3.357017, z: 0}
+  - {x: -6.1625338, y: 0.42885733, z: 0}
+  - {x: -6.414529, y: 0.43141556, z: 0}
+  m_ShapePathHash: -1307498869
   m_Mesh: {fileID: 0}
-  m_InstanceId: 128444
+  m_InstanceId: 380344
 --- !u!1 &1983567303784746072
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +252,8 @@ MonoBehaviour:
   roomSize: {x: 6, y: 3}
   startingRoom: 1
   roomEvents: []
-  position: {x: 0, y: -2.25}
+  mySprite: {fileID: 0}
+  position: {x: 0, y: 4.25}
 --- !u!1 &7253420935606603764
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +312,7 @@ MonoBehaviour:
   - {x: 6.394187, y: -3.585167, z: 0}
   m_ShapePathHash: -1459521495
   m_Mesh: {fileID: 0}
-  m_InstanceId: 128440
+  m_InstanceId: 380340
 --- !u!1001 &1046679515157979428
 PrefabInstance:
   m_ObjectHideFlags: 0

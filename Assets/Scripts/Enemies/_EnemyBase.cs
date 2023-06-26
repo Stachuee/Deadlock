@@ -51,6 +51,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
     [SerializeField] Marker markerType;
     RectTransform myMarker;
+    GameObject myMarkerObject;
 
     protected ITakeDamage damaging;
 
@@ -122,7 +123,11 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
         baseSpeed = Random.Range(randomSpeed.x, randomSpeed.y);
         speed = baseSpeed;
-        if(ComputerUI.scientistComputer != null) myMarker = ComputerUI.scientistComputer.CreateMarker(markerType);
+        if (ComputerUI.scientistComputer != null)
+        {
+            myMarker = ComputerUI.scientistComputer.CreateMarker(markerType, out myMarkerObject);
+        }
+
         currentTargetNode = NavController.instance.FindClosestWaypoint(transform.position, true);
         currentDistance = currentTargetNode.distanceToScientist;
 
@@ -305,7 +310,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     public virtual void Dead()
     {
         SpawnerController.instance.RemoveFromMap(transform);
-        if(ComputerUI.scientistComputer != null) ComputerUI.scientistComputer.DeleteMarker(myMarker);
+        if (ComputerUI.scientistComputer != null) Destroy(myMarkerObject);
         Debug.Log(dropChance);
         if(Random.Range(0f, 1f) <= dropChance)
         {

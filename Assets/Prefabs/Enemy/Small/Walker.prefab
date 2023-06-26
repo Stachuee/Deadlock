@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: d87cda936aa96c942aaaa44d98131012, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,8 +124,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.9965696, y: 0.19915581}
-  m_Size: {x: 2.8883762, y: 9.37403}
+  m_Offset: {x: 0, y: -0.16557851}
+  m_Size: {x: 2.8883762, y: 10.103505}
   m_Direction: 0
 --- !u!114 &907252250896302099
 MonoBehaviour:
@@ -1479,7 +1479,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.510552, b: 0, a: 1}
+        key0: {r: 1, g: 1, b: 1, a: 1}
         key1: {r: 0.028301895, g: 0.028301895, b: 0.028301895, a: 1}
         key2: {r: 1, g: 1, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -4955,7 +4955,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5031,7 +5031,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.15203714, y: 0.073058724}
+  m_Offset: {x: -0.27439296, y: -0.63054407}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5042,5 +5042,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.0849228, y: 1.8674898}
+  m_Size: {x: 5.325756, y: 3.2746956}
   m_EdgeRadius: 0
