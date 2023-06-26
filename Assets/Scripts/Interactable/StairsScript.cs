@@ -27,11 +27,13 @@ public class StairsScript : PoweredInteractable, ITakeDamageInteractable
                 closed = value;
                 if(closed)
                 {
+                    doorsClosingSFX.Play();
                     staris.sprite = closedDoor;
                     node.obstaclesWeigths += doorNavStrength;
                 }
                 else
                 {
+                    doorsClosingSFX.Play();
                     staris.sprite = openDoor;
                     node.obstaclesWeigths -= doorNavStrength;
                 }
@@ -106,7 +108,6 @@ public class StairsScript : PoweredInteractable, ITakeDamageInteractable
         else
         {
             Closed = false;
-            doorsClosingSFX.Play();
         }
 
         if(destroyed)

@@ -149,6 +149,10 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         GameController.gameController.AddPlayer(this);
         cameraController.SetSplitScreenPosition(index, glassesMode);
+        if (isScientist)
+        {
+            scientistAudioListener.enabled = false;
+        }
     }
 
     private void Awake()
@@ -176,7 +180,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         {
             playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("soldier/Soldier");//"scientist/scientist_animator");
             //playerSpriteRenderer.sprite = scientistSprite;
-            //scientistAudioListener.enabled = false;
         }
         else
         {

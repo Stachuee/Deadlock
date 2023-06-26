@@ -328,7 +328,7 @@
                 {
                     "name": "",
                     "id": "852c4bfe-eec8-4211-b6ec-010344e4375a",
-                    "path": "<Gamepad>/start",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -658,7 +658,7 @@
                 {
                     "name": "",
                     "id": "2bcdc688-ab4f-4a64-a5c5-fe2a500ab5ed",
-                    "path": "<Gamepad>/select",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

@@ -29,6 +29,10 @@ public class InputDetection : MonoBehaviour
 
     private MainMenuController menuController;
 
+    [SerializeField] AudioSource chooseSFX;
+    [SerializeField] AudioSource unChooseSFX;
+
+
     [System.Serializable]
     public struct NewDevice
     {
@@ -131,6 +135,7 @@ public class InputDetection : MonoBehaviour
                 //enabled = false;
             }
         }
+        chooseSFX.Play();
     }
 
     private void OnUnchooseDevice(InputAction.CallbackContext context)
@@ -185,6 +190,7 @@ public class InputDetection : MonoBehaviour
                 }
             }
         }
+        unChooseSFX.Play();
     }
 
 
