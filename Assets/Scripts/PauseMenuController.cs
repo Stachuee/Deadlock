@@ -7,12 +7,13 @@ using UnityEngine.EventSystems;
 public enum CurrentPauseMenuPanel
 {
     Main,
-    Settings
+    Settings,
+    Confirmation
 }
 public class PauseMenuController : MonoBehaviour
 {
     EventSystem eSystem;
-    [SerializeField] GameObject FirstPauseButton, FirstSettingsButton, SettingsButton;
+    [SerializeField] GameObject FirstPauseButton, FirstSettingsButton, SettingsButton, ExitButton, YesButton, ConfirmationWindow, PauseWindow, OptionsWindow;
 
 
     CurrentPauseMenuPanel currentPanel;
@@ -53,20 +54,51 @@ public class PauseMenuController : MonoBehaviour
         currentPanel = CurrentPauseMenuPanel.Settings;
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(FirstSettingsButton);
+
+        PauseWindow.SetActive(false);
+
+        OptionsWindow.SetActive(true);
     }
     public void CloseSettings()
     {
         currentPanel = CurrentPauseMenuPanel.Main;
         eSystem.SetSelectedGameObject(null);
         eSystem.SetSelectedGameObject(SettingsButton);
+
+        PauseWindow.SetActive(true);
+
+        OptionsWindow.SetActive(false);
     }
 
-    void Resume()
+
+    public void OpenExitConfirmation()
+    {
+        currentPanel = CurrentPauseMenuPanel.Confirmation;
+        eSystem.SetSelectedGameObject(null);
+        eSystem.SetSelectedGameObject(YesButton);
+
+        PauseWindow.SetActive(false);
+
+        ConfirmationWindow.SetActive(true);
+    }
+
+    public void CloseExitConfirmation()
+    {
+        currentPanel = CurrentPauseMenuPanel.Main;
+        eSystem.SetSelectedGameObject(null);
+        eSystem.SetSelectedGameObject(ExitButton);
+
+        PauseWindow.SetActive(true);
+
+        ConfirmationWindow.SetActive(false);
+    }
+
+    public void Resume()
     {
         Time.timeScale = 1;
     }
 
-    void BackToMenu()
+    public void BackToMenu()
     {
         SceneManager.LoadScene(0);
     }

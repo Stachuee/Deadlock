@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public static PlayerController scientist;
     public static PlayerController solider;
 
+    public static bool isGamePaused = false;
+
     [SerializeField][Header("Player info")]
     public PlayerInfo playerInfo;
 
@@ -108,6 +110,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     
     [SerializeField] AudioSource pickupSFX;
 
+    [SerializeField] AudioListener scientistAudioListener;
+
     [Header("Appearance")]
     [SerializeField] GameObject playerSpriteObject;
     Animator playerAnimator;
@@ -119,6 +123,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public bool isScientist {get; private set;}
 
     [SerializeField] GameObject pausePanel;
+    
 
     public bool LockInAnimation
     {
@@ -171,6 +176,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         {
             playerAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("soldier/Soldier");//"scientist/scientist_animator");
             //playerSpriteRenderer.sprite = scientistSprite;
+            //scientistAudioListener.enabled = false;
         }
         else
         {
@@ -181,7 +187,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     private void Update() 
     {
-
+        if (isGamePaused) return;
         if (!LockInAnimation && !dead) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, new Vector2(moveDirection.x * playerInfo.speed, myBody.velocity.y), ref m_Velocity, m_MovementSmoothing);
         else
         {
@@ -383,6 +389,14 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         return moveDirection;
     }
 
+
+    public void UnPause()
+    {
+        isGamePaused = false;
+        PlayerController.scientist.uiController.PlayerUnPaused();
+        PlayerController.solider.uiController.PlayerUnPaused();
+    }
+
     
 
     
@@ -395,6 +409,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnDrop(InputAction.CallbackContext context)
     {
+        if (isGamePaused) return;
         if (context.performed)
         {
             if (dead) return;
@@ -411,6 +426,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnUse(InputAction.CallbackContext context)
     {
+        if (isGamePaused) return;
         if (context.performed)
         {
             if (dead) return;
@@ -431,7 +447,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || isGamePaused) return;
         SendShootControll(context.ReadValueAsButton());
         if (lockedInAnimation) return;
         gunController.ShootGun(context.ReadValueAsButton());
@@ -441,7 +457,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || isGamePaused) return;
         if (context.ReadValueAsButton() && !isAttacking)
         {
             isAttacking = true;
@@ -460,13 +476,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnChangeWeapon(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || isGamePaused) return;
         if (!context.started) return;
     }
 
     public void onChangeBullet(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || isGamePaused) return;
         gunController.ChangeBullet(context.performed);
         //changeBulletSFX.Play();
     }
@@ -480,7 +496,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || isGamePaused) return;
         if (context.performed)
         {
             equipmentController.UseEquipment();
@@ -513,7 +529,15 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnPause(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+        if (isGamePaused) return;
+        isGamePaused = true;
         pausePanel.SetActive(true);
+        if (isScientist)  
+            PlayerController.solider.uiController.PlayerPaused();
+        else
+            PlayerController.scientist.uiController.PlayerPaused();
+        Time.timeScale = 0;
+
     }
 
 
