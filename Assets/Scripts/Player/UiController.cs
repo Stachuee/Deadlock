@@ -36,6 +36,8 @@ public class UiController : MonoBehaviour
     [HideInInspector] public UpgradeGuide upgradeGuide;
     [HideInInspector] public CameraHUDController cameraHUD;
 
+    [SerializeField] GameObject GamePausedPanel;
+
     Camera cam;
 
     public MultiplayerEventSystem myEventSystem; 
@@ -93,9 +95,19 @@ public class UiController : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerController.isGamePaused) return;
         if(ToHighlight != null)
         {
             itemInfoPanelRect.position = ToHighlight.GetTransform().position + (Vector3)itemInfoOffset;
         }
+    }
+
+    public void PlayerPaused()
+    {
+        GamePausedPanel.SetActive(true);
+    }
+    public void PlayerUnPaused()
+    {
+        GamePausedPanel.SetActive(false);
     }
 }

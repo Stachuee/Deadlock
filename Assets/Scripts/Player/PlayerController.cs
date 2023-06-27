@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public static PlayerController scientist;
     public static PlayerController solider;
 
+    public static bool isGamePaused = false;
+
     [SerializeField][Header("Player info")]
     public PlayerInfo playerInfo;
 
@@ -110,6 +112,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     
     [SerializeField] AudioSource pickupSFX;
 
+    [SerializeField] AudioListener scientistAudioListener;
+
     [Header("Appearance")]
     Animator playerAnimator;
 
@@ -119,6 +123,9 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     [SerializeField] GameObject backpack;
 
     public bool isScientist {get; private set;}
+
+    [SerializeField] GameObject pausePanel;
+    
 
     public bool LockInAnimation
     {
@@ -148,6 +155,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
         if (isScientist)
         {
+            scientistAudioListener.enabled = false;
             scientistSprite.SetActive(true);
             soliderSprite.SetActive(false);
             playerAnimator = scientistSprite.GetComponent<Animator>();
@@ -184,7 +192,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     private void Update() 
     {
-        if (lockedInCutscene) return;
+        if (lockedInCutscen || isGamePaused) return;
         if (!LockInAnimation && !dead) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, 
             new Vector2(moveDirection.x * (isScientist ? playerInfo.speed : (moveDirection.x * currentAimDirection.x < 0 ? playerInfo.speedbackward : playerInfo.speed)), myBody.velocity.y), 
             ref m_Velocity, m_MovementSmoothing);
@@ -414,6 +422,14 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         return moveDirection;
     }
 
+
+    public void UnPause()
+    {
+        isGamePaused = false;
+        PlayerController.scientist.uiController.PlayerUnPaused();
+        PlayerController.solider.uiController.PlayerUnPaused();
+    }
+
     
 
     
@@ -426,6 +442,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnDrop(InputAction.CallbackContext context)
     {
+        if (isGamePaused) return;
         if (context.performed)
         {
             if (dead) return;
@@ -442,6 +459,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnUse(InputAction.CallbackContext context)
     {
+        if (isGamePaused) return;
         if (context.performed)
         {
             if (dead) return;
@@ -462,7 +480,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (dead || lockedInCutscene) return;
+        if (dead || lockedInCutscene|| isGamePaused) return;
         SendShootControll(context.ReadValueAsButton());
         if (lockedInAnimation) return;
         gunController.ShootGun(context.ReadValueAsButton());
@@ -472,7 +490,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (dead || lockedInCutscene) return;
+        if (dead || lockedInCutscene|| isGamePaused) return;
         //if (context.ReadValueAsButton() && !isAttacking)
         //{
         //    isAttacking = true;
@@ -491,13 +509,13 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnChangeWeapon(InputAction.CallbackContext context)
     {
-        if (dead || lockedInCutscene) return;
+        if (dead || lockedInCutscene|| isGamePaused) return;
         if (!context.started) return;
     }
 
     public void onChangeBullet(InputAction.CallbackContext context)
     {
-        if (dead || lockedInCutscene) return;
+        if (dead || lockedInCutscene|| isGamePaused) return;
         gunController.ChangeBullet(context.performed);
         //changeBulletSFX.Play();
     }
@@ -511,7 +529,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (dead || lockedInCutscene) return;
+        if (dead || lockedInCutscene|| isGamePaused) return;
         if (context.performed)
         {
             equipmentController.UseEquipment();
@@ -539,6 +557,20 @@ public class PlayerController : MonoBehaviour, ITakeDamage
                 SendbackControll();
             }
         }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        if (isGamePaused) return;
+        isGamePaused = true;
+        pausePanel.SetActive(true);
+        if (isScientist)  
+            PlayerController.solider.uiController.PlayerPaused();
+        else
+            PlayerController.scientist.uiController.PlayerPaused();
+        Time.timeScale = 0;
+
     }
 
 
