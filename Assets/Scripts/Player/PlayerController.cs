@@ -166,6 +166,8 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             soliderSprite.SetActive(true);
             playerAnimator = soliderSprite.GetComponent<Animator>();
         }
+
+        uiController.LoadHelpers(keyboard);
     }
 
     private void Awake()

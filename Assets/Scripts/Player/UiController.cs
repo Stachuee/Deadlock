@@ -38,9 +38,33 @@ public class UiController : MonoBehaviour
 
     [SerializeField] GameObject GamePausedPanel;
 
+    [SerializeField] GameObject fuseBoxHelpersPad;
+    [SerializeField] GameObject fuseBoxHelpersKeyboard;
+
+    [SerializeField] GameObject computerHelpersPad;
+    [SerializeField] GameObject computerHelpersKeyboard;
+
+    [SerializeField] GameObject craftingTutorHelpersPad;
+    [SerializeField] GameObject craftingTutorHelpersKeyboard;
+
+    [SerializeField] GameObject combatHUDHelpersPad;
+    [SerializeField] GameObject combatHUDHelpersKeyboard;
+
+    [SerializeField] GameObject cameraHUDHelpersPad;
+    [SerializeField] GameObject cameraHUDHelpersKeyboard;
+
+    [SerializeField] GameObject cureMachineHelpersPad;
+    [SerializeField] GameObject cureMachineHelpersKeyboard;
+
+    [SerializeField] GameObject fuseBoxElectricityHelpersPad;
+    [SerializeField] GameObject fuseBoxElectricityHelpersKeyboard;
+
+
     Camera cam;
 
     public MultiplayerEventSystem myEventSystem; 
+
+    
     
 
     public IInteractable ToHighlight
@@ -99,6 +123,30 @@ public class UiController : MonoBehaviour
         if(ToHighlight != null)
         {
             itemInfoPanelRect.position = ToHighlight.GetTransform().position + (Vector3)itemInfoOffset;
+        }
+    }
+
+    public void LoadHelpers(bool isOnKeyboard)
+    {
+        if (isOnKeyboard)
+        {
+            fuseBoxHelpersKeyboard.SetActive(true);
+            computerHelpersKeyboard.SetActive(true);
+            craftingTutorHelpersKeyboard.SetActive(true);
+            combatHUDHelpersKeyboard.SetActive(true);
+            cameraHUDHelpersKeyboard.SetActive(true);
+            cureMachineHelpersKeyboard.SetActive(true);
+            fuseBoxElectricityHelpersKeyboard.SetActive(true);
+        }
+        else
+        {
+            fuseBoxHelpersPad.SetActive(true);
+            computerHelpersPad.SetActive(true);
+            craftingTutorHelpersPad.SetActive(true);
+            combatHUDHelpersPad.SetActive(true);
+            cameraHUDHelpersPad.SetActive(true);
+            cureMachineHelpersPad.SetActive(true);
+            fuseBoxElectricityHelpersPad.SetActive(true);
         }
     }
 
