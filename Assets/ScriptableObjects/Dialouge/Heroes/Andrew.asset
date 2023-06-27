@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2607da377c8424d4ea165a1833ec0d5b, type: 3}
-  m_Name: ScientistTwo
+  m_Name: Andrew
   m_EditorClassIdentifier: 
-  heroName: Scientist Andrew
+  heroName: Andrew
   sprite: {fileID: 0}

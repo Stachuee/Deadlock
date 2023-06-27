@@ -8,7 +8,7 @@ public class TutorialController : MonoBehaviour
     public static TutorialController instance;
 
     [SerializeField] bool isTutorial;
-
+    [SerializeField] Transform soliderAnim;
 
     private void Awake()
     {
@@ -34,8 +34,8 @@ public class TutorialController : MonoBehaviour
     public void StartTutorial()
     {
         PacingController.pacingController.StartTutorial();
-        PlayerController.solider.SetTrigger(true, "TutorialBegin");
         PlayerController.solider.LockInCutscene(true);
         DialogueManager.instance.StartTutorial();
+        PlayerController.solider.cameraController.ChangeTarget(soliderAnim, true);
     }
 }

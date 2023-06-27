@@ -17,8 +17,5 @@ public class AnimationEvents : MonoBehaviour
         playerController.equipmentController.FinishThrowing();
     }
 
-    public void Call()
-    {
 
-    }
 }

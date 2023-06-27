@@ -98,10 +98,12 @@ public class CameraFollowScript : MonoBehaviour, IControllSubscriberMove, IContr
         }
     }
 
-    public void ChangeTarget(Transform target)
+    public void ChangeTarget(Transform target, bool instant = false)
     {
         this.target = target;
         onPlayer = false;
+
+        if (instant) camHolder.position = target.position ;
     }
 
     public void ResetTarget()

@@ -794,7 +794,6 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     {
         lockedInCutscene = value;
         myBody.bodyType = value ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
-        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void LockInAction(UnityAction callback)
