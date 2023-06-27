@@ -133,6 +133,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     }
     UnityAction callbackWhenUnlocking;
     bool lockedInAnimation;
+    public bool lockedInCutscene { get; private set; }
 
     public void SetUpPlayer(string controllScheme, int index, bool _scientist, bool glassesMode)
     {
@@ -183,7 +184,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     private void Update() 
     {
-
+        if (lockedInCutscene) return;
         if (!LockInAnimation && !dead) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, 
             new Vector2(moveDirection.x * (isScientist ? playerInfo.speed : (moveDirection.x * currentAimDirection.x < 0 ? playerInfo.speedbackward : playerInfo.speed)), myBody.velocity.y), 
             ref m_Velocity, m_MovementSmoothing);
@@ -461,7 +462,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnShoot(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || lockedInCutscene) return;
         SendShootControll(context.ReadValueAsButton());
         if (lockedInAnimation) return;
         gunController.ShootGun(context.ReadValueAsButton());
@@ -471,32 +472,32 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (dead) return;
-        if (context.ReadValueAsButton() && !isAttacking)
-        {
-            isAttacking = true;
-            Collider2D[] hits = Physics2D.OverlapCircleAll((Vector2)transform.position + new Vector2((currentAimDirection.x >= 0 ? 1 : -1) * meleeOffset, 0), meleeRadius);
-            for (int i = 0; i < hits.Length; i++)
-            {
-                if(hits[i].transform.tag == "Enemy")
-                {
-                    ITakeDamage hit = hits[i].GetComponent<ITakeDamage>();
-                    hit.TakeDamage(playerInfo.meleeDamage, DamageSource.Turret);
-                    hit.TakeArmorDamage(playerInfo.kickArmorShred);
-                }
-            }
-        }
+        if (dead || lockedInCutscene) return;
+        //if (context.ReadValueAsButton() && !isAttacking)
+        //{
+        //    isAttacking = true;
+        //    Collider2D[] hits = Physics2D.OverlapCircleAll((Vector2)transform.position + new Vector2((currentAimDirection.x >= 0 ? 1 : -1) * meleeOffset, 0), meleeRadius);
+        //    for (int i = 0; i < hits.Length; i++)
+        //    {
+        //        if(hits[i].transform.tag == "Enemy")
+        //        {
+        //            ITakeDamage hit = hits[i].GetComponent<ITakeDamage>();
+        //            hit.TakeDamage(playerInfo.meleeDamage, DamageSource.Turret);
+        //            hit.TakeArmorDamage(playerInfo.kickArmorShred);
+        //        }
+        //    }
+        //}
     }
 
     public void OnChangeWeapon(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || lockedInCutscene) return;
         if (!context.started) return;
     }
 
     public void onChangeBullet(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || lockedInCutscene) return;
         gunController.ChangeBullet(context.performed);
         //changeBulletSFX.Play();
     }
@@ -510,7 +511,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || lockedInCutscene) return;
         if (context.performed)
         {
             equipmentController.UseEquipment();
@@ -518,7 +519,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     }
     public void OnReload(InputAction.CallbackContext context)
     {
-        if (dead) return;
+        if (dead || lockedInCutscene) return;
         if (context.performed) gunController.Reload();
     }
 
@@ -545,7 +546,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
         //if (!context.started) return;
-        //if (dead) return;
+        if (lockedInCutscene) return;
         if (context.ReadValueAsButton())
         {
             inventorySelector.OpenInventory();
@@ -789,7 +790,11 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (closestInRange != null) uiController.combatHUDController.ShowUse(closestInRange.IsUsable(this));
     }
 
-
+    public void LockInCutscene(bool value)
+    {
+        lockedInCutscene = value;
+        myBody.bodyType = value ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
+    }
 
     public void LockInAction(UnityAction callback)
     {

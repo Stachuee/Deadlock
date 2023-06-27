@@ -61,7 +61,7 @@ public class PacingController : MonoBehaviour
 
     private void Update()
     {
-        if (!active) return;
+        if (!active || TutorialController.markAsTutorial) return;
 
         pacing -= (pacingFalloff / 60) * Time.deltaTime;
         pacing = Mathf.Max(pacing, 0);
@@ -110,6 +110,28 @@ public class PacingController : MonoBehaviour
     {
         EffectManager.instance.ScreenShake(3, EffectManager.ScreenShakeRange.Global, EffectManager.ScreenShakeStrength.Weak, Vector2.zero);
         if(currentDangerLevel != null) dangerLevelTime -= currentDangerLevel.GetDangerZoneTimer();
+        dangerLevel++;
+        currentDangerLevel = dangerLevels[dangerLevel];//.Find(x => x.GetDangerLevel() == dangerLevel && x.GetDifficulty() == GameController.difficulty);
+        targetPacing = currentDangerLevel.GetTargetPacing();
+        pacingFalloff = currentDangerLevel.GetPacingFallof();
+        minNestSpawnCooldown = currentDangerLevel.GetMinNestSpawnCooldown();
+        createNests = currentDangerLevel.GetSpwanNewNest();
+        newNestChance = currentDangerLevel.GetNewNestChance();
+        hpModifier = currentDangerLevel.GetHpModifier();
+        waveDuration = currentDangerLevel.GetWaveDuration();
+        respiteCurrentDuration = currentDangerLevel.GetRespiteDuration();
+
+        toDrop.AddRange(currentDangerLevel.GetNewItems());
+
+        pacing = Mathf.Max(pacing, targetPacing);
+        lastPaceCheck = Time.time;
+        active = true;
+        wave = true;
+        Notify();
+    }
+
+    public void StartTutorial()
+    {
         dangerLevel++;
         currentDangerLevel = dangerLevels[dangerLevel];//.Find(x => x.GetDangerLevel() == dangerLevel && x.GetDifficulty() == GameController.difficulty);
         targetPacing = currentDangerLevel.GetTargetPacing();

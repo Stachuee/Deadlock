@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe86c2cdff61c54683295fe30bb20ff, type: 3}
+  m_Name: ScientistStory
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: Hey there, focus please. I want to finish this quick. Please dont touch
+      anything yet.
+    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
+    timeOnScreen: 4
+    waitForTrigger: 0
+    trigger: 0
+  - text: Ok. Can you see a big computer? It should be next to the bunker doors.
+      Check if it still works. Last time someone used it was like 3 years ago.
+    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
+    timeOnScreen: 5
+    waitForTrigger: 0
+    trigger: 0
+  - text: ...
+    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
+    timeOnScreen: 4
+    waitForTrigger: 0
+    trigger: 0
+  - text: 'Try to clicking on some rooms. Hopefully at least some of the cameras
+      still works. '
+    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
+    timeOnScreen: 5
+    waitForTrigger: 0
+    trigger: 0
+  - text: ...
+    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
+    timeOnScreen: 4
+    waitForTrigger: 0
+    trigger: 0
+  - text: All right. While on the cameras, you can use certain things such as doors
+      or turrets. Try using some of them.
+    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
+    timeOnScreen: 4
+    waitForTrigger: 0
+    trigger: 0
+  - text: Ah yea, I forgot. In order to use them you have to turn on the power fuses.
+      They should be somewhere near.
+    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
+    timeOnScreen: 4
+    waitForTrigger: 0
+    trigger: 0
+  nextDialogue: {fileID: 0}
+  toShow: 1
+  trigger: 0

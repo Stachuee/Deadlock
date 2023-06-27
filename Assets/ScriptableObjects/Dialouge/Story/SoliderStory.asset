@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbe86c2cdff61c54683295fe30bb20ff, type: 3}
-  m_Name: StoryBegining
+  m_Name: SoliderStory
   m_EditorClassIdentifier: 
   dialogue:
-  - text: Thinking emoji
-    speaker: {fileID: 11400000, guid: 13f9f7773ef0bda4e8f4251210add6f9, type: 2}
-    timeOnScreen: 5
-  nextDialogue: {fileID: 11400000, guid: 1f2e24b073a15ae459374138417a13ed, type: 2}
+  - text: asd
+    speaker: {fileID: 11400000, guid: 4266c27e712dde047a203cc56cf0fccf, type: 2}
+    timeOnScreen: 1
+    waitForTrigger: 0
+    trigger: 0
+  nextDialogue: {fileID: 0}
   toShow: 2
   trigger: 0

@@ -58,12 +58,15 @@ public class ProgressStageController : MonoBehaviour
     public void StartGame()
     {
         if (started) return;
+        if (!TutorialController.markAsTutorial)
+        {
+            PacingController.pacingController.StartGame();
+            NextLevel();
+            //SpawnerController.instance.StartSpawning();
+            MapSegment.scientistSegment.ScientistSegmentUnlock();
+            DialogueManager.instance.StartQuips();
+        }
         started = true;
-        PacingController.pacingController.StartGame();
-        NextLevel();
-        //SpawnerController.instance.StartSpawning();
-        MapSegment.scientistSegment.ScientistSegmentUnlock();
-        DialogueManager.instance.StartQuips();
     }
 
     private void NextLevel()

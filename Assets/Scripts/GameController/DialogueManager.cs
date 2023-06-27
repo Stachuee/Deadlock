@@ -16,6 +16,11 @@ public class DialogueManager : MonoBehaviour, DangerLevelIncrease
     [SerializeField]
     Dialogue startingDialogue;
 
+    [SerializeField] Dialogue tutorialDialogueScientist;
+    
+    [SerializeField] Dialogue tutorialDialogueSolider;
+
+
     [SerializeField, MinMaxSlider(0, 360)] Vector2 minMaxQuipTimer; 
 
     Dialogue currentDialouge;
@@ -33,7 +38,7 @@ public class DialogueManager : MonoBehaviour, DangerLevelIncrease
     private void Start()
     {
         PacingController.pacingController.AddToNotify(this);
-        PlayDialogue(startingDialogue, true);
+        //PlayDialogue(startingDialogue, true);
     }
 
     public void StartQuips()
@@ -42,6 +47,11 @@ public class DialogueManager : MonoBehaviour, DangerLevelIncrease
         StartCoroutine("NewQuip");
     }
 
+    public void StartTutorial()
+    {
+        PlayDialogue(tutorialDialogueScientist, true);
+        PlayDialogue(tutorialDialogueSolider, true);
+    }
 
     public IEnumerator NewQuip()
     {

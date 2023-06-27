@@ -16,4 +16,9 @@ public class AnimationEvents : MonoBehaviour
         playerController.SetTrigger(false, "Throwing");
         playerController.equipmentController.FinishThrowing();
     }
+
+    public void Call()
+    {
+
+    }
 }

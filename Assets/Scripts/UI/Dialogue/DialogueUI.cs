@@ -21,6 +21,27 @@ public class DialogueUI : MonoBehaviour
         DialogueManager.instance.AddLisner(this, playerController.isScientist);
     }
 
+    int step = 0;
+    float nextStep;
+
+
+    private void Update()
+    {
+        if (playing != null && nextStep < Time.time)
+        {
+            if (step >= playing.GetDialouge().Count)
+            {
+                playing = null;
+                parrent.gameObject.SetActive(false);
+            }
+            else
+            {
+                ShowText(playing.GetDialouge()[step]);
+                step++;
+            }
+        }
+    }
+
     public DialogueStatus GetStatus()
     {
         if (playing == null) return DialogueStatus.Ready;
@@ -35,9 +56,11 @@ public class DialogueUI : MonoBehaviour
 
     public void ShowDialogue(Dialogue dialogue)
     {
-        StopCoroutine("PlayDialogue");
+        //StopCoroutine("PlayDialogue");
         playing = dialogue;
-        StartCoroutine("PlayDialogue");
+        step = 0;
+        nextStep = Time.time + (dialogue.GetDialouge()[step].waitForTrigger ? 99999 : dialogue.GetDialouge()[step].timeOnScreen);
+        //StartCoroutine("PlayDialogue");
     }
 
     IEnumerator PlayDialogue()
@@ -46,7 +69,7 @@ public class DialogueUI : MonoBehaviour
         while (step < playing.GetDialouge().Count)
         {
             ShowText(playing.GetDialouge()[step]);
-            yield return new WaitForSeconds(playing.GetDialouge()[step].timeOnScreen);
+            yield return new WaitForSeconds(playing.GetDialouge()[step].waitForTrigger ? 99999 : playing.GetDialouge()[step].timeOnScreen);
             step++;
         }
         playing = null;
