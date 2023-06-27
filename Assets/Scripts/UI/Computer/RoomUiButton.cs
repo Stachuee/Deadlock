@@ -76,7 +76,6 @@ public class RoomUiButton : MonoBehaviour
 
     public void UpdateEvent(bool highlight, WarningStrength strength)
     {
-        Debug.Log(warning);
         if(highlight)
         {
             warning.SetActive(true);

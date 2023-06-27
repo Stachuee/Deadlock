@@ -20,6 +20,7 @@ public class Computer : InteractableBase
 
     void OpenComputer(PlayerController player, UseType type)
     {
+        DialogueManager.instance.Trigger("ComputerOpen");
         activePlayer = player;
         player.uiController.computer.OpenComputer();
         player.LockInAction(Back);

@@ -102,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 8127925849818963148, guid: da80cd0bfabc006469a8a5f60ac5f040, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 789f85fa867042d4d92098497df788ac, type: 3}
+      objectReference: {fileID: 21300000, guid: 5e6e77ed3204e0748980e8d2be3dc3ec, type: 3}
     - target: {fileID: 8461170066999980177, guid: da80cd0bfabc006469a8a5f60ac5f040, type: 3}
       propertyPath: m_Name
       value: RoomIconBunkerDoor

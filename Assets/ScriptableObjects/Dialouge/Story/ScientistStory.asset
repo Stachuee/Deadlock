@@ -18,41 +18,42 @@ MonoBehaviour:
     speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
     timeOnScreen: 4
     waitForTrigger: 0
-    trigger: 0
+    trigger: 
+    setTrigger: 
   - text: Ok. Can you see a big computer? It should be next to the bunker doors.
       Check if it still works. Last time someone used it was like 3 years ago.
     speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
     timeOnScreen: 5
-    waitForTrigger: 0
-    trigger: 0
-  - text: ...
-    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
-    timeOnScreen: 4
-    waitForTrigger: 0
-    trigger: 0
+    waitForTrigger: 1
+    trigger: ComputerOpen
+    setTrigger: 
   - text: 'Try to clicking on some rooms. Hopefully at least some of the cameras
       still works. '
     speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
     timeOnScreen: 5
     waitForTrigger: 0
-    trigger: 0
-  - text: ...
-    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
-    timeOnScreen: 4
-    waitForTrigger: 0
-    trigger: 0
+    trigger: 
+    setTrigger: 
   - text: All right. While on the cameras, you can use certain things such as doors
       or turrets. Try using some of them.
     speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
     timeOnScreen: 4
     waitForTrigger: 0
-    trigger: 0
+    trigger: 
+    setTrigger: 
   - text: Ah yea, I forgot. In order to use them you have to turn on the power fuses.
       They should be somewhere near.
     speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
     timeOnScreen: 4
-    waitForTrigger: 0
-    trigger: 0
+    waitForTrigger: 1
+    trigger: FuseStateChange
+    setTrigger: 
+  - text: .
+    speaker: {fileID: 11400000, guid: ac5b03034045f4f419115d8f399a3b8f, type: 2}
+    timeOnScreen: 4
+    waitForTrigger: 1
+    trigger: 
+    setTrigger: TutorialEnd
   nextDialogue: {fileID: 0}
   toShow: 1
   trigger: 0

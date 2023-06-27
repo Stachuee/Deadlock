@@ -29,15 +29,16 @@ public class DialogueUI : MonoBehaviour
     {
         if (playing != null && nextStep < Time.time)
         {
-            if (step >= playing.GetDialouge().Count)
+            if (step >= playing.GetDialouge().Count - 1)
             {
                 playing = null;
                 parrent.gameObject.SetActive(false);
             }
             else
             {
-                ShowText(playing.GetDialouge()[step]);
                 step++;
+                ShowText(playing.GetDialouge()[step]);
+                nextStep = Time.time + (playing.GetDialouge()[step].waitForTrigger ? 99999 : playing.GetDialouge()[step].timeOnScreen);
             }
         }
     }
@@ -51,6 +52,7 @@ public class DialogueUI : MonoBehaviour
     public void ShowText(Dialogue.DialougeField dialogue)
     {
         parrent.gameObject.SetActive(true);
+        DialogueManager.instance.Trigger(dialogue.setTrigger);
         dialogueText.text = "[" + dialogue.speaker.name + "] " + dialogue.text;
     }
 
@@ -59,20 +61,39 @@ public class DialogueUI : MonoBehaviour
         //StopCoroutine("PlayDialogue");
         playing = dialogue;
         step = 0;
+        ShowText(playing.GetDialouge()[step]);
         nextStep = Time.time + (dialogue.GetDialouge()[step].waitForTrigger ? 99999 : dialogue.GetDialouge()[step].timeOnScreen);
         //StartCoroutine("PlayDialogue");
     }
 
-    IEnumerator PlayDialogue()
+    public void Trigger(string triggerId)
     {
-        int step = 0;
-        while (step < playing.GetDialouge().Count)
+        if (playing != null && triggerId == playing.GetDialouge()[step].trigger)
         {
-            ShowText(playing.GetDialouge()[step]);
-            yield return new WaitForSeconds(playing.GetDialouge()[step].waitForTrigger ? 99999 : playing.GetDialouge()[step].timeOnScreen);
             step++;
+            if(step >= playing.GetDialouge().Count)
+            {
+                playing = null;
+                parrent.gameObject.SetActive(false);
+            }
+            else
+            {
+                ShowText(playing.GetDialouge()[step]);
+                nextStep = Time.time + (playing.GetDialouge()[step].waitForTrigger ? 99999 : playing.GetDialouge()[step].timeOnScreen);
+            }
         }
-        playing = null;
-        parrent.gameObject.SetActive(false);
     }
+
+    //IEnumerator PlayDialogue()
+    //{
+    //    int step = 0;
+    //    while (step < playing.GetDialouge().Count)
+    //    {
+    //        ShowText(playing.GetDialouge()[step]);
+    //        yield return new WaitForSeconds(playing.GetDialouge()[step].waitForTrigger ? 99999 : playing.GetDialouge()[step].timeOnScreen);
+    //        step++;
+    //    }
+    //    playing = null;
+    //    parrent.gameObject.SetActive(false);
+    //}
 }

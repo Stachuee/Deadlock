@@ -337,7 +337,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxSize: 100
-  explosionTime: 1
+  explosionTime: 5
 --- !u!1 &6261582592521071065
 GameObject:
   m_ObjectHideFlags: 0

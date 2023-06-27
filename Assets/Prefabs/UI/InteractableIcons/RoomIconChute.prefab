@@ -102,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 8127925849818963148, guid: da80cd0bfabc006469a8a5f60ac5f040, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7feb1957b42c110418c279d58047867c, type: 3}
+      objectReference: {fileID: 21300000, guid: 520635186532c8b4dba35b6ea6f41940, type: 3}
     - target: {fileID: 8461170066999980177, guid: da80cd0bfabc006469a8a5f60ac5f040, type: 3}
       propertyPath: m_Name
       value: RoomIconChute

@@ -16,7 +16,8 @@ public class Dialogue : ScriptableObject
         public Hero speaker;
         public float timeOnScreen;
         public bool waitForTrigger;
-        public int trigger;
+        public string trigger;
+        public string setTrigger;
     };
 
     [SerializeField]

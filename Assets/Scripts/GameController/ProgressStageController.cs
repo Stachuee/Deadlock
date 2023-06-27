@@ -47,8 +47,10 @@ public class ProgressStageController : MonoBehaviour
         {
             currentProgress += Time.deltaTime;
             if (GetCurrentProgress() >= 1) NextLevel();
+            Debug.Log((GetCurrentLevel() >= 0.75f) + " " + last + " " + !charging);
             if(GetCurrentLevel() >= 0.75f && last && !charging)
             {
+                Debug.Log("Charge");
                 charging = true;
                 CureMachine.Instance.Charging();
             }

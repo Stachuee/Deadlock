@@ -94,7 +94,7 @@ PrefabInstance:
     - target: {fileID: 8127925849818963148, guid: da80cd0bfabc006469a8a5f60ac5f040, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9adbc33665a4a34458601f4af68b7130, type: 3}
+      objectReference: {fileID: 21300000, guid: 5c8c27df53b3ebe45aa95c764de80a95, type: 3}
     - target: {fileID: 8461170066999980177, guid: da80cd0bfabc006469a8a5f60ac5f040, type: 3}
       propertyPath: m_Name
       value: RoomIconTurret

@@ -115,4 +115,16 @@ public class DialogueManager : MonoBehaviour, DangerLevelIncrease
     {
         PlayDialogue(dangerLevelIncrease[level], false);
     }
+
+    public void Trigger(string id)
+    {
+        if (id.Length == 0) return;
+        if(id == "TutorialEnd")
+        {
+            GameController.gameController.LoadMenu();
+        }
+
+        dialogueLisnerScientist.Trigger(id);
+        dialogueLisnerSolider.Trigger(id);
+    }
 }

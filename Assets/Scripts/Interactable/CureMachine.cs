@@ -54,7 +54,8 @@ public class CureMachine : ScientistPoweredInteractable
         {
             if(Time.time < explosionStart + explosionTime)
             {
-                wave.transform.localScale = Vector3.one * (sizeChange.Evaluate((explosionStart - Time.time) / explosionTime) * maxSize);
+                wave.transform.localScale = Vector3.one * (sizeChange.Evaluate((Time.time - explosionStart) / explosionTime) * maxSize);
+
             }
             else
             {
@@ -154,7 +155,7 @@ public class CureMachine : ScientistPoweredInteractable
 
     public void End()
     {
-        Debug.Log("end");
+        if (exploded) return;
         wave.SetActive(true);
         exploded = true;
         explosionStart = Time.time;
