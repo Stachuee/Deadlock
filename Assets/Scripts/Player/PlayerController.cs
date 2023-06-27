@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     private void Update() 
     {
-        if (lockedInCutscen || isGamePaused) return;
+        if (lockedInCutscene || isGamePaused) return;
         if (!LockInAnimation && !dead) myBody.velocity = Vector3.SmoothDamp(myBody.velocity, 
             new Vector2(moveDirection.x * (isScientist ? playerInfo.speed : (moveDirection.x * currentAimDirection.x < 0 ? playerInfo.speedbackward : playerInfo.speed)), myBody.velocity.y), 
             ref m_Velocity, m_MovementSmoothing);
@@ -564,6 +564,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         if (!context.started) return;
         if (isGamePaused) return;
         isGamePaused = true;
+        inventorySelector.ChangePlayerSlot();
         pausePanel.SetActive(true);
         if (isScientist)  
             PlayerController.solider.uiController.PlayerPaused();
@@ -578,7 +579,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
     public void OnOpenInventory(InputAction.CallbackContext context)
     {
         //if (!context.started) return;
-        if (lockedInCutscene) return;
+        if (lockedInCutscene || isGamePaused) return;
         if (context.ReadValueAsButton())
         {
             inventorySelector.OpenInventory();
