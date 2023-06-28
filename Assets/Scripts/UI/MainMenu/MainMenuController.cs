@@ -23,7 +23,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] GameObject FirstMenuButton, FirstSettingsButton, FirstChoosingButton, SettingsButton;
 
     Resolution[] resolutions;
-    [SerializeField] Dropdown resolutionsDropdown;
+    [SerializeField] TMPro.TMP_Dropdown resolutionsDropdown;
 
     CurrentMenuPanel currentPanel;
 
@@ -84,6 +84,11 @@ public class MainMenuController : MonoBehaviour
         InputInfoHolder.Instance.SetGlasses(useGlasses.isOn);
         SceneManager.LoadSceneAsync(1);
         kicaczPanel.SetActive(true);
+    }
+
+    public void SetFullScreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
     }
 
     private void Update()
