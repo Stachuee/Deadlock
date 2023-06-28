@@ -21,13 +21,13 @@ MonoBehaviour:
   waveDuration: 10
   respiteDuration: 30
   newEnemies:
+  - {fileID: 11400000, guid: 8aa07d0e3e7214c4f922266d49d3995c, type: 2}
   - {fileID: 11400000, guid: 692b094a8e9fb17418f8ee134d09c937, type: 2}
-  - {fileID: 11400000, guid: fc3d33771602dc3438b18f2f126a7454, type: 2}
-  - {fileID: 11400000, guid: 70bed30c773f1524ab1477e65c90381c, type: 2}
   newEnemiesSide: []
   dangerZoneTimer: 120
   hpModifier: 1
   spawnNewNests: 0
   minNestSpawnCooldown: 1
   newNestChance: 1
-  newItems: []
+  newItems:
+  - {fileID: 11400000, guid: 92aa018b983b3ce41abbe7563ea86897, type: 2}

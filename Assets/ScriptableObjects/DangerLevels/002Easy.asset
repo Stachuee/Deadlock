@@ -29,4 +29,7 @@ MonoBehaviour:
   spawnNewNests: 1
   minNestSpawnCooldown: 100
   newNestChance: 0.8
-  newItems: []
+  newItems:
+  - {fileID: 11400000, guid: 3378181648d48d34992865b3874d0cb4, type: 2}
+  - {fileID: 11400000, guid: b4d9f8a4f13260248848e04c3e82b18d, type: 2}
+  - {fileID: 11400000, guid: 77706ad6597bbac4697a477a96b5d6f9, type: 2}

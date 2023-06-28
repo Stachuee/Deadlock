@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Gigant
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 7743376674294833795, guid: 3012414c7fdbd6b42a276bd383eada75, type: 3}
-  weight: 10
+  weight: 40

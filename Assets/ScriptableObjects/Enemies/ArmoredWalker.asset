@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ArmoredWalker
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2648134240000799276, guid: 80b0218beed41b94383d89084a07d8e8, type: 3}
-  weight: 5
+  weight: 20

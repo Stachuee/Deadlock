@@ -89,7 +89,7 @@ public class FireGun : GunBase
             if (fireMode == 0) currentAmmo -= usagePerSecond * Time.deltaTime;
             else currentIceAmmo -= usagePerSecond * Time.deltaTime;
 
-            particleHandle.position = barrel.position;
+            particleHandle.position = (Vector2)barrel.position + aimVectorWithRecoil * 0.6f;
             particleHandle.rotation = Quaternion.Euler(0, 0, rot_z);
 
             if (!startedShooting)

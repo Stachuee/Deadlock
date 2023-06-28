@@ -184,6 +184,10 @@ private void Start()
         if (!active) return;
         gun.Shoot(isShooting);
     }
+    public void PlayerDead(bool state)
+    {
+        weapons[currentWeaponIndex].EnableGun(!state);
+    }
 
     public GunBase GetCurrentGun()
     {

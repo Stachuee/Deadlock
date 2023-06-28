@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explodeOnContact: 0
   proximity: 1
-  fuse: 360
+  fuse: 120
   explosionRadius: 4
   damage: 100
   armorAndResistDamage: 0.2

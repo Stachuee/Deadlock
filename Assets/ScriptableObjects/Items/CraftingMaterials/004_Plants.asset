@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   itemName: Plants
-  defaultSprite: {fileID: 21300000, guid: d16eb26390143ea42bc1215df64fdd94, type: 3}
+  defaultSprite: {fileID: 21300000, guid: a91232b341206904dad2831dec934fa2, type: 3}
   icon: {fileID: 296993261, guid: 0372d7d0827a2b043876c307a521d2c3, type: 3}
   itemDesc: 

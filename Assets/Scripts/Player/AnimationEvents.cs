@@ -17,5 +17,9 @@ public class AnimationEvents : MonoBehaviour
         playerController.equipmentController.FinishThrowing();
     }
 
+    public void FinishStanding()
+    {
+        playerController.FinishStanding();
+    }
 
 }
