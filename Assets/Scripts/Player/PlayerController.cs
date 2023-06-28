@@ -233,8 +233,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
         {
             if (reviveTimer < Time.time)
             {
-                dead = false;
-                invincibilityEnd = Time.time + invincibilityAfterHitDuration;
+
                 playerAnimator.SetBool("Dead", false);
             }
             else playerInfo.hp = Mathf.Min(playerInfo.maxHp, playerInfo.hp + (playerInfo.healthRecivedAfterRevive / playerInfo.deathTimer) * Time.deltaTime);
@@ -327,6 +326,14 @@ public class PlayerController : MonoBehaviour, ITakeDamage
 
     [SerializeField]
     GameObject itemPrefab;
+
+
+    public void FinishStanding()
+    {
+        dead = false;
+        gunController.PlayerDead(false);
+        invincibilityEnd = Time.time + invincibilityAfterHitDuration;
+    }
 
     void DropHolding()
     {
@@ -626,6 +633,7 @@ public class PlayerController : MonoBehaviour, ITakeDamage
             playerInfo.hp = 0;
             dead = true;
             gunController.ShootGun(false);
+            gunController.PlayerDead(true);
             playerAnimator.SetBool("Dead", true);
         }
         return damage;

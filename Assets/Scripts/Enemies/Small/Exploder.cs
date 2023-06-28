@@ -45,7 +45,9 @@ public class Exploder : ActiveEnemy
     {
         base.Enrage();
         explodeTimer = explodeTime + Time.time;
+        speed *= 10;
         primed = true;
+        animator.SetBool("Primed", true);
     }
 
     public override void AttackNearby()

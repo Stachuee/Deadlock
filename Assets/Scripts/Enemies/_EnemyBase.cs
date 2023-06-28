@@ -55,6 +55,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
 
     protected ITakeDamage damaging;
 
+    [SerializeField] GameObject deathAnim;
     
 
     protected NavNode currentTargetNode;
@@ -66,7 +67,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
 
-
+    [SerializeField] bool useBones;
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (damaging == null && (collision.transform.tag == "Interactable" || collision.transform.tag == "Player"))
@@ -238,9 +239,21 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
                 damaging = null;
                 return;
             }
+            if (transform.position.x > damaging.GetTransform().position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
             animator.SetTrigger("attack");
             damaging.TakeDamage(damage, DamageSource.Enemy);
             lastAttack = Time.time;
+        }
+        else
+        {
+            animator.ResetTrigger("attack");
         }
     }
 
@@ -252,10 +265,10 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
         switch (effects)
         {
             case DamageEffetcts.None:
-                damageTaken = (armored ? CombatController.ARMOR_DAMAGE_REDUCTION : 1) * (psiBoosted ? CombatController.PSI_BOOST_DAMAGE_REDUCTION : 1) * damage;
+                damageTaken = (armored ? CombatController.ARMOR_DAMAGE_REDUCTION : 1) * (psiBoosted ? CombatController.PSI_BOOST_DAMAGE_REDUCTION : 1) * damage * (frozen ? CombatController.FREEZE_DAMAGE_INCREASE : 1);
                 break;
             case DamageEffetcts.Disintegrating:
-                damageTaken = (armored ? CombatController.DISINTEGRATING_FALLOFF : 1) * (psiBoosted ? CombatController.PSI_BOOST_DAMAGE_REDUCTION : 1) * damage;
+                damageTaken = (armored ? CombatController.DISINTEGRATING_FALLOFF : 1) * (psiBoosted ? CombatController.PSI_BOOST_DAMAGE_REDUCTION : 1) * damage * (frozen ? CombatController.FREEZE_DAMAGE_INCREASE : 1);
                 break;
         }
 
@@ -321,6 +334,7 @@ public class _EnemyBase : MonoBehaviour, ITakeDamage
                 Instantiate(itemPrefab, transform.position, Quaternion.identity).GetComponent<Item>().Innit(toDrop);
             }
         }
+        Destroy(Instantiate(deathAnim, transform.position, Quaternion.identity), 1);
         Destroy(gameObject);
     }
 

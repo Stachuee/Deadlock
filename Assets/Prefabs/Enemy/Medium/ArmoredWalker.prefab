@@ -5021,5 +5021,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   onFireParticle: {fileID: 2776370017786825693}
   markerType: 0
+  deathAnim: {fileID: 2972669764278024407, guid: 21618961bf0b0a349907cbd83dde9b94, type: 3}
   state: 0
   huntingTimer: 5

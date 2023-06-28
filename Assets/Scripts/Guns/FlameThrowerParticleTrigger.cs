@@ -6,6 +6,7 @@ public class FlameThrowerParticleTrigger : MonoBehaviour
 {
 
     SpawnerController spawnerController;
+    [SerializeField] Status toApply;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class FlameThrowerParticleTrigger : MonoBehaviour
     {
         if (other.transform.tag == "Enemy")
         {
-            spawnerController.GetITakeDamageFormMap(other.transform).ApplyStatus(Status.Fire);
+            spawnerController.GetITakeDamageFormMap(other.transform).ApplyStatus(toApply);
         }
     }
 }

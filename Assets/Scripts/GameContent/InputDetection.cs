@@ -14,8 +14,6 @@ public class InputDetection : MonoBehaviour
     [SerializeField] GameObject keyboardPlayer1;
     [SerializeField] GameObject keyboardPlayer2;
 
-    [SerializeField] Text player1Role;
-    [SerializeField] Text player2Role;
 
     private int currentDeviceIndex;
     private bool isPickingDeviceForPlayer1 = true;
@@ -225,15 +223,10 @@ public class InputDetection : MonoBehaviour
         var device1 = newDevices[0];
         device1.scientist = !device1.scientist;
         newDevices[0] = device1;
-        if (device1.scientist) player1Role.text = "Scientist";
-        else player1Role.text = "Soldier";
+
 
         var device2 = newDevices[1];
         device2.scientist = !device2.scientist;
-        newDevices[1] = device2;
-        if (device2.scientist) player2Role.text = "Scientist";
-        else player2Role.text = "Soldier";
-        
-            
+        newDevices[1] = device2;    
     }
 }

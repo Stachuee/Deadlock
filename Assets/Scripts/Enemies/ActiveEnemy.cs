@@ -71,7 +71,7 @@ public abstract class ActiveEnemy : _EnemyBase
             followNode = false;
             FindNextNodeTarget();
         }
-        Vector2 direction = new Vector2((target - (Vector2)transform.position).x, 0);
+        Vector2 direction = new Vector2((PlayerController.solider.transform.position - transform.position).x, 0);
         rb.velocity = direction.normalized * speed + new Vector2(0, rb.velocity.y);
     }
 
@@ -79,14 +79,6 @@ public abstract class ActiveEnemy : _EnemyBase
     {
         Vector2 direction = new Vector2((currentTargetNode.transform.position - transform.position).x, 0);
         rb.velocity = direction.normalized * speed + new Vector2(0, rb.velocity.y);
-        if (direction.x > currentTargetNode.transform.position.x)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else
-        {
-            spriteRenderer.flipX = false;
-        }
 
         if (Mathf.Abs(transform.position.x - currentTargetNode.transform.position.x) < 0.2f)
         {

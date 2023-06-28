@@ -152,6 +152,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 5381100886079257117, guid: 3fa766b3482b38a4092cf771a81a5c2f, type: 3}
   onFireParticle: {fileID: 5223986317711648834}
   markerType: 0
+  deathAnim: {fileID: 2972669764278024407, guid: 21618961bf0b0a349907cbd83dde9b94, type: 3}
   state: 0
   huntingTimer: 0
 --- !u!95 &3683722414344303536
@@ -200,8 +201,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5549130978201317312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.165, y: -0.102, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5348277707660939707}
@@ -343,7 +344,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1.04
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -459,7 +460,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 0.37
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -922,7 +923,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.21
+      value: 0.08
       mode: 0
       spread: 0
       speed:
@@ -1041,7 +1042,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 6
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1537,8 +1538,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -1596,8 +1597,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startFrame:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 0.6666667
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1656,7 +1657,9 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: -1168865335, guid: fa4ec5cc6eab2e0468b11d1869a76b39, type: 3}
+    - sprite: {fileID: 185467068, guid: fa4ec5cc6eab2e0468b11d1869a76b39, type: 3}
+    - sprite: {fileID: 869308800, guid: fa4ec5cc6eab2e0468b11d1869a76b39, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4935,7 +4938,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a9dea10738a4012459d99e1cbd30a5a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
